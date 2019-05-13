@@ -83,8 +83,7 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split,
-                              reduced_dataset_size=1000)
+                              config.test_split)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -164,7 +163,7 @@ class Engine:
         self.optimizer.step()
         
     # ========================================================================
-    def train(self, epochs=3.0, report_interval=10, valid_interval=100):
+    def train(self, epochs=3.0, report_interval=10, valid_interval=100, save_interval=1000):
         # CODE BELOW COPY-PASTED FROM [HKML CNN Image Classification.ipynb]
         # (variable names changed to match new Engine architecture. Added comments and minor debugging)
         
@@ -220,12 +219,16 @@ class Engine:
                         res = self.forward(False)
                         self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
                         self.val_log.write()
-                    #self.save_state(curr_iter=iteration)
                     self.model.train()
                 if epoch >= epochs:
                     break
+                    
+                # Save on the given intervals
+                if(i+1)%save_interval == 0:
+                    self.save_state(curr_iter=iteration)
+                    
             print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
-        
+            
         self.val_log.close()
         self.train_log.close()
     
@@ -278,7 +281,54 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-    # ======================================================================== 
+    def test(self):
+        r"""Test the trained model on the test dataset.
+        
+        Parameters: None
+        
+        Outputs : 
+            total_test_loss = accumulated validation loss
+            avg_test_loss = average validation loss
+            total_test_acc = accumulated validation accuracy
+            avg_test_acc = accumulated validation accuracy
+            
+        Returns : None
+        """
+        # Variables to output at the end
+        test_loss = 0.0
+        test_acc = 0.0
+        test_iterations = 0
+        
+        # Iterate over the validation set to calculate val_loss and val_acc
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+            # Extract the event data and label from the DataLoader iterator
+            for test_data in iter(self.test_iter):
+                
+                sys.stdout.write("\r\r\r" + "test_iterations : " + str(test_iterations))
+                
+                self.data, self.label = test_data[0:2]
+                self.label = self.label.long()
+                
+                counter = collections.Counter(self.label.tolist())
+                sys.stdout.write("\ncounter : " + str(counter))
+
+                # Run the forward procedure and output the result
+                result = self.forward(False)
+                test_loss += result['loss']
+                test_acc += result['accuracy']
+                
+                test_iterations += 1
+         
+        print("\nTotal test loss : ", val_loss,
+              "\nTotal test acc : ", val_acc,
+              "\nAvg test loss : ", val_loss/val_iterations,
+              "\nAvg test acc : ", val_acc/val_iterations)
+        
+    # ========================================================================
     
             
     def save_state(self, curr_iter=0):
@@ -299,7 +349,7 @@ class Engine:
             # torch interprets the file, then we can access using string keys
             checkpoint = torch.load(f)
             # load network weights
-            self.net.load_state_dict(checkpoint['state_dict'], strict=False)
+            self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
                 self.optimizer.load_state_dict(checkpoint['optimizer'])
