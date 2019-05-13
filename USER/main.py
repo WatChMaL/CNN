@@ -124,6 +124,9 @@ def main():
                         required=False, help='Specify name for destination config file. No action by default.')
     
     config = parser.parse_args()
+    print(config.device)
+    print(config.gpu_list)
+    
     if config.load is not None:
         config.load += '.ini'
     if config.cfg is not None:
@@ -141,7 +144,7 @@ if __name__ == '__main__':
     config = main()
     loadConfig(config)
     saveConfig(config)
-    model = resnet.resnet18(num_input_channels=38)
+    model = resnet.resnet18(num_input_channels=38, num_classes=3)
     nnet = net.Engine(model, config)
-    nnet.train(epochs=1.0)
-    
+    nnet.train(epochs=3.0)
+    nnet.validate()

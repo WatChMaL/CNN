@@ -18,6 +18,11 @@ import shutil
 from torch.autograd import Variable
 # ===========================================================================
 
+# ======================== TEST IMPORTS =====================================
+import collections
+import sys
+# ===========================================================================
+
 import torch
 from torch import optim
 import torch.nn as nn
@@ -39,6 +44,8 @@ class Engine:
 
     def __init__(self, model, config):
         self.model = model
+        print(config.gpu)
+        print(config.gpu_list)
         if config.gpu and config.gpu_list:
             print("requesting gpu ")
             print("gpu list: ")
@@ -77,7 +84,7 @@ class Engine:
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
                               config.test_split,
-                             reduced_dataset_size=10000)
+                              reduced_dataset_size=1000)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -127,6 +134,10 @@ class Engine:
         Returns: a dictionary of predicted labels, softmax, loss, and accuracy
         """
         with torch.set_grad_enabled(train):
+            # Move the data and the labels to the GPU
+            self.data = self.data.to(self.device)
+            self.label = self.label.to(self.device)
+                        
             # Prediction
             #print("this is the data size before permuting: {}".format(data.size()))
             self.data = self.data.permute(0,3,1,2)
@@ -158,7 +169,7 @@ class Engine:
         # (variable names changed to match new Engine architecture. Added comments and minor debugging)
         
         # Prepare attributes for data logging
-        self.train_log, self.test_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/log_test.csv')
+        self.train_log, self.val_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/val_test.csv')
         # Set neural net to training mode
         self.model.train()
         # Initialize epoch counter
@@ -170,9 +181,15 @@ class Engine:
             print('Epoch',int(epoch+0.5),'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
+                
                 # Data and label
-                self.data, self.label = data[0:2]
-                self.label = self.label.long()
+                self.data = data[0]
+                self.label = data[1].long()
+                
+                # Move the data and labels on the GPU
+                self.data = self.data.to(self.device)
+                self.label = self.label.to(self.device)
+                
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(True)
                 # Call backward: backpropagate error and update weights
@@ -181,7 +198,6 @@ class Engine:
                 epoch += 1./len(self.train_iter)
                 iteration += 1
                 
-                #
                 # Log/Report
                 #
                 # Record the current performance on train set
@@ -195,23 +211,76 @@ class Engine:
                 if (i+1)%valid_interval == 0:
                     with torch.no_grad():
                         self.model.eval()
-                        test_data = next(iter(self.test_iter))
-                        self.data, self.label = test_data[0:2]
-                        self.label = self.label.long()
+                        val_data = next(iter(self.val_iter))
+                        
+                        # Data and label
+                        self.data = val_data[0]
+                        self.label = val_data[1].long()
+                        
                         res = self.forward(False)
-                        self.test_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
-                        self.test_log.write()
-                    self.save_state(curr_iter=iteration)
+                        self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
+                        self.val_log.write()
+                    #self.save_state(curr_iter=iteration)
                     self.model.train()
                 if epoch >= epochs:
                     break
             print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
         
-        self.test_log.close()
+        self.val_log.close()
         self.train_log.close()
     
     # ========================================================================
 
+    def validate(self):
+        r"""Test the trained model on the validation set.
+        
+        Parameters: None
+        
+        Outputs : 
+            total_val_loss = accumulated validation loss
+            avg_val_loss = average validation loss
+            total_val_acc = accumulated validation accuracy
+            avg_val_acc = accumulated validation accuracy
+            
+        Returns : None
+        """
+        # Variables to output at the end
+        val_loss = 0.0
+        val_acc = 0.0
+        val_iterations = 0
+        
+        # Iterate over the validation set to calculate val_loss and val_acc
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+            # Extract the event data and label from the DataLoader iterator
+            for val_data in iter(self.val_iter):
+                
+                sys.stdout.write("\r\r\r" + "val_iterations : " + str(val_iterations))
+                
+                self.data, self.label = val_data[0:2]
+                self.label = self.label.long()
+                
+                counter = collections.Counter(self.label.tolist())
+                sys.stdout.write("\ncounter : " + str(counter))
+
+                # Run the forward procedure and output the result
+                result = self.forward(False)
+                val_loss += result['loss']
+                val_acc += result['accuracy']
+                
+                val_iterations += 1
+         
+        print("\nTotal val loss : ", val_loss,
+              "\nTotal val acc : ", val_acc,
+              "\nAvg val loss : ", val_loss/val_iterations,
+              "\nAvg val acc : ", val_acc/val_iterations)
+        
+    # ======================================================================== 
+    
+            
     def save_state(self, curr_iter=0):
         filename='state'+str(curr_iter)
         # Save parameters

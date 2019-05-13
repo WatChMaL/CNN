@@ -56,7 +56,7 @@ class WCH5Dataset(Dataset):
 
         if self.reduced_size is not None:
             assert len(indices)>=self.reduced_size
-            indices = np.random.choice(indices, reduced_dataset_size)
+            indices = np.random.choice(self.labels.shape[0], reduced_dataset_size)
 
         #shuffle index array
         np.random.shuffle(indices)
@@ -70,7 +70,6 @@ class WCH5Dataset(Dataset):
         self.train_indices = indices[:-n_val-n_test]
         self.val_indices = indices[-n_test-n_val:-n_test]
         self.test_indices = indices[-n_test:]
-
 
     def __getitem__(self,index):
         if self.transform is None:
