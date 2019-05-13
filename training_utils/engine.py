@@ -39,7 +39,7 @@ class Engine:
 
     def __init__(self, model, config):
         self.model = model
-        if config.gpu and config.gpu_list:
+        if (config.device == 'gpu') and config.gpu_list:
             print("requesting gpu ")
             print("gpu list: ")
             print(config.gpu_list)
