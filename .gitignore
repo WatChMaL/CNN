@@ -106,3 +106,4 @@ venv.bak/
 # Selected files - Abhishek
 main_fix.py
 *.csv
+state*

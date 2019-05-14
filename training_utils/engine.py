@@ -34,6 +34,7 @@ import time
 
 from iotools.data_handling import WCH5Dataset
 from utils.notebook_utils import CSVData
+from utils.plot_utils import plot_confusion_matrix
 
 
 class Engine:
@@ -234,6 +235,8 @@ class Engine:
     
     # ========================================================================
 
+    # Function to test the model performance on the validation
+    # dataset ( returns loss, acc, confusion matrix )
     def validate(self):
         r"""Test the trained model on the validation set.
         
@@ -258,6 +261,9 @@ class Engine:
             # Set the model to evaluation mode
             self.model.eval()
             
+            # Variables for the confusion matrix
+            loss, accuracy, labels, predictions = [],[],[],[]
+            
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
@@ -274,6 +280,15 @@ class Engine:
                 val_loss += result['loss']
                 val_acc += result['accuracy']
                 
+                # Copy the tensors back to the CPU
+                self.label = self.label.to("cpu")
+                
+                # Add the local result to the final result
+                loss.append(val_loss)
+                accuracy.append(val_acc)
+                labels.append(self.label)
+                predictions.append(result['prediction'])
+                
                 val_iterations += 1
          
         print("\nTotal val loss : ", val_loss,
@@ -281,6 +296,12 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
+        np.save("label.npy", np.hstack(labels))
+        np.save("prediction.npy", np.hstack(predictions))
+            
+    # Function to test the model performance on the test
+    # dataset ( returns loss, acc, confusion matrix )
+    
     def test(self):
         r"""Test the trained model on the test dataset.
         

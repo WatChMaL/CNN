@@ -147,5 +147,5 @@ if __name__ == '__main__':
     model = resnet.resnet18(num_input_channels=38, num_classes=3)
     nnet = net.Engine(model, config)
     #nnet.train(epochs=5.0, save_interval=1000)
-    nnet.restore_state("state2000")
+    nnet.restore_state("state1000")
     nnet.validate()
