@@ -18,6 +18,11 @@ import shutil
 from torch.autograd import Variable
 # ===========================================================================
 
+# ======================== TEST IMPORTS =====================================
+import collections
+import sys
+# ===========================================================================
+
 import torch
 from torch import optim
 import torch.nn as nn
@@ -29,6 +34,7 @@ import time
 
 from iotools.data_handling import WCH5Dataset
 from utils.notebook_utils import CSVData
+from utils.plot_utils import plot_confusion_matrix
 
 
 class Engine:
@@ -39,6 +45,8 @@ class Engine:
 
     def __init__(self, model, config):
         self.model = model
+        print(config.gpu)
+        print(config.gpu_list)
         if (config.device == 'gpu') and config.gpu_list:
             print("requesting gpu ")
             print("gpu list: ")
@@ -76,8 +84,7 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split,
-                             reduced_dataset_size=10000)
+                              config.test_split)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -127,6 +134,10 @@ class Engine:
         Returns: a dictionary of predicted labels, softmax, loss, and accuracy
         """
         with torch.set_grad_enabled(train):
+            # Move the data and the labels to the GPU
+            self.data = self.data.to(self.device)
+            self.label = self.label.to(self.device)
+                        
             # Prediction
             #print("this is the data size before permuting: {}".format(data.size()))
             self.data = self.data.permute(0,3,1,2)
@@ -153,12 +164,12 @@ class Engine:
         self.optimizer.step()
         
     # ========================================================================
-    def train(self, epochs=3.0, report_interval=10, valid_interval=100):
+    def train(self, epochs=3.0, report_interval=10, valid_interval=100, save_interval=1000):
         # CODE BELOW COPY-PASTED FROM [HKML CNN Image Classification.ipynb]
         # (variable names changed to match new Engine architecture. Added comments and minor debugging)
         
         # Prepare attributes for data logging
-        self.train_log, self.test_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/log_test.csv')
+        self.train_log, self.val_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/val_test.csv')
         # Set neural net to training mode
         self.model.train()
         # Initialize epoch counter
@@ -170,9 +181,15 @@ class Engine:
             print('Epoch',int(epoch+0.5),'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
+                
                 # Data and label
-                self.data, self.label = data[0:2]
-                self.label = self.label.long()
+                self.data = data[0]
+                self.label = data[1].long()
+                
+                # Move the data and labels on the GPU
+                self.data = self.data.to(self.device)
+                self.label = self.label.to(self.device)
+                
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(True)
                 # Call backward: backpropagate error and update weights
@@ -181,7 +198,6 @@ class Engine:
                 epoch += 1./len(self.train_iter)
                 iteration += 1
                 
-                #
                 # Log/Report
                 #
                 # Record the current performance on train set
@@ -195,23 +211,147 @@ class Engine:
                 if (i+1)%valid_interval == 0:
                     with torch.no_grad():
                         self.model.eval()
-                        test_data = next(iter(self.test_iter))
-                        self.data, self.label = test_data[0:2]
-                        self.label = self.label.long()
+                        val_data = next(iter(self.val_iter))
+                        
+                        # Data and label
+                        self.data = val_data[0]
+                        self.label = val_data[1].long()
+                        
                         res = self.forward(False)
-                        self.test_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
-                        self.test_log.write()
-                    self.save_state(curr_iter=iteration)
+                        self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
+                        self.val_log.write()
                     self.model.train()
                 if epoch >= epochs:
                     break
+                    
+                # Save on the given intervals
+                if(i+1)%save_interval == 0:
+                    self.save_state(curr_iter=iteration)
+                    
             print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
-        
-        self.test_log.close()
+            
+        self.val_log.close()
         self.train_log.close()
     
     # ========================================================================
 
+    # Function to test the model performance on the validation
+    # dataset ( returns loss, acc, confusion matrix )
+    def validate(self):
+        r"""Test the trained model on the validation set.
+        
+        Parameters: None
+        
+        Outputs : 
+            total_val_loss = accumulated validation loss
+            avg_val_loss = average validation loss
+            total_val_acc = accumulated validation accuracy
+            avg_val_acc = accumulated validation accuracy
+            
+        Returns : None
+        """
+        # Variables to output at the end
+        val_loss = 0.0
+        val_acc = 0.0
+        val_iterations = 0
+        
+        # Iterate over the validation set to calculate val_loss and val_acc
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+            # Variables for the confusion matrix
+            loss, accuracy, labels, predictions = [],[],[],[]
+            
+            # Extract the event data and label from the DataLoader iterator
+            for val_data in iter(self.val_iter):
+                
+                sys.stdout.write("\r\r\r" + "val_iterations : " + str(val_iterations))
+                
+                self.data, self.label = val_data[0:2]
+                self.label = self.label.long()
+                
+                counter = collections.Counter(self.label.tolist())
+                sys.stdout.write("\ncounter : " + str(counter))
+
+                # Run the forward procedure and output the result
+                result = self.forward(False)
+                val_loss += result['loss']
+                val_acc += result['accuracy']
+                
+                # Copy the tensors back to the CPU
+                self.label = self.label.to("cpu")
+                
+                # Add the local result to the final result
+                loss.append(val_loss)
+                accuracy.append(val_acc)
+                labels.append(self.label)
+                predictions.append(result['prediction'])
+                
+                val_iterations += 1
+         
+        print("\nTotal val loss : ", val_loss,
+              "\nTotal val acc : ", val_acc,
+              "\nAvg val loss : ", val_loss/val_iterations,
+              "\nAvg val acc : ", val_acc/val_iterations)
+        
+        np.save("label.npy", np.hstack(labels))
+        np.save("prediction.npy", np.hstack(predictions))
+            
+    # Function to test the model performance on the test
+    # dataset ( returns loss, acc, confusion matrix )
+    
+    def test(self):
+        r"""Test the trained model on the test dataset.
+        
+        Parameters: None
+        
+        Outputs : 
+            total_test_loss = accumulated validation loss
+            avg_test_loss = average validation loss
+            total_test_acc = accumulated validation accuracy
+            avg_test_acc = accumulated validation accuracy
+            
+        Returns : None
+        """
+        # Variables to output at the end
+        test_loss = 0.0
+        test_acc = 0.0
+        test_iterations = 0
+        
+        # Iterate over the validation set to calculate val_loss and val_acc
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+            # Extract the event data and label from the DataLoader iterator
+            for test_data in iter(self.test_iter):
+                
+                sys.stdout.write("\r\r\r" + "test_iterations : " + str(test_iterations))
+                
+                self.data, self.label = test_data[0:2]
+                self.label = self.label.long()
+                
+                counter = collections.Counter(self.label.tolist())
+                sys.stdout.write("\ncounter : " + str(counter))
+
+                # Run the forward procedure and output the result
+                result = self.forward(False)
+                test_loss += result['loss']
+                test_acc += result['accuracy']
+                
+                test_iterations += 1
+         
+        print("\nTotal test loss : ", test_loss,
+              "\nTotal test acc : ", test_acc,
+              "\nAvg test loss : ", test_loss/val_iterations,
+              "\nAvg test acc : ", test_acc/val_iterations)
+        
+    # ========================================================================
+    
+            
     def save_state(self, curr_iter=0):
         filename='state'+str(curr_iter)
         # Save parameters
@@ -230,7 +370,7 @@ class Engine:
             # torch interprets the file, then we can access using string keys
             checkpoint = torch.load(f)
             # load network weights
-            self.net.load_state_dict(checkpoint['state_dict'], strict=False)
+            self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
                 self.optimizer.load_state_dict(checkpoint['optimizer'])

@@ -130,11 +130,16 @@ def main():
                         required=False, help='Specify name for destination config file. No action by default.')
     
     config = parser.parse_args()
-    config.gpu_list = [int(x) for x in config.gpu_list]
-    if config.load is not None and not config.load.endswith('.ini'):
-        config.load += '.ini'
-    if config.cfg is not None and not config.cfg.endswith('.ini'):
-        config.cfg += '.ini'
+
+    print(config.device)
+    print(config.gpu_list)
+    
+    if config.load is not None:
+    	config.gpu_list = [int(x) for x in config.gpu_list]
+    	if config.load is not None and not config.load.endswith('.ini'):
+        	config.load += '.ini'
+    	if config.cfg is not None and not config.cfg.endswith('.ini'):
+        	config.cfg += '.ini'
         
     # Assertions to ensure flags follow rules:
     assert(config.device == 'cpu' or config.device == 'gpu')
@@ -149,7 +154,8 @@ if __name__ == '__main__':
     config = main()
     loadConfig(config)
     saveConfig(config)
-    model = resnet.resnet18(num_input_channels=38)
+    model = resnet.resnet18(num_input_channels=38, num_classes=3)
     nnet = net.Engine(model, config)
-    nnet.train(epochs=1.0)
-    
+    nnet.restore_state("state2400")
+    nnet.train(epochs=10.0, save_interval=1000)
+    nnet.validate()
