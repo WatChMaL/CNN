@@ -1,5 +1,5 @@
 """
-START PROGRAM HERE
+MUST START PROGRAM IN USER DIRECTORY FOR IMPORTS TO WORK
 
 Script to pass commandline arguments from user to neural net framework.
 
@@ -90,7 +90,13 @@ def saveConfig(config):
     # Store all config attributes in ConfigParser
     for x in dir(config):
         if not (x.startswith('_') or x.startswith('__')):
-            conf.set('config', str(x), str(vars(config)[x]))
+            item = vars(config)[x]
+            if type(item) == list:
+                listStr = ''
+                for t in item:
+                    listStr += ' ' + str(t)
+                item = listStr
+            conf.set('config', str(x), str(item))
     with open(outFile, 'w+') as configFile:
         conf.write(configFile)
     print('Config file saved in', os.getcwd())
@@ -124,22 +130,26 @@ def main():
                         required=False, help='Specify name for destination config file. No action by default.')
     
     config = parser.parse_args()
+
     print(config.device)
     print(config.gpu_list)
     
     if config.load is not None:
-        config.load += '.ini'
-    if config.cfg is not None:
-        config.cfg += '.ini'
-    if config.device != 'GPU' or config.gpu_list is None:
-        config.gpu = False
-    else:
-        config.gpu = True
+    	config.gpu_list = [int(x) for x in config.gpu_list]
+    	if config.load is not None and not config.load.endswith('.ini'):
+        	config.load += '.ini'
+    	if config.cfg is not None and not config.cfg.endswith('.ini'):
+        	config.cfg += '.ini'
+        
+    # Assertions to ensure flags follow rules:
+    assert(config.device == 'cpu' or config.device == 'gpu')
+    assert(config.val_split + config.test_split < 1)
+    #assert(os.path.exists(config.save_path))
         
     return config
 
 if __name__ == '__main__':
-    print('[HK-Canada] TRIUMF Neutrino Group: Deep learning initiative')
+    print('[HK-Canada] TRIUMF Neutrino Group: Water Cherenkov Machine Learning (WaTChMaL)')
     print('Collaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n')
     config = main()
     loadConfig(config)

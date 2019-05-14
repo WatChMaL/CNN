@@ -47,7 +47,7 @@ class Engine:
         self.model = model
         print(config.gpu)
         print(config.gpu_list)
-        if config.gpu and config.gpu_list:
+        if (config.device == 'gpu') and config.gpu_list:
             print("requesting gpu ")
             print("gpu list: ")
             print(config.gpu_list)
@@ -344,10 +344,10 @@ class Engine:
                 
                 test_iterations += 1
          
-        print("\nTotal test loss : ", val_loss,
-              "\nTotal test acc : ", val_acc,
-              "\nAvg test loss : ", val_loss/val_iterations,
-              "\nAvg test acc : ", val_acc/val_iterations)
+        print("\nTotal test loss : ", test_loss,
+              "\nTotal test acc : ", test_acc,
+              "\nAvg test loss : ", test_loss/val_iterations,
+              "\nAvg test acc : ", test_acc/val_iterations)
         
     # ========================================================================
     
