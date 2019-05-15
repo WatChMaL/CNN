@@ -344,8 +344,8 @@ class Engine:
          
         print("\nTotal test loss : ", test_loss,
               "\nTotal test acc : ", test_acc,
-              "\nAvg test loss : ", test_loss/val_iterations,
-              "\nAvg test acc : ", test_acc/val_iterations)
+              "\nAvg test loss : ", test_loss/test_iterations,
+              "\nAvg test acc : ", test_acc/test_iterations)
         
     # ========================================================================
     
