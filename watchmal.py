@@ -72,7 +72,6 @@ if __name__ == '__main__':
     # Check attributes for validity
     for task in config.tasks:
         assert(task in ['train', 'test', 'valid'])
-    assert(len(config.model) == 2)
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)

@@ -26,9 +26,12 @@ def print_models():
     print('\n')
     
 # Returns a model object corresponding to the specified model to load
-def select_model(select_list):
-    name = select_list[0]
-    constructor = select_list[1]
+# REQUIRES: All constructors across all models must SHARE THE SAME PARAMETERS,
+#           otherwise this function completely breaks the program
+def select_model(select_params):
+    assert(len(select_params) == 2)
+    name = select_params[0]
+    constructor = select_params[1]
     # Make sure the specified model exists
     assert(name in models.__all__)
     model = importlib.import_module(MODELS_DIR+'.'+name)
