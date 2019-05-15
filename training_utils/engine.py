@@ -2,22 +2,6 @@
 Author: Wojciech Fedorko
 Collaborators: Julian Ding, Abhishek Kajal
 '''
-
-# ======================== UNUSED IMPORTS (currently) =======================
-import copy
-import re
-
-import numpy as np
-from statistics import mean
-
-import sklearn
-from sklearn.metrics import roc_curve
-
-import shutil
-
-from torch.autograd import Variable
-# ===========================================================================
-
 # ======================== TEST IMPORTS =====================================
 import collections
 import sys
@@ -31,10 +15,11 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 import os
 import time
+import numpy as np
 
-from iotools.data_handling import WCH5Dataset
-from utils.notebook_utils import CSVData
-from utils.plot_utils import plot_confusion_matrix
+from io_utils.data_handling import WCH5Dataset
+from visualization_utils.notebook_utils import CSVData
+from visualization_utils.plot_utils import plot_confusion_matrix
 
 
 class Engine:
@@ -82,7 +67,8 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split)
+                              config.test_split,
+                              reduced_dataset_size=config.subset)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -351,7 +337,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename='state'+str(curr_iter)
+        filename = self.config.save_path+'/saved_states/state'+str(curr_iter)
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -363,6 +349,7 @@ class Engine:
         return filename
 
     def restore_state(self,weight_file):
+        weight_file = self.config.save_path+'saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys
