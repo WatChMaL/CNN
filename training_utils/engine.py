@@ -34,7 +34,7 @@ import time
 
 from iotools.data_handling import WCH5Dataset
 from utils.notebook_utils import CSVData
-from utils.plot_utils import plot_confusion_matrix
+from plot_utils.plot_utils import plot_confusion_matrix
 
 
 class Engine:
@@ -260,7 +260,7 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions = [],[],[],[]
+            loss, accuracy, labels, predictions, softmaxes = [],[],[],[],[]
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
@@ -270,8 +270,8 @@ class Engine:
                 self.data, self.label = val_data[0:2]
                 self.label = self.label.long()
                 
-                counter = collections.Counter(self.label.tolist())
-                sys.stdout.write("\ncounter : " + str(counter))
+                #counter = collections.Counter(self.label.tolist())
+                #sys.stdout.write("\ncounter : " + str(counter))
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -286,6 +286,7 @@ class Engine:
                 accuracy.append(val_acc)
                 labels.append(self.label)
                 predictions.append(result['prediction'])
+                softmaxes.append(result["softmax"])
                 
                 val_iterations += 1
          
@@ -294,8 +295,13 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-        np.save("label.npy", np.hstack(labels))
-        np.save("prediction.npy", np.hstack(predictions))
+        np_softmaxes = np.array(softmaxes)
+
+        np.save("label3.npy", np.hstack(labels))
+        np.save("prediction3.npy", np.hstack(predictions))
+        np.save("softmax3.npy",
+                np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
+                                    np_softmaxes.shape[2]))
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
