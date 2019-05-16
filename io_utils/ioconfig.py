@@ -15,6 +15,7 @@ CFG_EXT = '.ini'
 
 # Delimiter for list data strings
 DELIM = ' '
+ARG_DELIM = '='
 
 # Class to encapsulate the necessary properties of a config object attribute
 class ConfigAttr():
@@ -26,7 +27,9 @@ class ConfigAttr():
         
 # Helper function to add an attribute to a config object
 def add_attr(config, name, data_str, dtype, list_dtype=None):
-    if dtype != list:
+    if data_str == 'None':
+        setattr(config, name, None)
+    elif dtype != list:
         setattr(config, name, dtype(data_str))
     elif list_dtype is not None:
         attrlist = [list_dtype(x) for x in data_str.split(DELIM)]
@@ -83,3 +86,8 @@ def saveConfig(config, outFile):
     with open(outFile, 'w+') as configFile:
         conf.write(configFile)
     print('Config file saved in', USER_DIR)
+    
+# Function to convert a list of strings into a kwargs-interpretable dict
+def to_kwargs(arglist):
+    args = [arg.split(ARG_DELIM) for arg in arglist]
+    return {x[0] : int(x[1]) for x in args}

@@ -8,8 +8,6 @@ watchmal.py: Script to pass commandline arguments from user to neural net framew
 Author: Julian Ding
 """
 
-# TODO: Reduced dataset, specify epochs, training/validation (or both)
-
 import training_utils.engine as net
 import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
@@ -18,6 +16,8 @@ import io_utils.modelhandler as modelhandler
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=['resnet', 'resnet18'], help='Specify neural net architecture. Default is resnet18.'),
+        arghandler.Argument('params', list, list_dtype=str, flag='-pms',
+                            default=['num_input_channels=38', 'num_classes=3'], help='Specify args to pass to neural net constructor.'),
         arghandler.Argument('device', str, '-dev',
                             default='cpu', help='Enter cpu to use CPU resources or gpu to use GPU resources.'),
         arghandler.Argument('gpu_list', list, list_dtype=int, flag='-gpu',
@@ -55,7 +55,7 @@ ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
 
 if __name__ == '__main__':
-    # Intro message :)
+    # Intro message :D
     print("""[HK-Canada] TRIUMF Neutrino Group: Water Cherenkov Machine Learning (WatChMaL)
 \tCollaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n""")
     # Reflect available models
@@ -77,8 +77,11 @@ if __name__ == '__main__':
         ioconfig.saveConfig(config, config.cfg)
     # Select requested model
     print('Selected architecture:', config.model)
+    # Make sure the specified arguments can be passed to the model
+    params = ioconfig.to_kwargs(config.params)
+    modelhandler.check_params(config.model[0], params)
     constructor = modelhandler.select_model(config.model)
-    model = constructor(num_input_channels=38, num_classes=3)
+    model = constructor(**params)
     # Finally, construct the neural net
     nnet = net.Engine(model, config)
     # Do some work...

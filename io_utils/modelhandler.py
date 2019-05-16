@@ -7,11 +7,22 @@ Author: Julian Ding
 import importlib
 import os
 import sys
+import inspect
 
 MODELS_DIR = 'models'
 models = importlib.import_module(MODELS_DIR)
 
+# Helper function to find constructor name
+def intuit_constructor(name):
+    if name.endswith('net'):
+        constructor = name[:-3].capitalize() + 'Net'
+        return constructor
+    else:
+        print('\tCannot intuit constructor from architecture name that is not of form "____net".\n')
+        return name
+
 # Prints list of all models and constructors associated with each model
+# Also returns a list of lists of parameters associated with all available models
 def print_models():
     for name in models.__all__:
         print(name+':')
@@ -23,11 +34,16 @@ def print_models():
         constructors = [x for x in dir(curr_model) if x.startswith(name)]
         for c in constructors:
             print('\t'+c)
-    print('\n')
+        name = intuit_constructor(name)
+        if hasattr(curr_model, name):
+            arglist = inspect.getfullargspec(getattr(curr_model, name).__init__).args
+            print('\tConstructor parameters:', arglist, '\n')
+        else:
+            print('\tNo general constructor (__init__) found.\n')
     
-# Returns a model object corresponding to the specified model to load
+# Returns a function pointer corresponding to the constructor for the specified model
 # REQUIRES: All constructors across all models must SHARE THE SAME PARAMETERS,
-#           otherwise this function completely breaks the program
+#           otherwise calling this function may break the program
 def select_model(select_params):
     assert(len(select_params) == 2)
     name = select_params[0]
@@ -39,4 +55,14 @@ def select_model(select_params):
     assert(constructor in dir(model))
     # Return specified constructor
     return getattr(model, constructor)
-    
+
+# Check if an argument list is valid for a specified model; stops program if not
+# REQUIRES: argslist is a kwargs-interpretable dictionary
+def check_params(model, argslist):
+    mod = importlib.import_module(MODELS_DIR+'.'+model)
+    constructor = intuit_constructor(model)
+    assert(constructor in dir(mod))
+    valid_args = inspect.getfullargspec(getattr(mod, constructor).__init__).args
+    for arg in argslist.keys():
+        assert(arg in valid_args)
+    print('Params OK:', argslist)
