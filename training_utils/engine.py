@@ -337,7 +337,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename = self.config.save_path+'/saved_states/state'+str(curr_iter)
+        filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -348,7 +348,7 @@ class Engine:
         }, filename)
         return filename
 
-    def restore_state(self,weight_file):
+    def restore_state(self, weight_file):
         weight_file = self.config.save_path+'saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:

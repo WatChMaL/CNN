@@ -107,3 +107,9 @@ venv.bak/
 main_fix.py
 *.csv
 state*
+
+# USER folder - Julian
+USER/
+
+# WIP - Julian
+feature_extraction.py
