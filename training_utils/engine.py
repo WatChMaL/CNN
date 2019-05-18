@@ -82,7 +82,8 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split)
+                              config.test_split,
+                              reduced_dataset_size=1000)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -235,7 +236,7 @@ class Engine:
 
     # Function to test the model performance on the validation
     # dataset ( returns loss, acc, confusion matrix )
-    def validate(self):
+    def validate(self, return_events=False):
         r"""Test the trained model on the validation set.
         
         Parameters: None
@@ -265,7 +266,7 @@ class Engine:
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
-                sys.stdout.write("\r\r\r" + "val_iterations : " + str(val_iterations))
+                sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
                 self.label = self.label.long()
@@ -288,6 +289,9 @@ class Engine:
                 predictions.append(result['prediction'])
                 softmaxes.append(result["softmax"])
                 
+                print(self.data.shape)
+                print(self.label.shape)
+                
                 val_iterations += 1
          
         print("\nTotal val loss : ", val_loss,
@@ -297,11 +301,15 @@ class Engine:
         
         np_softmaxes = np.array(softmaxes)
 
-        np.save("label3.npy", np.hstack(labels))
-        np.save("prediction3.npy", np.hstack(predictions))
-        np.save("softmax3.npy",
-                np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
-                                    np_softmaxes.shape[2]))
+        #np.save("label3.npy", np.hstack(labels))
+        #np.save("prediction3.npy", np.hstack(predictions))
+        #np.save("softmax3.npy",
+                #np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
+                                    #np_softmaxes.shape[2]))
+        
+        
+        print(np_softmaxes.shape)
+        
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -352,6 +360,78 @@ class Engine:
               "\nTotal test acc : ", test_acc,
               "\nAvg test loss : ", test_loss/val_iterations,
               "\nAvg test acc : ", test_acc/val_iterations)
+        
+    def get_top_bottom_softmax(self, n_top=5, n_bottom=5, event_type=None, label_dict=None):
+        r"""Return the events with the highest and lowest softmax scores for
+            visualizing the model performance
+        
+        Parameters: None
+        
+        Outputs : 
+            n_top = number of events with the highest softmax score to return
+                    for the given event type
+            n_bottom = number of events with the lowest softmax score to return
+                       for the given event type
+            event_type = type of neutrino event to get the event data for
+            label_dict = dictionary that maps the event type to the labels
+                         used in the label tensor
+            
+            
+        Returns : Numpy array of event data for the events with the highest
+                  and lowest softmax score
+        
+        """
+        
+        # Variables to add or remove events
+        softmax_top = np.array([-1 for i in range(n_top)])
+        softmax_bottom = np.array([2 for i in range(n_bottom)])
+        
+        # Iterate over the validation set to get the desired events
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+             # Extract the event data and label from the DataLoader iterator
+            for val_data in iter(self.val_iter):
+                
+                self.data, self.label = val_data[0:2]
+                self.label = self.label.long()
+                
+                print(self.data.shape)
+                print(self.label.shape)
+                
+                # Use only the labels and event for the given event type
+                self.data = self.data[self.label == label_dict[event_type]]
+                self.label = self.label[self.label == label_dict[event_type]]
+                
+                print(self.data.shape)
+                print(self.label.shape)
+            
+                result = self.forward(False)
+                
+                # Copy the tensors back to the CPU
+                self.label = self.label.to("cpu")
+                
+                # Sort the softmax output to get the indices for the top and 
+                # bottom events to return or save
+                softmax_indices_sorted = np.argsort(result["softmax"][:,label_dict[event_type]])
+                
+                # Get the indices for the top and bottom events
+                softmax_top_n = softmax_indices_sorted[softmax_indices_sorted.shape[0]-n_top:]
+                softmax_bottom_n = softmax_indices_sorted[:n_bottom]
+                
+                # Append the local top and bottom items to the global top and bottom items
+                softmax_top = np.append(softmax_top,
+                                        result["softmax"][softmax_top_n,label_dict[event_type]])
+                softmax_bottom = np.append(softmax_bottom,
+                                        result["softmax"][softmax_bottom_n,label_dict[event_type]])
+                
+                # Sort the global top and bottom softmax array and get the top and bottom sections
+                softmax_top 
+                
+                
+        
         
     # ========================================================================
     

@@ -32,3 +32,18 @@ arXiV
 
 
 2. Test the model loader
+
+------------------------------------------------------------------------------------------
+a. Command line : Specify tasks, subset size, select the models ( all run without crashing )
+
+-- subset size works
+-- 
+-------------------------------------------------------------------------------------------
+
+Patrick visualization requirement :
+
+    Select a true gamma (electron) event for which the network assigned the highest gamma(electron) probability
+    
+    and
+    
+    Select a true gamma (electron) event for which the network assigned the lowest gamma(electron) probability
