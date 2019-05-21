@@ -3,9 +3,7 @@ Codebase for training and performance evaluation of CNNs using simulated neutrin
 
 ## User Guide
 To start the program, download the repository and navigate to the parent folder, `CNN/`, then enter on terminal/cmd
-
 ```python3 watchmal.py #flags and arguments```
-
 There is an extensive list of flags which can be used to tune the training engine, detailed below. Every flag has valid default behaviour and thus none of the flags need to be specified to run the program; however, the data path default `.` is probably invalid for any particular case.
 ### Setup
 - `-h` prints out the help dialogue for all flags onto the terminal window. There is no config option for this flag.
@@ -33,7 +31,6 @@ There is an extensive list of flags which can be used to tune the training engin
 ### Config File Management
 - `-l #config file` specifies a config file to load settings from. By default no config file is loaded and settings are interpreted from the specified flags. If this flag is specified but other flags conflict with the settings in the conflict file, the flags given on the commandline will override the respective settings in the config file. The config option for this flag is `load`.
 - `-s #config file` specifies the name of a config file to save settings to (overwrite enabled). By default no config file is saved. The config option for this flag is `cfg`.
-
 Note that you can manually write a config file and load it with the `-l` flag as an alternative to using commandline flags. The syntax for the config file is
 ```
 [config]
