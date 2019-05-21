@@ -108,9 +108,8 @@ main_fix.py
 *.csv
 state*
 
-# Folders - Julian
+# USER folder - Julian
 USER/
-TESTING/
 
 # WIP - Julian
 feature_extraction.py

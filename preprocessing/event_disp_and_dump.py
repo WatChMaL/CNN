@@ -6,21 +6,21 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.colors import LinearSegmentedColormap as lsc
 from mpl_toolkits.axes_grid1 import ImageGrid
 
-import preprocessing.pos_utils as pu
-from preprocessing.event_disp_and_dump_arg_utils import get_args
+from pos_utils import *
+from event_disp_and_dump_arg_utils import get_args
 
 import ROOT
 ROOT.gROOT.SetBatch(True)
 
 import os, sys
 
-# config object needs: input_file[], output_file, n_events_to_display
+
 def event_disp_and_dump(config):
 
     config.input_file=config.input_file[0]
-    print("input file: "+str(config.input_file))
-    print("output file: "+str(config.output_file))
-    print("n_events_to_display: "+str(config.n_events_to_display))
+    print "input file: "+str(config.input_file)
+    print "output file: "+str(config.output_file)
+    print "n_events_to_display: "+str(config.n_events_to_display)
     
     
     norm=plt.Normalize()
@@ -43,7 +43,7 @@ def event_disp_and_dump(config):
     file=ROOT.TFile(config.input_file,"read")
     if config.output_file is None:
         config.output_file=config.input_file.replace(".root",".npz")
-        print("set output file to: "+config.output_file)
+        print "set output file to: "+config.output_file
     
         
     #file=ROOT.TFile("WCSim_NuPRISM_10x8_mPMT_40perCent_tbugfix_mu_200to1200_0.root","read")
@@ -57,21 +57,21 @@ def event_disp_and_dump(config):
     elif "_pi0" in config.input_file:
         label=3
     else:
-        print("Unknown input file particle type")
+        print "Unknown input file particle type"
         sys.exit()
         
     tree=file.Get("wcsimT")
 
     nevent=tree.GetEntries()
 
-    print("number of entries in the tree: " + str(nevent))
+    print "number of entries in the tree: " + str(nevent)
 
     
 
     geotree=file.Get("wcsimGeoT");
     
 
-    print("number of entries in the geometry tree: " + str(geotree.GetEntries()))
+    print "number of entries in the geometry tree: " + str(geotree.GetEntries())
 
     geotree.GetEntry(0)
     geo=geotree.wcsimrootgeom
@@ -87,7 +87,7 @@ def event_disp_and_dump(config):
         np_pmt_in_module_id_all_tubes=np.zeros((num_pmts))
         np_pmt_index_all_tubes=np.arange(num_pmts)
         np.random.shuffle(np_pmt_index_all_tubes)
-        np_module_index_all_tubes=pu.module_index(np_pmt_index_all_tubes)
+        np_module_index_all_tubes=module_index(np_pmt_index_all_tubes)
         
         for i in range(len(np_pmt_index_all_tubes)):
         
@@ -135,9 +135,9 @@ def event_disp_and_dump(config):
         #np_pos_arc_all_tubes=np_pos_r_all_tubes*np_pos_phi_all_tubes
         np_pos_arc_all_tubes=r_max*np_pos_phi_all_tubes
         
-        np_wall_indices=np.where(pu.is_barrel(np_module_index_all_tubes))
-        np_top_indices=np.where(pu.is_top(np_module_index_all_tubes))
-        np_bottom_indices=np.where(pu.is_bottom(np_module_index_all_tubes))
+        np_wall_indices=np.where(is_barrel(np_module_index_all_tubes))
+        np_top_indices=np.where(is_top(np_module_index_all_tubes))
+        np_bottom_indices=np.where(is_bottom(np_module_index_all_tubes))
         
         np_pmt_in_module_id_wall_tubes=np_pmt_in_module_id_all_tubes[np_wall_indices]
         np_pmt_in_module_id_top_tubes=np_pmt_in_module_id_all_tubes[np_top_indices]
@@ -243,13 +243,13 @@ def event_disp_and_dump(config):
         
     for ev in range(nevent):
         if ev%100 == 0 or n_trigs_displayed<config.n_events_to_display:
-            print("now processing event " +str(ev))
+            print "now processing event " +str(ev)
         
         tree.GetEvent(ev)
         wcsimrootsuperevent=tree.wcsimrootevent
 
         if ev%100 == 0 or n_trigs_displayed<config.n_events_to_display:
-            print("number of sub events: " + str(wcsimrootsuperevent.GetNumberOfEvents()))
+            print "number of sub events: " + str(wcsimrootsuperevent.GetNumberOfEvents())
 
         wcsimrootevent = wcsimrootsuperevent.GetTrigger(0)
         tracks = wcsimrootevent.GetTracks()
@@ -278,16 +278,16 @@ def event_disp_and_dump(config):
         wcsimrootevent=wcsimrootsuperevent.GetTrigger(index);
 
         if ev%100 == 0 or n_trigs_displayed<config.n_events_to_display:
-            print("event date and number: "+str(wcsimrootevent.GetHeader().GetDate())+" "+str(wcsimrootevent.GetHeader().GetEvtNum()))
+            print "event date and number: "+str(wcsimrootevent.GetHeader().GetDate())+" "+str(wcsimrootevent.GetHeader().GetEvtNum())
             
         ncherenkovhits     = wcsimrootevent.GetNcherenkovhits()
         ncherenkovdigihits = wcsimrootevent.GetNcherenkovdigihits()
 
         if ev%100 == 0 or n_trigs_displayed<config.n_events_to_display:
-            print("Ncherenkovdigihits "+str(ncherenkovdigihits))
+            print "Ncherenkovdigihits "+str(ncherenkovdigihits)
 
         if ncherenkovdigihits == 0:
-            print("event, trigger has no hits "+str(ev)+" "+str(index))
+            print "event, trigger has no hits "+str(ev)+" "+str(index)
             continue
 
         np_pos_x=np.zeros((ncherenkovdigihits))
@@ -350,12 +350,12 @@ def event_disp_and_dump(config):
             np_q[i]=hit_q
             np_t[i]=hit_t
 
-        np_module_index=pu.module_index(np_pmt_index)
-        np_pmt_in_module_id=pu.pmt_in_module_id(np_pmt_index)
+        np_module_index=module_index(np_pmt_index)
+        np_pmt_in_module_id=pmt_in_module_id(np_pmt_index)
         
-        np_wall_indices=np.where(pu.is_barrel(np_module_index))
-        np_top_indices=np.where(pu.is_top(np_module_index))
-        np_bottom_indices=np.where(pu.is_bottom(np_module_index))
+        np_wall_indices=np.where(is_barrel(np_module_index))
+        np_top_indices=np.where(is_top(np_module_index))
+        np_bottom_indices=np.where(is_bottom(np_module_index))
 
         if config.n_events_to_display>0:
             np_pos_r=np.hypot(np_pos_x,np_pos_y)
