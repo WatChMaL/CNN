@@ -18,6 +18,7 @@ There is an extensive list of flags which can be used to tune the training engin
 ### Data Handling
 - `-pat #path` specifies the path to the labeled dataset which the engine will train, test, and validate on. HDF5 is the only supported data format at the moment. The config option for this flag is `path`.
 - `-sub #integer` specifies a subset of the dataset located at `path` to use, which can be useful for making faster training runs. By default, all of the data is used. The config option for this flag is `subset`.
+- `-shf #True/False` specifies whether or not to shuffle the contents of the input dataset. By default this is set to `True`. The config option for this flag is `shuffle`.
 - `-vas #float between 0 and 1` specifies the fraction of the dataset to use for validation. By default this is set to `0.1`. The config option for this flag is `val_split`.
 - `-tes #float between 0 and 1` specifies the fraction of the dataset to use for testing. By default this is set to `0.1`. The config option for this flag is `test_split`.
 - There is no option to specify the fraction of the dataset to use for training. This fraction is the remainder of the dataset that is outside the validation and test splits (i.e. `train_split = 1 - val_split - test_split`).

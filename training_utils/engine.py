@@ -68,6 +68,7 @@ class Engine:
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
                               config.test_split,
+                              shuffle=config.shuffle,
                               reduced_dataset_size=config.subset)
 
         self.train_iter=DataLoader(self.dset,

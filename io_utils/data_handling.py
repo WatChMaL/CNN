@@ -14,7 +14,7 @@ class WCH5Dataset(Dataset):
     """
 
 
-    def __init__(self, path, val_split, test_split, transform=None, reduced_dataset_size=None, seed=42):
+    def __init__(self, path, val_split, test_split, shuffle=True transform=None, reduced_dataset_size=None, seed=42):
 
 
         f=h5py.File(path,'r')
@@ -58,7 +58,8 @@ class WCH5Dataset(Dataset):
             indices = np.random.choice(self.labels.shape[0], reduced_dataset_size)
 
         #shuffle index array
-        np.random.shuffle(indices)
+        if shuffle:
+            np.random.shuffle(indices)
         
         #restore the prng state
         if seed is not None:
