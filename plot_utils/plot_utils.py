@@ -170,7 +170,7 @@ def plot_particle_histogram(softmax, labels, labels_dict=None, particle=None, sa
     for event_type in labels_dict.keys():
         label_to_use = r"$\{0}$ events".format(event_type) if event_type is not "e" else r"${0}$ events".format(event_type)
         curr_softmax = softmax[labels == labels_dict[event_type],labels_dict[particle]]
-        plt.hist(curr_softmax, bins=num_bins, density=True, 
+        plt.hist(curr_softmax, bins=num_bins, density=False, 
                  label= label_to_use,
                  color=color_dict[event_type], alpha=0.5, stacked=True)
         
@@ -180,10 +180,10 @@ def plot_particle_histogram(softmax, labels, labels_dict=None, particle=None, sa
     else:
         ax.set_xlabel(r"Classifier softmax output : $P(e)$".format(particle), fontsize=20)
     
-    ax.set_ylabel("Normalized count", fontsize=20)
+    ax.set_ylabel("Count (Log scaled)", fontsize=20)
     
     plt.legend(loc="upper left")
-    #plt.yscale("log")
+    plt.yscale("log")
     
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
@@ -226,9 +226,9 @@ def plot_ROC_curve(softmax, labels, class_dict, save_path=None):
     ax.tick_params(axis="both", labelsize=20)
     
     # Fix colors for each particle type
-    color_dict = {"gamma":"r", "electron":"b", "muon":"g"}
+    color_dict = {"gamma":"r", "e":"b", "mu":"g"}
     
-    for i, key, color in zip(range(n_classes), color_dict.keys(), colors):
+    for i, key in zip(range(n_classes), class_dict.keys()):
         plt.plot(fpr[i], tpr[i], linewidth=0.8,
                  marker='.', markersize=1.6,
                  color=color_dict[key], label="{0}, AUC = {1:0.3f}".format(class_dict[i],roc_auc[i]))
