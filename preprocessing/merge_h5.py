@@ -90,7 +90,7 @@ def merge_h5(config):
             current_data_length=data.shape[0]
             if prev_data_length is not None:
                 if prev_data_length!=current_data_length:
-                    rise(ValueError("keys don't have same length in {}".format(
+                    raise(ValueError("keys don't have same length in {}".format(
                         file_name)))
             else:
                 prev_data_length=current_data_length

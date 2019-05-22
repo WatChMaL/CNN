@@ -62,6 +62,11 @@ if __name__ == '__main__':
 
     dtype_data_prev=None
     dtype_labels_prev=None
+    dtype_energies_prev=None
+    dtype_positions_prev=None
+    
+    dtype_PATHS_prev=None
+    dtype_IDX_prev=None
     
     for file_name in files:
         print("Loading " + file_name)
@@ -75,6 +80,12 @@ if __name__ == '__main__':
         info = np.load(file_name,encoding=config.encoding)
         x_data = info['event_data']
         labels = info['labels']
+        energies = info['energies']
+        positions = info['positions']
+        
+        PATHS = info['PATHS']
+        IDX = info['IDX']
+        
         i += 1
         shape = x_data.shape
         print("Array shape" + str(shape))
@@ -105,12 +116,21 @@ if __name__ == '__main__':
                    file_name))
         dtype_data_prev=x_data.dtype
         dtype_labels_prev=labels.dtype
+        dtype_energies_prev=energies.dtype
+        dtype_positions_prev=positions.dtype
+        
+        dtype_PATHS_prev=PATHS.dtype
+        dtype_IDX_prev=IDX.dtype
            
         total_rows += shape[0]
         
             
         del x_data
         del labels
+        del energies
+        del positions
+        del PATHS
+        del IDX
         del info
 
     print("We have {} total events".format(total_rows))
@@ -126,6 +146,18 @@ if __name__ == '__main__':
     dset_labels=f.create_dataset("labels",
                                  shape=(total_rows,),
                                  dtype=dtype_labels_prev)
+    dset_energies=f.create_dataset("energies",
+                                   shape=(total_rows,),
+                                   dtype=dtype_energies_prev)
+    dset_positions=f.create_dataset("positions",
+                                    shape=(total_rows,),
+                                    dtype=dtype_positions_prev)
+    dset_PATHS=f.create_dataset("PATHS",
+                                shape=(total_rows,),
+                                dtype=dtype_PATHS_prev)
+    dset_IDX=f.create_dataset("IDX",
+                              shape=(total_rows,),
+                              dtype=dtype_IDX_prev)
     
 
     
@@ -143,6 +175,12 @@ if __name__ == '__main__':
         info = np.load(file_name,encoding=config.encoding)
         x_data = info['event_data']
         labels = info['labels']
+        energies = info['energies']
+        positions = info['positions']
+        
+        PATHS = info['PATHS']
+        IDX = info['IDX']
+        
         i += 1
         shape = x_data.shape
         
@@ -152,6 +190,12 @@ if __name__ == '__main__':
         
         dset_event_data[offset:offset_next,:]=x_data
         dset_labels[offset:offset_next]=labels
+        dset_energies[offset:offset_next]=energies
+        dset_positions[offset:offset_next]=positions
+        
+        dset_PATHS[offset:offset_next]=PATHS
+        dset_IDX[offset:offset_next]=IDX
+        
         offset=offset_next
         del x_data
         del labels

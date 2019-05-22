@@ -241,7 +241,7 @@ def event_disp_and_dump(config):
         #plt.show()
         
     # All data arrays are initialized here
-    ROOT_PATH = []
+    FILE_PATHS = []
     FILE_IDX = []
     
     ev_data=[]
@@ -591,7 +591,7 @@ def event_disp_and_dump(config):
         directions.append(direction)
         energies.append(energy)
         
-        ROOT_PATH.append(config.input_file)
+        FILE_PATHS.append(config.input_file)
         FILE_IDX.append(ev)
             
         #print "\n\n"
@@ -606,11 +606,11 @@ def event_disp_and_dump(config):
     all_directions=np.asarray(directions)
     all_energies=np.asarray(energies)
     
-    ALL_ROOT_PATH = np.asarray(ROOT_PATH)
+    ALL_FILE_PATHS = np.asarray(FILE_PATHS)
     ALL_FILE_IDX = np.asarray(FILE_IDX)
     
     np.savez_compressed(config.output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies,
-                        PATHS=ALL_ROOT_PATH, IDX=ALL_FILE_IDX)
+                        PATHS=ALL_FILE_PATHS, IDX=ALL_FILE_IDX)
         #for i in range(ncherenkovhits):
         #    wcsimrootcherenkovhit=wcsimrootevent.GetCherenkovHits().At(i)
         #    tubeNumber=wcsimrootcherenkovhit.GetTubeID()
