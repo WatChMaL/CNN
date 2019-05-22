@@ -1,3 +1,11 @@
+"""
+Script for visualizing and transforming ROOT files to .npz
+Written for Python 2
+
+Author: Wojciech Fedorko
+Collaborators: Julian Ding, Abhishek Kajal
+"""
+
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -232,6 +240,10 @@ def event_disp_and_dump(config):
         
         #plt.show()
         
+    # All data arrays are initialized here
+    ROOT_PATH = []
+    FILE_IDX = []
+    
     ev_data=[]
     labels=[]
     pids=[]
@@ -571,30 +583,40 @@ def event_disp_and_dump(config):
         
             #plt.show()
 
+        # This part updates the data arrays
         ev_data.append(np_wall_data_rect_ev)
         labels.append(label)
         pids.append(pid)
         positions.append(position)
         directions.append(direction)
         energies.append(energy)
+        
+        ROOT_PATH.append(config.input_file)
+        FILE_IDX.append(ev)
             
         #print "\n\n"
         
         wcsimrootsuperevent.ReInitialize()
 
+    # Readying all data arrays for saving
     all_events=np.concatenate(ev_data)
     all_labels=np.asarray(labels)
     all_pids=np.asarray(pids)
     all_positions=np.asarray(positions)
     all_directions=np.asarray(directions)
     all_energies=np.asarray(energies)
-    np.savez_compressed(config.output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies)
+    
+    ALL_ROOT_PATH = np.asarray(ROOT_PATH)
+    ALL_FILE_IDX = np.asarray(FILE_IDX)
+    
+    np.savez_compressed(config.output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies,
+                        PATHS=ALL_ROOT_PATH, IDX=ALL_FILE_IDX)
         #for i in range(ncherenkovhits):
         #    wcsimrootcherenkovhit=wcsimrootevent.GetCherenkovHits().At(i)
         #    tubeNumber=wcsimrootcherenkovhit.GetTubeID()
         #    if i<10:
         #        print "tube number: "+str(tubeNumber) 
-                
+
 if __name__ == '__main__':
     
     ROOT.gSystem.Load(os.environ['WCSIMDIR']+"/libWCSimRoot.so")
