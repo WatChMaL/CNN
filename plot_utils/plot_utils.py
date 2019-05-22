@@ -220,7 +220,7 @@ def plot_ROC_curve(softmax, labels, class_dict, save_path=None):
     # Plot all the ROC curves
     fig, ax = plt.subplots(figsize=(12,8),facecolor="w")
     
-    plt.title("Receiver Operator Characteristic for gamma, electron, muon")
+    plt.title(r"ROC Curve for $e, \mu$ and $\gamma$")
     plt.xlim([0, 1])
     plt.ylim([0, 1])
     ax.tick_params(axis="both", labelsize=20)
@@ -229,9 +229,14 @@ def plot_ROC_curve(softmax, labels, class_dict, save_path=None):
     color_dict = {"gamma":"r", "e":"b", "mu":"g"}
     
     for i, key in zip(range(n_classes), class_dict.keys()):
-        plt.plot(fpr[i], tpr[i], linewidth=0.8,
-                 marker='.', markersize=1.6,
-                 color=color_dict[key], label="{0}, AUC = {1:0.3f}".format(class_dict[i],roc_auc[i]))
+        if key is not "e":
+            label_to_use = r"$\{0}$, AUC = ${1:0.3f}$".format(key,roc_auc[i])
+        else:
+            label_to_use = r"${0}$, AUC = ${1:0.3f}$".format(key,roc_auc[i])
+            
+        plt.plot(fpr[i], tpr[i], linewidth=2.0,
+                 marker='.', markersize=8.0,
+                 color=color_dict[key], label=label_to_use)
     
     ax.set_xlabel("False Positive Rate", fontsize=20)
     ax.set_ylabel("True Positive Rate", fontsize=20)
