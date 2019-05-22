@@ -108,3 +108,5 @@ main_fix.py
 *.csv
 state*
 *.root
+*.npz
+*.h5
