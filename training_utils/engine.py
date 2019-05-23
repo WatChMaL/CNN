@@ -82,8 +82,8 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split,
-                              reduced_dataset_size=1000)
+                              config.test_split)#,
+                              #reduced_dataset_size=10000)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -249,6 +249,10 @@ class Engine:
             
         Returns : None
         """
+        
+        # Run number
+        run = 7
+        
         # Variables to output at the end
         val_loss = 0.0
         val_acc = 0.0
@@ -261,7 +265,7 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions, softmaxes = [],[],[],[],[]
+            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[], []
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
@@ -269,6 +273,8 @@ class Engine:
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
+                energy = val_data[2]
+                
                 self.label = self.label.long()
                 
                 #counter = collections.Counter(self.label.tolist())
@@ -288,9 +294,10 @@ class Engine:
                 labels.append(self.label)
                 predictions.append(result['prediction'])
                 softmaxes.append(result["softmax"])
+                energies.append(energy)
                 
-                print(self.data.shape)
-                print(self.label.shape)
+                #print(self.data.shape)
+                #print(self.label.shape)
                 
                 val_iterations += 1
          
@@ -301,11 +308,12 @@ class Engine:
         
         np_softmaxes = np.array(softmaxes)
 
-        #np.save("label3.npy", np.hstack(labels))
-        #np.save("prediction3.npy", np.hstack(predictions))
-        #np.save("softmax3.npy",
-                #np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
-                                    #np_softmaxes.shape[2]))
+        np.save("labels" + str(run) + ".npy", np.hstack(labels))
+        np.save("energies" + str(run) + ".npy", np.hstack(energies))
+        np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
+        np.save("softmax" + str(run) + ".npy",
+                np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
+                                    np_softmaxes.shape[2]))
         
         
         print(np_softmaxes.shape)
@@ -452,7 +460,7 @@ class Engine:
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f)
+            checkpoint = torch.load(f,map_location="cuda:0")
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim

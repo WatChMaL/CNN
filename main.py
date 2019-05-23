@@ -154,5 +154,5 @@ if __name__ == '__main__':
     nnet = net.Engine(model, config)
     nnet.restore_state("state13960")
     #nnet.train(epochs=10.0, save_interval=500)
-    #nnet.validate(return_events=True)
-    nnet.get_top_bottom_softmax(event_type="gamma", label_dict={"gamma":0, "electron":1, "muon":2})
+    nnet.validate(return_events=True)
+    #nnet.get_top_bottom_softmax(event_type="gamma", label_dict={"gamma":0, "electron":1, "muon":2})
