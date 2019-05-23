@@ -94,4 +94,4 @@ if __name__ == '__main__':
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
-        nnet.validate()
+        nnet.validate(plt_worst=3, plt_best=3)

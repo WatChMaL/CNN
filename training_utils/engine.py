@@ -21,6 +21,8 @@ from io_utils.data_handling import WCH5Dataset
 from visualization_utils.notebook_utils import CSVData
 from visualization_utils.plot_utils import plot_confusion_matrix
 
+import heapq
+from ROOT_utils.display_list import display_list
 
 class Engine:
     """The training engine 
@@ -222,7 +224,7 @@ class Engine:
 
     # Function to test the model performance on the validation
     # dataset ( returns loss, acc, confusion matrix )
-    def validate(self):
+    def validate(self, plt_worst=0, plt_best=0):
         r"""Test the trained model on the validation set.
         
         Parameters: None
@@ -239,6 +241,11 @@ class Engine:
         val_loss = 0.0
         val_acc = 0.0
         val_iterations = 0
+        
+        pushing = False
+        if plt_worst > 0 or plt_best > 0:
+            heaps = [[], [], []]
+            pushing = True
         
         # Iterate over the validation set to calculate val_loss and val_acc
         with torch.no_grad():
@@ -257,6 +264,8 @@ class Engine:
                 self.data, self.label = val_data[0:2]
                 self.label = self.label.long()
                 
+                PATH, IDX = val_data[4:6]
+                
                 counter = collections.Counter(self.label.tolist())
                 sys.stdout.write("\ncounter : " + str(counter))
 
@@ -264,6 +273,11 @@ class Engine:
                 result = self.forward(False)
                 val_loss += result['loss']
                 val_acc += result['accuracy']
+                
+                # Add item to priority queues if necessary
+                if pushing:
+                    for i, lab in enumerate(self.label):
+                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -280,6 +294,16 @@ class Engine:
               "\nTotal val acc : ", val_acc,
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
+        
+        # If requested, dump root file visualization script outputs to save_path directory
+        if pushing:
+            for h in heaps:
+                heapq.heapify(h)
+                best = heapq.nlargest(plt_best, h)
+                worst = heapq.nsmallest(plt_worst, h)
+                
+            display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
+            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
         
         np.save("label.npy", np.hstack(labels))
         np.save("prediction.npy", np.hstack(predictions))
