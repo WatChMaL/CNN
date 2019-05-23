@@ -26,7 +26,6 @@ def get_args():
     parser = ArgumentParser(description='dump WCSim data into numpy .npz file')
     parser.add_argument('input_file', type=str, nargs=1)
     parser.add_argument('output_file', type=str, nargs='?',default=None)
-    
     args = parser.parse_args()
     return args
 
@@ -36,8 +35,9 @@ def event_dump(config):
     config.input_file=config.input_file[0]
     print "input file: "+str(config.input_file)
     print "output file: "+str(config.output_file)
-    print "n_events_to_display: "+str(config.n_events_to_display)
-    
+    par_dir = os.path.abspath(os.path.join(config.output_dir, os.pardir))
+    if not os.path.exists(par_dir):
+        os.mkdir(par_dir)
     
     norm=plt.Normalize()
     cm=matplotlib.cm.plasma

@@ -37,6 +37,8 @@ def event_display(config):
     config.index=config.index[0]
     print "input file: "+str(config.input_file)
     print "output directory: "+str(config.output_dir)
+    if not os.path.exists(config.output_dir):
+        os.mkdir(config.output_dir)
     print "index of event to display: "+str(config.index)
     
     

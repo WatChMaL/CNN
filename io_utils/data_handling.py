@@ -14,7 +14,7 @@ class WCH5Dataset(Dataset):
     """
 
 
-    def __init__(self, path, val_split, test_split, shuffle=True transform=None, reduced_dataset_size=None, seed=42):
+    def __init__(self, path, val_split, test_split, shuffle=True, transform=None, reduced_dataset_size=None, seed=42):
 
 
         f=h5py.File(path,'r')
@@ -27,9 +27,9 @@ class WCH5Dataset(Dataset):
         event_data_offset = hdf5_event_data.id.get_offset()
         event_data_dtype = hdf5_event_data.dtype
         
-        labels_shape = hdf5_labels.shape
-        labels_offset = hdf5_labels.id.get_offset()
-        labels_dtype = hdf5_labels.dtype
+        #labels_shape = hdf5_labels.shape
+        #labels_offset = hdf5_labels.id.get_offset()
+        #labels_dtype = hdf5_labels.dtype
 
         #this creates a memory map - i.e. events are not loaded in memory here
         #only on get_item
