@@ -237,6 +237,10 @@ class Engine:
             
         Returns : None
         """
+        
+        # Run number
+        run = 7
+        
         # Variables to output at the end
         val_loss = 0.0
         val_acc = 0.0
@@ -254,20 +258,19 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions = [],[],[],[]
+            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[], []
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
-                sys.stdout.write("\r\r\r" + "val_iterations : " + str(val_iterations))
+                sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
+                energy = val_data[2]
+                
                 self.label = self.label.long()
                 
                 PATH, IDX = val_data[4:6]
-                
-                counter = collections.Counter(self.label.tolist())
-                sys.stdout.write("\ncounter : " + str(counter))
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -287,6 +290,11 @@ class Engine:
                 accuracy.append(val_acc)
                 labels.append(self.label)
                 predictions.append(result['prediction'])
+                softmaxes.append(result["softmax"])
+                energies.append(energy)
+                
+                #print(self.data.shape)
+                #print(self.label.shape)
                 
                 val_iterations += 1
          
@@ -304,9 +312,16 @@ class Engine:
                 
             display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
             display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
+
+        np.save("labels" + str(run) + ".npy", np.hstack(labels))
+        np.save("energies" + str(run) + ".npy", np.hstack(energies))
+        np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
+        np.save("softmax" + str(run) + ".npy",
+                np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
+                                    np_softmaxes.shape[2]))
         
-        np.save("label.npy", np.hstack(labels))
-        np.save("prediction.npy", np.hstack(predictions))
+        
+        print(np_softmaxes.shape)
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -358,6 +373,78 @@ class Engine:
               "\nAvg test loss : ", test_loss/test_iterations,
               "\nAvg test acc : ", test_acc/test_iterations)
         
+    def get_top_bottom_softmax(self, n_top=5, n_bottom=5, event_type=None, label_dict=None):
+        r"""Return the events with the highest and lowest softmax scores for
+            visualizing the model performance
+        
+        Parameters: None
+        
+        Outputs : 
+            n_top = number of events with the highest softmax score to return
+                    for the given event type
+            n_bottom = number of events with the lowest softmax score to return
+                       for the given event type
+            event_type = type of neutrino event to get the event data for
+            label_dict = dictionary that maps the event type to the labels
+                         used in the label tensor
+            
+            
+        Returns : Numpy array of event data for the events with the highest
+                  and lowest softmax score
+        
+        """
+        
+        # Variables to add or remove events
+        softmax_top = np.array([-1 for i in range(n_top)])
+        softmax_bottom = np.array([2 for i in range(n_bottom)])
+        
+        # Iterate over the validation set to get the desired events
+        with torch.no_grad():
+            
+            # Set the model to evaluation mode
+            self.model.eval()
+            
+             # Extract the event data and label from the DataLoader iterator
+            for val_data in iter(self.val_iter):
+                
+                self.data, self.label = val_data[0:2]
+                self.label = self.label.long()
+                
+                print(self.data.shape)
+                print(self.label.shape)
+                
+                # Use only the labels and event for the given event type
+                self.data = self.data[self.label == label_dict[event_type]]
+                self.label = self.label[self.label == label_dict[event_type]]
+                
+                print(self.data.shape)
+                print(self.label.shape)
+            
+                result = self.forward(False)
+                
+                # Copy the tensors back to the CPU
+                self.label = self.label.to("cpu")
+                
+                # Sort the softmax output to get the indices for the top and 
+                # bottom events to return or save
+                softmax_indices_sorted = np.argsort(result["softmax"][:,label_dict[event_type]])
+                
+                # Get the indices for the top and bottom events
+                softmax_top_n = softmax_indices_sorted[softmax_indices_sorted.shape[0]-n_top:]
+                softmax_bottom_n = softmax_indices_sorted[:n_bottom]
+                
+                # Append the local top and bottom items to the global top and bottom items
+                softmax_top = np.append(softmax_top,
+                                        result["softmax"][softmax_top_n,label_dict[event_type]])
+                softmax_bottom = np.append(softmax_bottom,
+                                        result["softmax"][softmax_bottom_n,label_dict[event_type]])
+                
+                # Sort the global top and bottom softmax array and get the top and bottom sections
+                softmax_top 
+                
+                
+        
+        
     # ========================================================================
     
             
@@ -378,7 +465,7 @@ class Engine:
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f)
+            checkpoint = torch.load(f,map_location="cuda:0")
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim
