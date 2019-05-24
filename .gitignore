@@ -110,3 +110,6 @@ state*
 *.root
 *.npz
 *.h5
+*.pdf
+*.png
+*.npy
