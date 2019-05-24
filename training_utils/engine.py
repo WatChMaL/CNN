@@ -2,22 +2,6 @@
 Author: Wojciech Fedorko
 Collaborators: Julian Ding, Abhishek Kajal
 '''
-
-# ======================== UNUSED IMPORTS (currently) =======================
-import copy
-import re
-
-import numpy as np
-from statistics import mean
-
-import sklearn
-from sklearn.metrics import roc_curve
-
-import shutil
-
-from torch.autograd import Variable
-# ===========================================================================
-
 # ======================== TEST IMPORTS =====================================
 import collections
 import sys
@@ -31,11 +15,14 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 import os
 import time
+import numpy as np
 
-from iotools.data_handling import WCH5Dataset
-from utils.notebook_utils import CSVData
-from plot_utils.plot_utils import plot_confusion_matrix
+from io_utils.data_handling import WCH5Dataset
+from visualization_utils.notebook_utils import CSVData
+from visualization_utils.plot_utils import plot_confusion_matrix
 
+import heapq
+from ROOT_utils.display_list import display_list
 
 class Engine:
     """The training engine 
@@ -82,8 +69,9 @@ class Engine:
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
-                              config.test_split)#,
-                              #reduced_dataset_size=10000)
+                              config.test_split,
+                              shuffle=config.shuffle,
+                              reduced_dataset_size=config.subset)
 
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
@@ -236,7 +224,7 @@ class Engine:
 
     # Function to test the model performance on the validation
     # dataset ( returns loss, acc, confusion matrix )
-    def validate(self, return_events=False):
+    def validate(self, plt_worst=0, plt_best=0):
         r"""Test the trained model on the validation set.
         
         Parameters: None
@@ -258,6 +246,11 @@ class Engine:
         val_acc = 0.0
         val_iterations = 0
         
+        pushing = False
+        if plt_worst > 0 or plt_best > 0:
+            heaps = [[], [], []]
+            pushing = True
+        
         # Iterate over the validation set to calculate val_loss and val_acc
         with torch.no_grad():
             
@@ -277,13 +270,17 @@ class Engine:
                 
                 self.label = self.label.long()
                 
-                #counter = collections.Counter(self.label.tolist())
-                #sys.stdout.write("\ncounter : " + str(counter))
+                PATH, IDX = val_data[4:6]
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
                 val_loss += result['loss']
                 val_acc += result['accuracy']
+                
+                # Add item to priority queues if necessary
+                if pushing:
+                    for i, lab in enumerate(self.label):
+                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -306,7 +303,15 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-        np_softmaxes = np.array(softmaxes)
+        # If requested, dump root file visualization script outputs to save_path directory
+        if pushing:
+            for h in heaps:
+                heapq.heapify(h)
+                best = heapq.nlargest(plt_best, h)
+                worst = heapq.nsmallest(plt_worst, h)
+                
+            display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
+            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
 
         np.save("labels" + str(run) + ".npy", np.hstack(labels))
         np.save("energies" + str(run) + ".npy", np.hstack(energies))
@@ -317,7 +322,6 @@ class Engine:
         
         
         print(np_softmaxes.shape)
-        
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -366,8 +370,8 @@ class Engine:
          
         print("\nTotal test loss : ", test_loss,
               "\nTotal test acc : ", test_acc,
-              "\nAvg test loss : ", test_loss/val_iterations,
-              "\nAvg test acc : ", test_acc/val_iterations)
+              "\nAvg test loss : ", test_loss/test_iterations,
+              "\nAvg test acc : ", test_acc/test_iterations)
         
     def get_top_bottom_softmax(self, n_top=5, n_bottom=5, event_type=None, label_dict=None):
         r"""Return the events with the highest and lowest softmax scores for
@@ -445,7 +449,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename='state'+str(curr_iter)
+        filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -456,7 +460,8 @@ class Engine:
         }, filename)
         return filename
 
-    def restore_state(self,weight_file):
+    def restore_state(self, weight_file):
+        weight_file = self.config.save_path+'saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys

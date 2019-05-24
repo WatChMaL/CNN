@@ -1,18 +1,14 @@
 import numpy as np
-import glob
-import sys
-import os
 from pathlib import Path
 import argparse
-import matplotlib
-import matplotlib.pyplot as plt
-#import seaborn as sn
 
 import h5py
 
 '''
 Merges numpy arrays into an hdf5 file
 '''
+
+GAMMA = 0 # 0 is the label for gamma events
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -62,6 +58,11 @@ if __name__ == '__main__':
 
     dtype_data_prev=None
     dtype_labels_prev=None
+    dtype_energies_prev=None
+    dtype_positions_prev=None
+    
+    dtype_PATHS_prev=None
+    dtype_IDX_prev=None
     
     for file_name in files:
         print("Loading " + file_name)
@@ -75,8 +76,15 @@ if __name__ == '__main__':
         info = np.load(file_name,encoding=config.encoding)
         x_data = info['event_data']
         labels = info['labels']
+        energies = info['energies']
+        positions = info['positions']
+        
+        PATHS = info['PATHS']
+        IDX = info['IDX']
+        
         i += 1
         shape = x_data.shape
+        
         print("Array shape" + str(shape))
 
         #check the shape compatibility
@@ -103,30 +111,53 @@ if __name__ == '__main__':
             if x_data.dtype != dtype_data_prev or labels.dtype != dtype_labels_prev:
                raise ValueError("data types mismatch at file {}".format(
                    file_name))
+               
         dtype_data_prev=x_data.dtype
         dtype_labels_prev=labels.dtype
+        dtype_energies_prev=energies.dtype
+        dtype_positions_prev=positions.dtype
+        
+        dtype_PATHS_prev=PATHS.dtype
+        dtype_IDX_prev=IDX.dtype
            
         total_rows += shape[0]
         
             
         del x_data
         del labels
+        del energies
+        del positions
+        del PATHS
+        del IDX
         del info
 
     print("We have {} total events".format(total_rows))
 
     print("opening the hdf5 file\n")
-    f=h5py.File(config.output_file[0],'x')
+    f=h5py.File(config.output_file[0],'w')
 
     #this will create unchunked (contiguous), uncompressed datasets,
     #that can be memmaped
-    dset_event_data=f.create_dataset("event_data",
-                                     shape=(total_rows,)+prev_shape[1:],
-                                     dtype=dtype_data_prev)
     dset_labels=f.create_dataset("labels",
                                  shape=(total_rows,),
                                  dtype=dtype_labels_prev)
     
+    dset_PATHS=f.create_dataset("PATHS",
+                                shape=(total_rows,),
+                                dtype=dtype_PATHS_prev)
+    dset_IDX=f.create_dataset("IDX",
+                              shape=(total_rows,),
+                              dtype=dtype_IDX_prev)
+    
+    dset_event_data=f.create_dataset("event_data",
+                                     shape=(total_rows,)+prev_shape[1:],
+                                     dtype=dtype_data_prev)
+    dset_energies=f.create_dataset("energies",
+                                   shape=(total_rows, 1),
+                                   dtype=dtype_energies_prev)
+    dset_positions=f.create_dataset("positions",
+                                    shape=(total_rows, 1, 3),
+                                    dtype=dtype_positions_prev)
 
     
     i = 0
@@ -143,8 +174,20 @@ if __name__ == '__main__':
         info = np.load(file_name,encoding=config.encoding)
         x_data = info['event_data']
         labels = info['labels']
+        
+        energies = info['energies']
+        positions = info['positions']
+        
+        # Process gamma events (adapted from preprocessing_gamma.py by Abhishek Kajal)
+        for i, lab in enumerate(labels):
+            if lab == GAMMA:
+                energies[i] = np.sum(energies[i], axis=1).reshape(-1,1)
+                positions[i] = positions[i].reshape(1, 1,-1)
+        
+        PATHS = info['PATHS']
+        IDX = info['IDX']
+        
         i += 1
-        shape = x_data.shape
         
         offset_next=offset+shape[0]
         
@@ -152,9 +195,19 @@ if __name__ == '__main__':
         
         dset_event_data[offset:offset_next,:]=x_data
         dset_labels[offset:offset_next]=labels
+        dset_energies[offset:offset_next,:]=energies
+        dset_positions[offset:offset_next,:,:]=positions
+        
+        dset_PATHS[offset:offset_next]=PATHS
+        dset_IDX[offset:offset_next]=IDX
+        
         offset=offset_next
         del x_data
         del labels
+        del energies
+        del positions
+        del PATHS
+        del IDX
         del info
 
 
