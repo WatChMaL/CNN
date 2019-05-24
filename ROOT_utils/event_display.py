@@ -57,15 +57,11 @@ def event_display(config):
     bounds_cat_module_col = np.linspace(0,40,41)
     norm_cat_module_col = matplotlib.colors.BoundaryNorm(bounds_cat_module_col, cm_cat_module_col.N)
     
-    
-    #file=ROOT.TFile("mu_500MeV_run700_wcsim.root","read")
     file=ROOT.TFile(config.input_file,"read")
     if config.output_dir is None:
         config.output_dir=config.input_file.replace(".root","/")
         print "set output directory to: "+config.output_dir
     
-        
-    #file=ROOT.TFile("WCSim_NuPRISM_10x8_mPMT_40perCent_tbugfix_mu_200to1200_0.root","read")
     label=-1
     if "_gamma" in config.input_file:
         label=0
@@ -83,12 +79,9 @@ def event_display(config):
 
     nevent=tree.GetEntries()
 
-    print "number of entries in the tree: " + str(nevent)
-
-    
+    print "number of entries in the tree: " + str(nevent)    
 
     geotree=file.Get("wcsimGeoT");
-    
 
     print "number of entries in the geometry tree: " + str(geotree.GetEntries())
 
@@ -114,41 +107,15 @@ def event_display(config):
         np_pos_x_all_tubes[i]=pmt.GetPosition(2)
         np_pos_y_all_tubes[i]=pmt.GetPosition(0)
         np_pos_z_all_tubes[i]=pmt.GetPosition(1)
-
-        #print "np_pos_z_all_tubes", np_pos_z_all_tubes
     
     np_pos_r_all_tubes=np.hypot(np_pos_x_all_tubes,np_pos_y_all_tubes)
     r_max=np.amax(np_pos_r_all_tubes)
-    #np_r_max_all_tubes=np.full((num_pmts),r_max)
 
     np_wall_indices_ad_hoc=np.unique(np_module_index_all_tubes[np.where( (np_pos_z_all_tubes<499.0) & (np_pos_z_all_tubes>-499.0))[0]])
     np_bottom_indices_ad_hoc=np.unique(np_module_index_all_tubes[np.where( (np_pos_z_all_tubes<-499.0))[0]])
     np_top_indices_ad_hoc=np.unique(np_module_index_all_tubes[np.where( (np_pos_z_all_tubes>499.0))[0]])
 
-    ##print "ad hoc wall indices: "
-    ##print np_wall_indices_ad_hoc
-    ##
-    ##print "ad hoc bottom indices: "
-    ##print np_bottom_indices_ad_hoc
-    ##
-    ##print "ad hoc top indices: "
-    ##print np_top_indices_ad_hoc
-    ##
-    ##print "rearranged ad hoc barrel indices:"
-    ##print rearrange_barrel_indices(np_wall_indices_ad_hoc)
-    ##
-    ##print "row and column from ad hod barrel indices:"
-    ##print row_col(np_wall_indices_ad_hoc)
-    
-    #print "try on bottom:"
-    #print row_col(np_bottom_indices_ad_hoc)
-    
-    #print "try on top:"
-    #print row_col(np_top_indices_ad_hoc)
-
-
     np_pos_phi_all_tubes=np.arctan2(np_pos_y_all_tubes, np_pos_x_all_tubes)
-    #np_pos_arc_all_tubes=np_pos_r_all_tubes*np_pos_phi_all_tubes
     np_pos_arc_all_tubes=r_max*np_pos_phi_all_tubes
     
     np_wall_indices=np.where(is_barrel(np_module_index_all_tubes))
@@ -359,7 +326,6 @@ def event_display(config):
 
     np_pos_r=np.hypot(np_pos_x,np_pos_y)
     np_pos_phi=np.arctan2(np_pos_y, np_pos_x)
-    #np_pos_arc=np_pos_r*np_pos_phi
     np_pos_arc=r_max*np_pos_phi
     np_pos_arc_wall=np_pos_arc[np_wall_indices]
     
@@ -390,7 +356,6 @@ def event_display(config):
     np_pmt_in_module_id_wall=np_pmt_in_module_id[np_wall_indices]
 
     np_wall_data_rect=np.zeros((16,40,38))
-    #print "assigning"
     np_wall_data_rect[np_wall_row,
                       np_wall_col,
                       np_pmt_in_module_id_wall]=np_q_wall
@@ -403,21 +368,6 @@ def event_display(config):
     np_wall_q_max_module=np.amax(np_wall_data_rect[:,:,0:19],axis=-1)
     np_wall_q_sum_module=np.sum(np_wall_data_rect[:,:,0:19],axis=-1)
     
-
-    #print "assigned"
-    
-
-        #if i<10:
-        #    print "x: {}, y: {} z: {}, u: {}, v: {}, w: {}, q: {},  t: {}".format(np_pos_x[i],
-        #                                                                          np_pos_y[i],
-        #                                                                          np_pos_z[i],
-        #                                                                          np_dir_u[i],
-        #                                                                          np_dir_v[i],
-        #                                                                          np_dir_w[i],
-        #                                                                          np_q[i],
-        #                                                                          np_t[i])
-
-
     max_q=np.amax(np_q)
     np_scaled_q=500*np_q/max_q
 
@@ -434,22 +384,15 @@ def event_display(config):
     ax1.set_zlabel('z')
     cb_ev_disp=fig1.colorbar(ev_disp,pad=0.03)
     cb_ev_disp.set_label("charge")
-    #plt.setp(ev_disp,markersize=2)
-    #print ax.can_zoom()
     fig1.savefig(config.output_dir+"ev_disp_ev_{}_trig_{}.pdf".format(ev,index))
     
     fig2 = plt.figure(num=2,clear=True)
     fig2.set_size_inches(10,8)
     ax2 = fig2.add_subplot(111, projection='3d',azim=35,elev=20)
-    
-    #print norm(np_t)
-    #print len(np_pos_x), len(np_pos_y), len(np_pos_z), len(np_dir_u), len(np_dir_v), len(np_dir_w), len(np_q), len(np_t) 
     colors = plt.cm.spring(norm(np_t))
     ev_disp_q=ax2.quiver(np_pos_x,np_pos_y,np_pos_z,
                          np_dir_u_scaled,np_dir_v_scaled,np_dir_w_scaled,
                          colors=colors,alpha=0.4,cmap=cm)
-    #ev_disp_q=ax2.quiver(np_pos_x,np_pos_y,np_pos_z,np_dir_u,np_dir_v,np_dir_w,length=1000,
-    #                     color=np_t,cmap=plt.get_cmap("spring"))
     ax2.set_xlabel('x')
     ax2.set_ylabel('y')
     ax2.set_zlabel('z')
@@ -494,7 +437,6 @@ def event_display(config):
     fig6.set_size_inches(10,4)
     ax6 = fig6.add_subplot(111)
     q_sum_disp=ax6.imshow(np.flip(np_wall_q_sum_module,axis=0), cmap=cm)
-    #q_sum_disp=ax6.imshow(np_wall_q_sum_module, cmap=cm)
     ax6.set_xlabel('arc index')
     ax6.set_ylabel('z index')
     cb_q_sum_disp=fig6.colorbar(q_sum_disp,pad=0.1)
@@ -506,7 +448,6 @@ def event_display(config):
     fig7.set_size_inches(10,4)
     ax7 = fig7.add_subplot(111)
     q_max_disp=ax7.imshow(np.flip(np_wall_q_max_module,axis=0), cmap=cm)
-    #q_max_disp=ax7.imshow(np_wall_q_max_module, cmap=cm)
     ax7.set_xlabel('arc index')
     ax7.set_ylabel('z index')
     cb_q_max_disp=fig7.colorbar(q_max_disp,pad=0.1)

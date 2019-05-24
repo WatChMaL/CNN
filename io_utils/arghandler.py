@@ -22,7 +22,7 @@ class Argument():
 def parse_args(args_list):
     parser = argparse.ArgumentParser()
     for arg in args_list:
-        parser.add_argument(arg.flag, nargs = '+' if arg.dtype == list else 1, dest=arg.name,
+        parser.add_argument('--'+arg.name, arg.flag, nargs = '+' if arg.dtype == list else 1, dest=arg.name,
                             default=arg.default, required=arg.required, help=arg.help)
     config = parser.parse_args()
     # Cast config attributes to correct data types

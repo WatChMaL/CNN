@@ -21,7 +21,6 @@ from io_utils.data_handling import WCH5Dataset
 from visualization_utils.notebook_utils import CSVData
 from visualization_utils.plot_utils import plot_confusion_matrix
 
-import heapq
 from ROOT_utils.display_list import display_list
 
 class Engine:
@@ -306,12 +305,17 @@ class Engine:
         # If requested, dump root file visualization script outputs to save_path directory
         if pushing:
             for h in heaps:
-                heapq.heapify(h)
-                best = heapq.nlargest(plt_best, h)
-                worst = heapq.nsmallest(plt_worst, h)
+                # Sort from low to high
+                sorted_h = h.sort(key=lambda tup:tup[0])
+                # Lowest softmax are worst
+                worst = sorted_h[0:plt_worst]
+                # Highest softmax are best
+                best = sorted_h[-plt_best:]
                 
             display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
             display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
+        
+        np_softmaxes = np.array(softmaxes)
 
         np.save("labels" + str(run) + ".npy", np.hstack(labels))
         np.save("energies" + str(run) + ".npy", np.hstack(energies))

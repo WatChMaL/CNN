@@ -1,11 +1,3 @@
-"""
-Script for visualizing and transforming ROOT files to .npz
-Written for Python 2
-
-Author: Wojciech Fedorko
-Collaborators: Julian Ding, Abhishek Kajal
-"""
-
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -240,10 +232,6 @@ def event_disp_and_dump(config):
         
         #plt.show()
         
-    # All data arrays are initialized here
-    FILE_PATHS = []
-    FILE_IDX = []
-    
     ev_data=[]
     labels=[]
     pids=[]
@@ -439,6 +427,8 @@ def event_disp_and_dump(config):
         np_dir_w_scaled=np_dir_w*np_scaled_q
 
         if n_trigs_displayed < config.n_events_to_display:
+            
+            """
             fig1 = plt.figure(num=1,clear=True)
             fig1.set_size_inches(10,8)
             ax1 = fig1.add_subplot(111, projection='3d',azim=35,elev=20)
@@ -471,8 +461,16 @@ def event_disp_and_dump(config):
             sm.set_array([])
             cb_ev_disp_2=fig2.colorbar(sm,pad=0.03)
             cb_ev_disp_2.set_label("time")
-            fig2.savefig("ev_disp_quiver_ev_{}_trig_{}.pdf".format(ev,index))
+            fig2.savefig("ev_disp_quiver_ev_{}_trig_{}.pdf".format(ev,index))"""
             
+            print("np_pos_arc_wall shape :", np_pos_arc_wall.shape)
+            print("np_pos_arc_wall :", np_pos_arc_wall)
+            
+            print("np_pos_z_wall shape :", np_pos_z_wall.shape)
+            print("np_pos_z_wall :", np_pos_z_wall)
+            
+            print("np_q_wall shape :", np_q_wall.shape)
+            print("np_q_wall :", np_q_wall)
             
             fig3 = plt.figure(num=3,clear=True)
             fig3.set_size_inches(10,8)
@@ -483,6 +481,8 @@ def event_disp_and_dump(config):
             cb_ev_disp_wall=fig3.colorbar(ev_disp_wall,pad=0.1)
             cb_ev_disp_wall.set_label("charge")
             fig3.savefig("ev_disp_wall_ev_{}_trig_{}.pdf".format(ev,index))
+            
+            """
             
             fig4 = plt.figure(num=4,clear=True)
             fig4.set_size_inches(10,8)
@@ -581,42 +581,32 @@ def event_disp_and_dump(config):
 
             n_trigs_displayed+=1
         
-            #plt.show()
+            #plt.show()"""
 
-        # This part updates the data arrays
         ev_data.append(np_wall_data_rect_ev)
         labels.append(label)
         pids.append(pid)
         positions.append(position)
         directions.append(direction)
         energies.append(energy)
-        
-        FILE_PATHS.append(config.input_file)
-        FILE_IDX.append(ev)
             
         #print "\n\n"
         
         wcsimrootsuperevent.ReInitialize()
 
-    # Readying all data arrays for saving
     all_events=np.concatenate(ev_data)
     all_labels=np.asarray(labels)
     all_pids=np.asarray(pids)
     all_positions=np.asarray(positions)
     all_directions=np.asarray(directions)
     all_energies=np.asarray(energies)
-    
-    ALL_FILE_PATHS = np.asarray(FILE_PATHS)
-    ALL_FILE_IDX = np.asarray(FILE_IDX)
-    
-    np.savez_compressed(config.output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies,
-                        PATHS=ALL_FILE_PATHS, IDX=ALL_FILE_IDX)
+    np.savez_compressed(config.output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies)
         #for i in range(ncherenkovhits):
         #    wcsimrootcherenkovhit=wcsimrootevent.GetCherenkovHits().At(i)
         #    tubeNumber=wcsimrootcherenkovhit.GetTubeID()
         #    if i<10:
         #        print "tube number: "+str(tubeNumber) 
-
+                
 if __name__ == '__main__':
     
     ROOT.gSystem.Load(os.environ['WCSIMDIR']+"/libWCSimRoot.so")

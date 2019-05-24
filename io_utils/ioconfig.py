@@ -83,6 +83,7 @@ def saveConfig(config, outFile):
                     listStr += DELIM + str(t)
                 item = listStr
             conf.set('config', str(x), str(item))
+    # Do not overwrite existing config files
     with open(outFile, 'w+') as configFile:
         conf.write(configFile)
     print('Config file saved in', USER_DIR)
