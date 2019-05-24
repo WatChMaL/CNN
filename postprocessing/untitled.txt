@@ -1,0 +1,49 @@
+Electron softmax distribution from the first plot and 
+
+Need very pure samples of muons and very pure sample of electron
+
+
+if p(electron) > some given p(electron):
+
+else if p(mu) > some given p(mu):
+
+else:
+
+e-gamma separation (
+
+    highlight the overlap
+    
+    
+Add 10^-12
+
+Electron vs gamma
+Electron vs Muon
+Gamma vs Muon
+Muon vs Electron
+
+Bonus points 
+
+ROC Curve, Rejection at fixed energy, Rejection at fixed efficiency points for various energies
+arXiV
+
+-- Steps
+
+1. Plot p(e) for different kinds of true events
+
+
+2. Test the model loader
+
+------------------------------------------------------------------------------------------
+a. Command line : Specify tasks, subset size, select the models ( all run without crashing )
+
+-- subset size works
+-- 
+-------------------------------------------------------------------------------------------
+
+Patrick visualization requirement :
+
+    Select a true gamma (electron) event for which the network assigned the highest gamma(electron) probability
+    
+    and
+    
+    Select a true gamma (electron) event for which the network assigned the lowest gamma(electron) probability
