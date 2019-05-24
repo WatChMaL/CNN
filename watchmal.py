@@ -13,6 +13,8 @@ import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
 import io_utils.modelhandler as modelhandler
 
+USER_DIR = 'USER/'
+
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=['resnet', 'resnet18'], help='Specify neural net architecture. Default is resnet18.'),
@@ -77,6 +79,8 @@ if __name__ == '__main__':
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)
+    # Set save directory to under USER_DIR
+    config.save_path = USER_DIR+config.save_path
     # Select requested model
     print('Selected architecture:', config.model)
     # Make sure the specified arguments can be passed to the model

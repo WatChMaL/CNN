@@ -21,7 +21,7 @@ from io_utils.data_handling import WCH5Dataset
 from visualization_utils.notebook_utils import CSVData
 from visualization_utils.plot_utils import plot_confusion_matrix
 
-from ROOT_utils.display_list import display_list
+from root_utils.display_list import display_list
 
 class Engine:
     """The training engine 
@@ -262,6 +262,8 @@ class Engine:
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
+                print(len(val_data))
+                
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
@@ -269,7 +271,8 @@ class Engine:
                 
                 self.label = self.label.long()
                 
-                PATH, IDX = val_data[4:6]
+                PATH, IDX = val_data[3:5]
+                PATH = self.dset.get_path(PATH)
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -465,11 +468,10 @@ class Engine:
         return filename
 
     def restore_state(self, weight_file):
-        weight_file = self.config.save_path+'saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f,map_location="cuda:0")
+            checkpoint = torch.load(f,map_location="cuda:0" if (self.config.device == 'gpu') else 'cpu')
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim

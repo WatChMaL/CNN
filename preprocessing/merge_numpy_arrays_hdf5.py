@@ -1,5 +1,5 @@
 import numpy as np
-from pathlib import Path
+from os import path
 import argparse
 
 import h5py
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
 
     # -- Start merging
-    i = 0
+    i = 1
     array_list = []
     
 
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         print(str(i)+"/"+str(len(files)))
 
         #check that we have a regular file
-        if not Path(file_name).is_file():
+        if not path.isfile(file_name):
             raise ValueError(
                 file_name+" is not a regular file or does not exist")
         #the encoding is set by default to read files written out using python 2
@@ -176,6 +176,7 @@ if __name__ == '__main__':
         labels = info['labels']
         
         energies = info['energies']
+        print(energies.shape)
         positions = info['positions']
         
         # Process gamma events (adapted from preprocessing_gamma.py by Abhishek Kajal)
