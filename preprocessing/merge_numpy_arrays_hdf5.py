@@ -176,14 +176,12 @@ if __name__ == '__main__':
         labels = info['labels']
         
         energies = info['energies']
-        print(energies.shape)
         positions = info['positions']
         
         # Process gamma events (adapted from preprocessing_gamma.py by Abhishek Kajal)
-        for i, lab in enumerate(labels):
-            if lab == GAMMA:
-                energies[i] = np.sum(energies[i], axis=1).reshape(-1,1)
-                positions[i] = positions[i].reshape(1, 1,-1)
+        if labels.all() == GAMMA:
+            energies = np.sum(energies, axis=1).reshape(-1,1)
+            positions = positions[:,0,:].reshape(-1, 1,3)
         
         PATHS = info['PATHS']
         IDX = info['IDX']

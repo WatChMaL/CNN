@@ -26,14 +26,17 @@ def get_args():
 def event_dump(config):
     config.input_dir = config.input_dir[0]
     config.output_dir = config.output_dir[0]
-    config.input_dir+('' if config.input_dir.endswith('/') else '/')
-    config.output_dir+("" if config.output_dir.endswith("/") else "/")
+    config.input_dir += ('' if config.input_dir.endswith('/') else '/')
+    config.output_dir += ('' if config.output_dir.endswith('/') else '/')
+    if not os.path.isdir(config.output_dir):
+        os.mkdir(config.output_dir)
     
-    files = [f for f in os.listdir(config.input_dir) if f.endswith('.root') and not f.split('.')[0].endswith('_flat')]
+    files = [f for f in os.listdir(config.input_dir)
+    if f.endswith('.root') and '_R0cm_' in f and not f.split('.')[0].endswith('_flat')]
     output_list = open(config.output_dir+'list.txt', 'a+')
     
     print "input directory: "+str(config.input_dir)
-    print "input files: "+str(files)
+    print "input files ("+str(len(files))+"): "+str(files)
     print "output directory: "+str(config.output_dir)
     
     for input_file in files:
@@ -216,8 +219,6 @@ def event_dump(config):
         ALL_FILE_IDX = np.asarray(FILE_IDX)
         
         output_file = config.output_dir+input_file.split('.')[0]+('.npz')
-        if not os.path.isdir(config.output_dir):
-            os.mkdir(config.output_dir)
         
         np.savez_compressed(output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies,
                             PATHS=ALL_FILE_PATHS, IDX=ALL_FILE_IDX)

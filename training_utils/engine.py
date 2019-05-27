@@ -262,8 +262,6 @@ class Engine:
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
-                print(len(val_data))
-                
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
