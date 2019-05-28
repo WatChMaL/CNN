@@ -202,7 +202,7 @@ def event_dump(config):
             directions.append(direction)
             energies.append(energy)
             
-            FILE_PATHS.append(file_dir)
+            FILE_PATHS.append(os.path.abspath(file_dir))
             FILE_IDX.append(ev)
             
             wcsimrootsuperevent.ReInitialize()
