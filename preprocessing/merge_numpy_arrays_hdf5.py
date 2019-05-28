@@ -1,5 +1,5 @@
 import numpy as np
-from os import path
+import os
 import argparse
 
 import h5py
@@ -9,6 +9,7 @@ Merges numpy arrays into an hdf5 file
 '''
 
 GAMMA = 0 # 0 is the label for gamma events
+ROOT_DUMP = 'ROOT.txt'
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -69,7 +70,7 @@ if __name__ == '__main__':
         print(str(i)+"/"+str(len(files)))
 
         #check that we have a regular file
-        if not path.isfile(file_name):
+        if not os.path.isfile(file_name):
             raise ValueError(
                 file_name+" is not a regular file or does not exist")
         #the encoding is set by default to read files written out using python 2
@@ -217,3 +218,8 @@ if __name__ == '__main__':
 
     # -- Finish
     print("Merging complete")
+    
+    in_dir = os.path.dirname(config.input_file_list)
+    out_dir = os.path.dirname(config.output_file)
+    if ROOT_DUMP not in os.listdir(out_dir):
+        os.rename(in_dir+ROOT_DUMP, out_dir+ROOT_DUMP)

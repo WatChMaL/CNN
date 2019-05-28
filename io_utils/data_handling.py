@@ -49,8 +49,7 @@ class WCH5Dataset(Dataset):
         
         # This will also fit easily in memory
         self.energies = np.array(hdf5_energies)
-        self.PATH_STRINGS = np.array(hdf5_PATHS)
-        self.PATHS = range(len(self.PATH_STRINGS))
+        self.PATHS = np.array(hdf5_PATHS)
         self.IDX = np.array(hdf5_IDX)
 
         self.transform=transform
@@ -100,6 +99,3 @@ class WCH5Dataset(Dataset):
             return self.labels.shape[0]
         else:
             return self.reduced_size
-        
-    def get_path(self, index_tensor):
-        return [self.PATH_STRINGS[index] for index in index_tensor.numpy()]

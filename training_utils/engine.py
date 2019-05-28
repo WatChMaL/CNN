@@ -25,6 +25,8 @@ from training_utils.doublepriorityqueue import DoublePriority
 
 GAMMA, ELECTRON, MUON = 0, 1, 2
 
+ROOT_DUMP = 'ROOTS.txt'
+
 EVENT_CLASS = {GAMMA : 'gamma', ELECTRON : 'electron', MUON : 'muon'}
 
 class Engine:
@@ -273,10 +275,8 @@ class Engine:
                 self.label = self.label.long()
                 
                 energy, PATH, IDX = val_data[2:5]
-                IDX = IDX.long()
-                IDX = IDX.numpy()
-                PATH = PATH.long()
-                PATH = self.dset.get_path(PATH)
+                IDX = IDX.long().numpy()
+                PATH = PATH.long().numpy()
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -311,11 +311,12 @@ class Engine:
         
         # If requested, dump list of root files + indices to save_path directory
         if pushing:
-            plot_path = self.config.save_path+"/extreme_events/"
+            root_path = (self.config.save_path if self.config.root is None else self.config.root)+ROOT_DUMP
+            plot_path = self.config.save_path+"extreme_events/"
             if not os.path.exists(plot_path):
                 os.mkdir(plot_path)
-            wl_lo = open(plot_path+'work_list_lo.txt', 'a+')
-            wl_hi = open(plot_path+'work_list_hi.txt', 'a+')
+            wl_lo = open(plot_path+'list_lo.txt', 'w+')
+            wl_hi = open(plot_path+'list_hi.txt', 'w+')
             worst, best = [], []
             for i in range(len(queues)):
                 q = queues[i]
@@ -324,13 +325,17 @@ class Engine:
                 # Highest softmax are best
                 best.extend(q.getlargest())
                 
+            root_list = open(root_path, 'r')
+            root_files = [l.strip() for l in root_list.readlines()]
+                
             for event in worst:
-                wl_lo.write(str(event[0])+' '+event[1].decode('ASCII')+' '+str(event[2])+'\n')
+                wl_lo.write(str(event[0])+' '+root_files[event[1]]+' '+str(event[2])+'\n')
             for event in best:
-                wl_hi.write(str(event[0])+' '+event[1].decode('ASCII')+' '+str(event[2])+'\n')
+                wl_hi.write(str(event[0])+' '+root_files[event[1]]+' '+str(event[2])+'\n')
             
             wl_lo.close()
             wl_hi.close()
+            root_list.close()
             
             print("Dumped lists of extreme events at", plot_path)
         

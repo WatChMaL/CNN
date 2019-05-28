@@ -3,6 +3,15 @@ Python 2 script for processing ROOT files into .npz files
 
 Adapted from event_disp_and_dump by Wojciech Fedorko
 
+To keep references to the original ROOT files, a list of 
+absolute file paths is dumped in a text file in the output
+directory.
+
+Two indices are saved for every event in the output npz file:
+one corresponding to the position of the ROOT file path in the
+output dump file (ROOT.txt) and the other corresponding to the
+event index within that ROOT file (ev).
+
 Author: Julian Ding
 """
 
@@ -14,6 +23,8 @@ ROOT.gROOT.SetBatch(True)
 
 import os, sys
 from argparse import ArgumentParser
+
+ROOT_DUMP = 'ROOTS.txt'
 
 def get_args():
     parser = ArgumentParser(description='dump WCSim data into numpy .npz file')
@@ -30,9 +41,18 @@ def event_dump(config):
     config.output_dir += ('' if config.output_dir.endswith('/') else '/')
     if not os.path.isdir(config.output_dir):
         os.mkdir(config.output_dir)
+        
+    # Create dump file here
+    PATH_FILE = open(config.output_dir+ROOT_DUMP, 'ab+') # THIS IS HARD-CODED, MUST CORRESPOND IN event_display.py
+    existing_paths = {} # Dictionary of abspath:index pairs
+    for i, line in PATH_FILE.readlines():
+        line = line.strip()
+        existing_path[line] = i
+    num_existing_paths = len(existing_paths.keys())
     
     files = [f for f in os.listdir(config.input_dir)
     if f.endswith('.root') and '_R0cm_' in f and not f.split('.')[0].endswith('_flat')]
+    # This list is for input into merge_numpy_arrays_hdf5.py
     output_list = open(config.output_dir+'list.txt', 'a+')
     
     print "input directory: "+str(config.input_dir)
@@ -202,8 +222,15 @@ def event_dump(config):
             directions.append(direction)
             energies.append(energy)
             
-            FILE_PATHS.append(os.path.abspath(file_dir))
-            FILE_IDX.append(ev)
+            abs_path = os.path.abspath(file_dir)
+            
+            if not abs_path in existing_paths.keys():
+                num_existing_paths += 1
+                existing_paths[abs_path] = num_existing_paths
+                PATH_FILE.write(abs_path+'\n')
+            
+            FILE_PATH_IDX.append(existing_paths[abs_path])
+            FILE_EV_IDX.append(ev)
             
             wcsimrootsuperevent.ReInitialize()
     
@@ -215,8 +242,8 @@ def event_dump(config):
         all_directions=np.asarray(directions)
         all_energies=np.asarray(energies)
         
-        ALL_FILE_PATHS = np.asarray(FILE_PATHS)
-        ALL_FILE_IDX = np.asarray(FILE_IDX)
+        ALL_FILE_PATHS = np.asarray(FILE_PATH_IDX)
+        ALL_FILE_IDX = np.asarray(FILE_EV_IDX)
         
         output_file = config.output_dir+input_file.split('.')[0]+('.npz')
         
@@ -225,6 +252,8 @@ def event_dump(config):
         
         output_list.write(os.path.abspath(output_file)+'\n')
         
+    # Close files on completion
+    PATH_FILE.close()
     output_list.close()
 
 if __name__ == '__main__':

@@ -45,7 +45,7 @@ def event_display(config):
     config.output_dir += ('' if config.output_dir.endswith('/') else '/')
     if not os.path.isdir(config.output_dir):
         os.mkdir(config.output_dir)
-    print "input file: "+str(config.input_file)
+    print "Reading request from: "+str(config.input_file)
     print "output directory: "+str(config.output_dir)
         
     wl = open(config.input_file, 'r')
@@ -54,10 +54,12 @@ def event_display(config):
         splits = line.split()
         softmax = splits[0].strip()
         input_file = splits[1].strip()
-        input_file = input_file.split('.')[0] + '.root'
         ev = int(splits[2].strip())
         
         print "now processing "+input_file+" at index "+str(ev)
+        
+        event_class = get_class(input_file)
+        write_dir = config.output_dir+event_class+"_softmax"+str(softmax)+"/"
     
         norm=plt.Normalize()
         cm=matplotlib.cm.plasma
@@ -165,7 +167,7 @@ def event_display(config):
         ax101.set_ylabel('z')
         cb_pos_arc_z_disp_all_tubes=fig101.colorbar(pos_arc_z_disp_all_tubes,ticks=range(20),pad=0.1)
         cb_pos_arc_z_disp_all_tubes.set_label("pmt in module")
-        fig101.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_arc_z_disp_all_tubes.pdf")
+        fig101.savefig(write_dir+"pos_arc_z_disp_all_tubes.pdf")
         
         fig102 = plt.figure(num=102,clear=True)
         fig102.set_size_inches(10,8)
@@ -175,7 +177,7 @@ def event_display(config):
         ax102.set_ylabel('y')
         cb_pos_x_y_disp_all_tubes=fig102.colorbar(pos_x_y_disp_all_tubes,ticks=range(20),pad=0.1)
         cb_pos_x_y_disp_all_tubes.set_label("pmt in module")
-        fig102.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_x_y_disp_all_tubes.pdf")
+        fig102.savefig(write_dir+"pos_x_y_disp_all_tubes.pdf")
         
         fig103 = plt.figure(num=103,clear=True)
         fig103.set_size_inches(10,8)
@@ -185,7 +187,7 @@ def event_display(config):
         ax103.set_ylabel('z')
         cb_pos_arc_z_disp_wall_tubes=fig103.colorbar(pos_arc_z_disp_wall_tubes,ticks=range(20),pad=0.1)
         cb_pos_arc_z_disp_wall_tubes.set_label("pmt in module")
-        fig103.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_arc_z_disp_wall_tubes.pdf")
+        fig103.savefig(write_dir+"pos_arc_z_disp_wall_tubes.pdf")
         
         fig104 = plt.figure(num=104,clear=True)
         fig104.set_size_inches(10,8)
@@ -195,7 +197,7 @@ def event_display(config):
         ax104.set_ylabel('z')
         cb_pos_arc_z_disp_wall_tubes=fig104.colorbar(pos_arc_z_disp_wall_tubes,ticks=range(16),pad=0.1)
         cb_pos_arc_z_disp_wall_tubes.set_label("wall module row")
-        fig104.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_arc_z_disp_wall_tubes_color_row.pdf")
+        fig104.savefig(write_dir+"pos_arc_z_disp_wall_tubes_color_row.pdf")
         
         fig105 = plt.figure(num=105,clear=True)
         fig105.set_size_inches(10,8)
@@ -205,7 +207,7 @@ def event_display(config):
         ax105.set_ylabel('z')
         cb_pos_arc_z_disp_wall_tubes=fig105.colorbar(pos_arc_z_disp_wall_tubes,ticks=range(40),pad=0.1)
         cb_pos_arc_z_disp_wall_tubes.set_label("wall module column")
-        fig105.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_arc_z_disp_wall_tubes_color_col.pdf")
+        fig105.savefig(write_dir+"pos_arc_z_disp_wall_tubes_color_col.pdf")
         
         fig106 = plt.figure(num=106,clear=True)
         fig106.set_size_inches(10,8)
@@ -215,7 +217,7 @@ def event_display(config):
         ax106.set_ylabel('y')
         cb_pos_x_y_disp_top_tubes=fig106.colorbar(pos_x_y_disp_top_tubes,ticks=range(20),pad=0.1)
         cb_pos_x_y_disp_top_tubes.set_label("pmt in module")
-        fig106.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_x_y_disp_top_tubes.pdf")
+        fig106.savefig(write_dir+"pos_x_y_disp_top_tubes.pdf")
         
         fig107 = plt.figure(num=107,clear=True)
         fig107.set_size_inches(10,8)
@@ -225,7 +227,7 @@ def event_display(config):
         ax107.set_ylabel('y')
         cb_pos_x_y_disp_bottom_tubes=fig107.colorbar(pos_x_y_disp_bottom_tubes,ticks=range(20),pad=0.1)
         cb_pos_x_y_disp_bottom_tubes.set_label("pmt in module")
-        fig107.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_pos_x_y_disp_bottom_tubes.pdf")
+        fig107.savefig(write_dir+"pos_x_y_disp_bottom_tubes.pdf")
         
         Eth = {22:0.786*2, 11:0.786, -11:0.786, 13:158.7, -13:158.7, 111:0.786*4}
         
@@ -397,7 +399,7 @@ def event_display(config):
         ax1.set_zlabel('z')
         cb_ev_disp=fig1.colorbar(ev_disp,pad=0.03)
         cb_ev_disp.set_label("charge")
-        fig1.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_ev_disp_ev_{}_trig_{}.pdf".format(ev,index))
+        fig1.savefig(write_dir+"ev_disp_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig2 = plt.figure(num=2,clear=True)
         fig2.set_size_inches(10,8)
@@ -413,7 +415,7 @@ def event_display(config):
         sm.set_array([])
         cb_ev_disp_2=fig2.colorbar(sm,pad=0.03)
         cb_ev_disp_2.set_label("time")
-        fig2.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_ev_disp_quiver_ev_{}_trig_{}.pdf".format(ev,index))
+        fig2.savefig(write_dir+"ev_disp_quiver_ev_{}_trig_{}.pdf".format(ev,index))
         
         
         fig3 = plt.figure(num=3,clear=True)
@@ -424,7 +426,7 @@ def event_display(config):
         ax3.set_ylabel('z')
         cb_ev_disp_wall=fig3.colorbar(ev_disp_wall,pad=0.1)
         cb_ev_disp_wall.set_label("charge")
-        fig3.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_ev_disp_wall_ev_{}_trig_{}.pdf".format(ev,index))
+        fig3.savefig(write_dir+"ev_disp_wall_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig4 = plt.figure(num=4,clear=True)
         fig4.set_size_inches(10,8)
@@ -434,7 +436,7 @@ def event_display(config):
         ax4.set_ylabel('y')
         cb_ev_disp_top=fig4.colorbar(ev_disp_top,pad=0.1)
         cb_ev_disp_top.set_label("charge")
-        fig4.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_ev_disp_top_ev_{}_trig_{}.pdf".format(ev,index))
+        fig4.savefig(write_dir+"ev_disp_top_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig5 = plt.figure(num=5,clear=True)
         fig5.set_size_inches(10,8)
@@ -444,7 +446,7 @@ def event_display(config):
         ax5.set_ylabel('y')
         cb_ev_disp_bottom=fig5.colorbar(ev_disp_bottom,pad=0.1)
         cb_ev_disp_bottom.set_label("charge")
-        fig5.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_ev_disp_bottom_ev_{}_trig_{}.pdf".format(ev,index))
+        fig5.savefig(write_dir+"ev_disp_bottom_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig6 = plt.figure(num=6,clear=True)
         fig6.set_size_inches(10,4)
@@ -454,7 +456,7 @@ def event_display(config):
         ax6.set_ylabel('z index')
         cb_q_sum_disp=fig6.colorbar(q_sum_disp,pad=0.1)
         cb_q_sum_disp.set_label("total charge in module")
-        fig6.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_q_sum_disp_ev_{}_trig_{}.pdf".format(ev,index))
+        fig6.savefig(write_dir+"q_sum_disp_ev_{}_trig_{}.pdf".format(ev,index))
         
         
         fig7 = plt.figure(num=7,clear=True)
@@ -465,7 +467,7 @@ def event_display(config):
         ax7.set_ylabel('z index')
         cb_q_max_disp=fig7.colorbar(q_max_disp,pad=0.1)
         cb_q_max_disp.set_label("maximum charge in module")
-        fig7.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_q_max_disp_ev_{}_trig_{}.pdf".format(ev,index))
+        fig7.savefig(write_dir+"q_max_disp_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig8 = plt.figure(num=8,clear=True)
         fig8.set_size_inches(10,8)
@@ -473,7 +475,7 @@ def event_display(config):
         plt.hist(np_q, 50, density=True, facecolor='blue', alpha=0.75)
         ax8.set_xlabel('charge')
         ax8.set_ylabel("PMT's above threshold")
-        fig8.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_q_pmt_disp_ev_{}_trig_{}.pdf".format(ev,index))
+        fig8.savefig(write_dir+"q_pmt_disp_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig9 = plt.figure(num=9,clear=True)
         fig9.set_size_inches(10,8)
@@ -481,7 +483,7 @@ def event_display(config):
         plt.hist(np_t, 50, density=True, facecolor='blue', alpha=0.75)
         ax9.set_xlabel('time')
         ax9.set_ylabel("PMT's above threshold")
-        fig9.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_t_pmt_disp_ev_{}_trig_{}.pdf".format(ev,index))
+        fig9.savefig(write_dir+"t_pmt_disp_ev_{}_trig_{}.pdf".format(ev,index))
         
         fig10 = plt.figure(num=10,clear=True)
         fig10.set_size_inches(15,5)
@@ -498,7 +500,7 @@ def event_display(config):
             q_disp=grid_q[19].imshow(np.flip(np_wall_q_max_module,axis=0), cmap=cm)
             grid_q.cbar_axes[0].colorbar(q_disp)
                              
-        fig10.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_q_disp_grid_ev_{}_trig_{}.pdf".format(ev,index))
+        fig10.savefig(write_dir+"q_disp_grid_ev_{}_trig_{}.pdf".format(ev,index))
         
         
         
@@ -517,7 +519,7 @@ def event_display(config):
         
             
         
-        fig11.savefig(config.output_dir+"true_"+get_class(input_file)+"_sm"+str(softmax)+"_t_disp_grid_ev_{}_trig_{}.pdf".format(ev,index))
+        fig11.savefig(write_dir+"t_disp_grid_ev_{}_trig_{}.pdf".format(ev,index))
     
     wl.close()
     
