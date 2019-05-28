@@ -21,7 +21,11 @@ from io_utils.data_handling import WCH5Dataset
 from visualization_utils.notebook_utils import CSVData
 from visualization_utils.plot_utils import plot_confusion_matrix
 
-from root_utils.display_list import display_list
+from training_utils.doublepriorityqueue import DoublePriority
+
+GAMMA, ELECTRON, MUON = 0, 1, 2
+
+EVENT_CLASS = {GAMMA : 'gamma', ELECTRON : 'electron', MUON : 'muon'}
 
 class Engine:
     """The training engine 
@@ -247,7 +251,7 @@ class Engine:
         
         pushing = False
         if plt_worst > 0 or plt_best > 0:
-            heaps = [[], [], []]
+            queues = [DoublePriority(plt_worst, plt_best), DoublePriority(plt_worst, plt_best), DoublePriority(plt_worst, plt_best)]
             pushing = True
         
         # Iterate over the validation set to calculate val_loss and val_acc
@@ -257,7 +261,7 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[], []
+            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[],[]
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
@@ -265,11 +269,13 @@ class Engine:
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
                 self.data, self.label = val_data[0:2]
-                energy = val_data[2]
-                
+                self.data = self.data.float()
                 self.label = self.label.long()
                 
-                PATH, IDX = val_data[3:5]
+                energy, PATH, IDX = val_data[2:5]
+                IDX = IDX.long()
+                IDX = IDX.numpy()
+                PATH = PATH.long()
                 PATH = self.dset.get_path(PATH)
 
                 # Run the forward procedure and output the result
@@ -280,7 +286,7 @@ class Engine:
                 # Add item to priority queues if necessary
                 if pushing:
                     for i, lab in enumerate(self.label):
-                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)
+                        queues[lab].insert((result['softmax'][i][lab], PATH[i], IDX[i]))
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -303,18 +309,30 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-        # If requested, dump root file visualization script outputs to save_path directory
+        # If requested, dump list of root files + indices to save_path directory
         if pushing:
-            for h in heaps:
-                # Sort from low to high
-                sorted_h = h.sort(key=lambda tup:tup[0])
+            plot_path = self.config.save_path+"/extreme_events/"
+            if not os.path.exists(plot_path):
+                os.mkdir(plot_path)
+            wl_lo = open(plot_path+'work_list_lo.txt', 'a+')
+            wl_hi = open(plot_path+'work_list_hi.txt', 'a+')
+            worst, best = [], []
+            for i in range(len(queues)):
+                q = queues[i]
                 # Lowest softmax are worst
-                worst = sorted_h[0:plt_worst]
+                worst.extend(q.getsmallest())
                 # Highest softmax are best
-                best = sorted_h[-plt_best:]
+                best.extend(q.getlargest())
                 
-            display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
-            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
+            for event in worst:
+                wl_lo.write(str(event[0])+' '+event[1].decode('ASCII')+' '+str(event[2])+'\n')
+            for event in best:
+                wl_hi.write(str(event[0])+' '+event[1].decode('ASCII')+' '+str(event[2])+'\n')
+            
+            wl_lo.close()
+            wl_hi.close()
+            
+            print("Dumped lists of extreme events at", plot_path)
         
         np_softmaxes = np.array(softmaxes)
 
@@ -463,11 +481,13 @@ class Engine:
             'optimizer': self.optimizer.state_dict(),
             'state_dict': self.model.state_dict()
         }, filename)
+        print('Saved checkpoint as:', filename)
         return filename
 
     def restore_state(self, weight_file):
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
+            print('Restoring state from', weight_file)
             # torch interprets the file, then we can access using string keys
             checkpoint = torch.load(f,map_location="cuda:0" if (self.config.device == 'gpu') else 'cpu')
             # load network weights
@@ -477,4 +497,5 @@ class Engine:
                 self.optimizer.load_state_dict(checkpoint['optimizer'])
             # load iteration count
             self.iteration = checkpoint['global_step']
+        print('Restoration complete.')
             

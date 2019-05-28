@@ -101,5 +101,5 @@ class WCH5Dataset(Dataset):
         else:
             return self.reduced_size
         
-    def get_path(self, index):
-        return self.PATH_STRINGS[index]
+    def get_path(self, index_tensor):
+        return [self.PATH_STRINGS[index] for index in index_tensor.numpy()]
