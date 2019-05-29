@@ -43,7 +43,7 @@ def event_dump(config):
         os.mkdir(config.output_dir)
         
     # Create dump file here
-    PATH_FILE = open(config.output_dir+ROOT_DUMP, 'ab+') # THIS IS HARD-CODED, MUST CORRESPOND IN event_display.py
+    PATH_FILE = open(config.output_dir+ROOT_DUMP, 'ab+')
     existing_paths = {} # Dictionary of abspath:index pairs
     for i, line in enumerate(PATH_FILE.readlines()):
         line = line.strip()
@@ -55,8 +55,11 @@ def event_dump(config):
     # This list is for input into merge_numpy_arrays_hdf5.py
     output_list = open(config.output_dir+'list.txt', 'a+')
     
+    CURR = 1
+    TOTAL_FILES = len(files)
+    
     print "input directory: "+str(config.input_dir)
-    print "input files ("+str(len(files))+")"#: "+str(files)
+    print "input files ("+str(TOTAL_FILES)+")"#: "+str(files)
     print "output directory: "+str(config.output_dir)
     
     for input_file in files:
@@ -80,8 +83,6 @@ def event_dump(config):
             sys.exit()
             
         tree=file.Get("wcsimT")
-        print(tree)
-        print(type(tree))
         nevent=tree.GetEntries()
     
         print "number of entries in the tree: " + str(nevent)
@@ -109,14 +110,14 @@ def event_dump(config):
         Eth = {22:0.786*2, 11:0.786, -11:0.786, 13:158.7, -13:158.7, 111:0.786*4}
             
         for ev in range(nevent):
-            if ev%100 == 0:
-                print "now processing event " +str(ev)
+            #if ev%100 == 0:
+            #    print "now processing event " +str(ev)
             
             tree.GetEvent(ev)
             wcsimrootsuperevent=tree.wcsimrootevent
     
-            if ev%100 == 0:
-                print "number of sub events: " + str(wcsimrootsuperevent.GetNumberOfEvents())
+            #if ev%100 == 0:
+            #    print "number of sub events: " + str(wcsimrootsuperevent.GetNumberOfEvents())
     
             wcsimrootevent = wcsimrootsuperevent.GetTrigger(0)
             tracks = wcsimrootevent.GetTracks()
@@ -144,14 +145,14 @@ def event_dump(config):
     
             wcsimrootevent=wcsimrootsuperevent.GetTrigger(index);
     
-            if ev%100 == 0:
-                print "event date and number: "+str(wcsimrootevent.GetHeader().GetDate())+" "+str(wcsimrootevent.GetHeader().GetEvtNum())
+            #if ev%100 == 0:
+            #    print "event date and number: "+str(wcsimrootevent.GetHeader().GetDate())+" "+str(wcsimrootevent.GetHeader().GetEvtNum())
                 
             ncherenkovhits     = wcsimrootevent.GetNcherenkovhits()
             ncherenkovdigihits = wcsimrootevent.GetNcherenkovdigihits()
     
-            if ev%100 == 0:
-                print "Ncherenkovdigihits "+str(ncherenkovdigihits)
+            #if ev%100 == 0:
+            #    print "Ncherenkovdigihits "+str(ncherenkovdigihits)
     
             if ncherenkovdigihits == 0:
                 print "event, trigger has no hits "+str(ev)+" "+str(index)
@@ -224,7 +225,7 @@ def event_dump(config):
             
             abs_path = os.path.abspath(file_dir)
             
-            if not abs_path in existing_paths.keys():
+            if not abs_path in existing_paths:
                 path_idx += 1
                 existing_paths[abs_path] = path_idx
                 PATH_FILE.write(abs_path+'\n')
@@ -252,11 +253,17 @@ def event_dump(config):
         
         output_list.write(os.path.abspath(output_file)+'\n')
         
-        print "Finished converting file "+output_file
+        del tree
+        del geotree
+        file.Close()
+        print "Finished converting file "+output_file+" ("+str(CURR)+"/"+str(TOTAL_FILES)+")"
+        CURR += 1
         
     # Close files on completion
     PATH_FILE.close()
     output_list.close()
+    
+    print "\n=========== ALL FILES CONVERTED ===========\n"
 
 if __name__ == '__main__':
     
