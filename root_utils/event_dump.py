@@ -45,10 +45,10 @@ def event_dump(config):
     # Create dump file here
     PATH_FILE = open(config.output_dir+ROOT_DUMP, 'ab+') # THIS IS HARD-CODED, MUST CORRESPOND IN event_display.py
     existing_paths = {} # Dictionary of abspath:index pairs
-    for i, line in PATH_FILE.readlines():
+    for i, line in enumerate(PATH_FILE.readlines()):
         line = line.strip()
-        existing_path[line] = i
-    num_existing_paths = len(existing_paths.keys())
+        existing_paths[line] = i
+    path_idx = len(existing_paths.keys())-1
     
     files = [f for f in os.listdir(config.input_dir)
     if f.endswith('.root') and '_R0cm_' in f and not f.split('.')[0].endswith('_flat')]
@@ -96,8 +96,8 @@ def event_dump(config):
         num_pmts=geo.GetWCNumPMT()
             
         # All data arrays are initialized here
-        FILE_PATHS = []
-        FILE_IDX = []
+        FILE_PATH_IDX = []
+        FILE_EV_IDX = []
         
         ev_data=[]
         labels=[]
@@ -225,8 +225,8 @@ def event_dump(config):
             abs_path = os.path.abspath(file_dir)
             
             if not abs_path in existing_paths.keys():
-                num_existing_paths += 1
-                existing_paths[abs_path] = num_existing_paths
+                path_idx += 1
+                existing_paths[abs_path] = path_idx
                 PATH_FILE.write(abs_path+'\n')
             
             FILE_PATH_IDX.append(existing_paths[abs_path])

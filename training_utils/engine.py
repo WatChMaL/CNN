@@ -287,6 +287,7 @@ class Engine:
                 if pushing:
                     for i, lab in enumerate(self.label):
                         queues[lab].insert((result['softmax'][i][lab], PATH[i], IDX[i]))
+                        print(PATH[i])
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -311,7 +312,7 @@ class Engine:
         
         # If requested, dump list of root files + indices to save_path directory
         if pushing:
-            root_path = (self.config.save_path if self.config.root is None else self.config.root)+ROOT_DUMP
+            root_path = (os.path.dirname(self.config.path)+'/' if self.config.root is None else self.config.root)+ROOT_DUMP
             plot_path = self.config.save_path+"extreme_events/"
             if not os.path.exists(plot_path):
                 os.mkdir(plot_path)

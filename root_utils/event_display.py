@@ -59,7 +59,9 @@ def event_display(config):
         print "now processing "+input_file+" at index "+str(ev)
         
         event_class = get_class(input_file)
-        write_dir = config.output_dir+event_class+"_softmax"+str(softmax)+"/"
+        write_dir = config.output_dir+event_class+"_softmax"+str(softmax).split('.')[0]+'_'+str(softmax).split('.')[1]+"/"
+        if not os.path.isdir(write_dir):
+            os.mkdir(write_dir)
     
         norm=plt.Normalize()
         cm=matplotlib.cm.plasma

@@ -8,6 +8,8 @@ watchmal.py: Script to pass commandline arguments from user to neural net framew
 Author: Julian Ding
 """
 
+import os
+
 import training_utils.engine as net
 import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
@@ -72,6 +74,10 @@ if __name__ == '__main__':
     for ar in ARGS:
         if getattr(config, ar.name) != ar.default:
             ATTR_DICT[ar.name].overwrite = False
+    # Create user directory if necessary
+    if not os.path.isdir(USER_DIR):
+        os.mkdir(USER_DIR)
+        print("Created user directory", USER_DIR)
     # Load from file
     if config.load is not None:
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
@@ -83,6 +89,9 @@ if __name__ == '__main__':
         ioconfig.saveConfig(config, config.cfg)
     # Set save directory to under USER_DIR
     config.save_path = USER_DIR+config.save_path+('' if config.save_path.endswith('/') else '/')
+    # Add slash to root directory if needed
+    if config.root is not None:
+        config.root = config.root+('' if config.root.endswith('/') else '/')
     # Select requested model
     print('Selected architecture:', config.model)
     # Make sure the specified arguments can be passed to the model
