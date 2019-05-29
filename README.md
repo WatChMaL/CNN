@@ -9,14 +9,17 @@ To start the program, download the repository and navigate to the parent folder,
 There is an extensive list of flags which can be used to tune the training engine, detailed below. Every flag has valid default behaviour and thus none of the flags need to be specified to run the program; however, the data path default `.` is probably invalid for any particular case.
 ### Setup
 - `-h` prints out the help dialogue for all flags onto the terminal window. There is no config option for this flag.
-- `-m #name #constructor'` specifies an architecture to train on. Make sure the selected architecture exists in `models/`. A list of available architectures is printed on the terminal for convenience. The config option for this flag is `model`.
+- `-m #name #constructor` specifies an architecture to train on. Make sure the selected architecture exists in `models/`. A list of available architectures is printed on the terminal for convenience. The config option for this flag is `model`.
 - `-pms #space-delimited list of named arguments` specifies a list of arguments to pass to the CNN constructor. Make sure the arguments are valid for the selected constructor. A list of arguments taken by each constructor is printed on the terminal for convenience. The config option for this flag is `params`.
 - `-dev #cpu/gpu` sets the engine to offload work to the CPU or GPU. If GPU is selected, you must also specify a list of GPUs. The config option for this flag is `device`.
 - `-gpu #space-delimited list of gpus (ints)` gives the engine a list of GPUs to train on. If no GPUs are given, the training engine defaults to running on the CPU. The config option for this flag is `gpu_list`.
 - `-do #train #test #val` instructs the engine to run training, testing, and validation tasks. The engine can run any subset of these tasks and runs them all by default. The config option for this flag is `tasks`.
+- `-wst #integer` instructs the engine to dump a list of root file paths and indices identifying the *n* worst-identified events in the input dataset during validation. This dumps to a plain-text file in the `save_path` directory. By default this is set to `0`. The config option for this flag is `worst`.
+- `-bst #integer` instructs the engine to dump a list of root file paths and indices identifying the *n* best-identified events in the input dataset during validation. This dumps to the same directory as `worst`. The config option for this flag is `best`.
 
 ### Data Handling
 - `-pat #path` specifies the path to the labeled dataset which the engine will train, test, and validate on. HDF5 is the only supported data format at the moment. The config option for this flag is `path`.
+- `-roo #ROOT file list (ROOTS.txt)` specifies the location of the text file that contains the absolute paths to the original ROOT files used to generate the dataset in use. This flag is usually unnecessary since `ROOTS.txt` is placed in the same directory as the dataset by default. The config option for this flag is `root`.
 - `-sub #integer` specifies a subset of the dataset located at `path` to use, which can be useful for making faster training runs. By default, all of the data is used. The config option for this flag is `subset`.
 - `-shf #True/False` specifies whether or not to shuffle the contents of the input dataset. By default this is set to `True`. The config option for this flag is `shuffle`.
 - `-vas #float between 0 and 1` specifies the fraction of the dataset to use for validation. By default this is set to `0.1`. The config option for this flag is `val_split`.

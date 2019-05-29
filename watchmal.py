@@ -48,6 +48,10 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=1000, help='Batch size for testing.'),
         arghandler.Argument('tasks',list, list_dtype=str, flag='-do',
                             default=['train', 'test', 'valid'], help='Specify list of tasks: "train" = run training; "test" = run testing; "valid" = run validation. Default behaviour runs all tasks.'),
+        arghandler.Argument('worst', int, flag='-wst',
+                            default=0, help='Specify the number of WORST-identified events to dump root file references to at the end of validation.'),
+        arghandler.Argument('best', int, flag='-bst',
+                            default=0, help='Specify the number of BEST-identified events to dump root file references to at the end of validation.'),
         arghandler.Argument('save_path', str, '-sap',
                             default='save_path', help='Specify path to save data to. Default is save_path.'),
         arghandler.Argument('data_description', str, '-dsc',
@@ -109,4 +113,4 @@ if __name__ == '__main__':
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
-        nnet.validate(plt_worst=3, plt_best=4)
+        nnet.validate(plt_worst=config.worst, plt_best=config.best)

@@ -56,7 +56,7 @@ def event_dump(config):
     output_list = open(config.output_dir+'list.txt', 'a+')
     
     print "input directory: "+str(config.input_dir)
-    print "input files ("+str(len(files))+"): "+str(files)
+    print "input files ("+str(len(files))+")"#: "+str(files)
     print "output directory: "+str(config.output_dir)
     
     for input_file in files:
@@ -251,6 +251,8 @@ def event_dump(config):
                             PATHS=ALL_FILE_PATHS, IDX=ALL_FILE_IDX)
         
         output_list.write(os.path.abspath(output_file)+'\n')
+        
+        print "Finished converting file "+output_file
         
     # Close files on completion
     PATH_FILE.close()
