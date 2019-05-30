@@ -1,7 +1,5 @@
 """
-Python 2 script for processing a directory of ROOT files into .npz files
-Note: due to a memory leak bug in tree.GetEvent(idx), this script is currently
-non-tractable on large lists of ROOT files; use event_dump_one.py instead.
+Python 2 script for processing one ROOT file into one .npz file
 
 Adapted from event_disp_and_dump by Wojciech Fedorko
 
@@ -30,21 +28,20 @@ ROOT_DUMP = 'ROOTS.txt'
 
 def get_args():
     parser = ArgumentParser(description='dump WCSim data into numpy .npz file')
-    parser.add_argument('input_dir', type=str, nargs=1)
+    parser.add_argument('input_file', type=str, nargs=1)
     parser.add_argument('output_dir', type=str, nargs=1)
     args = parser.parse_args()
     return args
 
 
 def event_dump(config):
-    config.input_dir = config.input_dir[0]
+    config.input_file = config.input_file[0]
     config.output_dir = config.output_dir[0]
-    config.input_dir += ('' if config.input_dir.endswith('/') else '/')
     config.output_dir += ('' if config.output_dir.endswith('/') else '/')
     if not os.path.isdir(config.output_dir):
         os.mkdir(config.output_dir)
         
-    # Create dump file here
+    # Create/open dump file here
     PATH_FILE = open(config.output_dir+ROOT_DUMP, 'ab+')
     existing_paths = {} # Dictionary of abspath:index pairs
     for i, line in enumerate(PATH_FILE.readlines()):
@@ -52,33 +49,26 @@ def event_dump(config):
         existing_paths[line] = i
     path_idx = len(existing_paths.keys())-1
     
-    files = [f for f in os.listdir(config.input_dir)
-    if f.endswith('.root') and '_R0cm_' in f and not f.split('.')[0].endswith('_flat')]
-    # This list is for input into merge_numpy_arrays_hdf5.py
-    output_list = open(config.output_dir+'list.txt', 'a+')
+    f = config.input_file
     
-    CURR = 1
-    TOTAL_FILES = len(files)
-    
-    print "input directory: "+str(config.input_dir)
-    print "input files ("+str(TOTAL_FILES)+")"#: "+str(files)
-    print "output directory: "+str(config.output_dir)
-    
-    for input_file in files:
+    if f.endswith('.root') and '_R0cm_' in f and not f.split('.')[0].endswith('_flat'):
         
-        print "\nNow processing "+input_file
+        # This list is for input into merge_numpy_arrays_hdf5.py
+        output_list = open(config.output_dir+'list.txt', 'a+')
         
-        file_dir = config.input_dir+input_file
-        file=ROOT.TFile(file_dir,"read")
+        print "input file: "+config.input_file
+        print "output directory: "+str(config.output_dir)
+        
+        file=ROOT.TFile(config.input_file,"read")
         
         label=-1
-        if "_gamma" in input_file:
+        if "_gamma" in config.input_file:
             label=0
-        elif "_e" in input_file:
+        elif "_e" in config.input_file:
             label=1
-        elif "_mu" in input_file:
+        elif "_mu" in config.input_file:
             label=2
-        elif "_pi0" in input_file:
+        elif "_pi0" in config.input_file:
             label=3
         else:
             print "Unknown input file particle type"
@@ -225,7 +215,7 @@ def event_dump(config):
             directions.append(direction)
             energies.append(energy)
             
-            abs_path = os.path.abspath(file_dir)
+            abs_path = os.path.abspath(config.input_file)
             
             if not abs_path in existing_paths:
                 path_idx += 1
@@ -248,23 +238,21 @@ def event_dump(config):
         ALL_FILE_PATHS = np.asarray(FILE_PATH_IDX)
         ALL_FILE_IDX = np.asarray(FILE_EV_IDX)
         
-        output_file = config.output_dir+input_file.split('.')[0]+('.npz')
+        output_file = config.output_dir+config.input_file.split('/')[-1].split('.')[0]+('.npz')
         
         np.savez_compressed(output_file,event_data=all_events,labels=all_labels,pids=all_pids,positions=all_positions,directions=all_directions,energies=all_energies,
                             PATHS=ALL_FILE_PATHS, IDX=ALL_FILE_IDX)
         
         output_list.write(os.path.abspath(output_file)+'\n')
         
+        # Close files on completion
         file.Close()
+        PATH_FILE.close()
+        output_list.close()
         
-        print "Finished converting file "+output_file+" ("+str(CURR)+"/"+str(TOTAL_FILES)+")"
-        CURR += 1
-        
-    # Close files on completion
-    PATH_FILE.close()
-    output_list.close()
-    
-    print "\n=========== ALL FILES CONVERTED ===========\n"
+        print "Finished writing to "+output_file+"\n"
+
+    else: print config.input_file+" is not a valid data file, aborting."
 
 if __name__ == '__main__':
     
