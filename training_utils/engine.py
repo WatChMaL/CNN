@@ -150,9 +150,13 @@ class Engine:
         self.optimizer.step()
         
     # ========================================================================
-    def train(self, epochs=3.0, report_interval=10, valid_interval=100, save_interval=1000):
+    def train(self, epochs=3.0, report_interval=10, valid_interval=1000, save_interval=1000):
         # CODE BELOW COPY-PASTED FROM [HKML CNN Image Classification.ipynb]
         # (variable names changed to match new Engine architecture. Added comments and minor debugging)
+        
+        # Keep track of the validation accuracy
+        best_val_acc = 0.0
+        continue_train = True
         
         # Prepare attributes for data logging
         self.train_log, self.val_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/val_test.csv')
@@ -163,7 +167,7 @@ class Engine:
         # Initialize iteration counter
         iteration = 0
         # Training loop
-        while (int(epoch+0.5) < epochs):
+        while ((int(epoch+0.5) < epochs) and continue_train):
             print('Epoch',int(epoch+0.5),'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
@@ -207,14 +211,38 @@ class Engine:
                         self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
                         self.val_log.write()
                     self.model.train()
+                    
+                    if(res["accuracy"]-best_val_acc > 1e-03):
+                        continue_train = True
+                        best_val_acc = res["accuracy"]
+                    else:
+                        continue_train = True
+                        
                 if epoch >= epochs:
                     break
                     
+                print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' %(iteration,epoch,res['loss'],res['accuracy']))
+                    
                 # Save on the given intervals
                 if(i+1)%save_interval == 0:
-                    self.save_state(curr_iter=iteration)
-                    
-            print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
+                    with torch.no_grad():
+                        
+                        self.model.eval()
+                        val_data = next(iter(self.val_iter))
+                        
+                        # Data and label
+                        self.data = val_data[0]
+                        self.label = val_data[1].long()
+                        
+                        res = self.forward(False)
+                        
+                        if(res["accuracy"]-best_val_acc > 1e-03):
+                            self.save_state(curr_iter=0)
+                            continue_train = True
+                            best_val_acc = res["accuracy"]
+                        else:
+                            continue_train = True
+            
             
         self.val_log.close()
         self.train_log.close()
@@ -224,7 +252,8 @@ class Engine:
     # Function to test the model performance on the validation
     # dataset ( returns loss, acc, confusion matrix )
     def validate(self, plt_worst=0, plt_best=0):
-        r"""Test the trained model on the validation set.
+        """
+        rTest the trained model on the validation set.
         
         Parameters: None
         
@@ -238,17 +267,17 @@ class Engine:
         """
         
         # Run number
-        run = 7
+        run = 8
         
         # Variables to output at the end
         val_loss = 0.0
         val_acc = 0.0
         val_iterations = 0
         
-        pushing = False
+        """pushing = False
         if plt_worst > 0 or plt_best > 0:
             heaps = [[], [], []]
-            pushing = True
+            pushing = True"""
         
         # Iterate over the validation set to calculate val_loss and val_acc
         with torch.no_grad():
@@ -257,19 +286,18 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[], []
+            labels, predictions, softmaxes, energies = [],[],[],[]
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
                 
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
-                self.data, self.label = val_data[0:2]
-                energy = val_data[2]
+                self.data, self.label, batch_energies = val_data[0:3]
                 
                 self.label = self.label.long()
                 
-                PATH, IDX = val_data[4:6]
+                #PATH, IDX = val_data[4:6]
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -277,33 +305,30 @@ class Engine:
                 val_acc += result['accuracy']
                 
                 # Add item to priority queues if necessary
-                if pushing:
+                """if pushing:
                     for i, lab in enumerate(self.label):
-                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)
+                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)"""
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
                 
                 # Add the local result to the final result
-                loss.append(val_loss)
-                accuracy.append(val_acc)
-                labels.append(self.label)
-                predictions.append(result['prediction'])
-                softmaxes.append(result["softmax"])
-                energies.append(energy)
-                
-                #print(self.data.shape)
-                #print(self.label.shape)
+                labels.extend(self.label)
+                predictions.extend(result['prediction'])
+                softmaxes.extend(result["softmax"])
+                energies.extend(batch_energies)
                 
                 val_iterations += 1
-         
+                
+        print(val_iterations)
+
         print("\nTotal val loss : ", val_loss,
               "\nTotal val acc : ", val_acc,
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
         # If requested, dump root file visualization script outputs to save_path directory
-        if pushing:
+        """if pushing:
             for h in heaps:
                 # Sort from low to high
                 sorted_h = h.sort(key=lambda tup:tup[0])
@@ -313,19 +338,12 @@ class Engine:
                 best = sorted_h[-plt_best:]
                 
             display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
-            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
+            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")"""
         
-        np_softmaxes = np.array(softmaxes)
-
         np.save("labels" + str(run) + ".npy", np.hstack(labels))
         np.save("energies" + str(run) + ".npy", np.hstack(energies))
         np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
-        np.save("softmax" + str(run) + ".npy",
-                np_softmaxes.reshape(np_softmaxes.shape[0]*np_softmaxes.shape[1],
-                                    np_softmaxes.shape[2]))
-        
-        
-        print(np_softmaxes.shape)
+        np.save("softmax" + str(run) + ".npy", np.array(softmaxes))
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -453,7 +471,9 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
+        #filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
+        #filename = str(self.config.model[1])+"-"+"iter-"+str(curr_iter)+".save"
+        filename = str(self.config.model[1])+"-"+"trained.save"
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -465,7 +485,7 @@ class Engine:
         return filename
 
     def restore_state(self, weight_file):
-        weight_file = self.config.save_path+'saved_states/'+weight_file
+        weight_file = weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys

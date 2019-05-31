@@ -90,6 +90,7 @@ if __name__ == '__main__':
     if config.restore_state is not None:
         nnet.restore_state(config.restore_state)
     if 'train' in config.tasks:
+        print("Number of epochs :", config.epochs)
         nnet.train(epochs=config.epochs, save_interval=1000)
     if 'test' in config.tasks:
         nnet.test()
