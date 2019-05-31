@@ -3,7 +3,6 @@ import h5py
 
 import numpy as np
 
-
 class WCH5Dataset(Dataset):
     """
     Dataset storing image-like data from Water Cherenkov detector
@@ -21,6 +20,10 @@ class WCH5Dataset(Dataset):
         hdf5_event_data = f["event_data"]
         hdf5_labels=f["labels"]
         hdf5_energies=f["energies"]
+        hdf5_positions=f["positions"]
+        
+        hdf5_PATHS=f["PATHS"]
+        hdf5_IDX=f["IDX"]
 
         assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
@@ -46,6 +49,8 @@ class WCH5Dataset(Dataset):
         
         # This will also fit easily in memory
         self.energies = np.array(hdf5_energies)
+        self.PATHS = np.array(hdf5_PATHS)
+        self.IDX = np.array(hdf5_IDX)
 
         self.transform=transform
         
@@ -85,11 +90,9 @@ class WCH5Dataset(Dataset):
 
     def __getitem__(self,index):
         if self.transform is None:
-            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index]
+            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], self.PATHS[index], self.IDX[index]
         else:
             raise NotImplementedError
-
-
 
     def __len__(self):
         if self.reduced_size is None:

@@ -13,9 +13,10 @@ USER_DIR = 'USER/'
 # Config file type
 CFG_EXT = '.ini'
 
-# Delimiter for list data strings
+# Delimiters
 DELIM = ' '
 ARG_DELIM = '='
+NAME_DELIM = '_'
 
 # Class to encapsulate the necessary properties of a config object attribute
 class ConfigAttr():
@@ -84,6 +85,12 @@ def saveConfig(config, outFile):
                 item = listStr
             conf.set('config', str(x), str(item))
     # Do not overwrite existing config files
+    while os.path.isfile(outFile):
+        n_outFile = outFile.split('.')[0]
+        name_split = n_outFile.split(NAME_DELIM)
+        n_outFile = name_split[0]+NAME_DELIM+('0' if len(name_split) == 1 else str(int(name_split[1])+1))+CFG_EXT
+        print('Config file with name', outFile, 'already exists. Saving to:', n_outFile)
+        outFile = n_outFile
     with open(outFile, 'w+') as configFile:
         conf.write(configFile)
     print('Config file saved in', USER_DIR)

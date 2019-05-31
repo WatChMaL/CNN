@@ -1,5 +1,5 @@
 import numpy as np
-from pathlib import Path
+import os
 import argparse
 
 import h5py
@@ -9,6 +9,7 @@ Merges numpy arrays into an hdf5 file
 '''
 
 GAMMA = 0 # 0 is the label for gamma events
+ROOT_DUMP = 'ROOT.txt'
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -48,7 +49,7 @@ if __name__ == '__main__':
 
 
     # -- Start merging
-    i = 0
+    i = 1
     array_list = []
     
 
@@ -69,7 +70,7 @@ if __name__ == '__main__':
         print(str(i)+"/"+str(len(files)))
 
         #check that we have a regular file
-        if not Path(file_name).is_file():
+        if not os.path.isfile(file_name):
             raise ValueError(
                 file_name+" is not a regular file or does not exist")
         #the encoding is set by default to read files written out using python 2
@@ -179,10 +180,9 @@ if __name__ == '__main__':
         positions = info['positions']
         
         # Process gamma events (adapted from preprocessing_gamma.py by Abhishek Kajal)
-        for i, lab in enumerate(labels):
-            if lab == GAMMA:
-                energies[i] = np.sum(energies[i], axis=1).reshape(-1,1)
-                positions[i] = positions[i].reshape(1, 1,-1)
+        if labels.all() == GAMMA:
+            energies = np.sum(energies, axis=1).reshape(-1,1)
+            positions = positions[:,0,:].reshape(-1, 1,3)
         
         PATHS = info['PATHS']
         IDX = info['IDX']
@@ -218,3 +218,9 @@ if __name__ == '__main__':
 
     # -- Finish
     print("Merging complete")
+    
+    in_dir = os.path.dirname(config.input_file_list[0])
+    out_dir = os.path.dirname(config.output_file[0])
+    if ROOT_DUMP not in os.listdir(out_dir):
+        os.rename(in_dir+ROOT_DUMP, out_dir+ROOT_DUMP)
+        print("Moved root file list to output directory:", out_dir)

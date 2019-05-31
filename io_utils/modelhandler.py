@@ -8,6 +8,7 @@ import importlib
 import os
 import sys
 import inspect
+import string
 
 MODELS_DIR = 'models'
 models = importlib.import_module(MODELS_DIR)
@@ -57,8 +58,10 @@ def select_model(select_params):
     return getattr(model, constructor)
 
 # Check if an argument list is valid for a specified model; stops program if not
-# REQUIRES: argslist is a kwargs-interpretable dictionary
+# REQUIRES: argslist is a kwargs-interpretable dictionary and digit-stripped model string
+#           is a valid module in the models package
 def check_params(model, argslist):
+    model = model.rstrip(string.digits)
     mod = importlib.import_module(MODELS_DIR+'.'+model)
     constructor = intuit_constructor(model)
     assert(constructor in dir(mod))

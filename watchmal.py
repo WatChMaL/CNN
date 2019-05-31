@@ -8,10 +8,14 @@ watchmal.py: Script to pass commandline arguments from user to neural net framew
 Author: Julian Ding
 """
 
+import os
+
 import training_utils.engine as net
 import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
 import io_utils.modelhandler as modelhandler
+
+USER_DIR = 'USER/'
 
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
@@ -23,7 +27,9 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
         arghandler.Argument('gpu_list', list, list_dtype=int, flag='-gpu',
                             help='List of available GPUs.'),
         arghandler.Argument('path', str, '-pat',
-                            default='.', help='Path to training dataset.'),
+                            default='', help='Path to training dataset.'),
+        arghandler.Argument('root', str, '-roo',
+                            default=None, help='Path to ROOT file list directory if outside data directory.'),
         arghandler.Argument('subset', int, '-sub',
                             default=None, help='Number of data from training set to use.'),
         arghandler.Argument('shuffle', bool, '-shf',
@@ -42,6 +48,10 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=1000, help='Batch size for testing.'),
         arghandler.Argument('tasks',list, list_dtype=str, flag='-do',
                             default=['train', 'test', 'valid'], help='Specify list of tasks: "train" = run training; "test" = run testing; "valid" = run validation. Default behaviour runs all tasks.'),
+        arghandler.Argument('worst', int, flag='-wst',
+                            default=0, help='Specify the number of WORST-identified events to dump root file references to at the end of validation.'),
+        arghandler.Argument('best', int, flag='-bst',
+                            default=0, help='Specify the number of BEST-identified events to dump root file references to at the end of validation.'),
         arghandler.Argument('save_path', str, '-sap',
                             default='save_path', help='Specify path to save data to. Default is save_path.'),
         arghandler.Argument('data_description', str, '-dsc',
@@ -68,6 +78,10 @@ if __name__ == '__main__':
     for ar in ARGS:
         if getattr(config, ar.name) != ar.default:
             ATTR_DICT[ar.name].overwrite = False
+    # Create user directory if necessary
+    if not os.path.isdir(USER_DIR):
+        os.mkdir(USER_DIR)
+        print("Created user directory", USER_DIR)
     # Load from file
     if config.load is not None:
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
@@ -77,6 +91,11 @@ if __name__ == '__main__':
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)
+    # Set save directory to under USER_DIR
+    config.save_path = USER_DIR+config.save_path+('' if config.save_path.endswith('/') else '/')
+    # Add slash to root directory if needed
+    if config.root is not None:
+        config.root = config.root+('' if config.root.endswith('/') else '/')
     # Select requested model
     print('Selected architecture:', config.model)
     # Make sure the specified arguments can be passed to the model
@@ -95,4 +114,4 @@ if __name__ == '__main__':
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
-        nnet.validate(plt_worst=3, plt_best=3)
+        nnet.validate(plt_worst=config.worst, plt_best=config.best)
