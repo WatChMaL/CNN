@@ -18,6 +18,7 @@ There is an extensive list of flags which can be used to tune the training engin
 - `-bst #integer` instructs the engine to dump a list of root file paths and indices identifying the *n* best-identified events in the input dataset during validation. This dumps to the same directory as `worst`. The config option for this flag is `best`.
 
 ### Data Handling
+See the wiki page on ROOT file conversion for the conversion pathway from ROOT to .npz to HDF5.
 - `-pat #path` specifies the path to the labeled dataset which the engine will train, test, and validate on. HDF5 is the only supported data format at the moment. The config option for this flag is `path`.
 - `-roo #ROOT file list (ROOTS.txt)` specifies the location of the text file that contains the absolute paths to the original ROOT files used to generate the dataset in use. This flag is usually unnecessary since `ROOTS.txt` is placed in the same directory as the dataset by default. The config option for this flag is `root`.
 - `-sub #integer` specifies a subset of the dataset located at `path` to use, which can be useful for making faster training runs. By default, all of the data is used. The config option for this flag is `subset`.
