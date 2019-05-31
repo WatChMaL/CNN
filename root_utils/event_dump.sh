@@ -1,5 +1,5 @@
 # event_dump -- A shell script to replicate the functionality of event_dump.py
-#               by iteratively calling event_dump_one.py to circumvent the
+#               by iteratively calling event_dump_one.py while circumventing the
 #               memory leak in event_dump.py
 
 # Usage: ./event_dump.sh INPUT_DIR OUTPUT_DIR
@@ -25,4 +25,8 @@ for file in ${valids[@]}; do
     python event_dump_one.py $file_dir $output_dir || break
     ((idx++))
 done
+
+if [ $idx == $total ]; then
+    echo "\n==== Finished processing $total files! ===="
+fi
 )
