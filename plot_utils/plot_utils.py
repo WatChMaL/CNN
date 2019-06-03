@@ -10,6 +10,7 @@ import numpy as np
 import math
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
@@ -766,17 +767,40 @@ def plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, s
     plt.subplots_adjust(hspace=0.2)
     
     # Setup the plot
-    axes[0].imshow(get_plot_array(actual_event))
+    
+    # Plot the actual event
+    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=LogNorm())
+    
     axes[0].set_title("Actual event display", fontsize=20)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
     axes[0].set_ylabel("PMT module Y-position", fontsize=20)
     axes[0].grid(True, which="both", axis="both")
     
-    axes[1].imshow(get_plot_array(recon_event))
+    ax0_cbar = fig.colorbar(im_0, extend='both', ax=axes[0])
+    ax0_cbar.set_label(r"Charge, $c$", fontsize=20)
+    
+    axes[0].tick_params(labelsize=20)
+    ax0_cbar.ax.tick_params(labelsize=20) 
+    
+    axes[0].set_xticklabels((axes[0].get_xticks()/10).astype(int))
+    axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
+    
+    # Plot the reconstructed event
+    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=LogNorm())
+    
     axes[1].set_title("Reconstructed event display", fontsize=20)
     axes[1].set_xlabel("PMT module X-position", fontsize=20)
     axes[1].set_ylabel("PMT module Y-position", fontsize=20)
     axes[1].grid(True, which="both", axis="both")
+    
+    ax1_cbar = fig.colorbar(im_1, extend='both', ax=axes[1])
+    ax1_cbar.set_label(r"Charge, $c$", fontsize=20)
+    
+    axes[1].tick_params(labelsize=20)
+    ax1_cbar.ax.tick_params(labelsize=20)
+    
+    axes[1].set_xticklabels((axes[1].get_xticks()/10).astype(int))
+    axes[1].set_yticklabels((axes[1].get_yticks()/10).astype(int))
     
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
