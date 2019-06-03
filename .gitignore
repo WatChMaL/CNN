@@ -107,7 +107,7 @@ venv.bak/
 main_fix.py
 *.csv
 state*
-<<<<<<< HEAD
+*.save
 
 # Folders - Julian
 USER/
@@ -115,11 +115,9 @@ TESTING/
 
 # WIP - Julian
 feature_extraction.py
-=======
 *.root
 *.npz
 *.h5
 *.pdf
 *.png
 *.npy
->>>>>>> debug

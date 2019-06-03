@@ -246,10 +246,10 @@ class Engine:
         val_acc = 0.0
         val_iterations = 0
         
-        pushing = False
+        """pushing = False
         if plt_worst > 0 or plt_best > 0:
             heaps = [[], [], []]
-            pushing = True
+            pushing = True"""
         
         # Iterate over the validation set to calculate val_loss and val_acc
         with torch.no_grad():
@@ -258,7 +258,7 @@ class Engine:
             self.model.eval()
             
             # Variables for the confusion matrix
-            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[], []
+            loss, accuracy, labels, predictions, softmaxes, energies = [],[],[],[],[],[]
             
             # Extract the event data and label from the DataLoader iterator
             for val_data in iter(self.val_iter):
@@ -270,7 +270,7 @@ class Engine:
                 
                 self.label = self.label.long()
                 
-                PATH, IDX = val_data[4:6]
+                #PATH, IDX = val_data[4:6]
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -278,9 +278,9 @@ class Engine:
                 val_acc += result['accuracy']
                 
                 # Add item to priority queues if necessary
-                if pushing:
+                """if pushing:
                     for i, lab in enumerate(self.label):
-                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)
+                        heaps[lab].append(result['softmax'][i][lab], PATH, IDX)"""
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -304,16 +304,16 @@ class Engine:
               "\nAvg val acc : ", val_acc/val_iterations)
         
         # If requested, dump root file visualization script outputs to save_path directory
-        if pushing:
+        """if pushing:
             for h in heaps:
                 heapq.heapify(h)
                 best = heapq.nlargest(plt_best, h)
                 worst = heapq.nsmallest(plt_worst, h)
                 
             display_list(best[1:], self.config.save_path+"/best_"+plt_best+"_events")
-            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")
+            display_list(worst[1:], self.config.save_path+"/worst_"+plt_best+"_events")"""
 
-        np.save("labels" + str(run) + ".npy", np.hstack(labels))
+        """np.save("labels" + str(run) + ".npy", np.hstack(labels))
         np.save("energies" + str(run) + ".npy", np.hstack(energies))
         np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
         np.save("softmax" + str(run) + ".npy",
@@ -321,7 +321,7 @@ class Engine:
                                     np_softmaxes.shape[2]))
         
         
-        print(np_softmaxes.shape)
+        print(np_softmaxes.shape)"""
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -461,7 +461,7 @@ class Engine:
         return filename
 
     def restore_state(self, weight_file):
-        weight_file = self.config.save_path+'saved_states/'+weight_file
+        weight_file = self.config.save_path+'/saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             # torch interprets the file, then we can access using string keys
