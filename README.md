@@ -1,5 +1,4 @@
-# Water Cherenkov Machine Learning (WatChMaL) - Convolutional Neural Network (CNN)
-Codebase for training and performance evaluation of CNNs using simulated neutrino weak interaction event data formatted as an image.
+# Water Cherenkov Machine Learning (WatChMaL) - Convolutional Neural Network Variational AutoEncoder (CNN-VAE)
 
 ## User Guide
 To start the program, download the repository and navigate to the parent folder, `CNN/`, then enter on terminal/cmd
