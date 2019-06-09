@@ -8,6 +8,7 @@ from __future__ import division
 from __future__ import print_function
 import numpy as np
 import math
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -744,7 +745,7 @@ def tile(canvas, ul, pmts):
             canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
     
 # Plot the reconstructed vs actual events
-def plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, save_path=None):
+def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=None):
     """
     plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
                            
@@ -769,7 +770,7 @@ def plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, s
     # Setup the plot
     
     # Plot the actual event
-    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=LogNorm())
+    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno")
     
     axes[0].set_title("Actual event display", fontsize=20)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
@@ -786,7 +787,7 @@ def plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, s
     axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
     
     # Plot the reconstructed event
-    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=LogNorm())
+    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno")
     
     axes[1].set_title("Reconstructed event display", fontsize=20)
     axes[1].set_xlabel("PMT module X-position", fontsize=20)
@@ -810,3 +811,249 @@ def plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, s
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
+        
+
+# Plot the reconstructed vs actual events
+def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path=None):
+    """
+    plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
+                           
+    Purpose : Plot the actual event vs event reconstructed by the VAE
+    
+    Args: actual_event        ... 3-D NumPy array with the event data, shape=(width, height, depth)
+          recon_event         ... 3-D NumPy array with the reconstruction data, shape = (width, height, depth)
+          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
+          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    """
+    
+    # Assertions
+    assert actual_event.any() != None
+    assert recon_event.any() != None
+    assert len(actual_event.shape) == 3
+    assert len(recon_event.shape) == 3
+    
+    # Initialize the figure to plot the events
+    fig, axes = plt.subplots(2,1,figsize=(32,18))
+    plt.subplots_adjust(hspace=0.2)
+    
+    # Setup the plot
+    lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), clip=True)
+    
+    # Plot the actual event
+    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
+    
+    axes[0].set_title("Actual event display", fontsize=20)
+    axes[0].set_xlabel("PMT module X-position", fontsize=20)
+    axes[0].set_ylabel("PMT module Y-position", fontsize=20)
+    axes[0].grid(True, which="both", axis="both")
+    
+    axes[0].tick_params(labelsize=20)
+
+    axes[0].set_xticklabels((axes[0].get_xticks()/10).astype(int))
+    axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
+                      
+    # Plot the reconstructed event
+    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
+    
+    axes[1].set_title("Reconstructed event display", fontsize=20)
+    axes[1].set_xlabel("PMT module X-position", fontsize=20)
+    axes[1].set_ylabel("PMT module Y-position", fontsize=20)
+    axes[1].grid(True, which="both", axis="both")
+    
+    axes[1].tick_params(labelsize=20)
+    
+    axes[1].set_xticklabels((axes[1].get_xticks()/10).astype(int))
+    axes[1].set_yticklabels((axes[1].get_yticks()/10).astype(int))
+    
+    
+    fig_cbar = fig.colorbar(im_1, ax=axes.ravel().tolist())
+    fig_cbar.set_label(r"Charge, $c$", fontsize=20)
+    fig_cbar.ax.tick_params(labelsize=20) 
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300)
+    
+    if show_plot:
+        plt.show()
+    else:
+        plt.clf() # Clear the plot frame
+        plt.close() # Close the opened window if any
+        
+# Plot model loss over the training iterations
+def plot_training_loss(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
+    """
+    plot_training_loss(training_directories=None, model_names=None, show_plot=False, save_path=None)
+                           
+    Purpose : Plot the training loss for various models for visual comparison
+    
+    Args: log_paths           ... List of the .csv log files. Absolute path required.
+          model_names         ... List of the models corresponding to the log directories provided
+          model_color_dict    ...
+          downsample_interval ...
+          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
+          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    """
+    
+    # Assertions
+    assert log_paths != None
+    assert model_names != None
+    assert model_color_dict != None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    loss_values = []
+    epoch_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "loss"])
+            
+            # Downsample the epoch and training loss values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_loss_values  = log_df["loss"].values
+            
+            print(np.amax(curr_epoch_values))
+            print(np.argmax(curr_loss_values))
+            print(np.amax(curr_loss_values))
+            print(curr_epoch_values[np.argmax(curr_loss_values)])
+            
+            # Downsample using the downsample interval
+            if downsample_interval == None:
+                epoch_values.append(curr_epoch_values)
+                loss_values.append(curr_loss_values)
+            else:
+                curr_epoch_values_downsampled = []
+                curr_loss_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_loss_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+
+                        # Downsample the values using the mean of the values for the current interval
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
+
+                        # Reset the list for the next interval
+                        curr_loss_list = []
+                        curr_epoch_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_loss_list.append(curr_loss_values[i])         
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                loss_values.append(curr_loss_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Initialize the plot
+    fig = plt.figure(figsize=(16,9))
+    
+    # Plot the values
+    for i, model_name in enumerate(model_names):
+        plt.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name],
+                 label=model_name)
+        
+    # Setup plot characteristics
+    plt.title("Training loss vs Epochs", fontsize=20)
+    plt.tick_params(axis="both", labelsize=20)
+    plt.xlabel("Epoch", fontsize=20)
+    plt.ylabel("Training loss", fontsize=20)
+    plt.grid(True)
+    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300)
+    else:
+        plt.show()
+        
+# Plot model accuracy over the training iterations
+def plot_training_accuracy(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
+    """
+    plot_training_accuracy(training_directories=None, model_names=None, show_plot=False, save_path=None)
+                           
+    Purpose : Plot the training accuracy for various models for visual comparison
+    
+    Args: log_paths           ... List of the .csv log files. Absolute path required.
+          model_names         ... List of the models corresponding to the log directories provided
+          model_color_dict    ...
+          downsample_interval ...
+          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
+          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    """
+    
+    # Assertions
+    assert log_paths != None
+    assert model_names != None
+    assert model_color_dict != None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    acc_values = []
+    epoch_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "accuracy"])
+            
+            # Downsample the epoch and training accuracy values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_acc_values  = log_df["accuracy"].values
+            
+            if downsample_interval == None:
+                epoch_values.append(curr_epoch_values)
+                acc_values.append(curr_acc_values)
+            else:
+                curr_epoch_values_downsampled = []
+                curr_acc_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_acc_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
+
+                        curr_acc_list = []
+                        curr_epoch_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_acc_list.append(curr_acc_values[i])
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                acc_values.append(curr_acc_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Downsample the training accuracy and epoch values
+        
+    # Initialize the plot
+    fig = plt.figure(figsize=(16,9))
+    
+    # Plot the values
+    for i, model_name in enumerate(model_names):
+        plt.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name],
+                 label=model_name)
+        
+    # Setup plot characteristics
+    plt.title("Training accuracy vs Epochs", fontsize=20)
+    plt.tick_params(axis="both", labelsize=20)
+    plt.xlabel("Epoch", fontsize=20)
+    plt.ylabel("Training accuracy", fontsize=20)
+    plt.grid(True)
+    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300)
+    else:
+        plt.show()

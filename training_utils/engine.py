@@ -57,7 +57,7 @@ class Engine:
 
         self.model.to(self.device)
 
-        self.optimizer = optim.Adam(self.model.parameters(),eps=1e-3)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.0001)
         self.criterion = nn.CrossEntropyLoss()
         self.softmax = nn.Softmax(dim=1)
 
@@ -440,7 +440,7 @@ class Engine:
                                         result["softmax"][softmax_bottom_n,label_dict[event_type]])
                 
                 # Sort the global top and bottom softmax array and get the top and bottom sections
-                softmax_top 
+                #softmax_top 
                 
                 
         
@@ -449,7 +449,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
+        filename = self.config.save_path+'/saved_states/'+str(self.config.model[1]) + ".pth"
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight

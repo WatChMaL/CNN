@@ -12,6 +12,7 @@ import training_utils.engine as net
 import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
 import io_utils.modelhandler as modelhandler
+import torch
 
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
@@ -84,6 +85,7 @@ if __name__ == '__main__':
     modelhandler.check_params(config.model[0], params)
     constructor = modelhandler.select_model(config.model)
     model = constructor(**params)
+    print(model)
     # Finally, construct the neural net
     nnet = net.Engine(model, config)
     # Do some work...

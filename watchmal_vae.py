@@ -120,7 +120,7 @@ if __name__ == '__main__':
         nnet.restore_state(config.restore_state)
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, valid_interval=10000, save_interval=10000)
+        nnet.train(epochs=config.epochs, valid_interval=100, save_interval=100)
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
