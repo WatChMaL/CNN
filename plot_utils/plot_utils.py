@@ -745,7 +745,7 @@ def tile(canvas, ul, pmts):
             canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
     
 # Plot the reconstructed vs actual events
-def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=None):
+def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
     """
     plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
                            
@@ -753,6 +753,8 @@ def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=N
     
     Args: actual_event        ... 3-D NumPy array with the event data, shape=(width, height, depth)
           recon_event         ... 3-D NumPy array with the reconstruction data, shape = (width, height, depth)
+          label               ... Str with the true event label, e.g. "e", "mu", "gamma"
+          energy              ... Float value of the true energy of the event
           show_plot[optional] ... Boolean to determine whether to show the plot, default=False
           save_path[optional] ... Path to save the plot to, format='eps', default=None
     """
@@ -760,6 +762,8 @@ def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=N
     # Assertions
     assert actual_event.any() != None
     assert recon_event.any() != None
+    assert label != None
+    assert energy != None and energy > 0
     assert len(actual_event.shape) == 3
     assert len(recon_event.shape) == 3
     
@@ -768,6 +772,12 @@ def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=N
     plt.subplots_adjust(hspace=0.2)
     
     # Setup the plot
+    if label is not "e":
+        sup_title = r"$\{0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+    else:
+        sup_title = r"${0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+        
+    fig.suptitle(sup_title, fontsize=30)
     
     # Plot the actual event
     im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno")
@@ -814,7 +824,7 @@ def plot_actual_vs_recon(actual_event, recon_event, show_plot=False, save_path=N
         
 
 # Plot the reconstructed vs actual events
-def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path=None):
+def plot_actual_vs_recon_log(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
     """
     plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
                            
@@ -822,6 +832,8 @@ def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path
     
     Args: actual_event        ... 3-D NumPy array with the event data, shape=(width, height, depth)
           recon_event         ... 3-D NumPy array with the reconstruction data, shape = (width, height, depth)
+          label               ... Str with the true event label, e.g. "e", "mu", "gamma"
+          energy              ... Float value of the true energy of the event
           show_plot[optional] ... Boolean to determine whether to show the plot, default=False
           save_path[optional] ... Path to save the plot to, format='eps', default=None
     """
@@ -838,6 +850,14 @@ def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path
     
     # Setup the plot
     lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), clip=True)
+    
+    # Setup the plot
+    if label is not "e":
+        sup_title = r"$\{0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+    else:
+        sup_title = r"${0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+        
+    fig.suptitle(sup_title, fontsize=30)
     
     # Plot the actual event
     im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
@@ -867,7 +887,7 @@ def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path
     
     
     fig_cbar = fig.colorbar(im_1, ax=axes.ravel().tolist())
-    fig_cbar.set_label(r"Charge, $c$", fontsize=20)
+    fig_cbar.set_label(r"Log Charge, $log c$", fontsize=20)
     fig_cbar.ax.tick_params(labelsize=20) 
     
     if save_path is not None:
@@ -879,12 +899,226 @@ def plot_actual_vs_recon_2(actual_event, recon_event, show_plot=False, save_path
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
         
-# Plot model loss over the training iterations
-def plot_training_loss(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
+# Plot model performance over the training iterations
+def plot_training(log_paths, model_names, model_color_dict, downsample_interval=1000, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
     plot_training_loss(training_directories=None, model_names=None, show_plot=False, save_path=None)
                            
     Purpose : Plot the training loss for various models for visual comparison
+    
+    Args: log_paths           ... List of the .csv log files. Absolute path required.
+          model_names         ... List of the models corresponding to the log directories provided
+          model_color_dict    ...
+          downsample_interval ...
+          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
+          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    """
+    
+    # Assertions
+    assert log_paths != None
+    assert model_names != None
+    assert model_color_dict != None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    loss_values = []
+    epoch_values = []
+    acc_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "loss", "accuracy"])
+            
+            # Downsample the epoch and training loss values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_loss_values  = log_df["loss"].values
+            curr_acc_values  = log_df["accuracy"].values
+            
+            # Downsample using the downsample interval
+            if downsample_interval == None:
+                epoch_values.append(curr_epoch_values)
+                loss_values.append(curr_loss_values)
+                acc_values.append(curr_acc_values)
+            else:
+                curr_epoch_values_downsampled = []
+                curr_loss_values_downsampled  = []
+                curr_acc_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_loss_list = []
+                curr_acc_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+
+                        # Downsample the values using the mean of the values for the current interval
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
+                        curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
+
+                        # Reset the list for the next interval
+                        curr_loss_list = []
+                        curr_epoch_list = []
+                        curr_acc_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_loss_list.append(curr_loss_values[i]) 
+                        curr_acc_list.append(curr_acc_values[i])
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                loss_values.append(curr_loss_values_downsampled)
+                acc_values.append(curr_acc_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Initialize the plot
+    fig, ax1 = plt.subplots(figsize=(16,11))
+    ax2 = ax1.twinx()
+    
+    # Plot the values
+    for i, model_name in enumerate(model_names):
+        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
+                 label=model_name)
+        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
+                 label=model_name)
+        
+        
+    # Setup plot characteristics
+    ax1.tick_params(axis="both", labelsize=20)
+    ax2.tick_params(axis="both", labelsize=20)
+    
+    ax1.set_xlabel("Epoch", fontsize=20)
+    ax1.set_ylabel("Loss", fontsize=20)
+    ax1.set_ylim(bottom=0)
+    ax2.set_ylabel("Accuracy", fontsize=20)
+    ax2.set_ylim(bottom=0)
+    
+    plt.grid(True)
+    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
+    fig.suptitle("Training vs Epochs", fontsize=25)
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='png', dpi=300, bbox_extra_artists=(lgd))
+    else:
+        plt.show()
+        
+# Plot model performance over the training iterations
+def plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
+    """
+    plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False,
+                        save_path=None)
+                           
+    Purpose : Plot the validation loss and accuracy for various models for visual comparison
+    
+    Args: log_paths           ... List of the .csv log files. Absolute path required.
+          model_names         ... List of the models corresponding to the log directories provided
+          model_color_dict    ...
+          downsample_interval ...
+          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
+          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    """
+    
+    # Assertions
+    assert log_paths != None
+    assert model_names != None
+    assert model_color_dict != None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    loss_values = []
+    epoch_values = []
+    acc_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "loss", "accuracy"])
+            
+            # Downsample the epoch and training loss values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_loss_values  = log_df["loss"].values
+            curr_acc_values  = log_df["accuracy"].values
+            
+            # Downsample using the downsample interval
+            if downsample_interval == None:
+                epoch_values.append(curr_epoch_values)
+                loss_values.append(curr_loss_values)
+                acc_values.append(curr_acc_values)
+            else:
+                curr_epoch_values_downsampled = []
+                curr_loss_values_downsampled  = []
+                curr_acc_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_loss_list = []
+                curr_acc_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+
+                        # Downsample the values using the mean of the values for the current interval
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
+                        curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
+
+                        # Reset the list for the next interval
+                        curr_loss_list = []
+                        curr_epoch_list = []
+                        curr_acc_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_loss_list.append(curr_loss_values[i]) 
+                        curr_acc_list.append(curr_acc_values[i])
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                loss_values.append(curr_loss_values_downsampled)
+                acc_values.append(curr_acc_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Initialize the plot
+    fig, ax1 = plt.subplots(figsize=(16,11))
+    ax2 = ax1.twinx()
+    
+    # Plot the values
+    for i, model_name in enumerate(model_names):
+        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
+                 label=model_name)
+        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
+                 label=model_name)
+        
+        
+    # Setup plot characteristics
+    ax1.tick_params(axis="both", labelsize=20)
+    ax2.tick_params(axis="both", labelsize=20)
+    
+    ax1.set_xlabel("Epoch", fontsize=20)
+    ax1.set_ylabel("Loss", fontsize=20)
+    ax2.set_ylabel("Accuracy", fontsize=20)
+    
+    plt.grid(True)
+    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
+    fig.suptitle("Validation vs Epochs", fontsize=25)
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
+    else:
+        plt.show()
+        
+# Plot model performance over the training iterations
+def plot_training_vae(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
+    """
+    plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False,
+                        save_path=None)
+                           
+    Purpose : Plot the validation loss and accuracy for various models for visual comparison
     
     Args: log_paths           ... List of the .csv log files. Absolute path required.
           model_names         ... List of the models corresponding to the log directories provided
@@ -914,11 +1148,6 @@ def plot_training_loss(log_paths, model_names, model_color_dict, downsample_inte
             curr_epoch_values = log_df["epoch"].values
             curr_loss_values  = log_df["loss"].values
             
-            print(np.amax(curr_epoch_values))
-            print(np.argmax(curr_loss_values))
-            print(np.amax(curr_loss_values))
-            print(curr_epoch_values[np.argmax(curr_loss_values)])
-            
             # Downsample using the downsample interval
             if downsample_interval == None:
                 epoch_values.append(curr_epoch_values)
@@ -944,7 +1173,7 @@ def plot_training_loss(log_paths, model_names, model_color_dict, downsample_inte
                     else:
                         # Add the values in the interval to the list
                         curr_epoch_list.append(curr_epoch_values[i])
-                        curr_loss_list.append(curr_loss_values[i])         
+                        curr_loss_list.append(curr_loss_values[i]) 
 
                 epoch_values.append(curr_epoch_values_downsampled)
                 loss_values.append(curr_loss_values_downsampled)
@@ -952,108 +1181,30 @@ def plot_training_loss(log_paths, model_names, model_color_dict, downsample_inte
             print("Error. log path {0} does not exist".format(log_path))
             
     # Initialize the plot
-    fig = plt.figure(figsize=(16,9))
+    fig, ax1 = plt.subplots(figsize=(16,11))
+    ax2 = ax1.twinx()
     
     # Plot the values
     for i, model_name in enumerate(model_names):
-        plt.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name],
+        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
+                 label=model_name)
+        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
                  label=model_name)
         
-    # Setup plot characteristics
-    plt.title("Training loss vs Epochs", fontsize=20)
-    plt.tick_params(axis="both", labelsize=20)
-    plt.xlabel("Epoch", fontsize=20)
-    plt.ylabel("Training loss", fontsize=20)
-    plt.grid(True)
-    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
-    
-    if save_path is not None:
-        plt.savefig(save_path, format='eps', dpi=300)
-    else:
-        plt.show()
-        
-# Plot model accuracy over the training iterations
-def plot_training_accuracy(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
-    """
-    plot_training_accuracy(training_directories=None, model_names=None, show_plot=False, save_path=None)
-                           
-    Purpose : Plot the training accuracy for various models for visual comparison
-    
-    Args: log_paths           ... List of the .csv log files. Absolute path required.
-          model_names         ... List of the models corresponding to the log directories provided
-          model_color_dict    ...
-          downsample_interval ...
-          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
-          save_path[optional] ... Path to save the plot to, format='eps', default=None
-    """
-    
-    # Assertions
-    assert log_paths != None
-    assert model_names != None
-    assert model_color_dict != None
-    assert len(log_paths) == len(model_names)
-    assert len(model_names) == len(model_color_dict.keys())
-    
-    # Extract the values stored in the .csv log files
-    acc_values = []
-    epoch_values = []
-    
-    # Iterate over the list of log files provided
-    for log_path in log_paths:
-        if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "accuracy"])
-            
-            # Downsample the epoch and training accuracy values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"].values
-            curr_acc_values  = log_df["accuracy"].values
-            
-            if downsample_interval == None:
-                epoch_values.append(curr_epoch_values)
-                acc_values.append(curr_acc_values)
-            else:
-                curr_epoch_values_downsampled = []
-                curr_acc_values_downsampled  = []
-
-                curr_epoch_list = []
-                curr_acc_list = []
-
-                for i in range(1, len(curr_epoch_values)):
-
-                    if(i%downsample_interval == 0):
-                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
-                        curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
-
-                        curr_acc_list = []
-                        curr_epoch_list = []
-                    else:
-                        # Add the values in the interval to the list
-                        curr_epoch_list.append(curr_epoch_values[i])
-                        curr_acc_list.append(curr_acc_values[i])
-
-                epoch_values.append(curr_epoch_values_downsampled)
-                acc_values.append(curr_acc_values_downsampled)
-        else:
-            print("Error. log path {0} does not exist".format(log_path))
-            
-    # Downsample the training accuracy and epoch values
-        
-    # Initialize the plot
-    fig = plt.figure(figsize=(16,9))
-    
-    # Plot the values
-    for i, model_name in enumerate(model_names):
-        plt.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name],
-                 label=model_name)
         
     # Setup plot characteristics
-    plt.title("Training accuracy vs Epochs", fontsize=20)
-    plt.tick_params(axis="both", labelsize=20)
-    plt.xlabel("Epoch", fontsize=20)
-    plt.ylabel("Training accuracy", fontsize=20)
+    ax1.tick_params(axis="both", labelsize=20)
+    ax2.tick_params(axis="both", labelsize=20)
+    
+    ax1.set_xlabel("Epoch", fontsize=20)
+    ax1.set_ylabel("Loss", fontsize=20)
+    ax2.set_ylabel("Accuracy", fontsize=20)
+    
     plt.grid(True)
-    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
+    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=(0.82, 0.5))
+    fig.suptitle("Validation vs Epochs", fontsize=25)
     
     if save_path is not None:
-        plt.savefig(save_path, format='eps', dpi=300)
+        plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
     else:
         plt.show()

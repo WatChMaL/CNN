@@ -166,6 +166,7 @@ class Engine:
         # Training loop
         while (int(epoch+0.5) < epochs):
             print('Epoch',int(epoch+0.5),'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            j = 0
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
                 
@@ -192,7 +193,8 @@ class Engine:
                 self.train_log.write()
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
+                    #print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))#
+                    pass
                     
                 # more rarely, run validation
                 if (i+1)%valid_interval == 0:
@@ -215,7 +217,7 @@ class Engine:
                 if(i+1)%save_interval == 0:
                     self.save_state(curr_iter=iteration)
                     
-            print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
+            #print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))#
             
         self.val_log.close()
         self.train_log.close()

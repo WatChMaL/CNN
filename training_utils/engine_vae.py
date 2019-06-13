@@ -243,6 +243,33 @@ class EngineVAE:
         self.val_log.close()
         self.train_log.close()
         
+    def sample(self, num_samples=10):
+        
+        # Setup the path
+        sample_save_path = self.config.save_path + '/samples/' + str(self.config.model[1]) + '_' + str(self.iteration)
+        
+        # Create the directory if it does not already exist
+        if not os.path.exists(sample_save_path):
+            os.mkdir(sample_save_path)
+            
+        # Samples list
+        sample_list = []
+        
+        # Iterate over the counter
+        for i in range(num_samples):
+            
+            with torch.no_grad():
+                
+                self.model.eval()
+                
+                sample_list.append(self.model.sample())
+                
+                self.model.train()
+            
+        # Convert the list to an numpy array and save to the given path
+        np.save(sample_save_path + '/' + "{0}_samples".format(str(num_samples)) + ".npy", np.array(sample_list))
+        
+        
     def save_state(self, curr_iter=0):
         
         state_dir = self.config.save_path+"/saved_states"

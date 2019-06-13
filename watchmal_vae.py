@@ -62,6 +62,8 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=0, help='Specify the number of WORST-identified events to dump root file references to at the end of validation.'),
         arghandler.Argument('best', int, flag='-bst',
                             default=0, help='Specify the number of BEST-identified events to dump root file references to at the end of validation.'),
+        arghandler.Argument('num_samples', int, '-nsm',
+                           default=10, help='Specify the number of events to sample from the VAE.'),
         arghandler.Argument('save_path', str, '-sap',
                             default='save_path', help='Specify path to save data to. Default is save_path.'),
         arghandler.Argument('data_description', str, '-dsc',
@@ -97,7 +99,7 @@ if __name__ == '__main__':
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
     # Check attributes for validity
     for task in config.tasks:
-        assert(task in ['train', 'test', 'valid'])
+        assert(task in ['train', 'test', 'valid', 'sample'])
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)
@@ -125,3 +127,5 @@ if __name__ == '__main__':
         nnet.test()
     if 'valid' in config.tasks:
         nnet.validate(plt_worst=config.worst, plt_best=config.best)
+    if 'sample' in config.tasks:
+        nnet.sample(num_samples=config.num_samples)

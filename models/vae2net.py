@@ -181,12 +181,35 @@ class Vae2Net(nn.Module):
         
         return x
     
+    # Decoder layers
+    def decode_sample(self, X):
+        # Fully-connected layers
+        x = self.de_fc3(X)
+        x = self.relu(self.de_fc2(x))
+        x = self.relu(self.de_fc1(x))
+        
+        # Unflattening
+        x = x.view(-1, 128, 1, 1)
+        x = nn.MaxUnpool2d(self.en_maxflat_input_size[2:])(x, self.en_maxflat_indices, self.en_maxflat_input_size) 
+        
+        # De-convolutions and (un)max-pooling
+        x = self.de_deconv4(x)
+        
+        x = self.de_unmax3(x, self.en_max3_indices, self.en_max3_input_size)
+        x = self.de_deconv3a(self.de_deconv3b(x))
+        
+        x = self.de_unmax2(x, self.en_max2_indices, self.en_max2_input_size)
+        x = self.de_deconv2a(self.de_deconv2b(x))
+        
+        x = self.de_unmax1(x, self.en_max1_indices, self.en_max1_input_size)
+        x = self.relu(self.de_deconv1(x))
+        
+        return x
+    
     # Sample events from the latent space
     def sample(self):
         # Sample a vector from the normal distribution
         eps = randn(1, self.num_latent_dims)
         
         # Decode the latent vector to generate an event
-        return self.decode(eps)
-        
-        
+        return self.decode_sample(eps)
