@@ -103,25 +103,13 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Selected files - Abhishek
-main_fix.py
+# Datasets, engine log dumps and model states
 *.csv
-state*
-*.save
-
-# Folders - Abhishek
-save_path/
-
-# Folders - Julian
-USER/
-TESTING/
-
-# WIP - Julian
-feature_extraction.py
+*.pth
 *.root
 *.npz
 *.h5
-*.pdf
-*.png
 *.npy
-*.save
+
+# Training log and model state dump
+dumps/

@@ -147,6 +147,7 @@ class Engine:
         # Keep track of the validation accuracy
         best_val_acc = 0.0
         continue_train = True
+        optim_state_list = []
         
         # Prepare attributes for data logging
         self.train_log, self.val_log = CSVData(self.dirpath+"log_train.csv"), CSVData(self.dirpath+"val_test.csv")
@@ -184,9 +185,17 @@ class Engine:
                 # Record the current performance on train set
                 self.train_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
                 self.train_log.write()
+                
+                # Record the current performance on train set
+                optim_state_list.append((self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][0,0,3,3].item,
+                                        self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][1,1,3,3].item,
+                                        self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][2,2,3,3].item,
+                                       self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][3,3,3,3].item))
+                
+                
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    #print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))#
+                    print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
                     pass
                     
                 # more rarely, run validation
@@ -213,8 +222,6 @@ class Engine:
                 if epoch >= epochs:
                     break
                     
-                print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' %(iteration,epoch,res['loss'],res['accuracy']))
-                    
                 # Save on the given intervals
                 if(i+1)%save_interval == 0:
                     with torch.no_grad():
@@ -237,6 +244,7 @@ class Engine:
                     self.save_state(curr_iter=iteration)
         self.val_log.close()
         self.train_log.close()
+        np.save(self.dirpath + "/optim_state_array.npy", np.array(optim_state_list))
     
     # ========================================================================
 
@@ -308,162 +316,10 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-        # If requested, dump list of root files + indices to dump_path directory
-        if pushing:
-            root_path = (os.path.dirname(self.config.path)+'/' if self.config.root is None else self.config.root)+ROOT_DUMP
-            plot_path = self.config.dump_path+"extreme_events/"
-            if not os.path.exists(plot_path):
-                os.mkdir(plot_path)
-            wl_lo = open(plot_path+'list_lo.txt', 'w+')
-            wl_hi = open(plot_path+'list_hi.txt', 'w+')
-            worst, best = [], []
-            for i in range(len(queues)):
-                q = queues[i]
-                # Lowest softmax are worst
-                worst.extend(q.getsmallest())
-                # Highest softmax are best
-                best.extend(q.getlargest())
-                
-            root_list = open(root_path, 'r')
-            root_files = [l.strip() for l in root_list.readlines()]
-                
-            for event in worst:
-                wl_lo.write(str(event[0])+' '+root_files[event[1]]+' '+str(event[2])+'\n')
-            for event in best:
-                wl_hi.write(str(event[0])+' '+root_files[event[1]]+' '+str(event[2])+'\n')
-            
-            wl_lo.close()
-            wl_hi.close()
-            root_list.close()
-            
-            print("Dumped lists of extreme events at", plot_path)
-        
-        np.save("labels" + str(run) + ".npy", np.hstack(labels))
-        np.save("energies" + str(run) + ".npy", np.hstack(energies))
-        np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
-        np.save("softmax" + str(run) + ".npy", np.array(softmaxes))
-        # If requested, dump root file visualization script outputs to dump_path directory
-            
-    # Function to test the model performance on the test
-    # dataset ( returns loss, acc, confusion matrix )
-    
-    def test(self):
-        r"""Test the trained model on the test dataset.
-        
-        Parameters: None
-        
-        Outputs : 
-            total_test_loss = accumulated validation loss
-            avg_test_loss = average validation loss
-            total_test_acc = accumulated validation accuracy
-            avg_test_acc = accumulated validation accuracy
-            
-        Returns : None
-        """
-        # Variables to output at the end
-        test_loss = 0.0
-        test_acc = 0.0
-        test_iterations = 0
-        
-        # Iterate over the validation set to calculate val_loss and val_acc
-        with torch.no_grad():
-            
-            # Set the model to evaluation mode
-            self.model.eval()
-            
-            # Extract the event data and label from the DataLoader iterator
-            for test_data in iter(self.test_iter):
-                
-                sys.stdout.write("\r\r\r" + "test_iterations : " + str(test_iterations))
-                
-                self.data, self.label = test_data[0:2]
-                self.label = self.label.long()
-                
-                counter = collections.Counter(self.label.tolist())
-                sys.stdout.write("\ncounter : " + str(counter))
-
-                # Run the forward procedure and output the result
-                result = self.forward(False)
-                test_loss += result['loss']
-                test_acc += result['accuracy']
-                
-                test_iterations += 1
-         
-        print("\nTotal test loss : ", test_loss,
-              "\nTotal test acc : ", test_acc,
-              "\nAvg test loss : ", test_loss/test_iterations,
-              "\nAvg test acc : ", test_acc/test_iterations)
-        
-    def get_top_bottom_softmax(self, n_top=5, n_bottom=5, event_type=None, label_dict=None):
-        r"""Return the events with the highest and lowest softmax scores for
-            visualizing the model performance
-        
-        Parameters: None
-        
-        Outputs : 
-            n_top = number of events with the highest softmax score to return
-                    for the given event type
-            n_bottom = number of events with the lowest softmax score to return
-                       for the given event type
-            event_type = type of neutrino event to get the event data for
-            label_dict = dictionary that maps the event type to the labels
-                         used in the label tensor
-            
-            
-        Returns : Numpy array of event data for the events with the highest
-                  and lowest softmax score
-        
-        """
-        
-        # Variables to add or remove events
-        softmax_top = np.array([-1 for i in range(n_top)])
-        softmax_bottom = np.array([2 for i in range(n_bottom)])
-        
-        # Iterate over the validation set to get the desired events
-        with torch.no_grad():
-            
-            # Set the model to evaluation mode
-            self.model.eval()
-            
-             # Extract the event data and label from the DataLoader iterator
-            for val_data in iter(self.val_iter):
-                
-                self.data, self.label = val_data[0:2]
-                self.label = self.label.long()
-                
-                print(self.data.shape)
-                print(self.label.shape)
-                
-                # Use only the labels and event for the given event type
-                self.data = self.data[self.label == label_dict[event_type]]
-                self.label = self.label[self.label == label_dict[event_type]]
-                
-                print(self.data.shape)
-                print(self.label.shape)
-            
-                result = self.forward(False)
-                
-                # Copy the tensors back to the CPU
-                self.label = self.label.to("cpu")
-                
-                # Sort the softmax output to get the indices for the top and 
-                # bottom events to return or save
-                softmax_indices_sorted = np.argsort(result["softmax"][:,label_dict[event_type]])
-                
-                # Get the indices for the top and bottom events
-                softmax_top_n = softmax_indices_sorted[softmax_indices_sorted.shape[0]-n_top:]
-                softmax_bottom_n = softmax_indices_sorted[:n_bottom]
-                
-                # Append the local top and bottom items to the global top and bottom items
-                softmax_top = np.append(softmax_top,
-                                        result["softmax"][softmax_top_n,label_dict[event_type]])
-                softmax_bottom = np.append(softmax_bottom,
-                                        result["softmax"][softmax_bottom_n,label_dict[event_type]])
-                
-                # Sort the global top and bottom softmax array and get the top and bottom sections
-                #softmax_top 
-                
-                
+        np.save(self.dirpath + "labels.npy", np.array(labels))
+        np.save(self.dirpath + "energies.npy", np.array(energies))
+        np.save(self.dirpath + "predictions.npy", np.array(predictions))
+        np.save(self.dirpath + "softmax.npy", np.array(softmaxes))  
         
         
     # ========================================================================

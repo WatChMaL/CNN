@@ -16,6 +16,7 @@ from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
 
+import mpmt_visual
 
 # Set the style
 plt.style.use("classic")
@@ -179,7 +180,7 @@ def plot_confusion_matrix(labels, predictions, energies, class_names, min_energy
         plt.close() # Close the opened window if any
 
 # Plot the classifier for a given event type for several true event types
-def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, event_dict=None, min_energy=0,
+def plot_classifier_response(softmaxes, labels, energies, labels_dict, event_dict, min_energy=0,
                              max_energy=1000, num_bins=100, show_plot=False, save_path=None):
     
     """
@@ -205,9 +206,6 @@ def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, even
     
     assert softmaxes is not None and softmaxes.any() != None
     assert labels is not None and labels.any() != None
-    assert labels_dict != None
-    assert event_dict != None
-    
     
     # Initialize the plot and corresponding parameters
     fig, ax = plt.subplots(figsize=(12,8),facecolor="w")
@@ -261,7 +259,7 @@ def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, even
 
         ax.set_xlim(0,1)
 
-        plt.legend(loc="upper left", prop={"size":20}, bbox_to_anchor=(1.04,1))
+        plt.legend(loc="upper left", prop={"size":20})
         
         plt.title(r"${0} \leq E < {1}$".format(min_energy, max_energy), fontsize=20)
         
@@ -273,7 +271,7 @@ def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, even
     else:
         plt.clf() # Clear the current figure
         plt.close() # Close the opened window
-
+        
     return values, bins, patches
 
 # Plot the ROC curve for one vs another class
@@ -298,9 +296,9 @@ def plot_ROC_curve_one_vs_one(softmaxes, labels, energies, index_dict, label_0, 
           save_path[optional]   ... Path to save the plot to, format='eps', default=None
     """
     
-    assert softmaxes.any() != None
-    assert labels.any() != None
-    assert index_dict != None
+    assert softmaxes is not None
+    assert labels is not None
+    assert index_dict  is not None
     assert softmaxes.shape[0] == labels.shape[0]
     
     # Create a mapping to extract the energies in
@@ -353,7 +351,7 @@ def plot_ROC_curve_one_vs_one(softmaxes, labels, energies, index_dict, label_0, 
         ax.set_xlabel("False Positive Rate", fontsize=20)
         ax.set_ylabel("True Positive Rate", fontsize=20)
         ax.set_title(r"${0} \leq E < {1}$".format(min_energy, max_energy), fontsize=20)
-        ax.legend(loc="upper right", prop={"size":20}, bbox_to_anchor=(1.04,1))
+        ax.legend(loc="upper right", prop={"size":20})
 
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
@@ -368,14 +366,16 @@ def plot_ROC_curve_one_vs_one(softmaxes, labels, energies, index_dict, label_0, 
     return fpr_0, tpr_0, threshold_0, roc_auc_0, fpr_1, tpr_1, threshold_1, roc_auc_1
 
 # Plot signal efficiency for a given event type at different energies
-def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=None,
-                           average_efficiencies=[0.2, 0.5, 0.8], energy_interval=25,
-                           min_energy=100, max_energy=1000, num_bins=100, show_plot=False,
-                           save_path=None):
+def plot_signal_efficiency(softmaxes, labels, energies, index_dict, event,
+                           avg_efficiencies=[0.2, 0.5, 0.8], energy_interval=25,
+                           avg_efficiency_colors=None, min_energy=100, max_energy=1000,
+                           num_bins=100, show_plot=False, save_path=None):
     
     """
-    plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=None, thresholds=None,
-                           energy_interval=5, energy_min=100, energy_max=1000, num_bins=100, save_path=None)
+    plot_signal_efficiency(softmaxes, labels, energies, index_dict, event,
+                           avg_efficiencies=[0.2, 0.5, 0.8], energy_interval=25,
+                           avg_efficiency_colors=None, min_energy=100, max_energy=1000,
+                           num_bins=100, show_plot=False, save_path=None)
                            
     Purpose : Plot the signal efficiency vs energy for several thresholds
     
@@ -385,55 +385,72 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
           index_dict            ... Dictionary with the keys as event type (str) and values as the column indices 
                                     in the np softmax arrayy
           event                 ... String identifier for the event for which to plot the signal efficiency
-          average_efficiencies  ... 1D array with the average efficiency values for which to plot the signal efficiency
-                                    vs energy plot, default=[0.2, 0.5, 0.8] 
+          avg_efficiencies      ... 1D array with the average efficiency values for which to plot the signal efficiency
+                                    vs energy plot, default=[0.2, 0.5, 0.8]
+          avg_efficiency_colors ... Average efficiencies color dictionary to use. The keys are the iterms in the
+                                    avg_efficiencies list and values are the colors to be used.
           energy_interval       ... Energy interval to be used to calculate the response curve and calculating the signal                 
-                                    efficiency, default=5
+                                    efficiency, default=25
           min_energy            ... Minimum energy for the events to consider, default=0
           max_energy            ... Maximum energy for the events to consider, default=1000
-          num_bins              ... Number of bins to use in the classifier response histogram ( should be greater than 100
-                                    to prevent 0 values
+          num_bins              ... Number of bins to use in the classifier response histogram ( 
+                                    should be greater than 100 to prevent 0 values )
           show_plot[optional]   ... Boolean to determine whether to show the plot, default=False
           save_path[optional]   ... Path to save the plot to, format='eps', default=None
     """
     
     # Assertions to check for valid inputs
-    assert softmaxes.any() != None
-    assert labels.any() != None
-    assert energies.any() != None
-    assert index_dict != None
-    assert event != None
-    assert len(average_efficiencies) >= 3
+    assert softmaxes is not None
+    assert labels is not None
+    assert energies is not None
+    
+    # Need high number of bins to avoid empty values
     assert num_bins >= 100
+    assert event in index_dict.keys()
     
     # Calculate the threshold here according to the desired average efficiencies
     _, _, threshold_0, _, _, tpr_1, threshold_1, _ = plot_ROC_curve_one_vs_one(softmaxes, labels, energies,
-                                                                     {"gamma":0,"e":1}, "gamma",
-                                                                      "e", 0, 1000, show_plot=False)
+                                                                               index_dict,
+                                                                               list(index_dict.keys())[0],
+                                                                               list(index_dict.keys())[1],
+                                                                               min_energy, max_energy, show_plot=False)
     
-    threshold_index_dict = {}
-
-    for tpr_value in average_efficiencies:
+    thresholds = []
+    tolerance = 0.25
+    
+    # Get the index o
+    for tpr_value in avg_efficiencies:
+        
         index_list = []
+        
         for i in range(len(tpr_1)):
             if(math.fabs(tpr_1[i]-tpr_value) < 0.001):
                 index_list.append(i)
-        index = index_list[math.ceil(len(index_list)/2)]
-        threshold_index_dict[tpr_value] = index
+                
+        if(len(index_list) == 0):
+            lower_tpr, lower_index, upper_index, upper_tpr = 0.0, 0, 0, 1.0
+            for i in range(len(tpr_1)):
+                if(tpr_1[i] < tpr_value and tpr_1[i] > lower_tpr):
+                    lower_index = i
+                    lower_tpr = tpr_1[i]
+                if(tpr_1[i] > tpr_value):
+                    upper_index = i
+                    upper_tpr = tpr_1[i]
+                    break
+            if(upper_tpr - lower_tpr > tolerance):
+                print("""plot_utils.plot_signal_efficiency() : Unable to calculate threshold for average_efficiency =  
+                     {0}""".format(tpr_value))
+                return None
+            else:
+                thresholds.append(round((threshold_1[lower_index] + threshold_1[upper_index])/2, 2))
+                
+        else:
+            index = index_list[math.ceil(len(index_list)/2)]
+            thresholds.append(round(threshold_1[index], 2))
 
-    thresholds = []
-    for key in threshold_index_dict.keys():
-        thresholds.append(round(threshold_1[threshold_index_dict[key]], 2))
-    
     # Get the energy intervals to plot the signal efficiency against ( replace with max(energies) ) 
     energy_lb = [min_energy+(energy_interval*i) for i in range(math.ceil((max_energy-min_energy)/energy_interval))]
     energy_ub = [energy_low+energy_interval for energy_low in energy_lb]
-    
-    # Local color dict
-    local_color_dict = {}
-    local_color_dict[thresholds[0]] = "green"
-    local_color_dict[thresholds[1]] = "blue"
-    local_color_dict[thresholds[2]] = "red"
     
     # Epsilon to ensure the plots are OK for low efficiency thresholds
     epsilon = 0.0001
@@ -441,7 +458,7 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
     # Plot the signal efficiency vs energy
     fig = plt.figure(figsize=(32,18), facecolor="w")
         
-    for threshold, efficiency in zip(thresholds, average_efficiencies):
+    for threshold, efficiency in zip(thresholds, avg_efficiencies):
         
         # Values to be plotted at the end
         signal_efficiency = []
@@ -457,10 +474,14 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
                                                       {event:index_dict[event]},
                                                       energy_lower, energy_upper,
                                                       num_bins=num_bins, show_plot=False)
-            
+            if values is None or bins is None:
+                print("""plot_utils.plot_signal_efficiency() : No events for the energy interval {0} to {1}.
+                      Unable to plot.""".format(energy_lower, energy_upper))
+                return None
+                
             total_true_events = np.sum(values)
             num_true_events_selected = np.sum(values[bins[:len(bins)-1] > threshold-epsilon])
-
+            
             curr_interval_efficiency = num_true_events_selected/total_true_events if total_true_events > 0 else 0
 
             if(curr_interval_efficiency == 0):
@@ -478,8 +499,13 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
 
             label_to_use = r"Average signal efficiency = {0}, Threshold = {1:0.3f}".format(efficiency, threshold)
 
-        plt.plot(energy_values, signal_efficiency, color=local_color_dict[threshold], linewidth=2.0,
-                 marker=".", markersize=6.0, markerfacecolor=local_color_dict[threshold], label=label_to_use)
+        if(avg_efficiency_colors != None):
+            plt.plot(energy_values, signal_efficiency, color=avg_efficiency_colors[threshold], linewidth=2.0,
+                 marker=".", markersize=6.0, markerfacecolor=avg_efficiency_colors[threshold], label=label_to_use)
+        else:
+            plt.plot(energy_values, signal_efficiency, linewidth=2.0, marker=".", markersize=6.0, label=label_to_use)
+            
+        
 
     if(event is not "e"):
              title = r"Signal Efficiency vs Energy for $\{0}$ events.".format(event)
@@ -495,7 +521,7 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
              
     plt.xlabel("Event Visible Energy (MeV)", fontsize=20)
     plt.ylabel("Signal Efficiency", fontsize=20)
-    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
+    plt.legend(loc="upper left", prop={"size":20})
         
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
@@ -507,14 +533,14 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
         plt.close() # Close the opened window
         
 # Plot background rejection for a given event
-def plot_background_rejection(softmaxes, labels, energies, index_dict=None, event=None,
-                              average_efficiencies=[0.2, 0.5, 0.8], energy_interval=5,
+def plot_background_rejection(softmaxes, labels, energies, index_dict, event,
+                              avg_efficiencies=[0.2, 0.5, 0.8], avg_efficiency_colors=None, energy_interval=25,
                               min_energy=100, max_energy=1000, num_bins=100,
                               show_plot=False, save_path=None):
     
     """
-    plot_background_rejection(softmaxes, labels, energies, index_dict=None, event=None,
-                              average_efficiencies=[0.2, 0.5, 0.8], energy_interval=5,
+    plot_background_rejection(softmaxes, labels, energies, index_dict, event,
+                              avg_efficiencies=[0.2, 0.5, 0.8], avg_efficiency_color=None, energy_interval=5,
                               min_energy=100, max_energy=1000, num_bins=100,
                               show_plot=False, save_path=None)
                            
@@ -526,10 +552,12 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
           index_dict            ... Dictionary with the keys as event type (str) and values as the column indices 
                                     in the np softmaxes array
           event                 ... String identifier for the event for which to plot the background rejection
-          average_efficiencies  ... 1D array with the average efficiency values for which to plot the signal efficiency
-                                    vs energy plot, default=[0.2, 0.5, 0.8] 
+          avg_efficiencies  ... 1D array with the average efficiency values for which to plot the signal efficiency
+                                    vs energy plot, default=[0.2, 0.5, 0.8]
+          avg_efficiency_colors ... Average efficiencies color dictionary to use. The keys are the iterms in the
+                                    avg_efficiencies list and values are the colors to be used.
           energy_interval       ... Energy interval to be used to calculate the response curve and calculating the signal                 
-                                    efficiency, default=5
+                                    efficiency, default=25
           min_energy            ... Minimum energy for the events to consider, default=0
           max_energy            ... Maximum energy for the events to consider, default=1000
           show_plot[optional]   ... Boolean to determine whether to show the plot, default=False
@@ -537,42 +565,58 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
     """
     
     # Assertions to check for valid inputs
-    assert softmaxes.any() != None
-    assert labels.any() != None
-    assert energies.any() != None
-    assert len(average_efficiencies) >= 3
-    assert index_dict != None
-    assert event != None
+    assert softmaxes is not None
+    assert labels is not None
+    assert energies is not None
+    
+    # Need high number of bins to avoid empty values
     assert num_bins >= 100
+    assert event in index_dict.keys()
     
     # Calculate the threshold here according to the desired average efficiencies
     _, _, threshold_0, _, _, tpr_1, threshold_1, _ = plot_ROC_curve_one_vs_one(softmaxes, labels, energies,
-                                                                     {"gamma":0,"e":1}, "gamma",
-                                                                      "e", 0, 1000, show_plot=False)
+                                                                               index_dict,
+                                                                               list(index_dict.keys())[0],
+                                                                               list(index_dict.keys())[1],
+                                                                               min_energy, max_energy, show_plot=False)
     
+    thresholds = []
     threshold_index_dict = {}
-
-    for tpr_value in average_efficiencies:
+    tolerance = 0.25
+    
+    # Get the index o
+    for tpr_value in avg_efficiencies:
+        
         index_list = []
+        
         for i in range(len(tpr_1)):
             if(math.fabs(tpr_1[i]-tpr_value) < 0.001):
                 index_list.append(i)
-        index = index_list[math.ceil(len(index_list)/2)]
-        threshold_index_dict[tpr_value] = index
-
-    thresholds = []
-    for key in threshold_index_dict.keys():
-        thresholds.append(round(threshold_1[threshold_index_dict[key]], 2))
+                
+        if(len(index_list) == 0):
+            lower_tpr, lower_index, upper_index, upper_tpr = 0.0, 0, 0, 1.0
+            for i in range(len(tpr_1)):
+                if(tpr_1[i] < tpr_value and tpr_1[i] > lower_tpr):
+                    lower_index = i
+                    lower_tpr = tpr_1[i]
+                if(tpr_1[i] > tpr_value):
+                    upper_index = i
+                    upper_tpr = tpr_1[i]
+                    break
+            if(upper_tpr - lower_tpr > tolerance):
+                print("""plot_utils.plot_background_rejection() : Unable to calculate threshold for average
+                      efficiency = {0}""".format(tpr_value))
+                return None
+            else:
+                thresholds.append(round((threshold_1[lower_index] + threshold_1[upper_index])/2, 2))
+                
+        else:
+            index = index_list[math.ceil(len(index_list)/2)]
+            thresholds.append(round(threshold_1[index], 2))
     
     # Get the energy intervals to plot the signal efficiency against ( replace with max(energies) ) 
     energy_lb = [min_energy+(energy_interval*i) for i in range(math.ceil((max_energy-min_energy)/energy_interval))]
     energy_ub = [energy_low+energy_interval for energy_low in energy_lb]
-    
-    # Local color dict
-    local_color_dict = {}
-    local_color_dict[thresholds[0]] = "green"
-    local_color_dict[thresholds[1]] = "blue"
-    local_color_dict[thresholds[2]] = "red"
     
     # Epsilon to ensure the plots are OK for low efficiency thresholds
     epsilon = 0.0001
@@ -580,7 +624,7 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
     # Plot the background rejection vs energy
     fig = plt.figure(figsize=(32,18), facecolor="w")
     
-    for threshold, efficiency in zip(thresholds, average_efficiencies):
+    for threshold, efficiency in zip(thresholds, avg_efficiencies):
     
         # Initialize the dictionary to hold the background rejection values
         background_rejection_dict = {}
@@ -615,11 +659,17 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
                                                           {event:index_dict[event]},
                                                           energy_lower, energy_upper, 
                                                           num_bins=num_bins, show_plot=False)
-
+                
+                # Find the number of false events rejected
+                if values is None or bins is None:
+                    print("""plot_utils.plot_background_rejection() : No events for the energy interval {0} to {1}.
+                          Unable to plot.""".format(energy_lower, energy_upper))
+                    return None
+                    
                 # Find the number of false events rejected
                 total_false_events = np.sum(values)
                 num_false_events_rejected = np.sum(values[bins[:len(bins)-1] < threshold])
-
+                
                 curr_interval_rejection = num_false_events_rejected/total_false_events if total_false_events > 0 else 0
 
                 if(curr_interval_rejection == 0):
@@ -648,8 +698,14 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
             else:
                 label_to_use = r"Average signal efficiency = {0}, Threshold = {1:0.3f}".format(efficiency, threshold)
 
-            plt.plot(energy_values, background_rejection_dict[key], color=local_color_dict[threshold], linewidth=2.0,
-                     marker=".", markersize=6.0, markerfacecolor=local_color_dict[threshold], label=label_to_use)
+            if(avg_efficiency_colors != None):
+                plt.plot(energy_values, background_rejection_dict[key], color=avg_efficiency_colors[threshold], 
+                         linewidth=2.0, marker=".", markersize=6.0, markerfacecolor=avg_efficiency_colors[threshold],
+                         label=label_to_use)
+            else:
+                plt.plot(energy_values, background_rejection_dict[key], linewidth=2.0, marker=".", markersize=6.0,
+                         label=label_to_use)
+            
         
     # Delete the total key from the color dict
     del color_dict["total"]
@@ -670,82 +726,17 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
              
     plt.xlabel("Event visible energy (MeV)", fontsize=20)
     plt.ylabel("Background rejection", fontsize=20)
-    plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
+    plt.legend(loc="upper left", prop={"size":20})
         
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
     else:
         plt.show()
-        
-#===================================================================================
-# Visualizing the events using the mPMT charge and timing information
-#===================================================================================
-
-# 10x10 square represents one mPMT
-# List of top-left pixel positions (row,col) for 2x2 grids representing PMTs 0 to 18
-POS_MAP = [(8,4), #0
-           (7,2), #1
-           (6,0), #2
-           (4,0), #3
-           (2,0), #4
-           (1,1), #5
-           (0,4), #6
-           (1,6), #7
-           (2,8), #8
-           (4,8), #9
-           (6,8), #10
-           (7,6), #11
-           # Inner ring
-           (6,4), #12
-           (5,2), #13
-           (3,2), #14
-           (2,4), #15
-           (3,6), #16
-           (5,6), #17
-           (4,4)] #18
-
-PADDING = 0
-
-def get_plot_array(event_data):
-    
-    # Assertions on the shape of the data and the number of input channels
-    assert(len(event_data.shape) == 3 and event_data.shape[2] == 19)
-    
-    # Extract the number of rows and columns from the event data
-    rows = event_data.shape[0]
-    cols = event_data.shape[1]
-    
-    # Make empty output pixel grid
-    output = np.zeros(((10+PADDING)*rows, (10+PADDING)*cols))
-    
-    i, j = 0, 0
-    
-    for row in range(rows):
-        j = 0
-        for col in range(cols):
-            pmts = event_data[row, col]
-            tile(output, (i, j), pmts)
-            j += 10 + PADDING
-        i += 10 + PADDING
-        
-    return output
-            
-def tile(canvas, ul, pmts):
-    
-    # First, create 10x10 grid representing single mpmt
-    mpmt = np.zeros((10, 10))
-    for i, val in enumerate(pmts):
-        mpmt[POS_MAP[i][0]][POS_MAP[i][1]] = val
-
-    # Then, place grid on appropriate position on canvas
-    for row in range(10):
-        for col in range(10):
-            canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
     
 # Plot the reconstructed vs actual events
 def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
     """
-    plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
+    plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=False, save_path=None):
                            
     Purpose : Plot the actual event vs event reconstructed by the VAE
     
@@ -758,87 +749,10 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     """
     
     # Assertions
-    assert actual_event.any() != None
-    assert recon_event.any() != None
-    assert label != None
-    assert energy != None and energy > 0
-    assert len(actual_event.shape) == 3
-    assert len(recon_event.shape) == 3
-    
-    # Initialize the figure to plot the events
-    fig, axes = plt.subplots(2,1,figsize=(32,18))
-    plt.subplots_adjust(hspace=0.2)
-    
-    # Setup the plot
-    if label is not "e":
-        sup_title = r"$\{0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
-    else:
-        sup_title = r"${0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
-        
-    fig.suptitle(sup_title, fontsize=30)
-    
-    # Plot the actual event
-    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno")
-    
-    axes[0].set_title("Actual event display", fontsize=20)
-    axes[0].set_xlabel("PMT module X-position", fontsize=20)
-    axes[0].set_ylabel("PMT module Y-position", fontsize=20)
-    axes[0].grid(True, which="both", axis="both")
-    
-    ax0_cbar = fig.colorbar(im_0, extend='both', ax=axes[0])
-    ax0_cbar.set_label(r"Charge, $c$", fontsize=20)
-    
-    axes[0].tick_params(labelsize=20)
-    ax0_cbar.ax.tick_params(labelsize=20) 
-    
-    axes[0].set_xticklabels((axes[0].get_xticks()/10).astype(int))
-    axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
-    
-    # Plot the reconstructed event
-    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno")
-    
-    axes[1].set_title("Reconstructed event display", fontsize=20)
-    axes[1].set_xlabel("PMT module X-position", fontsize=20)
-    axes[1].set_ylabel("PMT module Y-position", fontsize=20)
-    axes[1].grid(True, which="both", axis="both")
-    
-    ax1_cbar = fig.colorbar(im_1, extend='both', ax=axes[1])
-    ax1_cbar.set_label(r"Charge, $c$", fontsize=20)
-    
-    axes[1].tick_params(labelsize=20)
-    ax1_cbar.ax.tick_params(labelsize=20)
-    
-    axes[1].set_xticklabels((axes[1].get_xticks()/10).astype(int))
-    axes[1].set_yticklabels((axes[1].get_yticks()/10).astype(int))
-    
-    if save_path is not None:
-        plt.savefig(save_path, format='eps', dpi=300)
-    
-    if show_plot:
-        plt.show()
-    else:
-        plt.clf() # Clear the plot frame
-        plt.close() # Close the opened window if any
-        
-
-# Plot the reconstructed vs actual events
-def plot_actual_vs_recon_log(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
-    """
-    plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=)
-                           
-    Purpose : Plot the actual event vs event reconstructed by the VAE
-    
-    Args: actual_event        ... 3-D NumPy array with the event data, shape=(width, height, depth)
-          recon_event         ... 3-D NumPy array with the reconstruction data, shape = (width, height, depth)
-          label               ... Str with the true event label, e.g. "e", "mu", "gamma"
-          energy              ... Float value of the true energy of the event
-          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
-          save_path[optional] ... Path to save the plot to, format='eps', default=None
-    """
-    
-    # Assertions
-    assert actual_event.any() != None
-    assert recon_event.any() != None
+    assert actual_event is not None
+    assert recon_event is not None
+    assert label is not None
+    assert energy is not None and energy > 0
     assert len(actual_event.shape) == 3
     assert len(recon_event.shape) == 3
     
@@ -858,35 +772,38 @@ def plot_actual_vs_recon_log(actual_event, recon_event, label, energy, show_plot
     fig.suptitle(sup_title, fontsize=30)
     
     # Plot the actual event
-    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_0 = axes[0].imshow(mpmt_visual.get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
     
     axes[0].set_title("Actual event display", fontsize=20)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
     axes[0].set_ylabel("PMT module Y-position", fontsize=20)
     axes[0].grid(True, which="both", axis="both")
     
+    ax0_cbar = fig.colorbar(im_0, extend='both', ax=axes[0])
+    ax0_cbar.set_label(r"Charge, $c$", fontsize=20)
+    
     axes[0].tick_params(labelsize=20)
-
+    ax0_cbar.ax.tick_params(labelsize=20) 
+    
     axes[0].set_xticklabels((axes[0].get_xticks()/10).astype(int))
     axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
-                      
+    
     # Plot the reconstructed event
-    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_1 = axes[1].imshow(mpmt_visual.get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
     
     axes[1].set_title("Reconstructed event display", fontsize=20)
     axes[1].set_xlabel("PMT module X-position", fontsize=20)
     axes[1].set_ylabel("PMT module Y-position", fontsize=20)
     axes[1].grid(True, which="both", axis="both")
     
+    ax1_cbar = fig.colorbar(im_1, extend='both', ax=axes[1])
+    ax1_cbar.set_label(r"Log charge, $c$", fontsize=20)
+    
     axes[1].tick_params(labelsize=20)
+    ax1_cbar.ax.tick_params(labelsize=20)
     
     axes[1].set_xticklabels((axes[1].get_xticks()/10).astype(int))
     axes[1].set_yticklabels((axes[1].get_yticks()/10).astype(int))
-    
-    
-    fig_cbar = fig.colorbar(im_1, ax=axes.ravel().tolist())
-    fig_cbar.set_label(r"Log Charge, $log c$", fontsize=20)
-    fig_cbar.ax.tick_params(labelsize=20) 
     
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300)
@@ -898,24 +815,31 @@ def plot_actual_vs_recon_log(actual_event, recon_event, label, energy, show_plot
         plt.close() # Close the opened window if any
         
 # Plot model performance over the training iterations
-def plot_training(log_paths, model_names, model_color_dict, downsample_interval=1000, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
+def plot_training(log_path, model_name, model_color_dict, downsample_interval=1000, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
     plot_training_loss(training_directories=None, model_names=None, show_plot=False, save_path=None)
                            
     Purpose : Plot the training loss for various models for visual comparison
     
-    Args: log_paths           ... List of the .csv log files. Absolute path required.
-          model_names         ... List of the models corresponding to the log directories provided
-          model_color_dict    ...
-          downsample_interval ...
-          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
-          save_path[optional] ... Path to save the plot to, format='eps', default=None
+    Args: log_paths           ... Absolute path to the .csv log files
+                                  Type : str
+          model_names         ... String model name
+                                  Type : str
+          downsample_interval ... Downsample interval to smoothen the results,
+                                  Type : int
+          legend_loc          ... Location of where to put the legend on the plot
+                                  Type : tuple
+                                  Format : (x_pos, y_pos), 0 <= x_pos <= 1, 0 <= y_pos <= 1
+          show_plot[optional] ... Boolean to determine whether to show the plot
+                                  Type : Boolean
+          save_path[optional] ... Absolute path to save the plot to
+                                  Type : str
     """
     
     # Assertions
-    assert log_paths != None
-    assert model_names != None
-    assert model_color_dict != None
+    assert log_paths is not None
+    assert model_names is not None
+    assert model_color_dict is not None
     assert len(log_paths) == len(model_names)
     assert len(model_names) == len(model_color_dict.keys())
     
@@ -979,10 +903,10 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     
     # Plot the values
     for i, model_name in enumerate(model_names):
-        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
-                 label=model_name)
-        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
-                 label=model_name)
+        ax1.plot(epoch_values[i], loss_values[i], color="red",
+                 label="Loss")
+        ax2.plot(epoch_values[i], acc_values[i], color="blue",
+                 label="Accuracy")
         
         
     # Setup plot characteristics
@@ -997,210 +921,7 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     
     plt.grid(True)
     lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
-    fig.suptitle("Training vs Epochs", fontsize=25)
-    
-    if save_path is not None:
-        plt.savefig(save_path, format='png', dpi=300, bbox_extra_artists=(lgd))
-    else:
-        plt.show()
-        
-# Plot model performance over the training iterations
-def plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
-    """
-    plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False,
-                        save_path=None)
-                           
-    Purpose : Plot the validation loss and accuracy for various models for visual comparison
-    
-    Args: log_paths           ... List of the .csv log files. Absolute path required.
-          model_names         ... List of the models corresponding to the log directories provided
-          model_color_dict    ...
-          downsample_interval ...
-          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
-          save_path[optional] ... Path to save the plot to, format='eps', default=None
-    """
-    
-    # Assertions
-    assert log_paths != None
-    assert model_names != None
-    assert model_color_dict != None
-    assert len(log_paths) == len(model_names)
-    assert len(model_names) == len(model_color_dict.keys())
-    
-    # Extract the values stored in the .csv log files
-    loss_values = []
-    epoch_values = []
-    acc_values = []
-    
-    # Iterate over the list of log files provided
-    for log_path in log_paths:
-        if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "loss", "accuracy"])
-            
-            # Downsample the epoch and training loss values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"].values
-            curr_loss_values  = log_df["loss"].values
-            curr_acc_values  = log_df["accuracy"].values
-            
-            # Downsample using the downsample interval
-            if downsample_interval == None:
-                epoch_values.append(curr_epoch_values)
-                loss_values.append(curr_loss_values)
-                acc_values.append(curr_acc_values)
-            else:
-                curr_epoch_values_downsampled = []
-                curr_loss_values_downsampled  = []
-                curr_acc_values_downsampled  = []
-
-                curr_epoch_list = []
-                curr_loss_list = []
-                curr_acc_list = []
-
-                for i in range(1, len(curr_epoch_values)):
-
-                    if(i%downsample_interval == 0):
-
-                        # Downsample the values using the mean of the values for the current interval
-                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
-                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
-                        curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
-
-                        # Reset the list for the next interval
-                        curr_loss_list = []
-                        curr_epoch_list = []
-                        curr_acc_list = []
-                    else:
-                        # Add the values in the interval to the list
-                        curr_epoch_list.append(curr_epoch_values[i])
-                        curr_loss_list.append(curr_loss_values[i]) 
-                        curr_acc_list.append(curr_acc_values[i])
-
-                epoch_values.append(curr_epoch_values_downsampled)
-                loss_values.append(curr_loss_values_downsampled)
-                acc_values.append(curr_acc_values_downsampled)
-        else:
-            print("Error. log path {0} does not exist".format(log_path))
-            
-    # Initialize the plot
-    fig, ax1 = plt.subplots(figsize=(16,11))
-    ax2 = ax1.twinx()
-    
-    # Plot the values
-    for i, model_name in enumerate(model_names):
-        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
-                 label=model_name)
-        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
-                 label=model_name)
-        
-        
-    # Setup plot characteristics
-    ax1.tick_params(axis="both", labelsize=20)
-    ax2.tick_params(axis="both", labelsize=20)
-    
-    ax1.set_xlabel("Epoch", fontsize=20)
-    ax1.set_ylabel("Loss", fontsize=20)
-    ax2.set_ylabel("Accuracy", fontsize=20)
-    
-    plt.grid(True)
-    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
-    fig.suptitle("Validation vs Epochs", fontsize=25)
-    
-    if save_path is not None:
-        plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
-    else:
-        plt.show()
-        
-# Plot model performance over the training iterations
-def plot_training_vae(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False, save_path=None):
-    """
-    plot_training_validation(log_paths, model_names, model_color_dict, downsample_interval=1000, show_plot=False,
-                        save_path=None)
-                           
-    Purpose : Plot the validation loss and accuracy for various models for visual comparison
-    
-    Args: log_paths           ... List of the .csv log files. Absolute path required.
-          model_names         ... List of the models corresponding to the log directories provided
-          model_color_dict    ...
-          downsample_interval ...
-          show_plot[optional] ... Boolean to determine whether to show the plot, default=False
-          save_path[optional] ... Path to save the plot to, format='eps', default=None
-    """
-    
-    # Assertions
-    assert log_paths != None
-    assert model_names != None
-    assert model_color_dict != None
-    assert len(log_paths) == len(model_names)
-    assert len(model_names) == len(model_color_dict.keys())
-    
-    # Extract the values stored in the .csv log files
-    loss_values = []
-    epoch_values = []
-    
-    # Iterate over the list of log files provided
-    for log_path in log_paths:
-        if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "loss"])
-            
-            # Downsample the epoch and training loss values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"].values
-            curr_loss_values  = log_df["loss"].values
-            
-            # Downsample using the downsample interval
-            if downsample_interval == None:
-                epoch_values.append(curr_epoch_values)
-                loss_values.append(curr_loss_values)
-            else:
-                curr_epoch_values_downsampled = []
-                curr_loss_values_downsampled  = []
-
-                curr_epoch_list = []
-                curr_loss_list = []
-
-                for i in range(1, len(curr_epoch_values)):
-
-                    if(i%downsample_interval == 0):
-
-                        # Downsample the values using the mean of the values for the current interval
-                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
-                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
-
-                        # Reset the list for the next interval
-                        curr_loss_list = []
-                        curr_epoch_list = []
-                    else:
-                        # Add the values in the interval to the list
-                        curr_epoch_list.append(curr_epoch_values[i])
-                        curr_loss_list.append(curr_loss_values[i]) 
-
-                epoch_values.append(curr_epoch_values_downsampled)
-                loss_values.append(curr_loss_values_downsampled)
-        else:
-            print("Error. log path {0} does not exist".format(log_path))
-            
-    # Initialize the plot
-    fig, ax1 = plt.subplots(figsize=(16,11))
-    ax2 = ax1.twinx()
-    
-    # Plot the values
-    for i, model_name in enumerate(model_names):
-        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
-                 label=model_name)
-        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
-                 label=model_name)
-        
-        
-    # Setup plot characteristics
-    ax1.tick_params(axis="both", labelsize=20)
-    ax2.tick_params(axis="both", labelsize=20)
-    
-    ax1.set_xlabel("Epoch", fontsize=20)
-    ax1.set_ylabel("Loss", fontsize=20)
-    ax2.set_ylabel("Accuracy", fontsize=20)
-    
-    plt.grid(True)
-    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=(0.82, 0.5))
-    fig.suptitle("Validation vs Epochs", fontsize=25)
+    fig.suptitle("Training vs Epochs for " + model_name, fontsize=25)
     
     if save_path is not None:
         plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
