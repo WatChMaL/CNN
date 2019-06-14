@@ -75,9 +75,9 @@ Python implementation of the training engine and framework to build, train and t
 The following Python standard, machine learning and deep learning libraries are required for the functionality of the framework :
 
 1. [PyTorch](https://pytorch.org/)
-2. [NumPy](#https://www.numpy.org/)
-3. [Scikit-learn](#https://scikit-learn.org/stable/)
-4. [Matplotlib](#https://matplotlib.org/users/installing.html)
+2. [NumPy](https://www.numpy.org/)
+3. [Scikit-learn](https://scikit-learn.org/stable/)
+4. [Matplotlib](https://matplotlib.org/users/installing.html)
 5. [h5py](https://www.h5py.org/)
 6. [PyROOT](https://root.cern.ch/pyroot)
 
@@ -92,16 +92,18 @@ Sample configuration files for the training engine and framework are provided in
 Examples :
 
 ```
-Train and validate a classifier using the sample configuration file
+# Train and validate a classifier using the sample configuration file
 
 python3 watchmal.py -l test_resnet
 ```
 
 ```
-Train and validate a variational autoencoder using the sample configuration file
+# Train and validate a variational autoencoder using the sample configuration file
 
 python3 watchmal_vae.py -l test_kvaenet
 ```
+
+More in-depth usage options and configurations are described in **USER_GUIDE.md**.
 
 ## Credits <a id="credits"></a>
 
