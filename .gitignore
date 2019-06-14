@@ -107,7 +107,10 @@ venv.bak/
 main_fix.py
 *.csv
 state*
-<<<<<<< HEAD
+*.save
+
+# Folders - Abhishek
+save_path/
 
 # Folders - Julian
 USER/

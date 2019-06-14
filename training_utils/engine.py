@@ -62,7 +62,7 @@ class Engine:
 
         self.model.to(self.device)
 
-        self.optimizer = optim.Adam(self.model.parameters(),eps=1e-3)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.0001)
         self.criterion = nn.CrossEntropyLoss()
         self.softmax = nn.Softmax(dim=1)
 
@@ -175,6 +175,7 @@ class Engine:
         # Training loop
         while ((int(epoch+0.5) < epochs) and continue_train):
             print('Epoch',int(epoch+0.5),'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            j = 0
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
                 
@@ -201,7 +202,8 @@ class Engine:
                 self.train_log.write()
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))
+                    #print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' % (iteration,epoch,res['loss'],res['accuracy']))#
+                    pass
                     
                 # more rarely, run validation
                 if (i+1)%valid_interval == 0:
@@ -248,8 +250,7 @@ class Engine:
                             best_val_acc = res["accuracy"]
                         else:
                             continue_train = True
-            
-            
+                    self.save_state(curr_iter=iteration)
         self.val_log.close()
         self.train_log.close()
     
@@ -259,7 +260,7 @@ class Engine:
     # dataset ( returns loss, acc, confusion matrix )
     def validate(self, plt_worst=0, plt_best=0):
         """
-        rTest the trained model on the validation set.
+        Test the trained model on the validation set.
         
         Parameters: None
         
@@ -280,11 +281,6 @@ class Engine:
         val_acc = 0.0
         val_iterations = 0
         
-        pushing = False
-        if plt_worst > 0 or plt_best > 0:
-            queues = [DoublePriority(plt_worst, plt_best), DoublePriority(plt_worst, plt_best), DoublePriority(plt_worst, plt_best)]
-            pushing = True
-        
         # Iterate over the validation set to calculate val_loss and val_acc
         with torch.no_grad():
             
@@ -299,17 +295,9 @@ class Engine:
                 
                 sys.stdout.write("val_iterations : " + str(val_iterations) + "\n")
                 
-                self.data, self.label, batch_energies = val_data[0:3]
+                self.data, self.label, index, batch_energies = val_data[0:4]
                 
                 self.label = self.label.long()
-                
-                self.data, self.label = val_data[0:2]
-                self.data = self.data.float()
-                self.label = self.label.long()
-                
-                energy, PATH, IDX = val_data[2:5]
-                IDX = IDX.long().numpy()
-                PATH = PATH.long().numpy()
 
                 # Run the forward procedure and output the result
                 result = self.forward(False)
@@ -317,10 +305,6 @@ class Engine:
                 val_acc += result['accuracy']
                 
                 # Add item to priority queues if necessary
-                if pushing:
-                    for i, lab in enumerate(self.label):
-                        queues[lab].insert((result['softmax'][i][lab], PATH[i], IDX[i]))
-                        print(PATH[i])
                 
                 # Copy the tensors back to the CPU
                 self.label = self.label.to("cpu")
@@ -374,6 +358,7 @@ class Engine:
         np.save("energies" + str(run) + ".npy", np.hstack(energies))
         np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
         np.save("softmax" + str(run) + ".npy", np.array(softmaxes))
+        # If requested, dump root file visualization script outputs to save_path directory
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -492,7 +477,7 @@ class Engine:
                                         result["softmax"][softmax_bottom_n,label_dict[event_type]])
                 
                 # Sort the global top and bottom softmax array and get the top and bottom sections
-                softmax_top 
+                #softmax_top 
                 
                 
         
@@ -501,9 +486,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        #filename = self.config.save_path+'/saved_states/'+str(self.config.model)+str(curr_iter)
-        #filename = str(self.config.model[1])+"-"+"iter-"+str(curr_iter)+".save"
-        filename = str(self.config.model[1])+"-"+"trained.save"
+        filename = self.config.save_path+'/saved_states/'+str(self.config.model[1]) + ".pth"
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -516,6 +499,7 @@ class Engine:
         return filename
 
     def restore_state(self, weight_file):
+        weight_file = self.config.save_path+'/saved_states/'+weight_file
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             print('Restoring state from', weight_file)
