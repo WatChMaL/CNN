@@ -16,8 +16,6 @@ import io_utils.ioconfig as ioconfig
 import io_utils.modelhandler as modelhandler
 import torch
 
-USER_DIR = 'USER/'
-
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=['resnet', 'resnet18'], help='Specify neural net architecture. Default is resnet18.'),
@@ -68,43 +66,45 @@ ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
 
 if __name__ == '__main__':
+    
     # Intro message :D
     print("""[HK-Canada] TRIUMF Neutrino Group: Water Cherenkov Machine Learning (WatChMaL)
-\tCollaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n""")
+    \tCollaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n""")
+    
     # Reflect available models
     print('CURRENT AVAILABLE ARCHITECTURES')
     modelhandler.print_models()
     config = arghandler.parse_args(ARGS)
+    
     # Do not overwrite any attributes specified by commandline flags
     for ar in ARGS:
         if getattr(config, ar.name) != ar.default:
             ATTR_DICT[ar.name].overwrite = False
-    # Create user directory if necessary
-    if not os.path.isdir(USER_DIR):
-        os.mkdir(USER_DIR)
-        print("Created user directory", USER_DIR)
+            
     # Load from file
     if config.load is not None:
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
+        
     # Check attributes for validity
     for task in config.tasks:
         assert(task in ['train', 'test', 'valid'])
+        
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)
+        
     # Set save directory to under USER_DIR
-    config.save_path = USER_DIR+config.save_path+('' if config.save_path.endswith('/') else '/')
-    # Add slash to root directory if needed
-    if config.root is not None:
-        config.root = config.root+('' if config.root.endswith('/') else '/')
+    config.save_path = config.save_path+('' if config.save_path.endswith('/') else '/')
+        
     # Select requested model
     print('Selected architecture:', config.model)
+    
     # Make sure the specified arguments can be passed to the model
     params = ioconfig.to_kwargs(config.params)
     modelhandler.check_params(config.model[0], params)
     constructor = modelhandler.select_model(config.model)
     model = constructor(**params)
-    print(model)
+    
     # Finally, construct the neural net
     nnet = net.Engine(model, config)
     # Do some work...
