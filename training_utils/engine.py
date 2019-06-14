@@ -59,7 +59,7 @@ class Engine:
 
         self.model.to(self.device)
 
-        self.optimizer = optim.Adam(self.model.parameters(), lr=0.0001)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
         self.criterion = nn.CrossEntropyLoss()
         self.softmax = nn.Softmax(dim=1)
 
@@ -147,7 +147,7 @@ class Engine:
         # Keep track of the validation accuracy
         best_val_acc = 0.0
         continue_train = True
-        optim_state_list = []
+        #optim_state_list = []
         
         # Prepare attributes for data logging
         self.train_log, self.val_log = CSVData(self.dirpath+"log_train.csv"), CSVData(self.dirpath+"val_test.csv")
@@ -186,11 +186,11 @@ class Engine:
                 self.train_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
                 self.train_log.write()
                 
-                # Record the current performance on train set
+                """# Record the current performance on train set
                 optim_state_list.append((self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][0,0,3,3].item,
                                         self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][1,1,3,3].item,
                                         self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][2,2,3,3].item,
-                                       self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][3,3,3,3].item))
+                                       self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][3,3,3,3].item))"""
                 
                 
                 # once in a while, report
@@ -244,7 +244,7 @@ class Engine:
                     self.save_state(curr_iter=iteration)
         self.val_log.close()
         self.train_log.close()
-        np.save(self.dirpath + "/optim_state_array.npy", np.array(optim_state_list))
+        #np.save(self.dirpath + "/optim_state_array.npy", np.array(optim_state_list))
     
     # ========================================================================
 

@@ -50,12 +50,6 @@ class KazuNet(nn.Module):
         self.en_fc2 = nn.Linear(128, 128)
         self.en_fc3 = nn.Linear(128, num_classes)
         
-        # ------------------------------------------------------------------------
-        # Decoder
-        # ------------------------------------------------------------------------
-        
-        # De-convolutions and (un)max-pooling
-        
     # Forward pass
     
     def forward(self, X):
@@ -81,18 +75,3 @@ class KazuNet(nn.Module):
         x = self.en_fc3(x)
         
         return x
-        
-    # Encoder
-    
-    def encode(self, X):
-        return X
-    
-    # Reparameterization
-    
-    def reparameterize(self, X):
-        return X
-    
-    # Decoder
-    
-    def decode(self, X):
-        return X

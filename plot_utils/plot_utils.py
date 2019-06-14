@@ -16,7 +16,7 @@ from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
 
-import mpmt_visual
+import plot_utils.mpmt_visual
 
 # Set the style
 plt.style.use("classic")
