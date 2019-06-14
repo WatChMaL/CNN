@@ -17,20 +17,20 @@ Python implementation of the training engine and framework to build, train and t
 
 ```bash
 .
-+-- config
-  +-- engine_config
++-- config                              # Configuration files
+  +-- engine_config                     # Configuration files for the training engine
     +-- test_resnet.ini
     +-- test_kazunet.ini
     +-- test_kvaenet.ini
-  +-- preprocessing_config
+  +-- preprocessing_config              # Configuration files for data pre-processing
     +-- merge_config.ini
-+-- io_uitls
++-- io_utils                            # Tools to handle the user inputs, dataset and models
   +-- __init__.py
   +-- arghandler.py
   +-- data_handling.py
   +-- ioconfig.py
   +-- modelhandler.py
-+-- models
++-- models                              # PyTorch implementation of various CNN-VAE models
   +-- abhinet.py
   +-- convonlynet.py
   +-- densenet.py
@@ -39,17 +39,17 @@ Python implementation of the training engine and framework to build, train and t
   +-- kvaenet.py
   +-- resnet.py
   +-- vaenet.py
-+-- notebooks
-+-- plot_utils
++-- notebooks                           # Jupyter Notebooks for offline analysis
++-- plot_utils                          # Tools for visualizing model performance and dataset features
   +-- mpmt_visual.py
   +-- notebook_utils.py
   +-- plot_utils.py
-+-- postprocessing
-+-- preprocessing
++-- postprocessing                      # Tools for post-processing the outputs from the models
++-- preprocessing                       # Tools for pre-processing the dataset
   +-- merge_h5.py
-  +-- merge_numpy_arrays_hdf5.py
+  +-- merge_numpy_arrays_hdf5.py 
   +-- preprocessing_gamma.py
-+-- root_utils
++-- root_utils                          # Tools for interacting with the ROOT files from the WCSim simulations
   +-- display_list.py
   +-- event_disp_and_dump.py
   +-- event_disp_and_dump_arg_utils.py
@@ -58,14 +58,14 @@ Python implementation of the training engine and framework to build, train and t
   +-- event_dump_cedar_start.py
   +-- event_dump_one.py
   +-- pos_utils.py
-+-- training_utils
++-- training_utils                      # Tools for training, validating and testing the models
   +-- doublepriorityqueue.py
   +-- engine.py
   +-- engine_vae.py
-+-- README.md
-+-- USER_GUIDE.md
-+-- watchmal.py
-+-- watchmal_vae.py
++-- README.md                           # README documentation for the repository
++-- USER_GUIDE.md                       # User guide on how to use the library
++-- watchmal.py                         # Main script to run the engine for the classifier
++-- watchmal_vae.py                     # Main script to run the engine for the VAE
 ```
 
 ## Installation <a id="installation"></a>
