@@ -18,9 +18,12 @@ Python implementation of the training engine and framework to build, train and t
 ```bash
 .
 +-- config
-  +-- test_resnet.ini
-  +-- test_kazunet.ini
-  +-- test_kvaenet.ini
+  +-- engine_config
+    +-- test_resnet.ini
+    +-- test_kazunet.ini
+    +-- test_kvaenet.ini
+  +-- preprocessing_config
+    +-- merge_config.ini
 +-- io_uitls
   +-- __init__.py
   +-- arghandler.py
