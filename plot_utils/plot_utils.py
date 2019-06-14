@@ -8,10 +8,7 @@ from __future__ import division
 from __future__ import print_function
 import numpy as np
 import math
-<<<<<<< HEAD
-=======
 import os
->>>>>>> debug
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -114,7 +111,6 @@ def plot_event_energy_distribution(energies, labels, label_dict=None, dset_type=
 def plot_confusion_matrix(labels, predictions, energies, class_names, min_energy, max_energy, show_plot=False,
                           save_path=None):
     
-<<<<<<< HEAD
     """
     plot_confusion_matrix(labels, predictions, energies, class_names, min_energy, max_energy, save_path=None)
     
@@ -129,22 +125,6 @@ def plot_confusion_matrix(labels, predictions, energies, class_names, min_energy
           show_plot[optional] ... Boolean to determine whether to display the plot
           save_path[optional] ... Path to save the plot as an image
     """
-=======
-    """
-    plot_confusion_matrix(labels, predictions, energies, class_names, min_energy, max_energy, save_path=None)
-    
-    Purpose : Plot the confusion matrix for a given energy interval
-    
-    Args: labels              ... 1D array of true label value, the length = sample size
-          predictions         ... 1D array of predictions, the length = sample size
-          energies            ... 1D array of event energies, the length = sample size
-          class_names         ... 1D array of string label for classification targets, the length = number of categories
-          min_energy          ... Minimum energy for the events to consider
-          max_energy          ... Maximum energy for the events to consider
-          show_plot[optional] ... Boolean to determine whether to display the plot
-          save_path[optional] ... Path to save the plot as an image
-    """
->>>>>>> debug
     
     # Create a mapping to extract the energies in
     energy_slice_map = [False for i in range(len(energies))]
@@ -197,13 +177,7 @@ def plot_confusion_matrix(labels, predictions, energies, class_names, min_energy
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
-<<<<<<< HEAD
-        
-        
-=======
-        
-        
->>>>>>> debug
+
 # Plot the classifier for a given event type for several true event types
 def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, event_dict=None, min_energy=0,
                              max_energy=1000, num_bins=100, show_plot=False, save_path=None):
@@ -299,15 +273,9 @@ def plot_classifier_response(softmaxes, labels, energies, labels_dict=None, even
     else:
         plt.clf() # Clear the current figure
         plt.close() # Close the opened window
-<<<<<<< HEAD
-        
+
     return values, bins, patches
-        
-=======
-        
-    return values, bins, patches
-        
->>>>>>> debug
+
 # Plot the ROC curve for one vs another class
 def plot_ROC_curve_one_vs_one(softmaxes, labels, energies, index_dict, label_0, label_1, min_energy, max_energy,
                               show_plot=False, save_path=None):
@@ -456,7 +424,6 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
     thresholds = []
     for key in threshold_index_dict.keys():
         thresholds.append(round(threshold_1[threshold_index_dict[key]], 2))
-<<<<<<< HEAD
     
     # Get the energy intervals to plot the signal efficiency against ( replace with max(energies) ) 
     energy_lb = [min_energy+(energy_interval*i) for i in range(math.ceil((max_energy-min_energy)/energy_interval))]
@@ -528,81 +495,6 @@ def plot_signal_efficiency(softmaxes, labels, energies, index_dict=None, event=N
              
     plt.xlabel("Event Visible Energy (MeV)", fontsize=20)
     plt.ylabel("Signal Efficiency", fontsize=20)
-    
-=======
-    
-    # Get the energy intervals to plot the signal efficiency against ( replace with max(energies) ) 
-    energy_lb = [min_energy+(energy_interval*i) for i in range(math.ceil((max_energy-min_energy)/energy_interval))]
-    energy_ub = [energy_low+energy_interval for energy_low in energy_lb]
-    
-    # Local color dict
-    local_color_dict = {}
-    local_color_dict[thresholds[0]] = "green"
-    local_color_dict[thresholds[1]] = "blue"
-    local_color_dict[thresholds[2]] = "red"
-    
-    # Epsilon to ensure the plots are OK for low efficiency thresholds
-    epsilon = 0.0001
-    
-    # Plot the signal efficiency vs energy
-    fig = plt.figure(figsize=(32,18), facecolor="w")
-        
-    for threshold, efficiency in zip(thresholds, average_efficiencies):
-        
-        # Values to be plotted at the end
-        signal_efficiency = []
-        energy_values = []
-        
-        # Value for the previous non-zero events
-        prev_non_zero_efficiency = 0.0
-    
-        # Iterate over the energy intervals computing the efficiency
-        for energy_lower, energy_upper in zip(energy_lb, energy_ub):
-            values, bins, _ = plot_classifier_response(softmaxes, labels, energies,
-                                                      {event:index_dict[event]},
-                                                      {event:index_dict[event]},
-                                                      energy_lower, energy_upper,
-                                                      num_bins=num_bins, show_plot=False)
-            
-            total_true_events = np.sum(values)
-            num_true_events_selected = np.sum(values[bins[:len(bins)-1] > threshold-epsilon])
-
-            curr_interval_efficiency = num_true_events_selected/total_true_events if total_true_events > 0 else 0
-
-            if(curr_interval_efficiency == 0):
-                curr_interval_efficiency = prev_non_zero_efficiency
-            else:
-                prev_non_zero_efficiency = curr_interval_efficiency
-
-            # Add two times once for the lower energy bound and once for the upper energy bound
-            signal_efficiency.append(curr_interval_efficiency)
-            signal_efficiency.append(curr_interval_efficiency)
-
-            # Add the lower and upper energy bounds
-            energy_values.append(energy_lower)
-            energy_values.append(energy_upper)
-
-            label_to_use = r"Average signal efficiency = {0}, Threshold = {1:0.3f}".format(efficiency, threshold)
-
-        plt.plot(energy_values, signal_efficiency, color=local_color_dict[threshold], linewidth=2.0,
-                 marker=".", markersize=6.0, markerfacecolor=local_color_dict[threshold], label=label_to_use)
-
-    if(event is not "e"):
-             title = r"Signal Efficiency vs Energy for $\{0}$ events.".format(event)
-    else:
-             title = r"Signal Efficiency vs Energy for ${0}$ events.".format(event)
-             
-    plt.title(title, fontsize=20)
-    plt.grid(True)
-             
-    plt.xlim([min_energy, max_energy])
-    plt.ylim([0, 1.05])
-    plt.tick_params(axis="both", labelsize=20)
-             
-    plt.xlabel("Event Visible Energy (MeV)", fontsize=20)
-    plt.ylabel("Signal Efficiency", fontsize=20)
-    
->>>>>>> debug
     plt.legend(prop={"size":20}, bbox_to_anchor=(1.04,1), loc="upper left")
         
     if save_path is not None:
@@ -784,9 +676,6 @@ def plot_background_rejection(softmaxes, labels, energies, index_dict=None, even
         plt.savefig(save_path, format='eps', dpi=300)
     else:
         plt.show()
-<<<<<<< HEAD
-    
-=======
         
 #===================================================================================
 # Visualizing the events using the mPMT charge and timing information
@@ -1317,4 +1206,3 @@ def plot_training_vae(log_paths, model_names, model_color_dict, downsample_inter
         plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
     else:
         plt.show()
->>>>>>> debug

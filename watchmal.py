@@ -51,10 +51,8 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=0, help='Specify the number of WORST-identified events to dump root file references to at the end of validation.'),
         arghandler.Argument('best', int, flag='-bst',
                             default=0, help='Specify the number of BEST-identified events to dump root file references to at the end of validation.'),
-        arghandler.Argument('save_path', str, '-sap',
-                            default='save_path', help='Specify path to save data to. Default is save_path.'),
-        arghandler.Argument('data_description', str, '-dsc',
-                            default='data_description', help='Specify description for data/name for data subdirectory.'),
+        arghandler.Argument('dump_path', str, '-dmp',
+                            default='dump_path', help='Specify path to dump data to. Default is dumps.'),
         arghandler.Argument('load', str, '-l',
                             default=None, help='Specify config file to load from. No action by default.'),
         arghandler.Argument('restore_state', str, '-ret',
@@ -84,6 +82,7 @@ if __name__ == '__main__':
     # Load from file
     if config.load is not None:
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
+        config.cfg = None
         
     # Check attributes for validity
     for task in config.tasks:
@@ -94,7 +93,7 @@ if __name__ == '__main__':
         ioconfig.saveConfig(config, config.cfg)
         
     # Set save directory to under USER_DIR
-    config.save_path = config.save_path+('' if config.save_path.endswith('/') else '/')
+    config.dump_path = config.dump_path+('' if config.dump_path.endswith('/') else '/')
         
     # Select requested model
     print('Selected architecture:', config.model)
@@ -107,6 +106,7 @@ if __name__ == '__main__':
     
     # Finally, construct the neural net
     nnet = net.Engine(model, config)
+
     # Do some work...
     if config.restore_state is not None:
         nnet.restore_state(config.restore_state)

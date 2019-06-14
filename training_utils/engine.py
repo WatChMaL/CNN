@@ -18,8 +18,9 @@ import time
 import numpy as np
 
 from io_utils.data_handling import WCH5Dataset
-from visualization_utils.notebook_utils import CSVData
-from visualization_utils.plot_utils import plot_confusion_matrix
+from io_utils import ioconfig 
+from plot_utils.notebook_utils import CSVData
+from plot_utils.plot_utils import plot_confusion_matrix
 
 from training_utils.doublepriorityqueue import DoublePriority
 
@@ -38,27 +39,23 @@ class Engine:
     def __init__(self, model, config):
         self.model = model
         if (config.device == 'gpu') and config.gpu_list:
-            print("requesting gpu ")
-            print("gpu list: ")
-            print(config.gpu_list)
+            print("Requesting GPUs. GPU list : " + str(config.gpu_list))
             self.devids = ["cuda:{0}".format(x) for x in config.gpu_list]
 
-            print("main gpu: "+self.devids[0])
+            print("Main GPU: "+self.devids[0])
             if torch.cuda.is_available():
                 self.device = torch.device(self.devids[0])
                 if len(self.devids) > 1:
-                    print("using DataParallel on these devices: {}".format(self.devids))
+                    print("Using DataParallel on these devices: {}".format(self.devids))
                     self.model = nn.DataParallel(self.model, device_ids=config.gpu_list, dim=0)
 
-                print("cuda is available")
+                print("CUDA is available")
             else:
                 self.device=torch.device("cpu")
-                print("cuda is not available")
+                print("CUDA is not available")
         else:
-            print("will not use gpu")
+            print("Unable to use GPU")
             self.device=torch.device("cpu")
-
-        print(self.device)
 
         self.model.to(self.device)
 
@@ -93,31 +90,18 @@ class Engine:
                                   shuffle=False,
                                   sampler=SubsetRandomSampler(self.dset.test_indices))
 
-        
-
-        self.dirpath=config.save_path
-        
-        self.data_description=config.data_description
-
-
+        self.dirpath=config.dump_path + time.strftime("%Y%m%d_%H%M%S") + "/"
         
         try:
             os.stat(self.dirpath)
         except:
-            print("making a directory for model data: {}".format(self.dirpath))
+            print("Creating a directory for run dump: {}".format(self.dirpath))
             os.mkdir(self.dirpath)
 
-        #add the path for the data type to the dirpath
-        self.start_time_str = time.strftime("%Y%m%d_%H%M%S")
-        self.dirpath=self.dirpath+'/'+self.data_description + "/" + self.start_time_str
-
-        try:
-            os.stat(self.dirpath)
-        except:
-            print("making a directory for model data for data prepared as: {}".format(self.data_description))
-            os.makedirs(self.dirpath,exist_ok=True)
-
         self.config=config
+        
+        # Save a copy of the config in the dump path
+        ioconfig.saveConfig(self.config, self.dirpath + "config_file.ini")
 
 
     def forward(self,train=True):
@@ -165,7 +149,7 @@ class Engine:
         continue_train = True
         
         # Prepare attributes for data logging
-        self.train_log, self.val_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/val_test.csv')
+        self.train_log, self.val_log = CSVData(self.dirpath+"log_train.csv"), CSVData(self.dirpath+"val_test.csv")
         # Set neural net to training mode
         self.model.train()
         # Initialize epoch counter
@@ -324,10 +308,10 @@ class Engine:
               "\nAvg val loss : ", val_loss/val_iterations,
               "\nAvg val acc : ", val_acc/val_iterations)
         
-        # If requested, dump list of root files + indices to save_path directory
+        # If requested, dump list of root files + indices to dump_path directory
         if pushing:
             root_path = (os.path.dirname(self.config.path)+'/' if self.config.root is None else self.config.root)+ROOT_DUMP
-            plot_path = self.config.save_path+"extreme_events/"
+            plot_path = self.config.dump_path+"extreme_events/"
             if not os.path.exists(plot_path):
                 os.mkdir(plot_path)
             wl_lo = open(plot_path+'list_lo.txt', 'w+')
@@ -358,7 +342,7 @@ class Engine:
         np.save("energies" + str(run) + ".npy", np.hstack(energies))
         np.save("predictions" + str(run) + ".npy", np.hstack(predictions))
         np.save("softmax" + str(run) + ".npy", np.array(softmaxes))
-        # If requested, dump root file visualization script outputs to save_path directory
+        # If requested, dump root file visualization script outputs to dump_path directory
             
     # Function to test the model performance on the test
     # dataset ( returns loss, acc, confusion matrix )
@@ -486,7 +470,7 @@ class Engine:
     
             
     def save_state(self, curr_iter=0):
-        filename = self.config.save_path+'/saved_states/'+str(self.config.model[1]) + ".pth"
+        filename = self.dirpath + str(self.config.model[1]) + ".pth"
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
@@ -499,7 +483,7 @@ class Engine:
         return filename
 
     def restore_state(self, weight_file):
-        weight_file = self.config.save_path+'/saved_states/'+weight_file
+        weight_file = self.config.restore_state
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
             print('Restoring state from', weight_file)

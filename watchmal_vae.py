@@ -5,7 +5,7 @@ Main script to pass the command-line arguments and run training_utils/engine_vae
 
 Author : Abhishek .
 
-Note : Parts of the source code borrowed from WatChMaL/CNN
+Note : Parts of the source code borrowed from WatChMaL/CNN/watchmal.py
 """
 
 """
@@ -24,8 +24,7 @@ import training_utils.engine_vae as net
 import io_utils.arghandler as arghandler
 import io_utils.ioconfig as ioconfig
 import io_utils.modelhandler as modelhandler
-
-USER_DIR = 'USER/'
+import torch
 
 # Global list of arguments to request from commandline
 ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
@@ -62,12 +61,8 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=0, help='Specify the number of WORST-identified events to dump root file references to at the end of validation.'),
         arghandler.Argument('best', int, flag='-bst',
                             default=0, help='Specify the number of BEST-identified events to dump root file references to at the end of validation.'),
-        arghandler.Argument('num_samples', int, '-nsm',
-                           default=10, help='Specify the number of events to sample from the VAE.'),
-        arghandler.Argument('save_path', str, '-sap',
-                            default='save_path', help='Specify path to save data to. Default is save_path.'),
-        arghandler.Argument('data_description', str, '-dsc',
-                            default='data_description', help='Specify description for data/name for data subdirectory.'),
+        arghandler.Argument('dump_path', str, '-dmp',
+                            default='dumps', help='Specify path to dump data to. Default is dumps.'),
         arghandler.Argument('load', str, '-l',
                             default=None, help='Specify config file to load from. No action by default.'),
         arghandler.Argument('restore_state', str, '-ret',
@@ -79,53 +74,56 @@ ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
 
 if __name__ == '__main__':
+    
     # Intro message :D
     print("""[HK-Canada] TRIUMF Neutrino Group: Water Cherenkov Machine Learning (WatChMaL)
-\tCollaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n""")
+    \tCollaborators: Wojciech Fedorko, Julian Ding, Abhishek Kajal\n""")
+    
     # Reflect available models
     print('CURRENT AVAILABLE ARCHITECTURES')
     modelhandler.print_models()
     config = arghandler.parse_args(ARGS)
+    
     # Do not overwrite any attributes specified by commandline flags
     for ar in ARGS:
         if getattr(config, ar.name) != ar.default:
             ATTR_DICT[ar.name].overwrite = False
-    # Create user directory if necessary
-    if not os.path.isdir(USER_DIR):
-        os.mkdir(USER_DIR)
-        print("Created user directory", USER_DIR)
+            
     # Load from file
     if config.load is not None:
         ioconfig.loadConfig(config, config.load, ATTR_DICT)
+        config.cfg = None
+        
     # Check attributes for validity
     for task in config.tasks:
-        assert(task in ['train', 'test', 'valid', 'sample'])
+        assert(task in ['train', 'test', 'valid'])
+        
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)
+        
     # Set save directory to under USER_DIR
-    config.save_path = USER_DIR+config.save_path+('' if config.save_path.endswith('/') else '/')
-    # Add slash to root directory if needed
-    if config.root is not None:
-        config.root = config.root+('' if config.root.endswith('/') else '/')
+    config.dump_path = config.dump_path+('' if config.dump_path.endswith('/') else '/')
+        
     # Select requested model
     print('Selected architecture:', config.model)
+    
     # Make sure the specified arguments can be passed to the model
     params = ioconfig.to_kwargs(config.params)
     modelhandler.check_params(config.model[0], params)
     constructor = modelhandler.select_model(config.model)
     model = constructor(**params)
+    
     # Finally, construct the neural net
     nnet = net.EngineVAE(model, config)
+
     # Do some work...
     if config.restore_state is not None:
         nnet.restore_state(config.restore_state)
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, valid_interval=100, save_interval=100)
+        nnet.train(epochs=config.epochs, save_interval=1000)
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
         nnet.validate(plt_worst=config.worst, plt_best=config.best)
-    if 'sample' in config.tasks:
-        nnet.sample(num_samples=config.num_samples)

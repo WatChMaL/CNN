@@ -21,9 +21,6 @@ class WCH5Dataset(Dataset):
         hdf5_labels=f["labels"]
         hdf5_energies=f["energies"]
         hdf5_positions=f["positions"]
-        
-        hdf5_PATHS=f["PATHS"]
-        hdf5_IDX=f["IDX"]
 
         assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
@@ -49,9 +46,7 @@ class WCH5Dataset(Dataset):
         
         # This will also fit easily in memory
         self.energies = np.array(hdf5_energies)
-        self.PATHS = np.array(hdf5_PATHS)
-        self.IDX = np.array(hdf5_IDX)
-
+        
         self.transform=transform
         
         self.reduced_size = reduced_dataset_size

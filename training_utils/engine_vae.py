@@ -20,8 +20,9 @@ import time
 import numpy as np
 
 # WatChMaL imports
+from io_utils import ioconfig
 from io_utils.data_handling import WCH5Dataset
-from visualization_utils.notebook_utils import CSVData
+from plot_utils.notebook_utils import CSVData
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -30,46 +31,40 @@ class EngineVAE:
     Purpose : Training engine for the WatChMaLVAE. Performs training, validation,
               and testing of the models
     """
-    # Initializer for the training engine object
     def __init__(self, model, config):
-        
-        # Initialize the model
         self.model = model
-        
-        # Determine the device(s) to be used
         if (config.device == 'gpu') and config.gpu_list:
-            
-            print("Requesting GPU :\nConfig GPU list = {0}".format(config.gpu_list))
-            
+            print("Requesting GPUs. GPU list : " + str(config.gpu_list))
             self.devids = ["cuda:{0}".format(x) for x in config.gpu_list]
-            print("Main GPU = "+self.devids[0])
-            
+
+            print("Main GPU: "+self.devids[0])
             if torch.cuda.is_available():
                 self.device = torch.device(self.devids[0])
                 if len(self.devids) > 1:
-                    print("Using DataParallel on {0}".format(self.devids))
+                    print("Using DataParallel on these devices: {}".format(self.devids))
                     self.model = nn.DataParallel(self.model, device_ids=config.gpu_list, dim=0)
-                else:
-                    print("Unable to use GPUs")
-                    self.device = torch.device("cpu")
+
+                print("CUDA is available")
             else:
-                print("Unable to use GPUs")
-                self.device = torch.device("cpu")
-                
-        # Move the model to the selected device
+                self.device=torch.device("cpu")
+                print("CUDA is not available")
+        else:
+            print("Unable to use GPU")
+            self.device=torch.device("cpu")
+
         self.model.to(self.device)
-        
+
         # Initialize the optimizer and loss function
         self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
         self.criterion = self.VAELoss
         self.recon_loss = nn.MSELoss()
-        
-        # Engine variables for the input data, labels and number of iterations
+
+        #placeholders for data and labels
         self.data=None
         self.labels=None
         self.iteration=None
-        
-        # Create a dataset object to iterate over the dataset stored on the disk
+
+        # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
                               config.val_split,
                               config.test_split,
@@ -90,30 +85,19 @@ class EngineVAE:
                                   batch_size=config.batch_size_test,
                                   shuffle=False,
                                   sampler=SubsetRandomSampler(self.dset.test_indices))
-        
-        # Directory to save the model and data information
-        
-        self.dirpath=config.save_path
-        
-        self.data_description=config.data_description
-        
-        try:
-            os.stat(self.dirpath)
-        except:
-            print("Making a directory for model data : {}".format(self.dirpath))
-            os.mkdir(self.dirpath)
-        
-        # Add the path for the data type to the dirpath
-        self.start_time_str = time.strftime("%Y%m%d_%H%M%S")
-        self.dirpath=self.dirpath + self.data_description + "/" + self.start_time_str
 
+        self.dirpath=config.dump_path + time.strftime("%Y%m%d_%H%M%S") + "/"
+        
         try:
             os.stat(self.dirpath)
         except:
-            print("Making a directory for model data for data prepared at: {}".format(self.dirpath))
-            os.makedirs(self.dirpath,exist_ok=True)
+            print("Creating a directory for run dump: {}".format(self.dirpath))
+            os.mkdir(self.dirpath)
 
         self.config=config
+        
+        # Save a copy of the config in the dump path
+        ioconfig.saveConfig(self.config, self.dirpath + "config_file.ini")
         
     # Loss function for the VAE combining MSELoss and KL-divergence
     def VAELoss(self, reconstruction, mean, log_var, data):
@@ -162,7 +146,7 @@ class EngineVAE:
     def train(self, epochs=3.0, report_interval=10, valid_interval=1000, save_interval=1000):
 
         # Prepare attributes for data logging
-        self.train_log, self.val_log = CSVData(self.dirpath+'/log_train.csv'), CSVData(self.dirpath+'/val_test.csv')
+        self.train_log, self.val_log = CSVData(self.dirpath+'log_train.csv'), CSVData(self.dirpath+'val_test.csv')
         
         # Variables to save the actual and reconstructed events
         np_event_path = self.dirpath+"/iteration_"
@@ -185,7 +169,7 @@ class EngineVAE:
             for i, data in enumerate(self.train_iter):
                 
                 # Move the data to the device specified by the user
-                self.data = data[0][:,:,:,:19]
+                self.data = data[0]
                 
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(True)
@@ -271,13 +255,8 @@ class EngineVAE:
         
         
     def save_state(self, curr_iter=0):
-        
-        state_dir = self.config.save_path+"/saved_states"
-        
-        if not os.path.exists(state_dir):
-            os.mkdir(state_dir)
             
-        filename = state_dir+"/"+str(self.config.model[1])+ "_iter_" + str(curr_iter)
+        filename = self.dirpath+"/"+str(self.config.model[1])+ "_iter_" + str(curr_iter) + ".pth"
         
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
@@ -292,15 +271,20 @@ class EngineVAE:
     
     def restore_state(self, weight_file):
         
-        weight_file = self.config.save_path+'/saved_states/'+weight_file
+        weight_file = self.config.restore_state
+        
         # Open a file in read-binary mode
         with open(weight_file, 'rb') as f:
+            
             # torch interprets the file, then we can access using string keys
             checkpoint = torch.load(f,map_location="cuda:0")
+            
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
+            
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
                 self.optimizer.load_state_dict(checkpoint['optimizer'])
+                
             # load iteration count
             self.iteration = checkpoint['global_step']
