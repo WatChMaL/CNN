@@ -1,4 +1,4 @@
-# Water Cherenkov Machine Learning (WatChMaL) - Convolutional Neural Network Variational AutoEncoder (CNN-VAE)
+# WatChMaL-VAE User Guide
 
 ## User Guide
 To start the program, download the repository and navigate to the parent folder, `CNN/`, then enter on terminal/cmd
