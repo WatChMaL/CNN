@@ -70,7 +70,7 @@ Python implementation of the training engine and framework to build, train and t
 
 ## Installation <a id="installation"></a>
 
-### Dependencies
+### Requirements
 
 ## Usage <a id="usage"></a>
 
