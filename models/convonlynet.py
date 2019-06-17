@@ -12,7 +12,7 @@ Author : Abhishek .
 import torch.nn as nn
 
 # KazuNet class
-class ConvOnlyNet(nn.Module):
+class ConvNet(nn.Module):
     
     # Initializer
     

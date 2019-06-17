@@ -59,7 +59,7 @@ class Engine:
 
         self.model.to(self.device)
 
-        self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.0001)
         self.criterion = nn.CrossEntropyLoss()
         self.softmax = nn.Softmax(dim=1)
 
@@ -200,8 +200,8 @@ class Engine:
                     
                 # more rarely, run validation
                 if (i+1)%valid_interval == 0:
+                    self.model.eval()
                     with torch.no_grad():
-                        self.model.eval()
                         val_data = next(iter(self.val_iter))
                         
                         # Data and label
@@ -222,6 +222,7 @@ class Engine:
                 if epoch >= epochs:
                     break
                     
+                """    
                 # Save on the given intervals
                 if(i+1)%save_interval == 0:
                     with torch.no_grad():
@@ -236,12 +237,15 @@ class Engine:
                         res = self.forward(False)
                         
                         if(res["accuracy"]-best_val_acc > 1e-03):
-                            self.save_state(curr_iter=0)
+                            #self.save_state(curr_iter=0)
                             continue_train = True
                             best_val_acc = res["accuracy"]
                         else:
                             continue_train = True
                     self.save_state(curr_iter=iteration)
+                    self.model.train()"""
+                
+                    
         self.val_log.close()
         self.train_log.close()
         #np.save(self.dirpath + "/optim_state_array.npy", np.array(optim_state_list))
