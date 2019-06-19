@@ -168,10 +168,6 @@ class Engine:
                 self.data = data[0]
                 self.label = data[1].long()
                 
-                # Move the data and labels on the GPU
-                self.data = self.data.to(self.device)
-                self.label = self.label.to(self.device)
-                
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(True)
                 # Call backward: backpropagate error and update weights
@@ -201,16 +197,16 @@ class Engine:
                 # more rarely, run validation
                 if (i+1)%valid_interval == 0:
                     self.model.eval()
-                    with torch.no_grad():
-                        val_data = next(iter(self.val_iter))
-                        
-                        # Data and label
-                        self.data = val_data[0]
-                        self.label = val_data[1].long()
-                        
-                        res = self.forward(False)
-                        self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
-                        self.val_log.write()
+                    val_data = next(iter(self.val_iter))
+
+                    # Data and label
+                    self.data = val_data[0]
+                    self.label = val_data[1].long()
+
+                    res = self.forward(False)
+                    self.val_log.record(['iteration','epoch','accuracy','loss'],
+                                        [iteration,epoch,res['accuracy'],res['loss']])
+                    self.val_log.write()
                     self.model.train()
                     
                     if(res["accuracy"]-best_val_acc > 1e-03):
@@ -221,29 +217,6 @@ class Engine:
                         
                 if epoch >= epochs:
                     break
-                    
-                """    
-                # Save on the given intervals
-                if(i+1)%save_interval == 0:
-                    with torch.no_grad():
-                        
-                        self.model.eval()
-                        val_data = next(iter(self.val_iter))
-                        
-                        # Data and label
-                        self.data = val_data[0]
-                        self.label = val_data[1].long()
-                        
-                        res = self.forward(False)
-                        
-                        if(res["accuracy"]-best_val_acc > 1e-03):
-                            #self.save_state(curr_iter=0)
-                            continue_train = True
-                            best_val_acc = res["accuracy"]
-                        else:
-                            continue_train = True
-                    self.save_state(curr_iter=iteration)
-                    self.model.train()"""
                 
                     
         self.val_log.close()
@@ -348,7 +321,7 @@ class Engine:
         with open(weight_file, 'rb') as f:
             print('Restoring state from', weight_file)
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f,map_location="cuda:0" if (self.config.device == 'gpu') else 'cpu')
+            checkpoint = torch.load(f)
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
             # if optim is provided, load the state of the optim

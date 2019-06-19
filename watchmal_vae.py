@@ -122,8 +122,8 @@ if __name__ == '__main__':
         nnet.restore_state(config.restore_state)
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, save_interval=1000)
+        nnet.train(epochs=config.epochs, valid_interval=1000)
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
-        nnet.validate(plt_worst=config.worst, plt_best=config.best)
+        nnet.validate()
