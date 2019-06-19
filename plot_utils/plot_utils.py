@@ -16,7 +16,7 @@ from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
 
-import plot_utils.mpmt_visual
+import plot_utils.mpmt_visual as mpmt_visual
 
 # Set the style
 plt.style.use("classic")
@@ -945,6 +945,131 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     ax1.set_ylim(bottom=0)
     ax2.set_ylabel("Accuracy", fontsize=20)
     ax2.set_ylim(bottom=0)
+    
+    plt.grid(True)
+    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
+    fig.suptitle("Training vs Epochs", fontsize=25)
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
+    else:
+        plt.show()
+        
+# Plot model performance over the training iterations
+def plot_vae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
+    """
+    plot_training_loss(training_directories=None, model_names=None, show_plot=False, save_path=None)
+                           
+    Purpose : Plot the training loss for various models for visual comparison
+    
+    Args: log_paths           ... List contatining the absolute path to the .csv log files
+                                  Type : str
+          model_names         ... List of the tring model name
+                                  Type : str
+          model_color_dict    ... Dictionary with the model_names as keys and
+                                  the corresponding colors as values
+          downsample_interval ... Downsample interval to smoothen the results,
+                                  Type : int
+          legend_loc          ... Location of where to put the legend on the plot
+                                  Type : tuple
+                                  Format : (x_pos, y_pos), 0 <= x_pos <= 1, 0 <= y_pos <= 1
+          show_plot[optional] ... Boolean to determine whether to show the plot
+                                  Type : Boolean
+          save_path[optional] ... Absolute path to save the plot to
+                                  Type : str
+    """
+    
+    # Assertions
+    assert log_paths is not None
+    assert model_names is not None
+    assert model_color_dict is not None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    epoch_values = []
+    loss_values = []
+    mse_loss_values = []
+    kl_loss_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "loss", "mse_loss", "kl_loss"])
+            
+            # Downsample the epoch and training loss values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_loss_values  = log_df["loss"].values
+            curr_mse_loss_values  = log_df["mse_loss"].values
+            curr_kl_loss_values = log_df["kl_loss"].values
+            
+            # Downsample using the downsample interval
+            if downsample_interval == None:
+                epoch_values.append(curr_epoch_values)
+                loss_values.append(curr_loss_values)
+                mse_loss_values.append(curr_mse_loss_values)
+                kl_loss_values.append(curr_kl_loss_values)
+            else:
+                curr_epoch_values_downsampled = []
+                curr_loss_values_downsampled  = []
+                curr_mse_loss_values_downsampled  = []
+                curr_kl_loss_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_loss_list = []
+                curr_mse_loss_list = []
+                curr_kl_loss_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+
+                        # Downsample the values using the mean of the values for the current interval
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
+                        curr_mse_loss_values_downsampled.append(sum(curr_mse_loss_list)/downsample_interval)
+                        curr_kl_loss_values_downsampled.append(sum(curr_kl_loss_list)/downsample_interval)
+                        
+
+                        # Reset the list for the next interval
+                        curr_epoch_list = []
+                        curr_loss_list = []
+                        curr_mse_loss_list = []
+                        curr_kl_loss_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_loss_list.append(curr_loss_values[i]) 
+                        curr_mse_loss_list.append(curr_mse_loss_values[i]) 
+                        curr_kl_loss_list.append(curr_kl_loss_values[i]) 
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                loss_values.append(curr_loss_values_downsampled)
+                mse_loss_values.append(curr_mse_loss_values_downsampled)
+                kl_loss_values.append(curr_kl_loss_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Initialize the plot
+    fig, ax1 = plt.subplots(figsize=(16,11))
+    
+    # Plot the values
+    for i, model_name in enumerate(model_names):
+        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
+                 label= model_name + " loss")
+        ax1.plot(epoch_values[i], mse_loss_values[i], color=model_color_dict[model_name][1],
+                 label= model_name + " MSE loss")
+        ax1.plot(epoch_values[i], kl_loss_values[i], color=model_color_dict[model_name][2],
+                 label= model_name + " KL loss")
+        
+        
+    # Setup plot characteristics
+    ax1.tick_params(axis="both", labelsize=20)
+    
+    ax1.set_xlabel("Epoch", fontsize=20)
+    ax1.set_ylabel("Log loss", fontsize=20)
+    ax1.set_ylim(bottom=0.1)
+    plt.yscale("log")
     
     plt.grid(True)
     lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)

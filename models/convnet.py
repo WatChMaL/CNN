@@ -29,19 +29,19 @@ class ConvNet(nn.Module):
         # Encoder
         # ------------------------------------------------------------------------
         
-        # Convolutions and max-pooling
-        self.en_conv1 = nn.Conv2d(num_input_channels, 64, kernel_size=2, stride=1, padding=0)
-        self.en_max_conv1  = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
+        # Convolutions
+        self.en_conv1 = nn.Conv2d(num_input_channels, 64, kernel_size=3, stride=1, padding=0)
+        self.en_maxconv1  = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0)
         
-        self.en_conv2a = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.en_conv2b = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.en_max_conv2  = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
+        self.en_conv2a = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0)
+        self.en_conv2b = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.en_maxconv2  = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
         
-        self.en_conv3a = nn.Conv2d(64, 128, kernel_size=2, stride=1, padding=0)
-        self.en_conv3b = nn.Conv2d(128, 128, kernel_size=2, stride=1, padding=1)
-        self.en_max_conv3 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=1)
+        self.en_conv3a = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=0)
+        self.en_conv3b = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
+        self.en_maxconv3 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=0)
         
-        self.en_conv4  = nn.Conv2d(128, 128, kernel_size=2, stride=1, padding=0)
+        self.en_conv4  = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
         
         # Flattening
         self.en_conv5a = nn.Conv2d(128, 64, kernel_size=3, stride=1, padding=1)
@@ -71,9 +71,9 @@ class ConvNet(nn.Module):
     def classify(self, X):
         
         # Convolutions
-        x = self.en_max_conv1(self.en_conv1(X))
-        x = self.en_max_conv2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_max_conv3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.en_maxconv1(self.en_conv1(X))
+        x = self.en_maxconv2(self.en_conv2b(self.en_conv2a(x)))
+        x = self.en_maxconv3(self.en_conv3b(self.en_conv3a(x)))
         
         x = self.en_conv4(x)
         

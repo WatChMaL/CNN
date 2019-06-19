@@ -31,18 +31,18 @@ class ConvaeNet(nn.Module):
         # ------------------------------------------------------------------------
         
         # Convolutions
-        self.en_conv1 = nn.Conv2d(num_input_channels, 64, kernel_size=2, stride=1, padding=0)
-        self.en_maxconv1  = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
+        self.en_conv1 = nn.Conv2d(num_input_channels, 64, kernel_size=3, stride=1, padding=0)
+        self.en_maxconv1  = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0)
         
-        self.en_conv2a = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.en_conv2b = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.en_maxconv2  = nn.Conv2d(64, 64, kernel_size=2, stride=1, padding=0)
+        self.en_conv2a = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0)
+        self.en_conv2b = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.en_maxconv2  = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
         
-        self.en_conv3a = nn.Conv2d(64, 128, kernel_size=2, stride=1, padding=0)
-        self.en_conv3b = nn.Conv2d(128, 128, kernel_size=2, stride=1, padding=1)
-        self.en_maxconv3 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=1)
+        self.en_conv3a = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=0)
+        self.en_conv3b = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
+        self.en_maxconv3 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=0)
         
-        self.en_conv4  = nn.Conv2d(128, 128, kernel_size=2, stride=1, padding=0)
+        self.en_conv4  = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
         
         # Flattening
         self.en_conv5a = nn.Conv2d(128, 64, kernel_size=3, stride=1, padding=1)
@@ -59,15 +59,15 @@ class ConvaeNet(nn.Module):
         self.en_fc3 = nn.Linear(128, num_classes)
         
         # Encoder parameter layer
-        self.en_fc31 = nn.Linear(128, num_latent_dims)
-        self.en_fc32 = nn.Linear(128, num_latent_dims)
+        self.en_fc31 = nn.Linear(128, self.num_latent_dims)
+        self.en_fc32 = nn.Linear(128, self.num_latent_dims)
         
         # ------------------------------------------------------------------------
         # Decoder
         # ------------------------------------------------------------------------
         
         # Fully-connected layers
-        self.de_fc3 = nn.Linear(num_latent_dimensions, 128)
+        self.de_fc3 = nn.Linear(self.num_latent_dims, 128)
         self.de_fc2 = nn.Linear(128, 128)
         self.de_fc1 = nn.Linear(128, 256)
         
@@ -79,18 +79,18 @@ class ConvaeNet(nn.Module):
         self.de_conv5a = nn.ConvTranspose2d(64, 128, kernel_size=3, stride=1, padding=1)
         
         # De-convolutions
-        self.de_conv4  = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=1, padding=0)
+        self.de_conv4  = nn.ConvTranspose2d(128, 128, kernel_size=3, stride=1, padding=1)
         
-        self.de_maxconv3 = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=2, padding=1)
-        self.de_conv3b = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=1, padding=1)
-        self.de_conv3a = nn.ConvTranspose2d(128, 64, kernel_size=2, stride=1, padding=0)
+        self.de_maxconv3 = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=2, padding=0)
+        self.de_conv3b = nn.ConvTranspose2d(128, 128, kernel_size=3, stride=1, padding=1)
+        self.de_conv3a = nn.ConvTranspose2d(128, 64, kernel_size=3, stride=1, padding=0)
         
-        self.de_maxconv2  = nn.ConvTranspose2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.de_conv2b = nn.ConvTranspose2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.de_conv2a = nn.ConvTranspose2d(64, 64, kernel_size=2, stride=1, padding=0)
+        self.de_maxconv2  = nn.ConvTranspose2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.de_conv2b = nn.ConvTranspose2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.de_conv2a = nn.ConvTranspose2d(64, 64, kernel_size=3, stride=1, padding=0)
         
-        self.de_maxconv1  = nn.ConvTranspose2d(64, 64, kernel_size=2, stride=1, padding=0)
-        self.de_conv1 = nn.ConvTranspose2d(64, num_input_channels, kernel_size=2, stride=1, padding=0)
+        self.de_maxconv1  = nn.ConvTranspose2d(64, 64, kernel_size=3, stride=1, padding=0)
+        self.de_conv1 = nn.ConvTranspose2d(64, num_input_channels, kernel_size=3, stride=1, padding=0)
         
         # Boolean to determine the reparametrization mode
         self.training = train
@@ -156,7 +156,7 @@ class ConvaeNet(nn.Module):
                               
     # Reparameterization
     
-    def reparameterize(self, X):
+    def reparameterize(self, mu, logvar):
         
         if self.training:
             # Calculate the square-root covariance matrix
@@ -181,16 +181,22 @@ class ConvaeNet(nn.Module):
         
         # Unflattening
         x = x.view(-1, 16, 2, 8)
+        
         x = self.de_conv6(x)
-        x = self.de_conv5c(self.de_conv5b(self.de_conv5a(x)))
+        x = self.de_conv5a(self.de_conv5b(self.de_conv5c(x)))
         
         # Deconvolutions
         x = self.de_conv4(x)
         
-        x = self.de_maxconv1(self.de_conv1(X))
-        x = self.de_maxconv2(self.de_conv2b(self.de_conv2a(x)))
-        x = self.de_maxconv3(self.de_conv3b(self.de_conv3a(x)))
+        x = self.de_maxconv3(x)
+        x = self.de_conv3a(self.de_conv3b(x))
         
+        x = self.de_maxconv2(x)
+        x = self.de_conv2a(self.de_conv2b(x))
+        
+        x = self.de_maxconv1(x)
+        x = self.de_conv1(x)
+
         return x
     
     # Sampler

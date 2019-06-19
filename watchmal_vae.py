@@ -96,7 +96,7 @@ if __name__ == '__main__':
         
     # Check attributes for validity
     for task in config.tasks:
-        assert(task in ['train', 'test', 'valid'])
+        assert(task in ['train', 'test', 'valid', 'sample'])
         
     # Save to file
     if config.cfg is not None:
@@ -127,3 +127,5 @@ if __name__ == '__main__':
         nnet.test()
     if 'valid' in config.tasks:
         nnet.validate()
+    if 'sample' in config.tasks:
+        nnet.sample(10)
