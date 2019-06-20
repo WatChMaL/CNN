@@ -53,6 +53,8 @@ class ConvNet(nn.Module):
         # Fully-connected layers
         self.en_fc1 = nn.Linear(256, 128)
         self.en_fc2 = nn.Linear(128, 128)
+        
+        # Classifier output layer
         self.en_fc3 = nn.Linear(128, num_classes)
         
         # ------------------------------------------------------------------------
@@ -71,14 +73,24 @@ class ConvNet(nn.Module):
     def classify(self, X):
         
         # Convolutions
-        x = self.en_maxconv1(self.en_conv1(X))
-        x = self.en_maxconv2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_maxconv3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.relu(self.en_conv1(X))
+        x = self.en_maxconv1(x)
         
-        x = self.en_conv4(x)
+        x = self.relu(self.en_conv2a(x))
+        x = self.relu(self.en_conv2b(x))
+        x = self.en_maxconv2(x)
+        
+        x = self.relu(self.en_conv3a(x))
+        x = self.relu(self.en_conv3b(x))
+        x = self.en_maxconv3(x)
+        
+        x = self.relu(self.en_conv4(x))
         
         # Flattening
-        x = self.en_conv5c(self.en_conv5b(self.en_conv5a(x)))
+        x = self.relu(self.en_conv5a(x))
+        x = self.relu(self.en_conv5b(x))
+        x = self.relu(self.en_conv5c(x))
+        
         x = self.en_conv6(x)
         
         x = x.view(-1, 256)
@@ -89,18 +101,3 @@ class ConvNet(nn.Module):
         x = self.en_fc3(x)
         
         return x
-        
-    # Encoder
-    
-    def encode(self, X):
-        return X
-    
-    # Reparameterization
-    
-    def reparameterize(self, X):
-        return X
-    
-    # Decoder
-    
-    def decode(self, X):
-        return X

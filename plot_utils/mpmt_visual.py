@@ -51,7 +51,7 @@ def plot_single_image(data, padding=1):
     rows = data.shape[0]
     cols = data.shape[1]
     # Make empty output pixel grid
-    output = np.zeroes(((10+padding)*rows-padding, (10+padding*cols)-padding))
+    output = np.zeros(((10+padding)*rows-padding, (10+padding*cols)-padding))
     i, j = 0, 0
     for row in range(rows):
         for col in range(cols):

@@ -121,7 +121,7 @@ class EngineVAE:
                         
             # Prediction
             self.data = self.data.permute(0,3,1,2)
-            prediction, mu, logvar = self.model(self.data)
+            _, prediction, mu, logvar = self.model(self.data)
             
             # Training
             loss = -1
@@ -215,7 +215,7 @@ class EngineVAE:
                     np.savez(np_event_path + str(iteration) + ".npz",
                              events=self.data.cpu().numpy(), recons=res['prediction'],
                              mus=res["mu"], logvars=res["logvar"], labels=val_data[1],
-                             energies=val_data[2])
+                             energies=val_data[3])
 
                     # Record the validation stats to the csv
                     self.val_log.record(['iteration','epoch','loss', 'mse_loss', 'kl_loss'],
@@ -290,7 +290,7 @@ class EngineVAE:
         with open(weight_file, 'rb') as f:
             
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f,map_location="cuda:0")
+            checkpoint = torch.load(f)
             
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)
