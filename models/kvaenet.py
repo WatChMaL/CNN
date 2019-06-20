@@ -107,7 +107,7 @@ class KvaeNet(nn.Module):
         z = self.reparameterize(mu, logvar)
         
         # Return the output image, mean and covariance matrix
-        return self.decode(z), mu, logvar
+        return z, self.decode(z), mu, logvar
     
     # Encoder layers
     def encode(self, X):

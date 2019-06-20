@@ -872,7 +872,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     axes[0].grid(True, which="both", axis="both")
     
     ax0_cbar = fig.colorbar(im_0, extend='both', ax=axes[0])
-    ax0_cbar.set_label(r"Charge, $c$", fontsize=20)
+    ax0_cbar.set_label(r"Log charge, $log c$", fontsize=20)
     
     axes[0].tick_params(labelsize=20)
     ax0_cbar.ax.tick_params(labelsize=20) 
@@ -889,7 +889,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     axes[1].grid(True, which="both", axis="both")
     
     ax1_cbar = fig.colorbar(im_1, extend='both', ax=axes[1])
-    ax1_cbar.set_label(r"Log charge, $c$", fontsize=20)
+    ax1_cbar.set_label(r"Log charge, $log c$", fontsize=20)
     
     axes[1].tick_params(labelsize=20)
     ax1_cbar.ax.tick_params(labelsize=20)

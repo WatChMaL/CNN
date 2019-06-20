@@ -51,6 +51,8 @@ class ConvaeNet(nn.Module):
         
         self.en_conv6 = nn.Conv2d(16, 16, kernel_size=2, stride=2, padding=0)
         
+        self.en_conv7 = nn.Conv2d(16, 256, kernel_size=(2,8), stride=1, padding=0)
+        
         # Fully-connected layers
         self.en_fc1 = nn.Linear(256, 128)
         self.en_fc2 = nn.Linear(128, 128)
@@ -72,6 +74,7 @@ class ConvaeNet(nn.Module):
         self.de_fc1 = nn.Linear(128, 256)
         
         # Unflattening
+        self.de_conv7 = nn.ConvTranspose2d(256, 16, kernel_size=(2,8), stride=1, padding=0)
         self.de_conv6 = nn.ConvTranspose2d(16, 16, kernel_size=2, stride=2, padding=0)
         
         self.de_conv5c = nn.ConvTranspose2d(16, 32, kernel_size=3, stride=1, padding=1)
@@ -131,6 +134,7 @@ class ConvaeNet(nn.Module):
         x = self.relu(self.en_conv5c(x))
         
         x = self.en_conv6(x)
+        x = self.en_conv7(x)
         
         x = x.view(-1, 256)
         
@@ -165,6 +169,7 @@ class ConvaeNet(nn.Module):
         x = self.relu(self.en_conv5c(x))
         
         x = self.en_conv6(x)
+        x = self.en_conv7(x)
         
         x = x.view(-1, 256)
         
@@ -200,8 +205,9 @@ class ConvaeNet(nn.Module):
         x = self.relu(self.de_fc1(x))
         
         # Unflattening
-        x = x.view(-1, 16, 2, 8)
-        
+        x = x.view(-1, 256, 1, 1)
+                            
+        x = self.de_conv7(x)
         x = self.de_conv6(x)
         
         x = self.relu(self.de_conv5c(x))

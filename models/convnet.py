@@ -44,11 +44,8 @@ class ConvNet(nn.Module):
         self.en_conv4  = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
         
         # Flattening
-        self.en_conv5a = nn.Conv2d(128, 64, kernel_size=3, stride=1, padding=1)
-        self.en_conv5b = nn.Conv2d(64, 32, kernel_size=3, stride=1, padding=1)
-        self.en_conv5c = nn.Conv2d(32, 16, kernel_size=3, stride=1, padding=1)
-        
-        self.en_conv6 = nn.Conv2d(16, 16, kernel_size=2, stride=2, padding=0)
+        self.en_conv6 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=0)
+        self.en_conv7 = nn.Conv2d(128, 256, kernel_size=(2,8), stride=1, padding=0)
         
         # Fully-connected layers
         self.en_fc1 = nn.Linear(256, 128)
@@ -87,11 +84,9 @@ class ConvNet(nn.Module):
         x = self.relu(self.en_conv4(x))
         
         # Flattening
-        x = self.relu(self.en_conv5a(x))
-        x = self.relu(self.en_conv5b(x))
-        x = self.relu(self.en_conv5c(x))
         
         x = self.en_conv6(x)
+        x = self.en_conv7(x)
         
         x = x.view(-1, 256)
         
