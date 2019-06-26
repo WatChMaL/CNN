@@ -45,6 +45,8 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=1000, help='Batch size for validation.'),
         arghandler.Argument('batch_size_test', int, '-tsb',
                             default=1000, help='Batch size for testing.'),
+        arghandler.Argument('lr', float, '-lr',
+                            default=0.001, help='learning rate.'),
         arghandler.Argument('tasks',list, list_dtype=str, flag='-do',
                             default=['train', 'test', 'valid'], help='Specify list of tasks: "train" = run training; "test" = run testing; "valid" = run validation. Default behaviour runs all tasks.'),
         arghandler.Argument('worst', int, flag='-wst',
@@ -112,7 +114,7 @@ if __name__ == '__main__':
         nnet.restore_state(config.restore_state)
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, save_interval=1000)
+        nnet.train(epochs=config.epochs, valid_interval=100)
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:

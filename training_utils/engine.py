@@ -59,7 +59,8 @@ class Engine:
 
         self.model.to(self.device)
 
-        self.optimizer = optim.Adam(self.model.parameters(), lr=0.0001)
+        #self.optimizer = optim.Adam(self.model.parameters(), lr=config.lr)
+        self.optimizer = optim.SGD(self.model.parameters(), lr=config.lr)
         self.criterion = nn.CrossEntropyLoss()
         self.softmax = nn.Softmax(dim=1)
 
@@ -113,7 +114,8 @@ class Engine:
             # Move the data and the labels to the GPU
             self.data = self.data.to(self.device)
             self.label = self.label.to(self.device)
-                        
+
+            #print('grad data labels required: '+str(self.data.requires_grad)+' '+str(self.data.requires_grad))
             # Prediction
             #print("this is the data size before permuting: {}".format(data.size()))
             self.data = self.data.permute(0,3,1,2)
@@ -140,13 +142,14 @@ class Engine:
         self.optimizer.step()
         
     # ========================================================================
-    def train(self, epochs=3.0, report_interval=10, valid_interval=1000, save_interval=1000):
+    def train(self, epochs=3.0, report_interval=10, valid_interval=1000):
         # CODE BELOW COPY-PASTED FROM [HKML CNN Image Classification.ipynb]
         # (variable names changed to match new Engine architecture. Added comments and minor debugging)
         
         # Keep track of the validation accuracy
         best_val_acc = 0.0
         continue_train = True
+        best_val_loss=1.0e6
         #optim_state_list = []
         
         # Prepare attributes for data logging
@@ -169,8 +172,8 @@ class Engine:
                 self.label = data[1].long()
                 
                 # Move the data and labels on the GPU
-                self.data = self.data.to(self.device)
-                self.label = self.label.to(self.device)
+                #self.data = self.data.to(self.device)
+                #self.label = self.label.to(self.device)
                 
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(True)
@@ -185,6 +188,7 @@ class Engine:
                 # Record the current performance on train set
                 self.train_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
                 self.train_log.write()
+                self.train_log.flush()
                 
                 """# Record the current performance on train set
                 optim_state_list.append((self.optimizer.state_dict()['state'][list(self.optimizer.state_dict()['state'].keys())[0]]['exp_avg'][0,0,3,3].item,
@@ -201,50 +205,30 @@ class Engine:
                 # more rarely, run validation
                 if (i+1)%valid_interval == 0:
                     self.model.eval()
-                    with torch.no_grad():
-                        val_data = next(iter(self.val_iter))
-                        
-                        # Data and label
-                        self.data = val_data[0]
-                        self.label = val_data[1].long()
-                        
-                        res = self.forward(False)
-                        self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
-                        self.val_log.write()
-                    self.model.train()
                     
-                    if(res["accuracy"]-best_val_acc > 1e-03):
-                        continue_train = True
-                        best_val_acc = res["accuracy"]
-                    else:
+                    val_data = next(iter(self.val_iter))
+                    
+                    # Data and label
+                    self.data = val_data[0]
+                    self.label = val_data[1].long()
+                    
+                    res = self.forward(False)
+                    self.val_log.record(['iteration','epoch','accuracy','loss'],[iteration,epoch,res['accuracy'],res['loss']])
+                    self.val_log.write()
+                    self.val_log.flush()
+                    
+                    self.model.train()
+
+                    self.save_state()
+                    if res['loss']<best_val_loss:
+                        best_val_loss=res['loss']
+                        print('best validation loss so far!: {}'.format(best_val_loss))
+                        self.save_state(best=True)
                         continue_train = True
                         
                 if epoch >= epochs:
                     break
-                    
-                """    
-                # Save on the given intervals
-                if(i+1)%save_interval == 0:
-                    with torch.no_grad():
-                        
-                        self.model.eval()
-                        val_data = next(iter(self.val_iter))
-                        
-                        # Data and label
-                        self.data = val_data[0]
-                        self.label = val_data[1].long()
-                        
-                        res = self.forward(False)
-                        
-                        if(res["accuracy"]-best_val_acc > 1e-03):
-                            #self.save_state(curr_iter=0)
-                            continue_train = True
-                            best_val_acc = res["accuracy"]
-                        else:
-                            continue_train = True
-                    self.save_state(curr_iter=iteration)
-                    self.model.train()"""
-                
+                                 
                     
         self.val_log.close()
         self.train_log.close()
@@ -329,8 +313,11 @@ class Engine:
     # ========================================================================
     
             
-    def save_state(self, curr_iter=0):
-        filename = self.dirpath + str(self.config.model[1]) + ".pth"
+    def save_state(self,best=False):
+        filename = "{}{}{}{}".format(self.dirpath,
+                                     str(self.config.model[1]),
+                                     ("BEST" if best else ""),
+                                     ".pth")
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
