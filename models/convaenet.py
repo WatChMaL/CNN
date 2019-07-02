@@ -8,6 +8,11 @@ Author : Abhishek .
 
 # PyTorch imports
 import torch.nn as nn
+import torch.tensor as tensor
+from torch import zeros
+from torch import randn_like
+from torch import randn
+from torch import device
 
 # ConvNet class
 class ConvaeNet(nn.Module):
@@ -44,15 +49,12 @@ class ConvaeNet(nn.Module):
         
         self.en_conv4  = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
         
-        # Flattening
-        self.en_conv5a = nn.Conv2d(128, 64, kernel_size=3, stride=1, padding=1)
-        self.en_conv5b = nn.Conv2d(64, 32, kernel_size=3, stride=1, padding=1)
-        self.en_conv5c = nn.Conv2d(32, 16, kernel_size=3, stride=1, padding=1)
-        
-        self.en_conv6 = nn.Conv2d(16, 16, kernel_size=2, stride=2, padding=0)
+         # Flattening
+        self.en_conv6 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=1)
+        self.en_conv7 = nn.Conv2d(128, 128, kernel_size=(3,9), stride=1, padding=0)
         
         # Fully-connected layers
-        self.en_fc1 = nn.Linear(256, 128)
+        self.en_fc1 = nn.Linear(128, 128)
         self.en_fc2 = nn.Linear(128, 128)
         
         # Classifier output layer
@@ -69,14 +71,11 @@ class ConvaeNet(nn.Module):
         # Fully-connected layers
         self.de_fc3 = nn.Linear(self.num_latent_dims, 128)
         self.de_fc2 = nn.Linear(128, 128)
-        self.de_fc1 = nn.Linear(128, 256)
+        self.de_fc1 = nn.Linear(128, 128)
         
         # Unflattening
-        self.de_conv6 = nn.ConvTranspose2d(16, 16, kernel_size=2, stride=2, padding=0)
-        
-        self.de_conv5c = nn.ConvTranspose2d(16, 32, kernel_size=3, stride=1, padding=1)
-        self.de_conv5b = nn.ConvTranspose2d(32, 64, kernel_size=3, stride=1, padding=1)
-        self.de_conv5a = nn.ConvTranspose2d(64, 128, kernel_size=3, stride=1, padding=1)
+        self.de_conv7 = nn.ConvTranspose2d(128, 128, kernel_size=(3,9), stride=1, padding=0)
+        self.de_conv6 = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=2, padding=1)
         
         # De-convolutions
         self.de_conv4  = nn.ConvTranspose2d(128, 128, kernel_size=3, stride=1, padding=1)
@@ -96,33 +95,55 @@ class ConvaeNet(nn.Module):
         self.training = train
         
     # Forward pass
-    
-    def forward(self, X):
-        # Encoder to get the parameters for the distribution
-        mu, logvar = self.encode(X)
+    def forward(self, X, mode="train"):
         
-        # Reparameterization trick
-        z = self.reparameterize(mu, logvar)
+        if mode == "train" or mode == "validate":
+            # Encoder to get the parameters for the distribution
+            mu, logvar = self.encode(X)
+
+            # Reparameterization trick
+            z = self.reparameterize(mu, logvar, shots=1)
+
+            # Return the output image, mean and covariance matrix
+            return z, self.decode(z), mu, logvar
         
-        # Return the output image, mean and covariance matrix
-        return self.decode(z), mu, logvar
+        elif mode == "generate":
+            
+            # Encoder to get the parameters for the distribution
+            mu, logvar = self.encode(X)
+
+            # Reparameterization trick
+            z = self.reparameterize(mu, logvar)
+
+            return z, mu, logvar
+        
+        elif mode == "sample":
+            return self.sample()
         
     # Classifier
     
     def classify(self, X):
         
         # Convolutions
-        x = self.en_maxconv1(self.en_conv1(X))
-        x = self.en_maxconv2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_maxconv3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.relu(self.en_conv1(X))
+        x = self.relu(self.en_maxconv1(x))
         
-        x = self.en_conv4(x)
+        x = self.en_conv2a(x)
+        x = self.relu(self.en_conv2b(x))
+        x = self.relu(self.en_maxconv2(x))
+        
+        x = self.en_conv3a(x)
+        x = self.relu(self.en_conv3b(x))
+        x = self.relu(self.en_maxconv3(x))
+        
+        x = self.relu(self.en_conv4(x))
         
         # Flattening
-        x = self.en_conv5c(self.en_conv5b(self.en_conv5a(x)))
-        x = self.en_conv6(x)
         
-        x = x.view(-1, 256)
+        x = self.relu(self.en_conv6(x))
+        x = self.en_conv7(x)
+        
+        x = x.view(-1, 128)
         
         # Fully-connected layers
         x = self.relu(self.en_fc1(x))
@@ -136,17 +157,25 @@ class ConvaeNet(nn.Module):
     def encode(self, X):
         
         # Convolutions
-        x = self.en_maxconv1(self.en_conv1(X))
-        x = self.en_maxconv2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_maxconv3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.relu(self.en_conv1(X))
+        x = self.relu(self.en_maxconv1(x))
         
-        x = self.en_conv4(x)
+        x = self.en_conv2a(x)
+        x = self.relu(self.en_conv2b(x))
+        x = self.relu(self.en_maxconv2(x))
+        
+        x = self.en_conv3a(x)
+        x = self.relu(self.en_conv3b(x))
+        x = self.relu(self.en_maxconv3(x))
+        
+        x = self.relu(self.en_conv4(x))
         
         # Flattening
-        x = self.en_conv5c(self.en_conv5b(self.en_conv5a(x)))
-        x = self.en_conv6(x)
         
-        x = x.view(-1, 256)
+        x = self.relu(self.en_conv6(x))
+        x = self.en_conv7(x)
+        
+        x = x.view(-1, 128)
         
         # Fully-connected layers
         x = self.relu(self.en_fc1(x))
@@ -156,7 +185,7 @@ class ConvaeNet(nn.Module):
                               
     # Reparameterization
     
-    def reparameterize(self, mu, logvar):
+    def reparameterize(self, mu, logvar, shots=1):
         
         if self.training:
             # Calculate the square-root covariance matrix
@@ -180,22 +209,24 @@ class ConvaeNet(nn.Module):
         x = self.relu(self.de_fc1(x))
         
         # Unflattening
-        x = x.view(-1, 16, 2, 8)
-        
-        x = self.de_conv6(x)
-        x = self.de_conv5a(self.de_conv5b(self.de_conv5c(x)))
+        x = x.view(-1, 128, 1, 1)
+                            
+        x = self.de_conv7(x)
+        x = self.relu(self.de_conv6(x))
         
         # Deconvolutions
-        x = self.de_conv4(x)
+        x = self.relu(self.de_conv4(x))
         
-        x = self.de_maxconv3(x)
-        x = self.de_conv3a(self.de_conv3b(x))
+        x = self.relu(self.de_maxconv3(x))
+        x = self.relu(self.de_conv3b(x))
+        x = self.de_conv3a(x)
         
-        x = self.de_maxconv2(x)
-        x = self.de_conv2a(self.de_conv2b(x))
+        x = self.relu(self.de_maxconv2(x))
+        x = self.relu(self.de_conv2b(x))
+        x = self.de_conv2a(x)
         
-        x = self.de_maxconv1(x)
-        x = self.de_conv1(x)
+        x = self.relu(self.de_maxconv1(x))
+        x = self.relu(self.de_conv1(x))
 
         return x
     
@@ -203,8 +234,7 @@ class ConvaeNet(nn.Module):
     
     def sample(self):
         # Sample a vector from the normal distribution
-        eps = randn(1, self.num_latent_dims)
+        eps = randn(1, self.num_latent_dims, device=device('cuda'))
         
         # Decode the latent vector to generate an event
         return eps, self.decode(eps)
-        

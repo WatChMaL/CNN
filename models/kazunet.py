@@ -64,10 +64,18 @@ class KazuNet(nn.Module):
     # Classifier
     
     def classify(self, X):
+        
         # Convolutions and max-pooling
-        x = self.en_max1(self.en_conv1(X))
-        x = self.en_max2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_max3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.en_conv1(X)
+        x = self.en_max1(x)
+                      
+        x = self.en_conv2a(x)
+        x = self.en_conv2b(x)
+        x = self.en_max2(x)
+        
+        x = self.en_conv3a(x)
+        x = self.en_conv3b(x)
+        x = self.en_max3(x)
         
         x = self.en_conv4(x)
         

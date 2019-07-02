@@ -9,20 +9,25 @@ from __future__ import print_function
 import numpy as np
 import math
 import os
+import sys
 import pandas as pd
+
+import matplotlib as mpl
+
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
 
-import plot_utils.mpmt_visual as mpmt_visual
+# Module for suppressing overflow exceptions
+from contextlib import suppress
 
 # Set the style
 plt.style.use("classic")
 
 # Fix the colour scheme for each particle type
-color_dict = {"gamma":"r", "e":"b", "mu":"g"}
+color_dict = {"gamma":"red", "e":"blue", "mu":"green"}
 
 # Function to convert from the true particle energies to visible energies
 def convert_to_visible_energy(energies, labels):
@@ -87,7 +92,7 @@ def plot_event_energy_distribution(energies, labels, label_dict, dset_type="full
     for label in energies_dict.keys():
         label_to_use = r"$\{0}$".format(label) if label is not "e" else r"${0}$".format(label)
         
-        axes[label_dict[label]].hist(energies_dict[label], bins=50, density=False, label=label_to_use, alpha=0.8,
+        axes[label_dict[label]].hist(energies_dict[label], bins=50, density=False, label=label_to_use, alpha=0.9,
                         color=color_dict[label])
         axes[label_dict[label]].tick_params(labelsize=20)
         axes[label_dict[label]].legend(prop={"size":20})
@@ -247,7 +252,7 @@ def plot_classifier_response(softmaxes, labels, energies, softmax_index_dict, ev
         else:
             values, bins, patches = plt.hist(curr_softmax, bins=num_bins, density=False,
                                              label= label_to_use, color=color_dict[event_type],
-                                             alpha=0.5, stacked=True)
+                                             alpha=0.9, stacked=True)
         
     if save_path is not None or show_plot:
         ax.grid(True)
@@ -757,11 +762,73 @@ def plot_background_rejection(softmaxes, labels, energies, softmax_index_dict, l
         plt.savefig(save_path, format='eps', dpi=300)
     else:
         plt.show()
+
+
+# 10x10 square represents one mPMT
+# List of top-left pixel positions (row,col) for 2x2 grids representing PMTs 0 to 18
+POS_MAP = [(8,4), #0
+           (7,2), #1
+           (6,0), #2
+           (4,0), #3
+           (2,0), #4
+           (1,1), #5
+           (0,4), #6
+           (1,6), #7
+           (2,8), #8
+           (4,8), #9
+           (6,8), #10
+           (7,6), #11
+           # Inner ring
+           (6,4), #12
+           (5,2), #13
+           (3,2), #14
+           (2,4), #15
+           (3,6), #16
+           (5,6), #17
+           (4,4)] #18
+
+PADDING = 0
+
+def get_plot_array(event_data):
     
+    # Assertions on the shape of the data and the number of input channels
+    assert(len(event_data.shape) == 3 and event_data.shape[2] == 19)
+    
+    # Extract the number of rows and columns from the event data
+    rows = event_data.shape[0]
+    cols = event_data.shape[1]
+    
+    # Make empty output pixel grid
+    output = np.zeros(((10+PADDING)*rows, (10+PADDING)*cols))
+    
+    i, j = 0, 0
+    
+    for row in range(rows):
+        j = 0
+        for col in range(cols):
+            pmts = event_data[row, col]
+            tile(output, (i, j), pmts)
+            j += 10 + PADDING
+        i += 10 + PADDING
+        
+    return output
+            
+def tile(canvas, ul, pmts):
+    
+    # First, create 10x10 grid representing single mpmt
+    mpmt = np.zeros((10, 10))
+    for i, val in enumerate(pmts):
+        mpmt[POS_MAP[i][0]][POS_MAP[i][1]] = val
+
+    # Then, place grid on appropriate position on canvas
+    for row in range(10):
+        for col in range(10):
+            canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
+
 # Plot the reconstructed vs actual events
 def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
     """
-    plot_actual_vs_event(actual_event=None, recon_event=None, show_plot=False, save_path=None):
+    plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, save_path=None):
                            
     Purpose : Plot the actual event vs event reconstructed by the VAE
     
@@ -797,7 +864,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     fig.suptitle(sup_title, fontsize=30)
     
     # Plot the actual event
-    im_0 = axes[0].imshow(mpmt_visual.get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
     
     axes[0].set_title("Actual event display", fontsize=20)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
@@ -805,7 +872,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     axes[0].grid(True, which="both", axis="both")
     
     ax0_cbar = fig.colorbar(im_0, extend='both', ax=axes[0])
-    ax0_cbar.set_label(r"Charge, $c$", fontsize=20)
+    ax0_cbar.set_label(r"Log charge, $log c$", fontsize=20)
     
     axes[0].tick_params(labelsize=20)
     ax0_cbar.ax.tick_params(labelsize=20) 
@@ -814,7 +881,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
     
     # Plot the reconstructed event
-    im_1 = axes[1].imshow(mpmt_visual.get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
     
     axes[1].set_title("Reconstructed event display", fontsize=20)
     axes[1].set_xlabel("PMT module X-position", fontsize=20)
@@ -822,7 +889,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     axes[1].grid(True, which="both", axis="both")
     
     ax1_cbar = fig.colorbar(im_1, extend='both', ax=axes[1])
-    ax1_cbar.set_label(r"Log charge, $c$", fontsize=20)
+    ax1_cbar.set_label(r"Log charge, $log c$", fontsize=20)
     
     axes[1].tick_params(labelsize=20)
     ax1_cbar.ax.tick_params(labelsize=20)
@@ -871,9 +938,13 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     assert len(model_names) == len(model_color_dict.keys())
     
     # Extract the values stored in the .csv log files
-    loss_values = []
     epoch_values = []
+    loss_values = []
     acc_values = []
+    
+    true_epoch_values = []
+    true_loss_values = []
+    true_acc_values = []
     
     # Iterate over the list of log files provided
     for log_path in log_paths:
@@ -883,14 +954,15 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
             # Downsample the epoch and training loss values w.r.t. the downsample interval
             curr_epoch_values = log_df["epoch"].values
             curr_loss_values  = log_df["loss"].values
-            curr_acc_values  = log_df["accuracy"].values
+            curr_acc_values = log_df["accuracy"].values
             
             # Downsample using the downsample interval
-            if downsample_interval == None:
-                epoch_values.append(curr_epoch_values)
-                loss_values.append(curr_loss_values)
-                acc_values.append(curr_acc_values)
-            else:
+            
+            true_epoch_values.append(curr_epoch_values)
+            true_loss_values.append(curr_loss_values)
+            true_acc_values.append(curr_acc_values)
+                
+            if downsample_interval is not None:
                 curr_epoch_values_downsampled = []
                 curr_loss_values_downsampled  = []
                 curr_acc_values_downsampled  = []
@@ -907,16 +979,17 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
                         curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
                         curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
                         curr_acc_values_downsampled.append(sum(curr_acc_list)/downsample_interval)
+                        
 
                         # Reset the list for the next interval
-                        curr_loss_list = []
                         curr_epoch_list = []
+                        curr_loss_list = []
                         curr_acc_list = []
                     else:
                         # Add the values in the interval to the list
                         curr_epoch_list.append(curr_epoch_values[i])
                         curr_loss_list.append(curr_loss_values[i]) 
-                        curr_acc_list.append(curr_acc_values[i])
+                        curr_acc_list.append(curr_acc_values[i]) 
 
                 epoch_values.append(curr_epoch_values_downsampled)
                 loss_values.append(curr_loss_values_downsampled)
@@ -929,25 +1002,41 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     ax2 = ax1.twinx()
     
     # Plot the values
-    for i, model_name in enumerate(model_names):
-        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
-                 label= model_name + " loss")
-        ax2.plot(epoch_values[i], acc_values[i], color=model_color_dict[model_name][1],
-                 label= model_name + " accuracy")
+    if downsample_interval is None:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_loss_values[i], 
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " loss")
+            ax2.plot(true_epoch_values[i], true_acc_values[i],
+                     color=model_color_dict[model_name][1],
+                     label= model_name + " accuracy")
+    else:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_loss_values[i],
+                     color=model_color_dict[model_name][0], alpha=0.5)
+            ax1.plot(epoch_values[i], loss_values[i],
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " loss", alpha=0.9, linewidth=2.0)
+            ax2.plot(true_epoch_values[i], true_acc_values[i],
+                     color=model_color_dict[model_name][1], alpha=0.5)
+            ax2.plot(epoch_values[i], acc_values[i],
+                     color=model_color_dict[model_name][1],
+                     label= model_name + " accuracy", alpha=0.9, linewidth=2.0)
         
         
     # Setup plot characteristics
-    ax1.tick_params(axis="both", labelsize=20)
-    ax2.tick_params(axis="both", labelsize=20)
+    ax1.tick_params(axis="x", labelsize=30)
+    ax1.set_xlabel("Epoch", fontsize=30)
     
-    ax1.set_xlabel("Epoch", fontsize=20)
-    ax1.set_ylabel("Loss", fontsize=20)
-    ax1.set_ylim(bottom=0)
-    ax2.set_ylabel("Accuracy", fontsize=20)
-    ax2.set_ylim(bottom=0)
+    ax1.set_ylabel("Loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
+    
+    ax2.set_ylabel("Accuracy", fontsize=30, color=model_color_dict[model_name][1])
+    ax2.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][1])
     
     plt.grid(True)
-    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
+    
+    lgd = fig.legend(prop={"size":30}, bbox_to_anchor=legend_loc)
     fig.suptitle("Training vs Epochs", fontsize=25)
     
     if save_path is not None:
@@ -958,7 +1047,7 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
 # Plot model performance over the training iterations
 def plot_vae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
-    plot_training_loss(training_directories=None, model_names=None, show_plot=False, save_path=None)
+    plot_vae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None)
                            
     Purpose : Plot the training loss for various models for visual comparison
     
@@ -988,35 +1077,35 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
     
     # Extract the values stored in the .csv log files
     epoch_values = []
-    loss_values = []
     mse_loss_values = []
     kl_loss_values = []
+    
+    true_epoch_values = []
+    true_mse_loss_values = []
+    true_kl_loss_values = []
     
     # Iterate over the list of log files provided
     for log_path in log_paths:
         if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "loss", "mse_loss", "kl_loss"])
+            log_df = pd.read_csv(log_path, usecols=["epoch", "mse_loss", "kl_loss"])
             
             # Downsample the epoch and training loss values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"].values
-            curr_loss_values  = log_df["loss"].values
-            curr_mse_loss_values  = log_df["mse_loss"].values
-            curr_kl_loss_values = log_df["kl_loss"].values
+            curr_epoch_values = log_df["epoch"].values[:200000]
+            curr_mse_loss_values  = log_df["mse_loss"].values[:200000]
+            curr_kl_loss_values = log_df["kl_loss"].values[:200000]
             
             # Downsample using the downsample interval
-            if downsample_interval == None:
-                epoch_values.append(curr_epoch_values)
-                loss_values.append(curr_loss_values)
-                mse_loss_values.append(curr_mse_loss_values)
-                kl_loss_values.append(curr_kl_loss_values)
-            else:
+            
+            true_epoch_values.append(curr_epoch_values)
+            true_mse_loss_values.append(curr_mse_loss_values)
+            true_kl_loss_values.append(curr_kl_loss_values)
+                
+            if downsample_interval is not None:
                 curr_epoch_values_downsampled = []
-                curr_loss_values_downsampled  = []
                 curr_mse_loss_values_downsampled  = []
                 curr_kl_loss_values_downsampled  = []
 
                 curr_epoch_list = []
-                curr_loss_list = []
                 curr_mse_loss_list = []
                 curr_kl_loss_list = []
 
@@ -1026,25 +1115,21 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
 
                         # Downsample the values using the mean of the values for the current interval
                         curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
-                        curr_loss_values_downsampled.append(sum(curr_loss_list)/downsample_interval)
                         curr_mse_loss_values_downsampled.append(sum(curr_mse_loss_list)/downsample_interval)
                         curr_kl_loss_values_downsampled.append(sum(curr_kl_loss_list)/downsample_interval)
                         
 
                         # Reset the list for the next interval
                         curr_epoch_list = []
-                        curr_loss_list = []
                         curr_mse_loss_list = []
                         curr_kl_loss_list = []
                     else:
                         # Add the values in the interval to the list
                         curr_epoch_list.append(curr_epoch_values[i])
-                        curr_loss_list.append(curr_loss_values[i]) 
                         curr_mse_loss_list.append(curr_mse_loss_values[i]) 
                         curr_kl_loss_list.append(curr_kl_loss_values[i]) 
 
                 epoch_values.append(curr_epoch_values_downsampled)
-                loss_values.append(curr_loss_values_downsampled)
                 mse_loss_values.append(curr_mse_loss_values_downsampled)
                 kl_loss_values.append(curr_kl_loss_values_downsampled)
         else:
@@ -1052,30 +1137,66 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
             
     # Initialize the plot
     fig, ax1 = plt.subplots(figsize=(16,11))
+    ax2 = ax1.twinx()
+    
+    # Print the mpl rcParams
+    mpl.rcParams['agg.path.chunksize']=1e12
+    
+    # Reload the backend
+    mpl.use(mpl.get_backend())
     
     # Plot the values
-    for i, model_name in enumerate(model_names):
-        ax1.plot(epoch_values[i], loss_values[i], color=model_color_dict[model_name][0],
-                 label= model_name + " loss")
-        ax1.plot(epoch_values[i], mse_loss_values[i], color=model_color_dict[model_name][1],
-                 label= model_name + " MSE loss")
-        ax1.plot(epoch_values[i], kl_loss_values[i], color=model_color_dict[model_name][2],
-                 label= model_name + " KL loss")
-        
+    if downsample_interval is None:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_mse_loss_values[i], 
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " MSE loss")
+            ax2.plot(true_epoch_values[i], true_kl_loss_values[i],
+                     color=model_color_dict[model_name][1],
+                     label= model_name + " KL loss")
+    else:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_mse_loss_values[i],
+                     color=model_color_dict[model_name][0], alpha=0.5)
+            ax1.plot(epoch_values[i], mse_loss_values[i],
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " MSE loss", alpha=0.9, linewidth=2.0)
+            ax2.plot(true_epoch_values[i], true_kl_loss_values[i],
+                     color=model_color_dict[model_name][1], alpha=0.5)
+            ax2.plot(epoch_values[i], kl_loss_values[i],
+                     color=model_color_dict[model_name][1],
+                     label= model_name + " KL loss", alpha=0.9, linewidth=2.0)
         
     # Setup plot characteristics
-    ax1.tick_params(axis="both", labelsize=20)
+    ax1.tick_params(axis="x", labelsize=30)
+    ax1.set_xlabel("Epoch", fontsize=30)
     
-    ax1.set_xlabel("Epoch", fontsize=20)
-    ax1.set_ylabel("Log loss", fontsize=20)
-    ax1.set_ylim(bottom=0.1)
-    plt.yscale("log")
+    ax1.set_ylabel("MSE loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
+    
+    ax2.set_yscale("log")
+    ax2.set_ylabel("Log KL loss", fontsize=30, color=model_color_dict[model_name][1])
+    ax2.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][1])
     
     plt.grid(True)
-    lgd = fig.legend(prop={"size":20}, bbox_to_anchor=legend_loc)
+    
+    lgd = fig.legend(prop={"size":30}, bbox_to_anchor=legend_loc)
     fig.suptitle("Training vs Epochs", fontsize=25)
     
     if save_path is not None:
-        plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
+        plt.savefig(save_path, format='eps', dpi=300,bbox_extra_artists=(lgd))
+    
+    if show_plot:
+        try:
+            plt.show()
+        except:
+            print("plot_utils.plot_vae_training() : Unable to render the plot" 
+                  + " due to limits on \'agg.path.chunksize\')")
+            if save_path is None:
+                print("plot_utils.plot_vae_training() : Saving plot to ./{0}".format("vae_training_log.eps"))
+                plt.savefig("vae_training_log.eps", format='eps', dpi=300,bbox_extra_artists=(lgd))
+            plt.clf() # Clear the plot frame
+            plt.close() # Close the opened window if any
     else:
-        plt.show()
+        plt.clf() # Clear the plot frame
+        plt.close() # Close the opened window if any

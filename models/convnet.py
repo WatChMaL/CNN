@@ -44,15 +44,14 @@ class ConvNet(nn.Module):
         self.en_conv4  = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
         
         # Flattening
-        self.en_conv5a = nn.Conv2d(128, 64, kernel_size=3, stride=1, padding=1)
-        self.en_conv5b = nn.Conv2d(64, 32, kernel_size=3, stride=1, padding=1)
-        self.en_conv5c = nn.Conv2d(32, 16, kernel_size=3, stride=1, padding=1)
-        
-        self.en_conv6 = nn.Conv2d(16, 16, kernel_size=2, stride=2, padding=0)
+        self.en_conv6 = nn.Conv2d(128, 128, kernel_size=2, stride=2, padding=0)
+        self.en_conv7 = nn.Conv2d(128, 256, kernel_size=(2,8), stride=1, padding=0)
         
         # Fully-connected layers
         self.en_fc1 = nn.Linear(256, 128)
         self.en_fc2 = nn.Linear(128, 128)
+        
+        # Classifier output layer
         self.en_fc3 = nn.Linear(128, num_classes)
         
         # ------------------------------------------------------------------------
@@ -71,15 +70,23 @@ class ConvNet(nn.Module):
     def classify(self, X):
         
         # Convolutions
-        x = self.en_maxconv1(self.en_conv1(X))
-        x = self.en_maxconv2(self.en_conv2b(self.en_conv2a(x)))
-        x = self.en_maxconv3(self.en_conv3b(self.en_conv3a(x)))
+        x = self.relu(self.en_conv1(X))
+        x = self.en_maxconv1(x)
         
-        x = self.en_conv4(x)
+        x = self.relu(self.en_conv2a(x))
+        x = self.relu(self.en_conv2b(x))
+        x = self.en_maxconv2(x)
+        
+        x = self.relu(self.en_conv3a(x))
+        x = self.relu(self.en_conv3b(x))
+        x = self.en_maxconv3(x)
+        
+        x = self.relu(self.en_conv4(x))
         
         # Flattening
-        x = self.en_conv5c(self.en_conv5b(self.en_conv5a(x)))
+        
         x = self.en_conv6(x)
+        x = self.en_conv7(x)
         
         x = x.view(-1, 256)
         
@@ -89,18 +96,3 @@ class ConvNet(nn.Module):
         x = self.en_fc3(x)
         
         return x
-        
-    # Encoder
-    
-    def encode(self, X):
-        return X
-    
-    # Reparameterization
-    
-    def reparameterize(self, X):
-        return X
-    
-    # Decoder
-    
-    def decode(self, X):
-        return X
