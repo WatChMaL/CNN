@@ -165,7 +165,7 @@ class Engine:
             for i, data in enumerate(self.train_iter):
                 
                 # Data and label
-                self.data = data[0]
+                self.data = data[0][:,:,:,:19].float()
                 self.label = data[1].long()
                 
                 # Call forward: make a prediction & measure the average error
@@ -200,7 +200,7 @@ class Engine:
                     val_data = next(iter(self.val_iter))
 
                     # Data and label
-                    self.data = val_data[0]
+                    self.data = val_data[0][:,:,:,:19].float()
                     self.label = val_data[1].long()
 
                     res = self.forward(False)
@@ -266,6 +266,7 @@ class Engine:
                 
                 self.data, self.label, index, batch_energies = val_data[0:4]
                 
+                self.data = self.data[:,:,:,:19].float()
                 self.label = self.label.long()
 
                 # Run the forward procedure and output the result

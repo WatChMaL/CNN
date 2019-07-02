@@ -96,7 +96,7 @@ if __name__ == '__main__':
         
     # Check attributes for validity
     for task in config.tasks:
-        assert(task in ['train', 'test', 'valid', 'sample'])
+        assert(task in ['train', 'test', 'valid', 'sample', 'generate'])
         
     # Save to file
     if config.cfg is not None:
@@ -120,12 +120,21 @@ if __name__ == '__main__':
     # Do some work...
     if config.restore_state is not None:
         nnet.restore_state(config.restore_state)
+           
+    if 'sample' in config.tasks:
+        nnet.sample(99)
+    if 'generate' in config.tasks:
+        print("Generating pre-training latent vectors")
+        nnet.generate_latent_vectors("pre")
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, valid_interval=1000)
+        nnet.train(epochs=config.epochs, valid_interval=50)
+    if 'generate' in config.tasks:
+        print("Generating post-training latent vectors")
+        nnet.generate_latent_vectors("post")
     if 'test' in config.tasks:
         nnet.test()
     if 'valid' in config.tasks:
         nnet.validate()
     if 'sample' in config.tasks:
-        nnet.sample(10)
+        nnet.sample(100)
