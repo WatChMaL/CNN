@@ -128,7 +128,7 @@ if __name__ == '__main__':
         nnet.generate_latent_vectors("pre")
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, valid_interval=50)
+        nnet.train(epochs=config.epochs, valid_interval=1000)
     if 'generate' in config.tasks:
         print("Generating post-training latent vectors")
         nnet.generate_latent_vectors("post")

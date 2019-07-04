@@ -118,6 +118,8 @@ class EngineVAE:
         self.data = self.data.to(self.device)
         self.data = self.data.permute(0,3,1,2)
         
+        """ Changing for AE"""
+        
         if mode == "train" or mode == "validate":
             
             grad_mode = True if mode == "train" else False
@@ -158,8 +160,29 @@ class EngineVAE:
                 return {"z_gen" : z_gen.cpu().detach().numpy()}
             
         elif mode == "sample":
-            
             pass
+        """
+        grad_mode = True if mode == "train" else False
+        
+        with torch.set_grad_enabled(grad_mode):
+
+                # Collect the output from the model
+                prediction= self.model(self.data, mode)
+                # Training
+                loss = -1
+                mse_loss, kl_loss = self.recon_loss(prediction, self.data), 0.1
+                loss = mse_loss
+                self.loss = loss
+
+                # Restore the shape of the data and the prediction
+                self.data = self.data.permute(0,2,3,1)
+                prediction = prediction.permute(0,2,3,1)
+
+        return {"loss"       : loss.cpu().detach().item(),
+                "mse_loss"   : mse_loss.cpu().detach().item(),
+                "kl_loss"    : kl_loss,
+                "prediction" : prediction.cpu().detach().numpy()}
+        """
         
     def backward(self):
         
@@ -232,12 +255,22 @@ class EngineVAE:
                     self.data = val_data[0][:,:,:,:19]
 
                     res = self.forward(mode="validate")
-
+                    
+                    """ Changing for AE """
                     # Save the actual and reconstructed event to the disk
                     np.savez(np_event_path + str(iteration) + ".npz",
                              events=self.data.cpu().numpy(), z=res['z'], recons=res['prediction'],
                              mus=res["mu"], logvars=res["logvar"], labels=val_data[1],
                              energies=val_data[3])
+                    
+                    
+                    """
+                    # Save the actual and reconstructed event to the disk
+                    np.savez(np_event_path + str(iteration) + ".npz",
+                             events=self.data.cpu().numpy(), recons=res['prediction'],
+                             labels=val_data[1], energies=val_data[3])
+                    """
+                    
 
                     # Record the validation stats to the csv
                     self.val_log.record(['iteration','epoch','loss', 'mse_loss', 'kl_loss'],
@@ -261,6 +294,33 @@ class EngineVAE:
             
         self.val_log.close()
         self.train_log.close()
+        
+    def validate(self):
+        
+        # Variables to output at the end
+        val_loss = 0.0
+        val_iteration = 0
+        
+        # Variables to save the actual and reconstructed events
+        np_event_path = self.dirpath+"/val_iteration_"
+        
+        # Extract the event data and label from the DataLoader iterator
+        for val_data in iter(self.val_iter):
+            
+            sys.stdout.write("val_iterations : " + str(val_iteration) + "\n")
+
+            # Extract the event data from the input data tuple
+            self.data = val_data[0][:,:,:,:19]
+
+            res = self.forward(mode="validate")
+
+            # Save the actual and reconstructed event to the disk
+            np.savez(np_event_path + str(val_iteration) + ".npz",
+                     events=self.data.cpu().numpy(), z=res['z'], recons=res['prediction'],
+                     mus=res["mu"], logvars=res["logvar"], labels=val_data[1],
+                     energies=val_data[3])
+            
+            val_iteration += 1
         
     def sample(self, num_samples=10):
         
@@ -407,7 +467,8 @@ class EngineVAE:
             
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
-                self.optimizer.load_state_dict(checkpoint['optimizer'])
+                #self.optimizer.load_state_dict(checkpoint['optimizer'])
+                pass
                 
             # load iteration count
             self.iteration = checkpoint['global_step']

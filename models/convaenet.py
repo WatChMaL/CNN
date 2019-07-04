@@ -192,7 +192,7 @@ class ConvaeNet(nn.Module):
             std = logvar.mul(0.5).exp_()
 
             # Sample a vector eps from the normal distribution
-            eps = std.data.new(std.size()).normal_()
+            eps = std.new(std.size()).normal_()
 
             # Return the latent vector
             return eps.mul_(std).add_(mu)
