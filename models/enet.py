@@ -12,18 +12,18 @@ from torch import randn, randn_like, tensor, zeros
 from torch import device
 
 # Global variables
-valid_variants = ["AE", "VAE"]
+variant_dict = {0:"AE", 1:"VAE"}
 
 # Enet class
-class Enet(nn.Module):
+class ENet(nn.Module):
     
     # Initialize
-    def __init__(self, num_input_channels=38, num_latent_dims=64, variant="AE"):
-        assert variant in valid_variants
-        super(Enet, self).__init__()
+    def __init__(self, num_input_channels=38, num_latent_dims=64, variant_key=0):
+        assert variant_key in variant_dict.keys()
+        super(ENet, self).__init__()
         
         # Class attributes
-        self.variant = variant
+        self.variant = variant_dict[variant_key]
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -32,20 +32,37 @@ class Enet(nn.Module):
         # Add the layer blocks
         self.encoder = Encoder(num_input_channels)
         
+        # Set require_grad = False for encoder parameters
+        for param in self.encoder.parameters():
+            param.requires_grad = False
+        
         # Add the desired bottleneck
-        if variant is "AE":
+        if self.variant is "AE":
             self.bottleneck = AEBottleneck()
-        elif variant is "VAE":
+        elif self.variant is "VAE":
             self.bottleneck = VAEBottleneck()
             
         self.decoder = Decoder(num_input_channels, None)
+        
+        # Set require_grad = False for decoder parameters
+        for param in self.decoder.parameters():
+            param.requires_grad = False
             
     # Forward
     def forward(self, X, mode):
         x = self.encoder(X)
-        x = self.bottleneck(x)
+        
+        if self.variant is "AE":
+            x = self.bottleneck(x)
+        elif self.variant is "VAE":
+            z, mu, logvar = self.bottleneck(x)
+            
         self.decoder.unflat_size = self.encoder.unflat_size
-        return self.decoder(x)
+        
+        if self.variant is "AE":
+            return self.decoder(x)
+        elif self.variant is "VAE":
+            return self.decoder(x), z, mu, logvar
         
         
 # Encoder class
@@ -86,8 +103,9 @@ class Encoder(nn.Module):
         x = self.en_conv4(x)
         
         self.unflat_size = x.size()
-
-        return x.view(-1, x.size(1)*x.size(2)*x.size(3))
+        x = x.view(-1, x.size(1)*x.size(2)*x.size(3))
+        
+        return x
     
 # Decoder class
 class Decoder(nn.Module):
@@ -116,6 +134,7 @@ class Decoder(nn.Module):
         
     # Forward
     def forward(self, X):
+        
         x = X.view(self.unflat_size)            
         
         x = self.relu(self.de_conv4(x))
@@ -136,6 +155,7 @@ class AEBottleneck(nn.Module):
     # Initialize
     def __init__(self):
         super(AEBottleneck, self).__init__()
+        self.flat_size = None
         
     # Forward
     def forward(self, X):
@@ -148,6 +168,27 @@ class VAEBottleneck(nn.Module):
     def __init__(self):
         super(VAEBottleneck, self).__init__()
         
+        # Activation functions
+        self.relu = nn.ReLU()
+        
+        # Linear layers
+        self.en_fc1 = nn.Linear(5120, 5120)
+        self.en_fc2 = nn.Linear(5120, 5120)
+        
+        # Initialize the weights and biases of the layers
+        nn.init.eye_(self.en_fc1.weight)
+        nn.init.zeros_(self.en_fc1.bias)
+        
+        nn.init.zeros_(self.en_fc2.weight)
+        nn.init.constant_(self.en_fc2.bias, 1e-3)
+        
     # Forward
     def forward(self, X):
-        return X
+        
+        mu, logvar = self.en_fc1(X), self.en_fc2(X)
+        
+        # Reparameterization trick
+        std = logvar.mul(0.5).exp()
+        eps = std.new(std.size()).normal_()
+        
+        return eps.mul(std).add(mu), mu, logvar

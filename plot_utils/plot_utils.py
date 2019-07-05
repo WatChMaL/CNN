@@ -1090,9 +1090,9 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
             log_df = pd.read_csv(log_path, usecols=["epoch", "mse_loss", "kl_loss"])
             
             # Downsample the epoch and training loss values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"].values[:200000]
-            curr_mse_loss_values  = log_df["mse_loss"].values[:200000]
-            curr_kl_loss_values = log_df["kl_loss"].values[:200000]
+            curr_epoch_values = log_df["epoch"]
+            curr_mse_loss_values  = log_df["mse_loss"]
+            curr_kl_loss_values = log_df["kl_loss"]
             
             # Downsample using the downsample interval
             
@@ -1200,3 +1200,174 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
+        
+# Plot model performance over the training iterations
+def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
+    """
+    plot_ae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None)
+                           
+    Purpose : Plot the training loss for various models for visual comparison
+    
+    Args: log_paths           ... List contatining the absolute path to the .csv log files
+                                  Type : str
+          model_names         ... List of the tring model name
+                                  Type : str
+          model_color_dict    ... Dictionary with the model_names as keys and
+                                  the corresponding colors as values
+          downsample_interval ... Downsample interval to smoothen the results,
+                                  Type : int
+          legend_loc          ... Location of where to put the legend on the plot
+                                  Type : tuple
+                                  Format : (x_pos, y_pos), 0 <= x_pos <= 1, 0 <= y_pos <= 1
+          show_plot[optional] ... Boolean to determine whether to show the plot
+                                  Type : Boolean
+          save_path[optional] ... Absolute path to save the plot to
+                                  Type : str
+    """
+    
+    # Assertions
+    assert log_paths is not None
+    assert model_names is not None
+    assert model_color_dict is not None
+    assert len(log_paths) == len(model_names)
+    assert len(model_names) == len(model_color_dict.keys())
+    
+    # Extract the values stored in the .csv log files
+    epoch_values = []
+    mse_loss_values = []
+    
+    true_epoch_values = []
+    true_mse_loss_values = []
+    
+    # Iterate over the list of log files provided
+    for log_path in log_paths:
+        if(os.path.exists(log_path)):
+            log_df = pd.read_csv(log_path, usecols=["epoch", "loss"])
+            
+            # Downsample the epoch and training loss values w.r.t. the downsample interval
+            curr_epoch_values = log_df["epoch"].values
+            curr_mse_loss_values  = log_df["loss"].values
+            
+            # Downsample using the downsample interval
+            
+            true_epoch_values.append(curr_epoch_values)
+            true_mse_loss_values.append(curr_mse_loss_values)
+                
+            if downsample_interval is not None:
+                curr_epoch_values_downsampled = []
+                curr_mse_loss_values_downsampled  = []
+
+                curr_epoch_list = []
+                curr_mse_loss_list = []
+
+                for i in range(1, len(curr_epoch_values)):
+
+                    if(i%downsample_interval == 0):
+
+                        # Downsample the values using the mean of the values for the current interval
+                        curr_epoch_values_downsampled.append(sum(curr_epoch_list)/downsample_interval)
+                        curr_mse_loss_values_downsampled.append(sum(curr_mse_loss_list)/downsample_interval)
+                        
+
+                        # Reset the list for the next interval
+                        curr_epoch_list = []
+                        curr_mse_loss_list = []
+                    else:
+                        # Add the values in the interval to the list
+                        curr_epoch_list.append(curr_epoch_values[i])
+                        curr_mse_loss_list.append(curr_mse_loss_values[i]) 
+
+                epoch_values.append(curr_epoch_values_downsampled)
+                mse_loss_values.append(curr_mse_loss_values_downsampled)
+        else:
+            print("Error. log path {0} does not exist".format(log_path))
+            
+    # Initialize the plot
+    fig, ax1 = plt.subplots(figsize=(16,11))
+    ax2 = ax1.twinx()
+    
+    # Print the mpl rcParams
+    mpl.rcParams['agg.path.chunksize']=1e12
+    
+    # Reload the backend
+    mpl.use(mpl.get_backend())
+    
+    # Plot the values
+    if downsample_interval is None:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_mse_loss_values[i], 
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " MSE loss")
+    else:
+        for i, model_name in enumerate(model_names):
+            ax1.plot(true_epoch_values[i], true_mse_loss_values[i],
+                     color=model_color_dict[model_name][0], alpha=0.5)
+            ax1.plot(epoch_values[i], mse_loss_values[i],
+                     color=model_color_dict[model_name][0],
+                     label= model_name + " MSE loss", alpha=0.9, linewidth=2.0)
+        
+    # Setup plot characteristics
+    ax1.tick_params(axis="x", labelsize=30)
+    ax1.set_xlabel("Epoch", fontsize=30)
+    
+    ax1.set_ylabel("MSE loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
+    
+    plt.grid(True)
+    
+    lgd = fig.legend(prop={"size":30}, bbox_to_anchor=legend_loc)
+    fig.suptitle("Training vs Epochs", fontsize=25)
+    
+    if save_path is not None:
+        plt.savefig(save_path, format='eps', dpi=300,bbox_extra_artists=(lgd))
+    
+    if show_plot:
+        try:
+            plt.show()
+        except:
+            print("plot_utils.plot_ae_training() : Unable to render the plot" 
+                  + " due to limits on \'agg.path.chunksize\')")
+            if save_path is None:
+                print("plot_utils.plot_ae_training() : Saving plot to ./{0}".format("vae_training_log.eps"))
+                plt.savefig("vae_training_log.eps", format='eps', dpi=300,bbox_extra_artists=(lgd))
+            plt.clf() # Clear the plot frame
+            plt.close() # Close the opened window if any
+    else:
+        plt.clf() # Clear the plot frame
+        plt.close() # Close the opened window if any
+                     
+# Plot the charge distribution for a given batch
+def plot_charge_hist(event, recon, iteration, num_bins=100):
+    
+    # Flatten the input numpy arrays
+    event = event.reshape(-1,1)
+    recon = recon.reshape(-1,1)
+    
+    # Initialize the plot and corresponding parameters
+    fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
+    ax.tick_params(axis="both", labelsize=20)
+    
+    # Setup the bins beforehand
+    bins = np.linspace(min(np.amin(event),np.amin(recon),1),
+                       max(np.amax(event),np.amax(recon)),
+                       num_bins)
+
+    # Plot the histograms overlaid
+    plt.hist(event, bins, density=False,
+             label="actual", color="red",
+             alpha=0.5, stacked=True)
+    
+    plt.hist(recon, bins, density=False,
+             label="reconstructed", color="blue",
+             alpha=0.5, stacked=True)
+    
+    # Setup the axes
+    ax.set_xlabel("Charge, c", fontsize=20)
+    ax.set_ylabel("Number of hits", fontsize=20)
+                  
+    plt.yscale("log")
+    plt.legend(loc="upper right", prop={"size":20})
+    plt.title(r"Actual vs Reconstructed charge distribution at iteration = ${0}$".format(iteration)
+              ,fontsize=20)
+    
+    plt.show()

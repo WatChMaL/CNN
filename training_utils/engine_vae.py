@@ -23,7 +23,11 @@ import numpy as np
 from io_utils import ioconfig
 from io_utils.data_handling import WCH5Dataset
 from plot_utils.notebook_utils import CSVData
-import loss_funcs
+import training_utils.loss_funcs as loss_funcs
+
+# Logging keys
+log_keys = ["mse_loss", "kl_loss", "loss", "acc"]
+event_dump_keys = ["prediction", "z", "mu", "logvar"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -57,13 +61,13 @@ class EngineVAE:
         self.model.to(self.device)
 
         # Initialize the optimizer and loss function
-        self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
+        self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.0001)
         
         # Declare the loss function
         if model_variant is "AE":
             self.criterion = nn.MSELoss()
         elif model_variant is "VAE":
-            self.criterion = loss_funcs.VAELoss()
+            self.criterion = loss_funcs.VAELoss
 
         #placeholders for data and labels
         self.data=None
@@ -126,8 +130,8 @@ class EngineVAE:
                 if mode == "train" or mode == "validate":
 
                     # Collect the output from the model
-                    z, prediction, mu, logvar = self.model(self.data, mode)
-                    loss, mse_loss, kl_loss = self.criterion(prediction, mu, logvar, self.data)
+                    prediction, z, mu, logvar = self.model(self.data, mode)
+                    loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu, logvar)
                     self.loss = loss
 
                     # Restore the shape of prediction
@@ -218,9 +222,15 @@ class EngineVAE:
                 epoch += 1./len(self.train_iter)
                 iteration += 1
                 
+                keys = ['iteration','epoch']
+                values = [iteration, epoch]
+                for key in log_keys:
+                    if key in res.keys():
+                        keys.append(key)
+                        values.append(res[key])
+
                 # Log/Report
-                self.train_log.record(['iteration','epoch'].extend(res.keys()),
-                                      [iteration, epoch].extend(res[key] for keys in res.keys()))
+                self.train_log.record(keys, values)
                 self.train_log.write()
                 
                 # once in a while, report
@@ -239,18 +249,26 @@ class EngineVAE:
 
                     res = self.forward(mode="validate")
                     
-                    save_arr_keys = ["events", "labels", "energies"].extend(res.keys())
-                    save_arr_values = [self.data.cpu().numpy(),
-                                       val_data[1],
-                                       val_data[3]].extend(res[key] for keys in res.keys())
+                    save_arr_keys = ["events", "labels", "energies"]
+                    save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+                    for key in event_dump_keys:
+                        if key in res.keys():
+                            save_arr_keys.append(key)
+                            save_arr_values.append(res[key])
                     
                     # Save the actual and reconstructed event to the disk
                     np.savez(np_event_path + str(iteration) + ".npz",
                              **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
 
+                    keys = ['iteration','epoch']
+                    values = [iteration, epoch]
+                    for key in log_keys:
+                        if key in res.keys():
+                            keys.append(key)
+                            values.append(res[key])
+                            
                     # Record the validation stats to the csv
-                    self.val_log.record(["iteration", "epoch"].extend(res.keys()),
-                                        [iteration, epoch].extend(res[key] for keys in res.keys())))
+                    self.val_log.record(keys,values)
                     
                     # Save the best model
                     if res["loss"] < best_loss:
@@ -288,15 +306,16 @@ class EngineVAE:
             self.data = val_data[0][:,:,:,:19]
 
             res = self.forward(mode="validate")
-
             
-            save_arr_keys = ["events", "labels", "energies"].extend(res.keys())
-            save_arr_values = [self.data.cpu().numpy(),
-                               val_data[1],
-                               val_data[3]].extend(res[key] for keys in res.keys())
-
+            save_arr_keys = ["events", "labels", "energies"]
+            save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+            for key in event_dump_keys:
+                if key in res.keys():
+                    save_arr_keys.append(key)
+                    save_arr_values.append(res[key])
+                    
             # Save the actual and reconstructed event to the disk
-            np.savez(np_event_path + str(iteration) + ".npz",
+            np.savez(np_event_path + str(val_iteration) + ".npz",
                      **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
             
             val_iteration += 1
@@ -446,7 +465,8 @@ class EngineVAE:
             
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
-                self.optimizer.load_state_dict(checkpoint['optimizer'])
+                #self.optimizer.load_state_dict(checkpoint['optimizer'])
+                pass
                 
             # load iteration count
             self.iteration = checkpoint['global_step']
