@@ -115,7 +115,7 @@ if __name__ == '__main__':
     model = constructor(**params)
     
     # Finally, construct the neural net
-    nnet = net.EngineVAE(model, config)
+    nnet = net.EngineVAE(model, config, model.variant)
 
     # Do some work...
     if config.restore_state is not None:

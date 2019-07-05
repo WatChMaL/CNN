@@ -23,6 +23,7 @@ import numpy as np
 from io_utils import ioconfig
 from io_utils.data_handling import WCH5Dataset
 from plot_utils.notebook_utils import CSVData
+import loss_funcs
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -31,8 +32,9 @@ class EngineVAE:
     Purpose : Training engine for the WatChMaLVAE. Performs training, validation,
               and testing of the models
     """
-    def __init__(self, model, config):
+    def __init__(self, model, config, model_variant):
         self.model = model
+        self.model_variant = model_variant
         if (config.device == 'gpu') and config.gpu_list:
             print("Requesting GPUs. GPU list : " + str(config.gpu_list))
             self.devids = ["cuda:{0}".format(x) for x in config.gpu_list]
@@ -56,8 +58,12 @@ class EngineVAE:
 
         # Initialize the optimizer and loss function
         self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
-        self.criterion = self.VAELoss
-        self.recon_loss = nn.MSELoss()
+        
+        # Declare the loss function
+        if model_variant is "AE":
+            self.criterion = nn.MSELoss()
+        elif model_variant is "VAE":
+            self.criterion = loss_funcs.VAELoss()
 
         #placeholders for data and labels
         self.data=None
@@ -99,18 +105,6 @@ class EngineVAE:
         # Save a copy of the config in the dump path
         ioconfig.saveConfig(self.config, self.dirpath + "config_file.ini")
         
-    # Loss function for the VAE combining MSELoss and KL-divergence
-    def VAELoss(self, reconstruction, mean, log_var, data):
-        
-        # MSE Reconstruction Loss
-        mse_loss = self.recon_loss(reconstruction, data)
-        
-        # KL-divergence Loss
-        kl_loss = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
-        
-        return mse_loss + kl_loss, mse_loss, kl_loss
-    
-        
     # Method to compute the loss using the forward pass
     def forward(self, mode="train"):
         
@@ -118,72 +112,63 @@ class EngineVAE:
         self.data = self.data.to(self.device)
         self.data = self.data.permute(0,3,1,2)
         
-        """ Changing for AE"""
-        
-        if mode == "train" or mode == "validate":
-            
-            grad_mode = True if mode == "train" else False
-            
-            with torch.set_grad_enabled(grad_mode):
-
-                # Collect the output from the model
-                z, prediction, mu, logvar = self.model(self.data, mode)
-                # Training
-                loss = -1
-                loss, mse_loss, kl_loss = self.criterion(prediction, mu, logvar, self.data)
-                self.loss = loss
-
-                # Restore the shape of the data and the prediction
-                self.data = self.data.permute(0,2,3,1)
-                prediction = prediction.permute(0,2,3,1)
-
-            return {"loss"       : loss.cpu().detach().item(),
-                    "mse_loss"   : mse_loss.cpu().detach().item(),
-                    "kl_loss"    : kl_loss.cpu().detach().item(),
-                    "z"          : z.cpu().detach().numpy(),
-                    "prediction" : prediction.cpu().detach().numpy(),
-                    "mu"         : mu.cpu().detach().numpy(),
-                    "logvar"      : logvar.cpu().detach().numpy()}
-        
-        elif mode == "generate":
-            
-            with torch.set_grad_enabled(False):
-                
-                # Call the model to generate the latent vectors
-                z_gen, _, _ = self.model(self.data, mode)
-                # Extract the latent vector
-                z_gen.cpu().detach().numpy()
-                
-                # Restore the shape of the data
-                self.data = self.data.permute(0,2,3,1)
-                
-                return {"z_gen" : z_gen.cpu().detach().numpy()}
-            
-        elif mode == "sample":
-            pass
-        """
+        # Set the grad calculation mode
         grad_mode = True if mode == "train" else False
         
-        with torch.set_grad_enabled(grad_mode):
-
-                # Collect the output from the model
-                prediction= self.model(self.data, mode)
-                # Training
-                loss = -1
-                mse_loss, kl_loss = self.recon_loss(prediction, self.data), 0.1
-                loss = mse_loss
-                self.loss = loss
-
-                # Restore the shape of the data and the prediction
-                self.data = self.data.permute(0,2,3,1)
-                prediction = prediction.permute(0,2,3,1)
-
-        return {"loss"       : loss.cpu().detach().item(),
-                "mse_loss"   : mse_loss.cpu().detach().item(),
-                "kl_loss"    : kl_loss,
-                "prediction" : prediction.cpu().detach().numpy()}
-        """
+        # Return dict
+        return_dict = None
         
+        with torch.set_grad_enabled(grad_mode):
+            
+            # Forward for AE
+            if self.model_variant is "VAE":
+
+                if mode == "train" or mode == "validate":
+
+                    # Collect the output from the model
+                    z, prediction, mu, logvar = self.model(self.data, mode)
+                    loss, mse_loss, kl_loss = self.criterion(prediction, mu, logvar, self.data)
+                    self.loss = loss
+
+                    # Restore the shape of prediction
+                    prediction = prediction.permute(0,2,3,1)
+
+                    return_dict = {"loss"       : loss.cpu().detach().item(),
+                                   "mse_loss"   : mse_loss.cpu().detach().item(),
+                                   "kl_loss"    : kl_loss.cpu().detach().item(),
+                                   "z"          : z.cpu().detach().numpy(),
+                                   "prediction" : prediction.cpu().detach().numpy(),
+                                   "mu"         : mu.cpu().detach().numpy(),
+                                   "logvar"      : logvar.cpu().detach().numpy()}
+
+                elif mode == "generate":
+
+                        # Generate only the latent vectors
+                        z_gen = self.model(self.data, mode)
+                        z_gen.cpu().detach().numpy()
+
+                        return_dict = {"z_gen" : z_gen.cpu().detach().numpy()}
+
+                elif mode == "sample":
+                    pass
+
+            # Forward for VAE
+            elif self.model_variant is "AE":
+
+                with torch.set_grad_enabled(grad_mode):
+                        prediction= self.model(self.data, mode)
+                        loss = self.criterion(prediction, self.data)
+                        self.loss = loss
+                        prediction = prediction.permute(0,2,3,1)
+
+                return_dict = {"loss"       : loss.cpu().detach().item(),
+                                "prediction" : prediction.cpu().detach().numpy()}
+        
+        # Restore the shape of the data
+        self.data = self.data.permute(0,2,3,1)
+        
+        return return_dict
+    
     def backward(self):
         
         self.optimizer.zero_grad()  # Reset gradient accumulation
@@ -209,7 +194,7 @@ class EngineVAE:
         iteration = 0
         
         # Parameter to save the best model
-        best_loss = 1000000.0
+        best_loss = 1000000.
         
         # Training loop
         while (int(epoch+0.5) < epochs):
@@ -234,15 +219,13 @@ class EngineVAE:
                 iteration += 1
                 
                 # Log/Report
-                # Record the current performance on train set
-                self.train_log.record(['iteration','epoch','loss', 'mse_loss', 'kl_loss'],
-                                      [iteration, epoch, res['loss'], res['mse_loss'],
-                                       res['kl_loss']])
+                self.train_log.record(['iteration','epoch'].extend(res.keys()),
+                                      [iteration, epoch].extend(res[key] for keys in res.keys()))
                 self.train_log.write()
                 
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f' % 
+                    print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f' %
                           (iteration, epoch, res['loss']))
                     
                 # Run validation on user-defined intervals
@@ -256,29 +239,21 @@ class EngineVAE:
 
                     res = self.forward(mode="validate")
                     
-                    """ Changing for AE """
+                    save_arr_keys = ["events", "labels", "energies"].extend(res.keys())
+                    save_arr_values = [self.data.cpu().numpy(),
+                                       val_data[1],
+                                       val_data[3]].extend(res[key] for keys in res.keys())
+                    
                     # Save the actual and reconstructed event to the disk
                     np.savez(np_event_path + str(iteration) + ".npz",
-                             events=self.data.cpu().numpy(), z=res['z'], recons=res['prediction'],
-                             mus=res["mu"], logvars=res["logvar"], labels=val_data[1],
-                             energies=val_data[3])
-                    
-                    
-                    """
-                    # Save the actual and reconstructed event to the disk
-                    np.savez(np_event_path + str(iteration) + ".npz",
-                             events=self.data.cpu().numpy(), recons=res['prediction'],
-                             labels=val_data[1], energies=val_data[3])
-                    """
-                    
+                             **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
 
                     # Record the validation stats to the csv
-                    self.val_log.record(['iteration','epoch','loss', 'mse_loss', 'kl_loss'],
-                                      [iteration, epoch, res['loss'], res['mse_loss'],
-                                       res['kl_loss']])
+                    self.val_log.record(["iteration", "epoch"].extend(res.keys()),
+                                        [iteration, epoch].extend(res[key] for keys in res.keys())))
                     
                     # Save the best model
-                    if res['loss'] < best_loss:
+                    if res["loss"] < best_loss:
                         self.save_state(model_type="best")
                     
                     # Save the best model
@@ -314,11 +289,15 @@ class EngineVAE:
 
             res = self.forward(mode="validate")
 
+            
+            save_arr_keys = ["events", "labels", "energies"].extend(res.keys())
+            save_arr_values = [self.data.cpu().numpy(),
+                               val_data[1],
+                               val_data[3]].extend(res[key] for keys in res.keys())
+
             # Save the actual and reconstructed event to the disk
-            np.savez(np_event_path + str(val_iteration) + ".npz",
-                     events=self.data.cpu().numpy(), z=res['z'], recons=res['prediction'],
-                     mus=res["mu"], logvars=res["logvar"], labels=val_data[1],
-                     energies=val_data[3])
+            np.savez(np_event_path + str(iteration) + ".npz",
+                     **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
             
             val_iteration += 1
         
@@ -391,7 +370,7 @@ class EngineVAE:
 
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    print('... Training data iteration %d ...' %(i))
+                    print("... Training data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
                 self.data, labels, energies = data[0][:,:,:,:19],data[1], data[3]
@@ -399,7 +378,7 @@ class EngineVAE:
                 res = self.forward(mode="generate")
 
                 # Add the values to the lists
-                train_latent_list.extend(res['z_gen'])
+                train_latent_list.extend(res["z_gen"])
                 train_labels_list.extend(labels)
                 train_energies_list.extend(energies)
 
@@ -411,7 +390,7 @@ class EngineVAE:
 
                 # once in a while, report
                 if i==0 or (i+1)%report_interval == 0:
-                    print('... Validation data iteration %d ...' %(i))
+                    print("... Validation data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
                 self.data, labels, energies = data[0][:,:,:,:19],data[1], data[3]
@@ -419,7 +398,7 @@ class EngineVAE:
                 res = self.forward(mode="generate")
 
                 # Add the values to the lists
-                valid_latent_list.extend(res['z_gen'])
+                valid_latent_list.extend(res["z_gen"])
                 valid_labels_list.extend(labels)
                 valid_energies_list.extend(energies)
             
@@ -467,8 +446,7 @@ class EngineVAE:
             
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:
-                #self.optimizer.load_state_dict(checkpoint['optimizer'])
-                pass
+                self.optimizer.load_state_dict(checkpoint['optimizer'])
                 
             # load iteration count
             self.iteration = checkpoint['global_step']
