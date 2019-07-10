@@ -22,7 +22,7 @@ class ENet(nn.Module):
         assert variant_key in variant_dict.keys()
         super(ENet, self).__init__()
         
-        # Class attributes
+        # Class attributess
         self.variant = variant_dict[variant_key]
         self.train_all = train_all
         
@@ -32,7 +32,7 @@ class ENet(nn.Module):
         
         # Add the layer blocks
         self.encoder = Encoder(num_input_channels)
-        self.decoder = Decoder(num_input_channels, None)
+        self.decoder = Decoder(num_input_channels)
         
         if not self.train_all:
             # Set require_grad = False for encoder parameters
@@ -51,19 +51,22 @@ class ENet(nn.Module):
             
     # Forward
     def forward(self, X, mode):
-        x = self.encoder(X)
-        
-        if self.variant is "AE":
-            x = self.bottleneck(x)
-        elif self.variant is "VAE":
-            z, mu, logvar = self.bottleneck(x)
-            
-        self.decoder.unflat_size = self.encoder.unflat_size
-        
-        if self.variant is "AE":
-            return self.decoder(x)
-        elif self.variant is "VAE":
-            return self.decoder(x), z, mu, logvar
+        if mode is "sample":
+            assert self.variant is "VAE"
+            x = self.bottleneck(None, mode)
+            return self.decoder(x, None)
+        else:
+            x = self.encoder(X)
+
+            if self.variant is "AE":
+                x = self.bottleneck(x)
+            elif self.variant is "VAE":
+                z, mu, logvar = self.bottleneck(x)
+
+            if self.variant is "AE":
+                return self.decoder(x, self.encoder.unflat_size)
+            elif self.variant is "VAE":
+                return self.decoder(x, self.encoder.unflat_size), z, mu, logvar
         
         
 # Encoder class
@@ -112,9 +115,8 @@ class Encoder(nn.Module):
 class Decoder(nn.Module):
     
     # Initialize
-    def __init__(self, num_output_channels, unflat_size):
+    def __init__(self, num_output_channels):
         super(Decoder, self).__init__()
-        self.unflat_size = unflat_size
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -134,9 +136,9 @@ class Decoder(nn.Module):
         self.de_conv1a = nn.ConvTranspose2d(64, num_output_channels, kernel_size=3, stride=1, padding=1)
         
     # Forward
-    def forward(self, X):
+    def forward(self, X, unflat_size):
         
-        x = X.view(self.unflat_size)            
+        x = X.view(unflat_size) if unflat_size is not None else X.view(-1, 128, 4, 10)
         
         x = self.relu(self.de_conv4(x))
         
@@ -186,18 +188,23 @@ class VAEBottleneck(nn.Module):
         
         # Activation functions
         self.relu = nn.ReLU()
-        
-        """
+
         # Linear layers
-        self.en_fc1 = nn.Linear(5120, 5120)
-        self.en_fc2 = nn.Linear(5120, 5120)
+        self.en_fc1_vae = nn.Linear(5120, 5120)
+        self.en_fc2_vae = nn.Linear(5120, 5120)
+        
+        self.de_fc1_vae = nn.Linear(5120, 5120)
         
         # Initialize the weights and biases of the layers
-        nn.init.eye_(self.en_fc1.weight)
-        nn.init.zeros_(self.en_fc1.bias)
+        nn.init.eye_(self.en_fc1_vae.weight)
+        nn.init.zeros_(self.en_fc1_vae.bias)
         
-        nn.init.zeros_(self.en_fc2.weight)
-        nn.init.constant_(self.en_fc2.bias, 1e-3)
+        nn.init.zeros_(self.en_fc2_vae.weight)
+        nn.init.constant_(self.en_fc2_vae.bias, 1e-3)
+        
+        nn.init.eye_(self.de_fc1_vae.weight)
+        nn.init.zeros_(self.de_fc1_vae.bias)
+        
         """
         # Linear layers
         self.en_fc1 = nn.Linear(5120, 2048)
@@ -206,10 +213,12 @@ class VAEBottleneck(nn.Module):
         
         self.de_fc2 = nn.Linear(1024, 2048)
         self.de_fc1 = nn.Linear(2048, 5120)
+        """
         
         
     # Forward
-    def forward(self, X):
+    def forward(self, X, mode=None):
+        """
         x = self.en_fc1(X)
         mu, logvar = self.en_fc2a(x), self.en_fc2b(x)
         
@@ -219,5 +228,18 @@ class VAEBottleneck(nn.Module):
         
         x = self.de_fc2(eps.mul(std).add(mu))
         x = self.de_fc1(x)
-        
-        return x, mu, logvar
+        """
+        if mode is "sample":
+            return self.relu(self.de_fc1_vae(randn(1, 5120, device=device('cuda'))))
+        else:
+            mu, logvar = self.en_fc1_vae(X), self.en_fc2_vae(X)
+
+            # Reparameterization trick
+            std = logvar.mul(0.5).exp()
+            eps = std.new(std.size()).normal_()
+            x = eps.mul(std).add(mu)
+            
+            # Fully connected transformation
+            x = self.relu(self.de_fc1_vae(x))
+
+            return x, mu, logvar

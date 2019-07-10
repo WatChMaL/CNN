@@ -18,9 +18,8 @@ from torch import device
 class ConvaeNet(nn.Module):
     
     # Initializer
-    
-    def __init__(self, num_input_channels=38, num_classes=3, num_latent_dims=32, train=True):
-        
+    def __init__():
+            
         # Initialize the superclass
         super(ConvaeNet, self).__init__()
         

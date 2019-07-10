@@ -212,8 +212,8 @@ class EngineVAE:
             # Loop over data samples and into the network forward function
             for i, data in enumerate(self.train_iter):
                 
-                # Move the data to the device specified by the user
-                self.data = data[0][:,:,:,:19]
+                # Get only the charge data
+                self.data = data[0][:,:,:,:19].float()
                 
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(mode="train")
@@ -248,7 +248,7 @@ class EngineVAE:
                     val_data = next(iter(self.val_iter))
 
                     # Extract the event data from the input data tuple
-                    self.data = val_data[0][:,:,:,:19]
+                    self.data = val_data[0][:,:,:,:19].float()
 
                     res = self.forward(mode="validate")
                     
@@ -306,7 +306,7 @@ class EngineVAE:
             sys.stdout.write("val_iterations : " + str(val_iteration) + "\n")
 
             # Extract the event data from the input data tuple
-            self.data = val_data[0][:,:,:,:19]
+            self.data = val_data[0][:,:,:,:19].float()
 
             res = self.forward(mode="validate")
             
@@ -353,7 +353,7 @@ class EngineVAE:
             
             with torch.no_grad():
 
-                _, sample = self.model(None, mode="sample")
+                sample = self.model(None, mode="sample")
                 sample_list.extend(sample.permute(0,2,3,1).cpu().detach().numpy())
                 
         # Put the model back in train mode
