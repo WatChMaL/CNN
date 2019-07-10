@@ -18,12 +18,13 @@ variant_dict = {0:"AE", 1:"VAE"}
 class ENet(nn.Module):
     
     # Initialize
-    def __init__(self, num_input_channels=38, num_latent_dims=64, variant_key=0):
+    def __init__(self, num_input_channels=38, num_latent_dims=64, variant_key=0, train_all=1):
         assert variant_key in variant_dict.keys()
         super(ENet, self).__init__()
         
         # Class attributes
         self.variant = variant_dict[variant_key]
+        self.train_all = train_all
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -31,22 +32,22 @@ class ENet(nn.Module):
         
         # Add the layer blocks
         self.encoder = Encoder(num_input_channels)
+        self.decoder = Decoder(num_input_channels, None)
         
-        # Set require_grad = False for encoder parameters
-        for param in self.encoder.parameters():
-            param.requires_grad = False
+        if not self.train_all:
+            # Set require_grad = False for encoder parameters
+            for param in self.encoder.parameters():
+                param.requires_grad = False
+                
+             # Set require_grad = False for decoder parameters
+            for param in self.decoder.parameters():
+                param.requires_grad = False
         
         # Add the desired bottleneck
         if self.variant is "AE":
             self.bottleneck = AEBottleneck()
         elif self.variant is "VAE":
             self.bottleneck = VAEBottleneck()
-            
-        self.decoder = Decoder(num_input_channels, None)
-        
-        # Set require_grad = False for decoder parameters
-        for param in self.decoder.parameters():
-            param.requires_grad = False
             
     # Forward
     def forward(self, X, mode):
@@ -155,11 +156,26 @@ class AEBottleneck(nn.Module):
     # Initialize
     def __init__(self):
         super(AEBottleneck, self).__init__()
-        self.flat_size = None
+        
+        # Activation functions
+        self.relu = nn.ReLU()
+        
+        self.en_fc1 = nn.Linear(5120, 2048)
+        self.en_fc2 = nn.Linear(2048, 1024)
+
+        self.de_fc2 = nn.Linear(1024, 2048)
+        self.de_fc1 = nn.Linear(2048, 5120)
         
     # Forward
     def forward(self, X):
-        return X
+        
+        x = self.relu(self.en_fc1(X))
+        x = self.en_fc2(x)
+        x = self.de_fc2(x)
+        x = self.relu(self.de_fc1(x))
+        
+        return x
+        
     
 # VAEBottleneck
 class VAEBottleneck(nn.Module):
@@ -171,6 +187,7 @@ class VAEBottleneck(nn.Module):
         # Activation functions
         self.relu = nn.ReLU()
         
+        """
         # Linear layers
         self.en_fc1 = nn.Linear(5120, 5120)
         self.en_fc2 = nn.Linear(5120, 5120)
@@ -181,14 +198,26 @@ class VAEBottleneck(nn.Module):
         
         nn.init.zeros_(self.en_fc2.weight)
         nn.init.constant_(self.en_fc2.bias, 1e-3)
+        """
+        # Linear layers
+        self.en_fc1 = nn.Linear(5120, 2048)
+        self.en_fc2a = nn.Linear(2048, 1024)
+        self.en_fc2b = nn.Linear(2048, 1024)
+        
+        self.de_fc2 = nn.Linear(1024, 2048)
+        self.de_fc1 = nn.Linear(2048, 5120)
+        
         
     # Forward
     def forward(self, X):
-        
-        mu, logvar = self.en_fc1(X), self.en_fc2(X)
+        x = self.en_fc1(X)
+        mu, logvar = self.en_fc2a(x), self.en_fc2b(x)
         
         # Reparameterization trick
         std = logvar.mul(0.5).exp()
         eps = std.new(std.size()).normal_()
         
-        return eps.mul(std).add(mu), mu, logvar
+        x = self.de_fc2(eps.mul(std).add(mu))
+        x = self.de_fc1(x)
+        
+        return x, mu, logvar

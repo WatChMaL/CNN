@@ -68,7 +68,9 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
         arghandler.Argument('restore_state', str, '-ret',
                             default=None, help='Specify a state file to restore the neural net to the training state from a previous run. No action by default'),
         arghandler.Argument('cfg', str, '-s',
-                            default=None, help='Specify name for destination config file. No action by default.')]
+                            default=None, help='Specify name for destination config file. No action by default.'),
+        arghandler.Argument('githash', str, '-git',
+                            default=None, help='git-hash for the latest commit')]
 
 ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
@@ -98,6 +100,10 @@ if __name__ == '__main__':
     for task in config.tasks:
         assert(task in ['train', 'test', 'valid', 'sample', 'generate'])
         
+    # Add the git-hash from the latest commit to the config
+    git_hash = os.popen("git rev-parse HEAD").read()
+    config.githash = git_hash[:len(git_hash)-1]
+    
     # Save to file
     if config.cfg is not None:
         ioconfig.saveConfig(config, config.cfg)

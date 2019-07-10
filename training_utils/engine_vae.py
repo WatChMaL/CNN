@@ -61,8 +61,11 @@ class EngineVAE:
         self.model.to(self.device)
 
         # Initialize the optimizer and loss function
-        self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.0001)
-        
+        if model.train_all:
+            self.optimizer = optim.Adam(self.model.parameters(),lr=0.00001)
+        else:
+            self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
+
         # Declare the loss function
         if model_variant is "AE":
             self.criterion = nn.MSELoss()

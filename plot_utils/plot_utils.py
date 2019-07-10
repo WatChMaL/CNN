@@ -1090,9 +1090,9 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
             log_df = pd.read_csv(log_path, usecols=["epoch", "mse_loss", "kl_loss"])
             
             # Downsample the epoch and training loss values w.r.t. the downsample interval
-            curr_epoch_values = log_df["epoch"]
-            curr_mse_loss_values  = log_df["mse_loss"]
-            curr_kl_loss_values = log_df["kl_loss"]
+            curr_epoch_values = log_df["epoch"].values
+            curr_mse_loss_values  = log_df["mse_loss"].values
+            curr_kl_loss_values = log_df["kl_loss"].values
             
             # Downsample using the downsample interval
             
