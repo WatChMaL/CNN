@@ -297,8 +297,11 @@ class EngineVAE:
         val_loss = 0.0
         val_iteration = 0
         
+        # CSV file for logging the output
+        self.validation_log = CSVData(self.dirpath+"validation_log.csv")
+            
         # Variables to save the actual and reconstructed events
-        np_event_path = self.dirpath+"/val_iteration_"
+        np_event_path = self.dirpath + "/val_iteration_"
         
         # Extract the event data and label from the DataLoader iterator
         for val_data in iter(self.val_iter):
@@ -309,9 +312,21 @@ class EngineVAE:
             self.data = val_data[0][:,:,:,:19].float()
 
             res = self.forward(mode="validate")
+                 
+            keys = ["epoch"]
+            values = [val_iteration]
+            for key in log_keys:
+                if key in res.keys():
+                    keys.append(key)
+                    values.append(res[key])
+            
+            # Log/Report
+            self.validation_log.record(keys, values)
+            self.validation_log.write()
             
             save_arr_keys = ["events", "labels", "energies"]
             save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+            
             for key in event_dump_keys:
                 if key in res.keys():
                     save_arr_keys.append(key)

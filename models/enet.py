@@ -188,58 +188,47 @@ class VAEBottleneck(nn.Module):
         
         # Activation functions
         self.relu = nn.ReLU()
-
-        # Linear layers
-        self.en_fc1_vae = nn.Linear(5120, 5120)
-        self.en_fc2_vae = nn.Linear(5120, 5120)
         
-        self.de_fc1_vae = nn.Linear(5120, 5120)
+        # Activation functions
+        self.relu = nn.ReLU()
+        
+        # Dimensionality reduction layers
+        #self.en_fc1 = nn.Linear(5120, 2048)
+        #self.en_fc2 = nn.Linear(2048, 1024)
+        
+        # VAE distribution parameter layers
+        self.en_mu = nn.Linear(5120, 5120)
+        self.en_var = nn.Linear(5120, 5120)
         
         # Initialize the weights and biases of the layers
-        nn.init.eye_(self.en_fc1_vae.weight)
-        nn.init.zeros_(self.en_fc1_vae.bias)
+        nn.init.eye_(self.en_mu.weight)
+        nn.init.zeros_(self.en_mu.bias)
         
-        nn.init.zeros_(self.en_fc2_vae.weight)
-        nn.init.constant_(self.en_fc2_vae.bias, 1e-3)
-        
-        nn.init.eye_(self.de_fc1_vae.weight)
-        nn.init.zeros_(self.de_fc1_vae.bias)
-        
-        """
-        # Linear layers
-        self.en_fc1 = nn.Linear(5120, 2048)
-        self.en_fc2a = nn.Linear(2048, 1024)
-        self.en_fc2b = nn.Linear(2048, 1024)
-        
-        self.de_fc2 = nn.Linear(1024, 2048)
-        self.de_fc1 = nn.Linear(2048, 5120)
-        """
-        
+        nn.init.zeros_(self.en_var.weight)
+        nn.init.constant_(self.en_var.bias, 1e-3)
+
+        # Dimensionality increment layers
+        #self.de_fc2 = nn.Linear(1024, 2048)
+        #self.de_fc1 = nn.Linear(2048, 5120)
         
     # Forward
     def forward(self, X, mode=None):
-        """
-        x = self.en_fc1(X)
-        mu, logvar = self.en_fc2a(x), self.en_fc2b(x)
-        
-        # Reparameterization trick
-        std = logvar.mul(0.5).exp()
-        eps = std.new(std.size()).normal_()
-        
-        x = self.de_fc2(eps.mul(std).add(mu))
-        x = self.de_fc1(x)
-        """
         if mode is "sample":
-            return self.relu(self.de_fc1_vae(randn(1, 5120, device=device('cuda'))))
+            z = randn(1, 5120, device=device('cuda'))
+            x = self.de_fc2(x)
+            x = self.relu(self.de_fc1(x))
+            return x
         else:
-            mu, logvar = self.en_fc1_vae(X), self.en_fc2_vae(X)
-
+            #x = self.relu(self.en_fc1(X))
+            #x = self.en_fc2(x)
+            mu, logvar = self.en_mu(X), self.en_var(X)
+            
             # Reparameterization trick
             std = logvar.mul(0.5).exp()
             eps = std.new(std.size()).normal_()
-            x = eps.mul(std).add(mu)
+            z = eps.mul(std).add(mu)
             
-            # Fully connected transformation
-            x = self.relu(self.de_fc1_vae(x))
+            #x = self.de_fc2(x)
+            #x = self.de_fc1(x)
 
-            return x, mu, logvar
+            return z, mu, logvar

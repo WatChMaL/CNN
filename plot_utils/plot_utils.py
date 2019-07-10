@@ -1284,7 +1284,6 @@ def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interv
             
     # Initialize the plot
     fig, ax1 = plt.subplots(figsize=(16,11))
-    ax2 = ax1.twinx()
     
     # Print the mpl rcParams
     mpl.rcParams['agg.path.chunksize']=1e12
