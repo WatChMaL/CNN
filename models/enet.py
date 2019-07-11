@@ -162,20 +162,8 @@ class AEBottleneck(nn.Module):
         # Activation functions
         self.relu = nn.ReLU()
         
-        self.en_fc1 = nn.Linear(5120, 2048)
-        self.en_fc2 = nn.Linear(2048, 1024)
-
-        self.de_fc2 = nn.Linear(1024, 2048)
-        self.de_fc1 = nn.Linear(2048, 5120)
-        
     # Forward
     def forward(self, X):
-        
-        x = self.relu(self.en_fc1(X))
-        x = self.en_fc2(x)
-        x = self.de_fc2(x)
-        x = self.relu(self.de_fc1(x))
-        
         return x
         
     
@@ -192,10 +180,6 @@ class VAEBottleneck(nn.Module):
         # Activation functions
         self.relu = nn.ReLU()
         
-        # Dimensionality reduction layers
-        #self.en_fc1 = nn.Linear(5120, 2048)
-        #self.en_fc2 = nn.Linear(2048, 1024)
-        
         # VAE distribution parameter layers
         self.en_mu = nn.Linear(5120, 5120)
         self.en_var = nn.Linear(5120, 5120)
@@ -206,29 +190,18 @@ class VAEBottleneck(nn.Module):
         
         nn.init.zeros_(self.en_var.weight)
         nn.init.constant_(self.en_var.bias, 1e-3)
-
-        # Dimensionality increment layers
-        #self.de_fc2 = nn.Linear(1024, 2048)
-        #self.de_fc1 = nn.Linear(2048, 5120)
         
     # Forward
     def forward(self, X, mode=None):
         if mode is "sample":
             z = randn(1, 5120, device=device('cuda'))
-            x = self.de_fc2(x)
-            x = self.relu(self.de_fc1(x))
-            return x
+            return z
         else:
-            #x = self.relu(self.en_fc1(X))
-            #x = self.en_fc2(x)
             mu, logvar = self.en_mu(X), self.en_var(X)
             
             # Reparameterization trick
             std = logvar.mul(0.5).exp()
             eps = std.new(std.size()).normal_()
             z = eps.mul(std).add(mu)
-            
-            #x = self.de_fc2(x)
-            #x = self.de_fc1(x)
 
             return z, mu, logvar

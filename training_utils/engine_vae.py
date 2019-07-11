@@ -17,6 +17,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import os
 import sys
 import time
+import math
 import numpy as np
 
 # WatChMaL imports
@@ -59,13 +60,16 @@ class EngineVAE:
             self.device=torch.device("cpu")
 
         self.model.to(self.device)
-
+        
         # Initialize the optimizer and loss function
         if model.train_all:
             self.optimizer = optim.Adam(self.model.parameters(),lr=0.00001)
-        else:
-            self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
-
+        else
+            if type(self.model) is nn.DataParallel:
+                self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
+            else:
+                self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.00001)
+                
         # Declare the loss function
         if model_variant is "AE":
             self.criterion = nn.MSELoss()
@@ -182,7 +186,7 @@ class EngineVAE:
         self.loss.backward()        # Propagate the loss backwards
         self.optimizer.step()       # Update the optimizer parameters
         
-    def train(self, epochs=10.0, report_interval=10, valid_interval=1000):
+    def train(self, epochs=10.0, report_interval=10, num_validations=10):
 
         # Prepare attributes for data logging
         self.train_log = CSVData(self.dirpath+'log_train.csv')
@@ -191,8 +195,18 @@ class EngineVAE:
         # Variables to save the actual and reconstructed events
         np_event_path = self.dirpath+"/iteration_"
         
-        # Set neural net to training mode
-        self.model.train()
+        # Calculate the total number of iterations in this training session
+        num_iterations = math.ceil(epochs*len(self.train_iter)/self.config.batch_size_train)
+        
+        # Determine the validation interval to use depending on the total number of iterations
+        valid_interval = math.floor(num_iterations/num_validations)
+        
+        # Save the dump at the earliest validation, middle of the training, last validation
+        # near the end of training
+        
+        dump_iterations = [valid_interval]
+        dump_iterations.append(valid_interval*math.floor(num_validations/2))
+        dump_iterations.append(valid_interval*num_validations)
         
         # Initialize epoch counter
         epoch = 0.
@@ -202,6 +216,9 @@ class EngineVAE:
         
         # Parameter to save the best model
         best_loss = 1000000.
+        
+        # Set neural net to training mode
+        self.model.train()
         
         # Training loop
         while (int(epoch+0.5) < epochs):
@@ -242,7 +259,7 @@ class EngineVAE:
                           (iteration, epoch, res['loss']))
                     
                 # Run validation on user-defined intervals
-                if (iteration+1)%valid_interval == 0:
+                if iteration%valid_interval == 0:
                         
                     self.model.eval()
                     val_data = next(iter(self.val_iter))
@@ -252,16 +269,17 @@ class EngineVAE:
 
                     res = self.forward(mode="validate")
                     
-                    save_arr_keys = ["events", "labels", "energies"]
-                    save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
-                    for key in event_dump_keys:
-                        if key in res.keys():
-                            save_arr_keys.append(key)
-                            save_arr_values.append(res[key])
-                    
-                    # Save the actual and reconstructed event to the disk
-                    np.savez(np_event_path + str(iteration) + ".npz",
-                             **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
+                    if iterations in dump_iterations:
+                        save_arr_keys = ["events", "labels", "energies"]
+                        save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+                        for key in event_dump_keys:
+                            if key in res.kseys():
+                                save_arr_keys.append(key)
+                                save_arr_values.append(res[key])
+
+                        # Save the actual and reconstructed event to the disk
+                        np.savez(np_event_path + str(iteration) + ".npz",
+                                 **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
 
                     keys = ['iteration','epoch']
                     values = [iteration, epoch]
@@ -324,17 +342,18 @@ class EngineVAE:
             self.validation_log.record(keys, values)
             self.validation_log.write()
             
-            save_arr_keys = ["events", "labels", "energies"]
-            save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
-            
-            for key in event_dump_keys:
-                if key in res.keys():
-                    save_arr_keys.append(key)
-                    save_arr_values.append(res[key])
-                    
             # Save the actual and reconstructed event to the disk
-            np.savez(np_event_path + str(val_iteration) + ".npz",
-                     **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
+            if val_iteration == 0:
+                save_arr_keys = ["events", "labels", "energies"]
+                save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+
+                for key in event_dump_keys:
+                    if key in res.keys():
+                        save_arr_keys.append(key)
+                        save_arr_values.append(res[key])
+                
+                np.savez(np_event_path + str(val_iteration) + ".npz",
+                         **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
             
             val_iteration += 1
         
@@ -460,11 +479,18 @@ class EngineVAE:
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
-        torch.save({
-            'global_step': self.iteration,
-            'optimizer': self.optimizer.state_dict(),
-            'state_dict': self.model.state_dict()
-        }, filename)
+        if type(self.model) is nn.DataParallel:
+            torch.save({
+                'global_step': self.iteration,
+                'optimizer': self.optimizer.state_dict(),
+                'state_dict': self.model.module.state_dict()
+            }, filename)
+        else:
+            torch.save({
+                'global_step': self.iteration,
+                'optimizer': self.optimizer.state_dict(),
+                'state_dict': self.model.state_dict()
+            }, filename)
         return filename
     
     
@@ -479,7 +505,7 @@ class EngineVAE:
             checkpoint = torch.load(f)
             
             # load network weights
-            self.model.load_state_dict(checkpoint['state_dict'], strict=False)
+            self.model.load_state_dict(checkpoint['state_dict'], strict=False, device=self.devids[0])
             
             # if optim is provided, load the state of the optim
             if self.optimizer is not None:

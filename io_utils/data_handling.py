@@ -62,9 +62,6 @@ class WCH5Dataset(Dataset):
 
         indices = np.arange(len(self))
 
-        """
-            Commenting for energy segmentation - Maybe not needed
-        """
         if self.reduced_size is not None:
             assert len(indices)>=self.reduced_size
             indices = np.random.choice(self.labels.shape[0], reduced_dataset_size)

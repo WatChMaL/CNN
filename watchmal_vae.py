@@ -83,7 +83,6 @@ if __name__ == '__main__':
     
     # Reflect available models
     print('CURRENT AVAILABLE ARCHITECTURES')
-    modelhandler.print_models()
     config = arghandler.parse_args(ARGS)
     
     # Do not overwrite any attributes specified by commandline flags
@@ -134,7 +133,7 @@ if __name__ == '__main__':
         nnet.generate_latent_vectors("pre")
     if 'train' in config.tasks:
         print("Number of epochs :", config.epochs)
-        nnet.train(epochs=config.epochs, valid_interval=1000)
+        nnet.train(epochs=config.epochs)
     if 'generate' in config.tasks:
         print("Generating post-training latent vectors")
         nnet.generate_latent_vectors("post")
