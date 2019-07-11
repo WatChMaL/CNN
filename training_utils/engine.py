@@ -18,6 +18,7 @@ import time
 import numpy as np
 
 from io_utils.data_handling import WCH5Dataset
+from io_utils.custom_samplers import SubsetSequenceSampler
 from io_utils import ioconfig 
 from plot_utils.notebook_utils import CSVData
 from plot_utils.plot_utils import plot_confusion_matrix
@@ -75,7 +76,7 @@ class Engine:
                               config.test_split,
                               shuffle=config.shuffle,
                               reduced_dataset_size=config.subset)
-
+        """
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
                                    shuffle=False,
@@ -90,6 +91,22 @@ class Engine:
                                   batch_size=config.batch_size_test,
                                   shuffle=False,
                                   sampler=SubsetRandomSampler(self.dset.test_indices))
+        """
+        
+        self.train_iter=DataLoader(self.dset,
+                                   batch_size=config.batch_size_train,
+                                   shuffle=False,
+                                   sampler=SubsetSequenceSampler(self.dset.train_indices))
+        
+        self.val_iter=DataLoader(self.dset,
+                                 batch_size=config.batch_size_val,
+                                 shuffle=False,
+                                 sampler=SubsetSequenceSampler(self.dset.val_indices))
+        
+        self.test_iter=DataLoader(self.dset,
+                                  batch_size=config.batch_size_test,
+                                  shuffle=False,
+                                  sampler=SubsetSequenceSampler(self.dset.test_indices))
 
         self.dirpath=config.dump_path + time.strftime("%Y%m%d_%H%M%S") + "/"
         
