@@ -164,7 +164,7 @@ class AEBottleneck(nn.Module):
         
     # Forward
     def forward(self, X):
-        return x
+        return X
         
     
 # VAEBottleneck

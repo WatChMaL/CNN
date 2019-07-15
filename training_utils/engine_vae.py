@@ -26,6 +26,9 @@ from io_utils.data_handling import WCH5Dataset
 from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
+# Apex import
+import apex
+
 # Logging keys
 log_keys = ["mse_loss", "kl_loss", "loss", "acc"]
 event_dump_keys = ["prediction", "z", "mu", "logvar"]
@@ -64,11 +67,14 @@ class EngineVAE:
         # Initialize the optimizer and loss function
         if model.train_all:
             self.optimizer = optim.Adam(self.model.parameters(),lr=0.00001)
-        else
+        else:
             if type(self.model) is nn.DataParallel:
                 self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
             else:
                 self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.00001)
+                
+        # Convert the model and optimizer to used mixed precision
+        model, optimizer = amp.initialize(model, optimizer, opt_level="00")
                 
         # Declare the loss function
         if model_variant is "AE":
@@ -183,10 +189,14 @@ class EngineVAE:
     def backward(self):
         
         self.optimizer.zero_grad()  # Reset gradient accumulation
-        self.loss.backward()        # Propagate the loss backwards
+        
+        # Scale the loss for mixed precision training
+        with amp.scale_loss(self.loss, self.optimizer) as scaled_loss:
+            scaled_loss.backward()        # Propagate the loss backwards
+            
         self.optimizer.step()       # Update the optimizer parameters
         
-    def train(self, epochs=10.0, report_interval=10, num_validations=10):
+    def train(self, epochs=10.0, report_interval=10, num_validations=1000):
 
         # Prepare attributes for data logging
         self.train_log = CSVData(self.dirpath+'log_train.csv')
@@ -196,7 +206,7 @@ class EngineVAE:
         np_event_path = self.dirpath+"/iteration_"
         
         # Calculate the total number of iterations in this training session
-        num_iterations = math.ceil(epochs*len(self.train_iter)/self.config.batch_size_train)
+        num_iterations = math.ceil(epochs*len(self.train_iter))
         
         # Determine the validation interval to use depending on the total number of iterations
         valid_interval = math.floor(num_iterations/num_validations)
@@ -221,9 +231,9 @@ class EngineVAE:
         self.model.train()
         
         # Training loop
-        while (int(epoch+0.5) < epochs):
+        while (math.floor(epoch) < epochs):
             
-            print('Epoch',int(epoch+0.5),
+            print('Epoch',math.floor(epoch),
                   'Starting @',time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             
             # Loop over data samples and into the network forward function
@@ -269,11 +279,11 @@ class EngineVAE:
 
                     res = self.forward(mode="validate")
                     
-                    if iterations in dump_iterations:
+                    if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
                         save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
                         for key in event_dump_keys:
-                            if key in res.kseys():
+                            if key in res.keys():
                                 save_arr_keys.append(key)
                                 save_arr_values.append(res[key])
 
@@ -479,18 +489,11 @@ class EngineVAE:
         # Save parameters
         # 0+1) iteration counter + optimizer state => in case we want to "continue training" later
         # 2) network weight
-        if type(self.model) is nn.DataParallel:
-            torch.save({
-                'global_step': self.iteration,
-                'optimizer': self.optimizer.state_dict(),
-                'state_dict': self.model.module.state_dict()
-            }, filename)
-        else:
-            torch.save({
-                'global_step': self.iteration,
-                'optimizer': self.optimizer.state_dict(),
-                'state_dict': self.model.state_dict()
-            }, filename)
+        torch.save({
+            'global_step': self.iteration,
+            'optimizer': self.optimizer.state_dict(),
+            'state_dict': self.model.state_dict()
+        }, filename)
         return filename
     
     
@@ -502,15 +505,10 @@ class EngineVAE:
         with open(weight_file, 'rb') as f:
             
             # torch interprets the file, then we can access using string keys
-            checkpoint = torch.load(f)
+            checkpoint = torch.load(f, map_location=self.devids[0])
             
             # load network weights
-            self.model.load_state_dict(checkpoint['state_dict'], strict=False, device=self.devids[0])
-            
-            # if optim is provided, load the state of the optim
-            if self.optimizer is not None:
-                #self.optimizer.load_state_dict(checkpoint['optimizer'])
-                pass
+            self.model.load_state_dict(checkpoint['state_dict'], strict=False)
                 
             # load iteration count
             self.iteration = checkpoint['global_step']

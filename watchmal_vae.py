@@ -19,6 +19,7 @@ Author: Julian Ding
 """
 
 import os
+from datetime import datetime
 
 import training_utils.engine_vae as net
 import io_utils.arghandler as arghandler
@@ -76,6 +77,9 @@ ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
 
 if __name__ == '__main__':
+    
+    # Find script execution runtime
+    start_time = datetime.now()
     
     # Intro message :D
     print("""[HK-Canada] TRIUMF Neutrino Group: Water Cherenkov Machine Learning (WatChMaL)
@@ -143,3 +147,6 @@ if __name__ == '__main__':
         nnet.validate()
     if 'sample' in config.tasks:
         nnet.sample(100)
+        
+    # Print script execution time
+    print("Time taken to execute the script : {0}".format(datetime.now() - start_time))
