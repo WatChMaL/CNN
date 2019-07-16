@@ -27,7 +27,7 @@ from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
 # Apex import
-import apex
+from apex import amp
 
 # Logging keys
 log_keys = ["mse_loss", "kl_loss", "loss", "acc"]
@@ -43,13 +43,15 @@ class EngineVAE:
     def __init__(self, model, config, model_variant):
         self.model = model
         self.model_variant = model_variant
+        
         if (config.device == 'gpu') and config.gpu_list:
             print("Requesting GPUs. GPU list : " + str(config.gpu_list))
             self.devids = ["cuda:{0}".format(x) for x in config.gpu_list]
-
             print("Main GPU: "+self.devids[0])
+            
             if torch.cuda.is_available():
                 self.device = torch.device(self.devids[0])
+                
                 if len(self.devids) > 1:
                     print("Using DataParallel on these devices: {}".format(self.devids))
                     self.model = nn.DataParallel(self.model, device_ids=config.gpu_list, dim=0)
@@ -61,7 +63,7 @@ class EngineVAE:
         else:
             print("Unable to use GPU")
             self.device=torch.device("cpu")
-
+            
         self.model.to(self.device)
         
         # Initialize the optimizer and loss function
@@ -72,10 +74,7 @@ class EngineVAE:
                 self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
             else:
                 self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.00001)
-                
-        # Convert the model and optimizer to used mixed precision
-        model, optimizer = amp.initialize(model, optimizer, opt_level="00")
-                
+        
         # Declare the loss function
         if model_variant is "AE":
             self.criterion = nn.MSELoss()
@@ -189,11 +188,7 @@ class EngineVAE:
     def backward(self):
         
         self.optimizer.zero_grad()  # Reset gradient accumulation
-        
-        # Scale the loss for mixed precision training
-        with amp.scale_loss(self.loss, self.optimizer) as scaled_loss:
-            scaled_loss.backward()        # Propagate the loss backwards
-            
+        self.loss.backward()        # Propagate the loss backwards
         self.optimizer.step()       # Update the optimizer parameters
         
     def train(self, epochs=10.0, report_interval=10, num_validations=1000):

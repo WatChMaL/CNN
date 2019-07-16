@@ -184,12 +184,13 @@ class VAEBottleneck(nn.Module):
         self.en_mu = nn.Linear(5120, 5120)
         self.en_var = nn.Linear(5120, 5120)
         
+        """
         # Initialize the weights and biases of the layers
         nn.init.eye_(self.en_mu.weight)
         nn.init.zeros_(self.en_mu.bias)
         
         nn.init.zeros_(self.en_var.weight)
-        nn.init.constant_(self.en_var.bias, 1e-3)
+        nn.init.constant_(self.en_var.bias, 1e-3)"""
         
     # Forward
     def forward(self, X, mode=None):
