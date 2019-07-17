@@ -68,7 +68,7 @@ class EngineVAE:
         
         # Initialize the optimizer and loss function
         if model.train_all:
-            self.optimizer = optim.Adam(self.model.parameters(),lr=0.00001)
+            self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
         else:
             if type(self.model) is nn.DataParallel:
                 self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
@@ -142,7 +142,7 @@ class EngineVAE:
                 if mode == "train" or mode == "validate":
 
                     # Collect the output from the model
-                    prediction, z, mu, logvar = self.model(self.data, mode)
+                    prediction, z, mu, logvar = self.model(self.data, mode, device=self.devids[0])
                     loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu, logvar)
                     self.loss = loss
 
@@ -160,7 +160,7 @@ class EngineVAE:
                 elif mode == "generate":
 
                         # Generate only the latent vectors
-                        z_gen = self.model(self.data, mode)
+                        z_gen = self.model(self.data, mode, device=self.devids[0])
                         z_gen.cpu().detach().numpy()
 
                         return_dict = {"z_gen" : z_gen.cpu().detach().numpy()}
@@ -204,7 +204,8 @@ class EngineVAE:
         num_iterations = math.ceil(epochs*len(self.train_iter))
         
         # Determine the validation interval to use depending on the total number of iterations
-        valid_interval = math.floor(num_iterations/num_validations)
+        # Add max to avoid modulo by zero error
+        valid_interval = max(1, math.floor(num_iterations/num_validations))
         
         # Save the dump at the earliest validation, middle of the training, last validation
         # near the end of training
@@ -392,7 +393,7 @@ class EngineVAE:
             
             with torch.no_grad():
 
-                sample = self.model(None, mode="sample")
+                sample = self.model(None, mode="sample", device=self.devids[0])
                 sample_list.extend(sample.permute(0,2,3,1).cpu().detach().numpy())
                 
         # Put the model back in train mode

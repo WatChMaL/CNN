@@ -131,7 +131,7 @@ if __name__ == '__main__':
         nnet.restore_state(config.restore_state)
            
     if 'sample' in config.tasks:
-        nnet.sample(99)
+        nnet.sample(32)
     if 'generate' in config.tasks:
         print("Generating pre-training latent vectors")
         nnet.generate_latent_vectors("pre")
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     if 'valid' in config.tasks:
         nnet.validate()
     if 'sample' in config.tasks:
-        nnet.sample(100)
+        nnet.sample(64)
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))

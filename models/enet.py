@@ -10,6 +10,7 @@ Author : Abhishek .
 from torch import nn
 from torch import randn, randn_like, tensor, zeros
 from torch import device
+from torch import mean
 
 # Global variables
 variant_dict = {0:"AE", 1:"VAE"}
@@ -31,8 +32,8 @@ class ENet(nn.Module):
         self.softmax = nn.Softmax(dim=1)
         
         # Add the layer blocks
-        self.encoder = Encoder(num_input_channels)
-        self.decoder = Decoder(num_input_channels)
+        self.encoder = Encoder(num_input_channels, num_latent_dims)
+        self.decoder = Decoder(num_input_channels, num_latent_dims)
         
         if not self.train_all:
             # Set require_grad = False for encoder parameters
@@ -45,15 +46,15 @@ class ENet(nn.Module):
         
         # Add the desired bottleneck
         if self.variant is "AE":
-            self.bottleneck = AEBottleneck()
+            self.bottleneck = AEBottleneck(num_latent_dims)
         elif self.variant is "VAE":
-            self.bottleneck = VAEBottleneck()
+            self.bottleneck = VAEBottleneck(num_latent_dims)
             
     # Forward
-    def forward(self, X, mode):
+    def forward(self, X, mode, device):
         if mode is "sample":
             assert self.variant is "VAE"
-            x = self.bottleneck(None, mode)
+            x = self.bottleneck(None, mode, device)
             return self.decoder(x, None)
         else:
             x = self.encoder(X)
@@ -61,7 +62,7 @@ class ENet(nn.Module):
             if self.variant is "AE":
                 x = self.bottleneck(x)
             elif self.variant is "VAE":
-                z, mu, logvar = self.bottleneck(x)
+                z, mu, logvar = self.bottleneck(x, None, device)
 
             if self.variant is "AE":
                 return self.decoder(x, self.encoder.unflat_size)
@@ -73,7 +74,7 @@ class ENet(nn.Module):
 class Encoder(nn.Module):
     
     # Initialize
-    def __init__(self, num_input_channels):
+    def __init__(self, num_input_channels, num_latent_dims):
         super(Encoder, self).__init__()
         self.unflat_size = None
         
@@ -94,6 +95,12 @@ class Encoder(nn.Module):
         # Downsampling
         self.en_conv4  = nn.Conv2d(128, 128, kernel_size=4, stride=2, padding=1)
         
+        # Fully-connected layers
+        self.en_fc1 = nn.Linear(5120, 1024)
+        self.en_fc2 = nn.Linear(1024, 512)
+        self.en_fc3 = nn.Linear(512, 256)
+        self.en_fc4 = nn.Linear(256, num_latent_dims)
+        
     # Forward
     def forward(self, X):
         x = self.en_conv1a(X)
@@ -109,17 +116,28 @@ class Encoder(nn.Module):
         self.unflat_size = x.size()
         x = x.view(-1, x.size(1)*x.size(2)*x.size(3))
         
+        x = self.relu(self.en_fc1(x))
+        x = self.relu(self.en_fc2(x))
+        x = self.relu(self.en_fc3(x))
+        x = self.relu(self.en_fc4(x))
+        
         return x
     
 # Decoder class
 class Decoder(nn.Module):
     
     # Initialize
-    def __init__(self, num_output_channels):
+    def __init__(self, num_output_channels, num_latent_dims):
         super(Decoder, self).__init__()
         
         # Activation functions
         self.relu = nn.ReLU()
+        
+        # Fully connected layers
+        self.de_fc4 = nn.Linear(num_latent_dims, 256)
+        self.de_fc3 = nn.Linear(256, 512)
+        self.de_fc2 = nn.Linear(512, 1024)
+        self.de_fc1 = nn.Linear(1024, 5120)
         
         # Upsampling de-convolution
         self.de_conv4  = nn.ConvTranspose2d(128, 128, kernel_size=4, stride=2, padding=1)
@@ -138,7 +156,12 @@ class Decoder(nn.Module):
     # Forward
     def forward(self, X, unflat_size):
         
-        x = X.view(unflat_size) if unflat_size is not None else X.view(-1, 128, 4, 10)
+        x = self.relu(self.de_fc4(X))
+        x = self.relu(self.de_fc3(x))
+        x = self.relu(self.de_fc2(x))
+        x = self.relu(self.de_fc1(x))
+        
+        x = x.view(unflat_size) if unflat_size is not None else x.view(-1, 128, 4, 10)
         
         x = self.relu(self.de_conv4(x))
         
@@ -171,8 +194,9 @@ class AEBottleneck(nn.Module):
 class VAEBottleneck(nn.Module):
     
     # Initialize
-    def __init__(self):
+    def __init__(self, num_latent_dims):
         super(VAEBottleneck, self).__init__()
+        self.num_latent_dims = num_latent_dims
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -181,22 +205,16 @@ class VAEBottleneck(nn.Module):
         self.relu = nn.ReLU()
         
         # VAE distribution parameter layers
-        self.en_mu = nn.Linear(5120, 5120)
-        self.en_var = nn.Linear(5120, 5120)
-        
-        """
-        # Initialize the weights and biases of the layers
-        nn.init.eye_(self.en_mu.weight)
-        nn.init.zeros_(self.en_mu.bias)
-        
-        nn.init.zeros_(self.en_var.weight)
-        nn.init.constant_(self.en_var.bias, 1e-3)"""
+        self.en_mu = nn.Linear(num_latent_dims, num_latent_dims)
+        self.en_var = nn.Linear(num_latent_dims, num_latent_dims)
         
     # Forward
-    def forward(self, X, mode=None):
+    def forward(self, X, mode, device, shots=1):
         if mode is "sample":
-            z = randn(1, 5120, device=device('cuda'))
-            return z
+            z_samples = randn(shots, self.num_latent_dims, device=device)
+            for i in range(shots):
+                z_samples[i] = randn(1, self.num_latent_dims, device=device)
+            return mean(z_samples, 0)
         else:
             mu, logvar = self.en_mu(X), self.en_var(X)
             
