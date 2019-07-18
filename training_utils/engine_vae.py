@@ -31,7 +31,7 @@ from apex import amp
 
 # Logging keys
 log_keys = ["mse_loss", "kl_loss", "loss", "acc"]
-event_dump_keys = ["prediction", "z", "mu", "logvar"]
+event_dump_keys = ["prediction", "z", "mu", "logvar", "z_prime"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -142,7 +142,7 @@ class EngineVAE:
                 if mode == "train" or mode == "validate":
 
                     # Collect the output from the model
-                    prediction, z, mu, logvar = self.model(self.data, mode, device=self.devids[0])
+                    prediction, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
                     loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu, logvar)
                     self.loss = loss
 
@@ -155,7 +155,8 @@ class EngineVAE:
                                    "z"          : z.cpu().detach().numpy(),
                                    "prediction" : prediction.cpu().detach().numpy(),
                                    "mu"         : mu.cpu().detach().numpy(),
-                                   "logvar"      : logvar.cpu().detach().numpy()}
+                                   "logvar"     : logvar.cpu().detach().numpy(),
+                                   "z_prime"    : z_prime.cpu().detach().numpy()}
 
                 elif mode == "generate":
 

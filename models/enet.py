@@ -54,20 +54,20 @@ class ENet(nn.Module):
     def forward(self, X, mode, device):
         if mode is "sample":
             assert self.variant is "VAE"
-            x = self.bottleneck(None, mode, device)
-            return self.decoder(x, None)
+            z = self.bottleneck(None, mode, device)
+            return self.decoder(z, None)
         else:
-            x = self.encoder(X)
+            z_prime = self.encoder(X)
 
             if self.variant is "AE":
-                x = self.bottleneck(x)
+                z = self.bottleneck(z_prime)
             elif self.variant is "VAE":
-                z, mu, logvar = self.bottleneck(x, None, device)
+                z, mu, logvar = self.bottleneck(z_prime, None, device)
 
             if self.variant is "AE":
-                return self.decoder(x, self.encoder.unflat_size)
+                return self.decoder(z, self.encoder.unflat_size)
             elif self.variant is "VAE":
-                return self.decoder(x, self.encoder.unflat_size), z, mu, logvar
+                return self.decoder(z_prime, self.encoder.unflat_size), z, mu, logvar, z_prime
         
         
 # Encoder class
