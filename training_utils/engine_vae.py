@@ -85,6 +85,7 @@ class EngineVAE:
         self.data=None
         self.labels=None
         self.iteration=None
+        self.num_iterations=None
 
         # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
         self.dset=WCH5Dataset(config.path,
@@ -143,7 +144,8 @@ class EngineVAE:
 
                     # Collect the output from the model
                     prediction, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
-                    loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu, logvar)
+                    loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu,
+                                                             logvar, self.iteration, self.num_iterations)
                     self.loss = loss
 
                     # Restore the shape of prediction
@@ -173,7 +175,7 @@ class EngineVAE:
             elif self.model_variant is "AE":
 
                 with torch.set_grad_enabled(grad_mode):
-                        prediction= self.model(self.data, mode)
+                        prediction= self.model(self.data, mode, device=self.devids[0])
                         loss = self.criterion(prediction, self.data)
                         self.loss = loss
                         prediction = prediction.permute(0,2,3,1)
@@ -203,6 +205,7 @@ class EngineVAE:
         
         # Calculate the total number of iterations in this training session
         num_iterations = math.ceil(epochs*len(self.train_iter))
+        self.num_iterations = num_iterations
         
         # Determine the validation interval to use depending on the total number of iterations
         # Add max to avoid modulo by zero error
@@ -238,6 +241,9 @@ class EngineVAE:
                 
                 # Get only the charge data
                 self.data = data[0][:,:,:,:19].float()
+                
+                # Update the global iteration counter
+                self.iteration = iteration
                 
                 # Call forward: make a prediction & measure the average error
                 res = self.forward(mode="train")
@@ -503,6 +509,8 @@ class EngineVAE:
             
             # torch interprets the file, then we can access using string keys
             checkpoint = torch.load(f, map_location=self.devids[0])
+            
+            print("Loading weights from file : {0}".format(weight_file))
             
             # load network weights
             self.model.load_state_dict(checkpoint['state_dict'], strict=False)

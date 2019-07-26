@@ -67,7 +67,7 @@ class ENet(nn.Module):
             if self.variant is "AE":
                 return self.decoder(z, self.encoder.unflat_size)
             elif self.variant is "VAE":
-                return self.decoder(z_prime, self.encoder.unflat_size), z, mu, logvar, z_prime
+                return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime
         
         
 # Encoder class
@@ -179,8 +179,9 @@ class Decoder(nn.Module):
 class AEBottleneck(nn.Module):
     
     # Initialize
-    def __init__(self):
+    def __init__(self, num_latent_dims):
         super(AEBottleneck, self).__init__()
+        self.num_latent_dims = num_latent_dims
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -207,6 +208,13 @@ class VAEBottleneck(nn.Module):
         # VAE distribution parameter layers
         self.en_mu = nn.Linear(num_latent_dims, num_latent_dims)
         self.en_var = nn.Linear(num_latent_dims, num_latent_dims)
+        
+        # Initialize the weights and biases of the reparameterization layers
+        """nn.init.eye_(self.en_mu.weight)
+        nn.init.zeros_(self.en_mu.bias)
+        
+        nn.init.zeros_(self.en_var.weight)
+        nn.init.constant_(self.en_var.bias, 1e-3)"""
         
     # Forward
     def forward(self, X, mode, device, shots=1):
