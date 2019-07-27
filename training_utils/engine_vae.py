@@ -71,9 +71,9 @@ class EngineVAE:
             self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
         else:
             if type(self.model) is nn.DataParallel:
-                self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.00001)
+                self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.0001)
             else:
-                self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.00001)
+                self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.0001)
         
         # Declare the loss function
         if model_variant is "AE":
