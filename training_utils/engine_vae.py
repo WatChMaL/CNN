@@ -26,12 +26,9 @@ from io_utils.data_handling import WCH5Dataset
 from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
-# Apex import
-from apex import amp
-
-# Logging keys
-log_keys = ["mse_loss", "kl_loss", "loss", "acc"]
-event_dump_keys = ["prediction", "z", "mu", "logvar", "z_prime"]
+# Logging and dumping keys : values to save during logging or dummping
+log_keys = ["loss", "mse_loss", "kl_loss", "ce_loss", "accuracy"]
+event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_label", "softmax"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -40,10 +37,16 @@ class EngineVAE:
     Purpose : Training engine for the WatChMaLVAE. Performs training, validation,
               and testing of the models
     """
-    def __init__(self, model, config, model_variant):
+    def __init__(self, model, config, model_variant, model_train_type):
+        
+        # Initialize the engine attributes
         self.model = model
         self.model_variant = model_variant
+        self.model_train_type = model_train_type
         
+        self.softmax = nn.Softmax(dim=1)
+        
+        # Set the device to be used for the model
         if (config.device == 'gpu') and config.gpu_list:
             print("Requesting GPUs. GPU list : " + str(config.gpu_list))
             self.devids = ["cuda:{0}".format(x) for x in config.gpu_list]
@@ -51,11 +54,9 @@ class EngineVAE:
             
             if torch.cuda.is_available():
                 self.device = torch.device(self.devids[0])
-                
                 if len(self.devids) > 1:
                     print("Using DataParallel on these devices: {}".format(self.devids))
                     self.model = nn.DataParallel(self.model, device_ids=config.gpu_list, dim=0)
-
                 print("CUDA is available")
             else:
                 self.device=torch.device("cpu")
@@ -66,34 +67,56 @@ class EngineVAE:
             
         self.model.to(self.device)
         
-        # Initialize the optimizer and loss function
-        if model.train_all:
-            self.optimizer = optim.Adam(self.model.parameters(),lr=0.0001)
-        else:
+        # Optimizer parameters to be used
+        learning_rate = 0.0001
+        
+        # Initialize the optimizer with the correct parameters to optimize for different settings
+        if self.model_train_type is "train_all":
+            self.optimizer = optim.Adam(self.model.parameters(),lr=learning_rate)
+        elif self.model_train_type is "train_ae_or_vae_only":
+            self.optimizer = optim.Adam(self.model.parameters(),lr=learning_rate)
+        elif self.model_train_type is "train_bottleneck_only":
             if type(self.model) is nn.DataParallel:
-                self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=0.0001)
+                self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=learning_rate)
             else:
-                self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=0.0001)
+                self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=learning_rate)
+                
+        elif self.model_train_type is "train_classifier_only":
+            if type(self.model) is nn.DataParallel:
+                self.optimizer = optim.Adam(self.model.module.classifier.parameters(),lr=learning_rate)
+            else:
+                self.optimizer = optim.Adam(self.model.classifier.parameters(),lr=learning_rate)
         
         # Declare the loss function
         if model_variant is "AE":
-            self.criterion = nn.MSELoss()
+            if self.model_train_type is "train_all"
+                self.criterion = loss_funcs.AECLLoss
+            elif self.model_train_type is "train_classifier_only":
+                self.criterion = nn.CrossEntropyLoss()
+            elif self.model_train_type is "train_bottleneck_only":
+                self.criterion = nn.MSELoss()
         elif model_variant is "VAE":
-            self.criterion = loss_funcs.VAELoss
-
-        #placeholders for data and labels
+            if self.model_train_type is "train_all"
+                self.criterion = loss_funcs.VAECLLoss
+            elif self.model_train_type is "train_classifier_only":
+                self.criterion = nn.CrossEntropyLoss()
+            elif self.model_train_type is "train_bottleneck_only":
+                self.criterion = loss_funcs.VAELoss
+        
+        # Placeholders for data and labels
         self.data=None
-        self.labels=None
+        self.label=None
         self.iteration=None
         self.num_iterations=None
 
-        # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the iotools module
-        self.dset=WCH5Dataset(config.path,
-                              config.val_split,
-                              config.test_split,
-                              shuffle=config.shuffle,
-                              reduced_dataset_size=config.subset)
+        # Initialize the dataset iterator
+        # NOTE: The functionality of this block is coupled to the implementation of WCH5Dataset in the io_utils module
 
+        # Create the dataset
+        self.dset=WCH5Dataset(config.path, config.cl_train_split, config.cl_val_split,
+                              config.vae_val_split, config.test_split, self.model_train_type,
+                              shuffle=config.shuffle, reduced_dataset_size=config.subset)
+        
         self.train_iter=DataLoader(self.dset,
                                    batch_size=config.batch_size_train,
                                    shuffle=False,
@@ -123,66 +146,134 @@ class EngineVAE:
         ioconfig.saveConfig(self.config, self.dirpath + "config_file.ini")
         
     # Method to compute the loss using the forward pass
-    def forward(self, mode="train"):
+    def forward(self, mode="all", forward_type="train"):
         
         # Move the data to the user-specified device
         self.data = self.data.to(self.device)
         self.data = self.data.permute(0,3,1,2)
         
+        # Move the labels to the user-specified device
+        self.label = self.label.to(self.device)
+        
         # Set the grad calculation mode
-        grad_mode = True if mode == "train" else False
+        grad_mode = True if forward_type is "train" else False
         
         # Return dict
         return_dict = None
         
         with torch.set_grad_enabled(grad_mode):
             
-            # Forward for AE
-            if self.model_variant is "VAE":
+            if mode == "all":
+                
+                # Forward for VAE
+                if self.model_variant is "VAE":
+                    
+                    # Collect the output from the model
+                    recon, z, mu, logvar, z_prime, predicted_label = self.model(self.data, mode, device=self.devids[0])
+                    loss, mse_loss, kl_loss, ce_loss = self.criterion(recon, self.data, mu,
+                                                                      logvar, predicted_label, self.label)
+                    self.loss = loss
+                    
+                    softmax          = self.softmax(predicted_label).cpu().detach().numpy()
+                    predicted_label  = torch.argmax(predicted_label, dim=-1)
+                    accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
 
-                if mode == "train" or mode == "validate":
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+
+                    return_dict = {"loss"            : loss.cpu().detach().item(),
+                                   "mse_loss"        : mse_loss.cpu().detach().item(),
+                                   "kl_loss"         : kl_loss.cpu().detach().item(),
+                                   "ce_loss"         : ce_loss.cpu().detach().item(),
+                                   "accuracy"        : accuracy,
+                                   "recon"           : recon.cpu().detach().numpy(),
+                                   "z"               : z.cpu().detach().numpy(),
+                                   "mu"              : mu.cpu().detach().numpy(),
+                                   "logvar"          : logvar.cpu().detach().numpy(),
+                                   "z_prime"         : z_prime.cpu().detach().numpy(),
+                                   "predicted_label" : predicted_label.cpu().detach().numpy(),
+                                   "softmax"         : softmax.cpu().detach.numpy()}
+                    
+                # Forward for AE
+                elif self.model_variant is "AE";
+                
+                    recon, predicted_label = self.model(self.data, mode, device=self.devids[0])
+                    loss = self.criterion(recon, self.data, predicted_label, self.label)
+                    self.loss = loss
+                    
+                    softmax          = self.softmax(predicted_label).cpu().detach().numpy()
+                    predicted_label  = torch.argmax(predicted_label, dim=-1)
+                    accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
+                    
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+
+                    return_dict = {"loss"            : loss.cpu().detach().item(),
+                                   "recon"           : recon.cpu().detach().numpy(),
+                                   "predicted_label" : predicted_label.cpu().detach().numpy()}
+
+            elif mode == "ae_or_vae":
+                
+                # Forward for VAE
+                if self.model_variant is "VAE":
 
                     # Collect the output from the model
-                    prediction, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
-                    loss, mse_loss, kl_loss = self.criterion(prediction, self.data, mu,
+                    recon, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
+                    loss, mse_loss, kl_loss = self.criterion(recon, self.data, mu, 
                                                              logvar, self.iteration, self.num_iterations)
                     self.loss = loss
 
-                    # Restore the shape of prediction
-                    prediction = prediction.permute(0,2,3,1)
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+
+                    return_dict = {"loss"            : loss.cpu().detach().item(),
+                                   "mse_loss"        : mse_loss.cpu().detach().item(),
+                                   "kl_loss"         : kl_loss.cpu().detach().item(),
+                                   "recon"           : recon.cpu().detach().numpy(),
+                                   "z"               : z.cpu().detach().numpy(),
+                                   "mu"              : mu.cpu().detach().numpy(),
+                                   "logvar"          : logvar.cpu().detach().numpy(),
+                                   "z_prime"         : z_prime.cpu().detach().numpy()}
+                        
+                # Forward for AE
+                elif self.model_variant is "AE":
+
+                    recon = self.model(self.data, mode, device=self.devids[0])
+                    loss = self.criterion(recon, self.data)
+                    self.loss = loss
+                    recon = recon.permute(0,2,3,1)
 
                     return_dict = {"loss"       : loss.cpu().detach().item(),
-                                   "mse_loss"   : mse_loss.cpu().detach().item(),
-                                   "kl_loss"    : kl_loss.cpu().detach().item(),
-                                   "z"          : z.cpu().detach().numpy(),
-                                   "prediction" : prediction.cpu().detach().numpy(),
-                                   "mu"         : mu.cpu().detach().numpy(),
-                                   "logvar"     : logvar.cpu().detach().numpy(),
-                                   "z_prime"    : z_prime.cpu().detach().numpy()}
+                                    "recon"     : recon.cpu().detach().numpy()}
+                
+        elif mode == "generate_latents":
+                    
+            # Generate only the latent vectors
+            z_gen = self.model(self.data, mode, device=self.devids[0])
 
-                elif mode == "generate":
-
-                        # Generate only the latent vectors
-                        z_gen = self.model(self.data, mode, device=self.devids[0])
-                        z_gen.cpu().detach().numpy()
-
-                        return_dict = {"z_gen" : z_gen.cpu().detach().numpy()}
-
-                elif mode == "sample":
-                    pass
-
-            # Forward for VAE
-            elif self.model_variant is "AE":
-
-                with torch.set_grad_enabled(grad_mode):
-                        prediction= self.model(self.data, mode, device=self.devids[0])
-                        loss = self.criterion(prediction, self.data)
-                        self.loss = loss
-                        prediction = prediction.permute(0,2,3,1)
-
-                return_dict = {"loss"       : loss.cpu().detach().item(),
-                                "prediction" : prediction.cpu().detach().numpy()}
-        
+            return_dict = {"z_gen" : z_gen.cpu().detach().numpy()}
+                    
+        elif mode == "classifier":
+                    
+            predicted_label = self.model(self.data, mode, device=self.devids[0])
+            loss = self.criterion(predicted_label, self.label)
+            self.loss = loss
+            
+            softmax          = self.softmax(predicted_label).cpu().detach().numpy()
+            predicted_label  = torch.argmax(predicted_label,dim=-1)
+            accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
+                    
+            return_dict = {"loss"            : loss.cpu().detach().item(),
+                           "accuracy"        : accuracy
+                           "predicted_label" : predicted_label.cpu().detach().numpy(),
+                           "softmax"         : softmax.cpu().detach().numpy()}
+            
+        elif mode == "sample":
+            
+            samples = self.model(None, mode, device=self.devids[0])
+            
+            return_dict = {"samples" : samples.permute(0,2,3,1).cpu().detach().numpy()}
+  
         # Restore the shape of the data
         self.data = self.data.permute(0,2,3,1)
         
@@ -241,12 +332,21 @@ class EngineVAE:
                 
                 # Get only the charge data
                 self.data = data[0][:,:,:,:19].float()
+                self.labels = data[1].long()
                 
                 # Update the global iteration counter
                 self.iteration = iteration
                 
-                # Call forward: make a prediction & measure the average error
-                res = self.forward(mode="train")
+                # Setup the mode to call the forward method
+                if self.model_train_type is "train_all":
+                    mode = "all"
+                elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
+                    mode = "ae_or_vae"
+                elif self.model_train_type is "train_classifier_only":
+                    mode = "classifier"
+
+                # Call forward: pass the data to the model and compute predictions and loss
+                res = self.forward(mode=mode, forward_type="train")
                 
                 # Call backward: backpropagate error and update weights
                 self.backward()
@@ -280,11 +380,11 @@ class EngineVAE:
                     # Extract the event data from the input data tuple
                     self.data = val_data[0][:,:,:,:19].float()
 
-                    res = self.forward(mode="validate")
+                    res = self.forward(mode=mode)
                     
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+                        save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[2]]
                         for key in event_dump_keys:
                             if key in res.keys():
                                 save_arr_keys.append(key)
@@ -322,6 +422,7 @@ class EngineVAE:
         self.val_log.close()
         self.train_log.close()
         
+    # Method to validate the model training on the validation set
     def validate(self):
         
         # Variables to output at the end
@@ -342,7 +443,15 @@ class EngineVAE:
             # Extract the event data from the input data tuple
             self.data = val_data[0][:,:,:,:19].float()
 
-            res = self.forward(mode="validate")
+            # Setup the mode to call the forward method
+            if self.model_train_type is "train_all":
+                mode = "all"
+            elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
+                mode = "ae_or_vae"
+            elif self.model_train_type is "train_classifier_only":
+                mode = "classifier"
+                    
+            res = self.forward(mode=mode, forward_type="validation")
                  
             keys = ["epoch"]
             values = [val_iteration]
@@ -370,7 +479,8 @@ class EngineVAE:
             
             val_iteration += 1
         
-    def sample(self, num_samples=10):
+    # Sample vectors from the normal distribution and decode to reconstruct events
+    def sample(self, num_samples=10, trained=False):
         
         # Setup the path
         sample_save_path = self.dirpath + 'samples/'
@@ -382,8 +492,10 @@ class EngineVAE:
         # Create the directory if it does not already exist
         if not os.path.exists(sample_save_path):
             os.mkdir(sample_save_path)
+            
+        model_status = "trained" if trained else "untrained"
         
-        sample_save_path = sample_save_path + str(self.config.model[1]) + '_' + str(self.iteration)
+        sample_save_path = sample_save_path + str(self.config.model[1])
         
         # Create the directory if it does not already exist
         if not os.path.exists(sample_save_path):
@@ -392,22 +504,16 @@ class EngineVAE:
         # Samples list
         sample_list = []
         
-        # Put the model in eval mode
-        self.model.eval()
-        
         # Iterate over the counter
         for i in range(num_samples):
             
             with torch.no_grad():
 
-                sample = self.model(None, mode="sample", device=self.devids[0])
-                sample_list.extend(sample.permute(0,2,3,1).cpu().detach().numpy())
-                
-        # Put the model back in train mode
-        self.model.train()
+                res = self.forward(mode="sample", forward_type="sample")
+                sample_list.extend(res["samples"])
         
         # Convert the list to an numpy array and save to the given path
-        np.save(sample_save_path + '/' + "{0}_samples".format(str(num_samples)) + ".npy", np.array(sample_list))
+        np.save(sample_save_path + '/' + model_status + "_samples".format(str(num_samples)) + ".npy", np.array(sample_list))
         
     # Generate and save the latent vectors for training and validation sets
     
@@ -462,7 +568,7 @@ class EngineVAE:
                     print("... Validation data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
-                self.data, labels, energies = data[0][:,:,:,:19],data[1], data[3]
+                self.data, labels, energies = data[0][:,:,:,:19],data[1], data[2]
 
                 res = self.forward(mode="generate")
 

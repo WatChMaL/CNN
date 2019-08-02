@@ -1,7 +1,7 @@
 """
 enet.py
 
-Block implementation of different autoencoder models i.e. encoders, decoders, bottlenecks etc.
+Block implementation of different autoencoder componentss i.e. encoders, decoders, bottlenecks etc.
 
 Author : Abhishek .
 """
@@ -14,18 +14,21 @@ from torch import mean
 
 # Global variables
 variant_dict = {0:"AE", 1:"VAE"}
+train_dict = {0:"train_all", 1:"train_ae_or_vae_only", 2:"train_bottleneck_only", 3:"train_classifier_only"}
 
 # Enet class
 class ENet(nn.Module):
     
     # Initialize
-    def __init__(self, num_input_channels=38, num_latent_dims=64, variant_key=0, train_all=1):
+    def __init__(self, num_input_channels=38, num_latent_dims=64, num_classes=3, variant_key=0, train_key=1):
         assert variant_key in variant_dict.keys()
+        assert train_key in train_dict.keys()
+        
         super(ENet, self).__init__()
         
         # Class attributess
         self.variant = variant_dict[variant_key]
-        self.train_all = train_all
+        self.train_type = train_dict[train_key]
         
         # Activation functions
         self.relu = nn.ReLU()
@@ -34,22 +37,45 @@ class ENet(nn.Module):
         # Add the layer blocks
         self.encoder = Encoder(num_input_channels, num_latent_dims)
         self.decoder = Decoder(num_input_channels, num_latent_dims)
-        
-        if not self.train_all:
-            # Set require_grad = False for encoder parameters
-            for param in self.encoder.parameters():
-                param.requires_grad = False
-                
-             # Set require_grad = False for decoder parameters
-            for param in self.decoder.parameters():
-                param.requires_grad = False
+        self.classifier = Classifier(num_latent_dims, num_classes)
         
         # Add the desired bottleneck
         if self.variant is "AE":
             self.bottleneck = AEBottleneck(num_latent_dims)
         elif self.variant is "VAE":
             self.bottleneck = VAEBottleneck(num_latent_dims)
+        
+        # Set params.require_grad = False for the appropriate block of the model
+        if self.train_type is not "train_all":
             
+            if self.train_type is "train_ae_or_vae_only":
+                
+                # Set require_grad = False for classifier parameters
+                for param in self.classifier.parameters():
+                    param.requires_grad = False
+                
+            else:
+            
+                # Set require_grad = False for encoder parameters
+                for param in self.encoder.parameters():
+                    param.requires_grad = False
+                    
+                # Set require_grad = False for decoder parameters
+                for param in self.decoder.parameters():
+                    param.requires_grad = False
+                
+                if self.train_type is "train_bottleneck_only":
+                
+                    # Set require_grad = False for classifier parameters
+                    for param in self.classifier.parameters():
+                        param.requires_grad = False
+            
+                elif self.train_type is "train_classifier_only":
+                
+                    # Set require_grad = False for encoder parameters
+                    for param in self.bottleneck.parameters():
+                        param.requires_grad = False
+                        
     # Forward
     def forward(self, X, mode, device):
         if mode is "sample":
@@ -63,13 +89,26 @@ class ENet(nn.Module):
                 z = self.bottleneck(z_prime)
             elif self.variant is "VAE":
                 z, mu, logvar = self.bottleneck(z_prime, None, device)
-
-            if self.variant is "AE":
-                return self.decoder(z, self.encoder.unflat_size)
-            elif self.variant is "VAE":
-                return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime
-        
-        
+                
+            if mode is "generate_latents":
+                if self.variant is "AE":
+                    return z
+                elif self.variant is "VAE":
+                    return z, mu, logvar
+            elif mode is "classifier":
+                return self.classifier(z)
+            elif mode is "ae_or_vae":
+                if self.variant is "AE":
+                    return self.decoder(z, self.encoder.unflat_size)
+                elif self.variant is "VAE":
+                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime
+            elif mode is "all":
+                if self.variant is "AE":
+                    return self.decoder(z, self.encoder.unflat_size), self.classifier(z)
+                elif self.variant is "VAE":
+                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime, self.classifier(z)
+                
+                
 # Encoder class
 class Encoder(nn.Module):
     
@@ -202,19 +241,9 @@ class VAEBottleneck(nn.Module):
         # Activation functions
         self.relu = nn.ReLU()
         
-        # Activation functions
-        self.relu = nn.ReLU()
-        
         # VAE distribution parameter layers
         self.en_mu = nn.Linear(num_latent_dims, num_latent_dims)
         self.en_var = nn.Linear(num_latent_dims, num_latent_dims)
-        
-        # Initialize the weights and biases of the reparameterization layers
-        """nn.init.eye_(self.en_mu.weight)
-        nn.init.zeros_(self.en_mu.bias)
-        
-        nn.init.zeros_(self.en_var.weight)
-        nn.init.constant_(self.en_var.bias, 1e-3)"""
         
     # Forward
     def forward(self, X, mode, device, shots=1):
@@ -232,3 +261,30 @@ class VAEBottleneck(nn.Module):
             z = eps.mul(std).add(mu)
 
             return z, mu, logvar
+        
+# Latent Classifier
+class Classifier(nn.Module):
+    
+    # Initializer
+    def __init__(self, num_latent_dims=64, num_classes=3):
+        super(Classifier, self).__init__()
+        
+        # Activation functions
+        self.relu = nn.ReLU()
+        
+        # Classifier fully connected layers
+        self.cl_fc1 = nn.Linear(num_latent_dims, num_latent_dims/2)
+        self.cl_fc2 = nn.Linear(num_latent_dims/2, num_latent_dims/4)
+        self.cl_fc3 = nn.Linear(num_latent_dims/4, num_latent_dims/8)
+        self.cl_fc4 = nn.Linear(num_latent_dims/8, num_classes)
+        
+    # Forward
+    def forward(self, X):
+        
+        # Fully-connected layers
+        x = self.relu(self.cl_fc1(X))
+        x = self.relu(self.cl_fc2(x))
+        x = self.relu(self.cl_fc3(x))
+        x = self.cl_fc4(x)
+        
+        return x

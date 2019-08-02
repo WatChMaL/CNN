@@ -44,10 +44,14 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=None, help='Number of data from training set to use.'),
         arghandler.Argument('shuffle', bool, '-shf',
                             default=True, help='Specify whether or not to shuffle training dataset. Default is True.'),
-        arghandler.Argument('val_split', float, '-vas',
-                            default=0.1, help='Fraction of dataset used in validation.'),
+        arghandler.Argument('cl_train_split', float, '-vas',
+                            default=0.2, help='Fraction of dataset used in classifier validation.'),
+        arghandler.Argument('cl_val_split', float, '-vas',
+                            default=0.1, help='Fraction of dataset used in classifier validation.'),
+        arghandler.Argument('vae_val_split', float, '-vas',
+                            default=0.1, help='Fraction of dataset used in VAE validation.'),
         arghandler.Argument('test_split', float, '-tes',
-                            default=0.1, help='Fraction of dataset used in testing. (Note: remaining fraction is used in training)'),
+                            default=0.1, help='Fraction of dataset used in testing for both the classifier and VAE.),
         arghandler.Argument('epochs', float, '-epo',
                             default=1.0, help='Number of training epochs to run.'),
         arghandler.Argument('batch_size_train', int, '-tnb',
@@ -124,14 +128,14 @@ if __name__ == '__main__':
     model = constructor(**params)
     
     # Finally, construct the neural net
-    nnet = net.EngineVAE(model, config, model.variant)
+    nnet = net.EngineVAE(model, config, model.variant, model.train_type)
 
     # Do some work...
     if config.restore_state is not None:
         nnet.restore_state(config.restore_state)
            
     if 'sample' in config.tasks:
-        nnet.sample(32)
+        nnet.sample(num_samples=64, trained=False)
     if 'generate' in config.tasks:
         print("Generating pre-training latent vectors")
         nnet.generate_latent_vectors("pre")
@@ -146,7 +150,7 @@ if __name__ == '__main__':
     if 'valid' in config.tasks:
         nnet.validate()
     if 'sample' in config.tasks:
-        nnet.sample(64)
+        nnet.sample(num_samples=64, trained=False)
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))
