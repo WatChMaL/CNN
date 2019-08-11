@@ -18,6 +18,7 @@ import os
 import sys
 import time
 import math
+import random
 import numpy as np
 
 # WatChMaL imports
@@ -27,8 +28,8 @@ from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
 # Logging and dumping keys : values to save during logging or dummping
-log_keys = ["loss", "mse_loss", "kl_loss", "ce_loss", "accuracy"]
-event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_label", "softmax"]
+log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy"]
+event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -81,31 +82,32 @@ class EngineVAE:
             else:
                 self.optimizer = optim.Adam(self.model.bottleneck.parameters(),lr=learning_rate)
                 
-        elif self.model_train_type is "train_classifier_only":
+        elif self.model_train_type is "train_cl_or_rg_only":
             if type(self.model) is nn.DataParallel:
-                self.optimizer = optim.Adam(self.model.module.classifier.parameters(),lr=learning_rate)
+                self.optimizer = optim.Adam(list(self.model.module.classifier.parameters()) + list(self.model.module.regressor.parameters()),lr=learning_rate)
             else:
-                self.optimizer = optim.Adam(self.model.classifier.parameters(),lr=learning_rate)
+                self.optimizer = optim.Adam(list(self.model.classifier.parameters()) + list(self.model.regressor.parameters()),lr=learning_rate)
         
         # Declare the loss function
         if model_variant is "AE":
-            if self.model_train_type is "train_all"
-                self.criterion = loss_funcs.AECLLoss
-            elif self.model_train_type is "train_classifier_only":
-                self.criterion = nn.CrossEntropyLoss()
-            elif self.model_train_type is "train_bottleneck_only":
+            if self.model_train_type is "train_all":
+                self.criterion = loss_funcs.AECLRGLoss
+            elif self.model_train_type is "train_cl_or_rg_only":
+                self.criterion = loss_funcs.CLRGLoss
+            elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_ae_or_vae_only":
                 self.criterion = nn.MSELoss()
         elif model_variant is "VAE":
-            if self.model_train_type is "train_all"
-                self.criterion = loss_funcs.VAECLLoss
-            elif self.model_train_type is "train_classifier_only":
-                self.criterion = nn.CrossEntropyLoss()
-            elif self.model_train_type is "train_bottleneck_only":
+            if self.model_train_type is "train_all":
+                self.criterion = loss_funcs.VAECLRGLoss
+            elif self.model_train_type is "train_cl_or_rg_only":
+                self.criterion = loss_funcs.CLRGLoss
+            elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_ae_or_vae_only":
                 self.criterion = loss_funcs.VAELoss
         
         # Placeholders for data and labels
         self.data=None
-        self.label=None
+        self.labels=None
+        self.energies=None
         self.iteration=None
         self.num_iterations=None
 
@@ -148,12 +150,18 @@ class EngineVAE:
     # Method to compute the loss using the forward pass
     def forward(self, mode="all", forward_type="train"):
         
-        # Move the data to the user-specified device
-        self.data = self.data.to(self.device)
-        self.data = self.data.permute(0,3,1,2)
+        if self.data is not None and mode is not "decode":
+            # Move the data to the user-specified device
+            self.data = self.data.to(self.device)
+            self.data = self.data.permute(0,3,1,2)
         
-        # Move the labels to the user-specified device
-        self.label = self.label.to(self.device)
+        if self.labels is not None:
+            # Move the labels to the user-specified device
+            self.labels = self.labels.to(self.device)
+            
+        if self.energies is not None:
+            # Move the energies to the user-specified device
+            self.energies = self.energies.to(self.device)
         
         # Set the grad calculation mode
         grad_mode = True if forward_type is "train" else False
@@ -163,71 +171,83 @@ class EngineVAE:
         
         with torch.set_grad_enabled(grad_mode):
             
-            if mode == "all":
+            if mode is "all":
                 
                 # Forward for VAE
                 if self.model_variant is "VAE":
                     
                     # Collect the output from the model
-                    recon, z, mu, logvar, z_prime, predicted_label = self.model(self.data, mode, device=self.devids[0])
-                    loss, mse_loss, kl_loss, ce_loss = self.criterion(recon, self.data, mu,
-                                                                      logvar, predicted_label, self.label)
+                    recon, z, mu, logvar, z_prime, predicted_labels, predicted_energies = self.model(self.data, mode, device=self.devids[0])
+                    loss, recon_loss, kl_loss, ce_loss, mse_loss = self.criterion(recon, self.data, mu,
+                                                                                  logvar, predicted_labels,
+                                                                                  self.labels, predicted_energies,
+                                                                                  self.energies)
                     self.loss = loss
                     
-                    softmax          = self.softmax(predicted_label).cpu().detach().numpy()
-                    predicted_label  = torch.argmax(predicted_label, dim=-1)
-                    accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
+                    softmax           = self.softmax(predicted_labels).cpu().detach().numpy()
+                    predicted_labels  = torch.argmax(predicted_labels, dim=-1)
+                    accuracy          = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
 
                     # Restore the shape of recon
                     recon = recon.permute(0,2,3,1)
 
-                    return_dict = {"loss"            : loss.cpu().detach().item(),
-                                   "mse_loss"        : mse_loss.cpu().detach().item(),
-                                   "kl_loss"         : kl_loss.cpu().detach().item(),
-                                   "ce_loss"         : ce_loss.cpu().detach().item(),
-                                   "accuracy"        : accuracy,
-                                   "recon"           : recon.cpu().detach().numpy(),
-                                   "z"               : z.cpu().detach().numpy(),
-                                   "mu"              : mu.cpu().detach().numpy(),
-                                   "logvar"          : logvar.cpu().detach().numpy(),
-                                   "z_prime"         : z_prime.cpu().detach().numpy(),
-                                   "predicted_label" : predicted_label.cpu().detach().numpy(),
-                                   "softmax"         : softmax.cpu().detach.numpy()}
+                    return_dict = {"loss"               : loss.cpu().detach().item(),
+                                   "recon_loss"         : recon_loss.cpu().detach().item(),
+                                   "kl_loss"            : kl_loss.cpu().detach().item(),
+                                   "ce_loss"            : ce_loss.cpu().detach().item(),
+                                   "mse_loss"           : mse_loss.cpu().detach().item(),
+                                   "accuracy"           : accuracy,
+                                   "recon"              : recon.cpu().detach().numpy(),
+                                   "z"                  : z.cpu().detach().numpy(),
+                                   "mu"                 : mu.cpu().detach().numpy(),
+                                   "logvar"             : logvar.cpu().detach().numpy(),
+                                   "z_prime"            : z_prime.cpu().detach().numpy(),
+                                   "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                                   "softmax"            : softmax,
+                                   "predicted_energies" : predicted_energies.cpu().detach().numpy()}
                     
                 # Forward for AE
-                elif self.model_variant is "AE";
+                elif self.model_variant is "AE":
                 
-                    recon, predicted_label = self.model(self.data, mode, device=self.devids[0])
-                    loss = self.criterion(recon, self.data, predicted_label, self.label)
+                    recon, predicted_labels, predicted_energies = self.model(self.data, mode, device=self.devids[0])
+                    loss, recon_loss, ce_loss, mse_loss = self.criterion(recon, self.data,
+                                                                         predicted_labels, self.labels,
+                                                                         predicted_energies, self.energies)
                     self.loss = loss
                     
-                    softmax          = self.softmax(predicted_label).cpu().detach().numpy()
-                    predicted_label  = torch.argmax(predicted_label, dim=-1)
-                    accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
+                    softmax          = self.softmax(predicted_labels).cpu().detach().numpy()
+                    predicted_labels = torch.argmax(predicted_labels, dim=-1)
+                    accuracy         = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
                     
                     # Restore the shape of recon
                     recon = recon.permute(0,2,3,1)
 
-                    return_dict = {"loss"            : loss.cpu().detach().item(),
-                                   "recon"           : recon.cpu().detach().numpy(),
-                                   "predicted_label" : predicted_label.cpu().detach().numpy()}
+                    return_dict = {"loss"               : loss.cpu().detach().item(),
+                                   "recon_loss"         : recon_loss.cpu().detach().item(),
+                                   "ce_loss"            : ce_loss.cpu().detach().item(),
+                                   "mse_loss"           : mse_loss.cpu().detach().item(),
+                                   "accuracy"           : accuracy,
+                                   "recon"              : recon.cpu().detach().numpy(),
+                                   "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                                   "softmax"            : softmax,
+                                   "predicted_energies" : predicted_energies.cpu().detach().numpy()}
 
-            elif mode == "ae_or_vae":
+            elif mode is "ae_or_vae":
                 
                 # Forward for VAE
                 if self.model_variant is "VAE":
 
                     # Collect the output from the model
                     recon, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
-                    loss, mse_loss, kl_loss = self.criterion(recon, self.data, mu, 
-                                                             logvar, self.iteration, self.num_iterations)
+                    loss, recon_loss, kl_loss = self.criterion(recon, self.data, 
+                                                               mu, logvar)
                     self.loss = loss
 
                     # Restore the shape of recon
                     recon = recon.permute(0,2,3,1)
 
                     return_dict = {"loss"            : loss.cpu().detach().item(),
-                                   "mse_loss"        : mse_loss.cpu().detach().item(),
+                                   "recon_loss"      : recon_loss.cpu().detach().item(),
                                    "kl_loss"         : kl_loss.cpu().detach().item(),
                                    "recon"           : recon.cpu().detach().numpy(),
                                    "z"               : z.cpu().detach().numpy(),
@@ -243,39 +263,67 @@ class EngineVAE:
                     self.loss = loss
                     recon = recon.permute(0,2,3,1)
 
-                    return_dict = {"loss"       : loss.cpu().detach().item(),
+                    return_dict = {"recon_loss" : loss.cpu().detach().item(),
                                     "recon"     : recon.cpu().detach().numpy()}
                 
-        elif mode == "generate_latents":
+            elif mode is "generate_latents":
+                
+                if self.model_variant is "VAE":
                     
-            # Generate only the latent vectors
-            z_gen = self.model(self.data, mode, device=self.devids[0])
+                    # Generate only the latent vectors
+                    z_gen, mu, logvar = self.model(self.data, mode, device=self.devids[0])
 
-            return_dict = {"z_gen" : z_gen.cpu().detach().numpy()}
+                    return_dict = {"z_gen"   : z_gen.cpu().detach().numpy(),
+                                   "mu"      : mu.cpu().detach().numpy(),
+                                   "logvar"  : logvar.cpu().detach().numpy()}
                     
-        elif mode == "classifier":
+                elif self.model_variant is "AE":
                     
-            predicted_label = self.model(self.data, mode, device=self.devids[0])
-            loss = self.criterion(predicted_label, self.label)
-            self.loss = loss
-            
-            softmax          = self.softmax(predicted_label).cpu().detach().numpy()
-            predicted_label  = torch.argmax(predicted_label,dim=-1)
-            accuracy         = (predicted_label == self.labels).sum().item() / float(predicted_label.nelement())
+                    # Generate only the latent vectors
+                    z_gen = self.model(self.data, mode, device=self.devids[0])
+
+                    return_dict = {"z_gen"   : z_gen.cpu().detach().numpy()}
+
+            elif mode is "cl_or_rg":
                     
-            return_dict = {"loss"            : loss.cpu().detach().item(),
-                           "accuracy"        : accuracy
-                           "predicted_label" : predicted_label.cpu().detach().numpy(),
-                           "softmax"         : softmax.cpu().detach().numpy()}
+                predicted_labels, predicted_energies = self.model(self.data, mode, device=self.devids[0])
+                loss, ce_loss, mse_loss = self.criterion(predicted_labels, self.labels, predicted_energies, self.energies)
+                self.loss = loss
             
-        elif mode == "sample":
+                softmax          = self.softmax(predicted_labels).cpu().detach().numpy()
+                predicted_labels = torch.argmax(predicted_labels,dim=-1)
+                accuracy         = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
+                    
+                return_dict = {"loss"               : loss.cpu().detach().item(),
+                               "ce_loss"            : ce_loss.cpu().detach().item(),
+                               "mse_loss"           : mse_loss.cpu().detach().item(),
+                               "accuracy"           : accuracy,
+                               "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                               "softmax"            : softmax,
+                               "predicted_energies" : predicted_energies.cpu().detach().numpy()}
             
-            samples = self.model(None, mode, device=self.devids[0])
+            elif mode is "sample":
             
-            return_dict = {"samples" : samples.permute(0,2,3,1).cpu().detach().numpy()}
+                samples, predicted_labels, energies = self.model(None, mode, device=self.devids[0])
+                
+                labels = torch.argmax(predicted_labels,dim=-1)
+                
+                return_dict = {"samples"            : samples.permute(0,2,3,1).cpu().detach().numpy(),
+                               "predicted_labels"   : labels.cpu().detach().numpy(),
+                               "predicted_energies" : energies.cpu().detach().numpy()}
+                
+            elif mode is "decode":
+                
+                samples, predicted_labels, energies = self.model(self.data, mode, device=self.devids[0])
+                labels = torch.argmax(predicted_labels,dim=-1)
+                
+                return_dict = {"samples"            : samples.permute(0,2,3,1).cpu().detach().numpy(),
+                               "predicted_labels"   : labels.cpu().detach().numpy(),
+                               "predicted_energies" : energies.cpu().detach().numpy()}
   
-        # Restore the shape of the data
-        self.data = self.data.permute(0,2,3,1)
+        if self.data is not None and mode is not "decode":
+            # Restore the shape of the data
+            self.data = self.data.permute(0,2,3,1)
         
         return return_dict
     
@@ -289,7 +337,7 @@ class EngineVAE:
 
         # Prepare attributes for data logging
         self.train_log = CSVData(self.dirpath+'log_train.csv')
-        self.val_log = CSVData(self.dirpath+'val_test.csv')
+        self.val_log = CSVData(self.dirpath+'log_val.csv')
         
         # Variables to save the actual and reconstructed events
         np_event_path = self.dirpath+"/iteration_"
@@ -331,8 +379,9 @@ class EngineVAE:
             for i, data in enumerate(self.train_iter):
                 
                 # Get only the charge data
-                self.data = data[0][:,:,:,:19].float()
-                self.labels = data[1].long()
+                self.data     = data[0][:,:,:,:19].float()
+                self.labels   = data[1].long()
+                self.energies = data[2].float()
                 
                 # Update the global iteration counter
                 self.iteration = iteration
@@ -342,8 +391,8 @@ class EngineVAE:
                     mode = "all"
                 elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
                     mode = "ae_or_vae"
-                elif self.model_train_type is "train_classifier_only":
-                    mode = "classifier"
+                elif self.model_train_type is "train_cl_or_rg_only":
+                    mode = "cl_or_rg"
 
                 # Call forward: pass the data to the model and compute predictions and loss
                 res = self.forward(mode=mode, forward_type="train")
@@ -367,18 +416,20 @@ class EngineVAE:
                 self.train_log.write()
                 
                 # once in a while, report
-                if i==0 or (i+1)%report_interval == 0:
+                if i is 0 or (i+1)%report_interval is 0:
                     print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f' %
                           (iteration, epoch, res['loss']))
                     
                 # Run validation on user-defined intervals
-                if iteration%valid_interval == 0:
+                if iteration%valid_interval is 0:
                         
                     self.model.eval()
                     val_data = next(iter(self.val_iter))
 
                     # Extract the event data from the input data tuple
-                    self.data = val_data[0][:,:,:,:19].float()
+                    self.data     = val_data[0][:,:,:,:19].float()
+                    self.labels   = val_data[1].long()
+                    self.energies = val_data[2].float()
 
                     res = self.forward(mode=mode)
                     
@@ -423,61 +474,82 @@ class EngineVAE:
         self.train_log.close()
         
     # Method to validate the model training on the validation set
-    def validate(self):
+    def validate(self, subset="validation"):
+        
+        # Print start message
+        if subset is "train":
+            message = "Validating model on the validation set"
+        elif subset is "validation":
+            message = "Validating model on the train set"
+        elif subset is "test":
+            message = "Validating model on the test set"
+        else:
+            print("validate() : arg subset has to be one of train, validation, test")
+            return None
+        
+        print(message)
         
         # Variables to output at the end
-        val_loss = 0.0
-        val_iteration = 0
+        iteration = 0
         
-        # CSV file for logging the output
-        self.validation_log = CSVData(self.dirpath+"validation_log.csv")
-            
-        # Variables to save the actual and reconstructed events
-        np_event_path = self.dirpath + "/val_iteration_"
+        # Setup the CSV file for logging the output, path to save the actual and reconstructed events, dataloader iterator
+        if subset is "train":
+            self.log = CSVData(self.dirpath+"train_validation_log.csv")
+            np_event_path = self.dirpath + "/train_valid_iteration_"
+            data_iter = self.train_iter
+        elif subset is "validation":
+            self.log = CSVData(self.dirpath+"valid_validation_log.csv")
+            np_event_path = self.dirpath + "/val_valid_iteration_"
+            data_iter = self.val_iter
+        else:
+            self.log = CSVData(self.dirpath+"test_validation_log.csv")
+            np_event_path = self.dirpath + "/test_valid_iteration_"
+            data_iter = self.test_iter
         
-        # Extract the event data and label from the DataLoader iterator
-        for val_data in iter(self.val_iter):
+        for data in iter(data_iter):
             
-            sys.stdout.write("val_iterations : " + str(val_iteration) + "\n")
+            sys.stdout.write("Iteration : " + str(iteration) + "\n")
 
             # Extract the event data from the input data tuple
-            self.data = val_data[0][:,:,:,:19].float()
+            self.data     = data[0][:,:,:,:19].float()
+            self.labels   = data[1].long()
+            self.energies = data[2].float()
 
             # Setup the mode to call the forward method
             if self.model_train_type is "train_all":
                 mode = "all"
             elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
                 mode = "ae_or_vae"
-            elif self.model_train_type is "train_classifier_only":
-                mode = "classifier"
+            elif self.model_train_type is "train_cl_or_rg_only":
+                mode = "cl_or_rg"
                     
             res = self.forward(mode=mode, forward_type="validation")
                  
             keys = ["epoch"]
-            values = [val_iteration]
+            values = [iteration]
             for key in log_keys:
                 if key in res.keys():
                     keys.append(key)
                     values.append(res[key])
             
             # Log/Report
-            self.validation_log.record(keys, values)
-            self.validation_log.write()
+            self.log.record(keys, values)
+            self.log.write()
             
             # Save the actual and reconstructed event to the disk
-            if val_iteration == 0:
+            if iteration is 0:
                 save_arr_keys = ["events", "labels", "energies"]
-                save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[3]]
+                save_arr_values = [self.data.cpu().numpy(), data[1], data[2]]
 
                 for key in event_dump_keys:
                     if key in res.keys():
                         save_arr_keys.append(key)
                         save_arr_values.append(res[key])
                 
-                np.savez(np_event_path + str(val_iteration) + ".npz",
+                np.savez(np_event_path + str(iteration) + ".npz",
                          **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
             
-            val_iteration += 1
+            iteration += 1
         
     # Sample vectors from the normal distribution and decode to reconstruct events
     def sample(self, num_samples=10, trained=False):
@@ -510,10 +582,10 @@ class EngineVAE:
             with torch.no_grad():
 
                 res = self.forward(mode="sample", forward_type="sample")
-                sample_list.extend(res["samples"])
+                sample_list.append([res["samples"], res["labels"], res["energies"]])
         
         # Convert the list to an numpy array and save to the given path
-        np.save(sample_save_path + '/' + model_status + "_samples".format(str(num_samples)) + ".npy", np.array(sample_list))
+        np.save(sample_save_path + '/' + model_status + "_samples.npy", np.array(sample_list))
         
     # Generate and save the latent vectors for training and validation sets
     
@@ -544,7 +616,7 @@ class EngineVAE:
             for i, data in enumerate(self.train_iter):
 
                 # once in a while, report
-                if i==0 or (i+1)%report_interval == 0:
+                if i is 0 or (i+1)%report_interval is 0:
                     print("... Training data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
@@ -564,13 +636,13 @@ class EngineVAE:
             for i, data in enumerate(self.val_iter):
 
                 # once in a while, report
-                if i==0 or (i+1)%report_interval == 0:
+                if i is 0 or (i+1)%report_interval is 0:
                     print("... Validation data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
-                self.data, labels, energies = data[0][:,:,:,:19],data[1], data[2]
+                self.data, labels, energies = data[0][:,:,:,:19], data[1], data[2]
 
-                res = self.forward(mode="generate")
+                res = self.forward(mode="generate_latents")
 
                 # Add the values to the lists
                 valid_latent_list.extend(res["z_gen"])
@@ -591,7 +663,77 @@ class EngineVAE:
         # Switch the model back to training
         self.model.train()
         
+    # Interpolate b/w two samples from the dataset
+    
+    def interpolate(self, subset="validation", intervals=10, trained=False):
         
+        assert subset in ["train", "validation", "test"]
+        
+        model_status = "trained" if trained else "untrained"
+        
+        if subset is "train":
+            data_iter = self.train_iter
+        elif subset is "validation":
+            data_iter = self.val_iter
+        else:
+            data_iter = self.test_iter
+            
+        # Read the data, labels and energies from data loader
+        data, labels, energies = next(iter(data_iter))
+        
+        # Use only the charge data for the events
+        i, j = random.randint(0, data.size(0)-1), random.randint(0, data.size(0)-1)
+        
+        # Initialize the tensor to be used for the forward pass
+        tensor_shape = [2]
+        tensor_shape.extend(data[i].size()[:2])
+        tensor_shape.extend([19])
+        
+        self.data = torch.zeros(tensor_shape, dtype=torch.float32)
+        
+        # Insert the event values in the placeholder zero tensors
+        self.data[0], self.data[1] = data[i][:,:,:19], data[j][:,:,:19]
+        
+        # Initialize the dump arrays
+        save_arr_keys = ["events", "labels", "energies"]
+        save_arr_values = [self.data.cpu().numpy(), [labels[i], labels[j]], [energies[i], energies[j]]]
+
+        # Forward pass
+        z_gen = self.forward(mode="generate_latents")["z_gen"]
+        
+        # Compute the alpha values to use given the number of intervals
+        alpha = 0.0
+        interval = 1.0/intervals
+        
+        # Initialize a placeholder for the z latent vectors
+        z_tensor_shape = [intervals+1]
+        z_tensor_shape.extend(z_gen.shape[1:])
+        self.data = torch.zeros(z_tensor_shape, dtype=torch.float32, device=self.devids[0])
+        
+        i = 0
+        
+        # Iterate over the different alpha values and add the inter-
+        # polated vectors to the tensor
+        while alpha <= 1.0:
+            
+            self.data[i] = torch.from_numpy(alpha*z_gen[0] + (1-alpha)*z_gen[1])
+            i = i + 1
+            alpha = alpha + interval
+            
+        # Call the foward method with decoder mode
+        res = self.forward(mode="decode", forward_type="decode")
+        
+        # Dump the decoded events into a .npz file
+        for key in event_dump_keys:
+                if key in res.keys():
+                    save_arr_keys.append(key)
+                    save_arr_values.append(res[key])
+                
+        # Save the interpolated events to the disk
+        np.savez(self.dirpath + "/" + model_status + "_interpolations.npz",
+                 **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
+        
+
     def save_state(self, model_type="latest"):
             
         filename = self.dirpath+"/"+str(self.config.model[1])+"_"+model_type+".pth"

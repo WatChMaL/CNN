@@ -844,7 +844,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     assert actual_event is not None
     assert recon_event is not None
     assert label is not None
-    assert energy is not None and energy > 0
+    assert energy is not None and energy >= 0
     assert len(actual_event.shape) == 3
     assert len(recon_event.shape) == 3
     
@@ -853,7 +853,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     plt.subplots_adjust(hspace=0.2)
     
     # Setup the plot
-    lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), clip=True)
+    lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), vmin=0.01, clip=True)
     
     # Setup the plot
     if label is not "e":
@@ -1028,9 +1028,10 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
     ax1.tick_params(axis="x", labelsize=30)
     ax1.set_xlabel("Epoch", fontsize=30)
     
-    ax1.set_ylabel("Loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.set_yscale("log")
+    ax1.set_ylabel("Log total loss", fontsize=30, color=model_color_dict[model_name][0])
     ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
-    
+
     ax2.set_ylabel("Accuracy", fontsize=30, color=model_color_dict[model_name][1])
     ax2.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][1])
     
@@ -1087,11 +1088,11 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
     # Iterate over the list of log files provided
     for log_path in log_paths:
         if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "mse_loss", "kl_loss"])
+            log_df = pd.read_csv(log_path, usecols=["epoch", "recon_loss", "kl_loss"])
             
             # Downsample the epoch and training loss values w.r.t. the downsample interval
             curr_epoch_values = log_df["epoch"].values
-            curr_mse_loss_values  = log_df["mse_loss"].values
+            curr_mse_loss_values  = log_df["recon_loss"].values
             curr_kl_loss_values = log_df["kl_loss"].values
             
             # Downsample using the downsample interval
@@ -1171,7 +1172,8 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
     ax1.tick_params(axis="x", labelsize=30)
     ax1.set_xlabel("Epoch", fontsize=30)
     
-    ax1.set_ylabel("MSE loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.set_yscale("log")
+    ax1.set_ylabel("Log Recon loss", fontsize=30, color=model_color_dict[model_name][0])
     ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
     
     ax2.set_yscale("log")
@@ -1242,11 +1244,11 @@ def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interv
     # Iterate over the list of log files provided
     for log_path in log_paths:
         if(os.path.exists(log_path)):
-            log_df = pd.read_csv(log_path, usecols=["epoch", "loss"])
+            log_df = pd.read_csv(log_path, usecols=["epoch", "recon_loss"])
             
             # Downsample the epoch and training loss values w.r.t. the downsample interval
             curr_epoch_values = log_df["epoch"].values
-            curr_mse_loss_values  = log_df["loss"].values
+            curr_mse_loss_values  = log_df["recon_loss"].values
             
             # Downsample using the downsample interval
             
@@ -1309,7 +1311,8 @@ def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interv
     ax1.tick_params(axis="x", labelsize=30)
     ax1.set_xlabel("Epoch", fontsize=30)
     
-    ax1.set_ylabel("MSE loss", fontsize=30, color=model_color_dict[model_name][0])
+    ax1.set_yscale("log")
+    ax1.set_ylabel("Log Recon loss", fontsize=30, color=model_color_dict[model_name][0])
     ax1.tick_params(axis="y", labelsize=30, colors=model_color_dict[model_name][0])
     
     plt.grid(True)

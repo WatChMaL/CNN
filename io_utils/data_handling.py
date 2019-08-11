@@ -87,7 +87,7 @@ class WCH5Dataset(Dataset):
             self.val_indices = indices[-n_test-n_val:-n_test]
             self.test_indices = indices[-n_test:]
             
-        elif model_train_type is in ["train_ae_or_vae_only", "train_bottleneck_only", "train_classifier_only"]:
+        elif model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only", "train_cl_or_rg_only"]:
             assert cl_train_split is not None
             assert cl_val_split is not None
             assert test_split is not None

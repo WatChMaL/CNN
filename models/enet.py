@@ -14,7 +14,7 @@ from torch import mean
 
 # Global variables
 variant_dict = {0:"AE", 1:"VAE"}
-train_dict = {0:"train_all", 1:"train_ae_or_vae_only", 2:"train_bottleneck_only", 3:"train_classifier_only"}
+train_dict = {0:"train_all", 1:"train_ae_or_vae_only", 2:"train_bottleneck_only", 3:"train_cl_or_rg_only"}
 
 # Enet class
 class ENet(nn.Module):
@@ -38,6 +38,7 @@ class ENet(nn.Module):
         self.encoder = Encoder(num_input_channels, num_latent_dims)
         self.decoder = Decoder(num_input_channels, num_latent_dims)
         self.classifier = Classifier(num_latent_dims, num_classes)
+        self.regressor = Regressor(num_latent_dims, num_classes)
         
         # Add the desired bottleneck
         if self.variant is "AE":
@@ -52,6 +53,10 @@ class ENet(nn.Module):
                 
                 # Set require_grad = False for classifier parameters
                 for param in self.classifier.parameters():
+                    param.requires_grad = False
+                    
+                # Set require_grad = False for Regressor parameters
+                for param in self.regressor.parameters():
                     param.requires_grad = False
                 
             else:
@@ -69,8 +74,13 @@ class ENet(nn.Module):
                     # Set require_grad = False for classifier parameters
                     for param in self.classifier.parameters():
                         param.requires_grad = False
+                        
+                    # Set require_grad = False for Regressor parameters
+                    for param in self.regressor.parameters():
+                        param.requires_grad = False
+                    
             
-                elif self.train_type is "train_classifier_only":
+                elif self.train_type is "train_cl_or_rg_only":
                 
                     # Set require_grad = False for encoder parameters
                     for param in self.bottleneck.parameters():
@@ -81,7 +91,9 @@ class ENet(nn.Module):
         if mode is "sample":
             assert self.variant is "VAE"
             z = self.bottleneck(None, mode, device)
-            return self.decoder(z, None)
+            return self.decoder(z, None), self.classifier(z), self.regressor(z)
+        elif mode is "decode":
+            return self.decoder(X, None), self.classifier(X), self.regressor(X)
         else:
             z_prime = self.encoder(X)
 
@@ -89,14 +101,13 @@ class ENet(nn.Module):
                 z = self.bottleneck(z_prime)
             elif self.variant is "VAE":
                 z, mu, logvar = self.bottleneck(z_prime, None, device)
-                
             if mode is "generate_latents":
                 if self.variant is "AE":
                     return z
                 elif self.variant is "VAE":
                     return z, mu, logvar
-            elif mode is "classifier":
-                return self.classifier(z)
+            elif mode is "cl_or_rg":
+                return self.classifier(z), self.regressor(z)
             elif mode is "ae_or_vae":
                 if self.variant is "AE":
                     return self.decoder(z, self.encoder.unflat_size)
@@ -104,9 +115,9 @@ class ENet(nn.Module):
                     return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime
             elif mode is "all":
                 if self.variant is "AE":
-                    return self.decoder(z, self.encoder.unflat_size), self.classifier(z)
+                    return self.decoder(z, self.encoder.unflat_size), self.classifier(z), self.regressor(z)
                 elif self.variant is "VAE":
-                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime, self.classifier(z)
+                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime, self.classifier(z), self.regressor(z)
                 
                 
 # Encoder class
@@ -273,10 +284,10 @@ class Classifier(nn.Module):
         self.relu = nn.ReLU()
         
         # Classifier fully connected layers
-        self.cl_fc1 = nn.Linear(num_latent_dims, num_latent_dims/2)
-        self.cl_fc2 = nn.Linear(num_latent_dims/2, num_latent_dims/4)
-        self.cl_fc3 = nn.Linear(num_latent_dims/4, num_latent_dims/8)
-        self.cl_fc4 = nn.Linear(num_latent_dims/8, num_classes)
+        self.cl_fc1 = nn.Linear(num_latent_dims, int(num_latent_dims/2))
+        self.cl_fc2 = nn.Linear(int(num_latent_dims/2), int(num_latent_dims/4))
+        self.cl_fc3 = nn.Linear(int(num_latent_dims/4), int(num_latent_dims/8))
+        self.cl_fc4 = nn.Linear(int(num_latent_dims/8), num_classes)
         
     # Forward
     def forward(self, X):
@@ -286,5 +297,32 @@ class Classifier(nn.Module):
         x = self.relu(self.cl_fc2(x))
         x = self.relu(self.cl_fc3(x))
         x = self.cl_fc4(x)
+        
+        return x
+    
+# Latent regressor
+class Regressor(nn.Module):
+    
+    # Initializer
+    def __init__(self, num_latent_dims=64, num_classes=3):
+        super(Regressor, self).__init__()
+        
+        # Activation functions
+        self.relu = nn.ReLU()
+        
+        # Classifier fully connected layers
+        self.rg_fc1 = nn.Linear(num_latent_dims, int(num_latent_dims/2))
+        self.rg_fc2 = nn.Linear(int(num_latent_dims/2), int(num_latent_dims/4))
+        self.rg_fc3 = nn.Linear(int(num_latent_dims/4), int(num_latent_dims/8))
+        self.rg_fc4 = nn.Linear(int(num_latent_dims/8), 1)
+        
+    # Forward
+    def forward(self, X):
+        
+        # Fully-connected layers
+        x = self.relu(self.rg_fc1(X))
+        x = self.relu(self.rg_fc2(x))
+        x = self.relu(self.rg_fc3(x))
+        x = self.relu(self.rg_fc4(x))
         
         return x

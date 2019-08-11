@@ -44,14 +44,14 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=None, help='Number of data from training set to use.'),
         arghandler.Argument('shuffle', bool, '-shf',
                             default=True, help='Specify whether or not to shuffle training dataset. Default is True.'),
-        arghandler.Argument('cl_train_split', float, '-vas',
+        arghandler.Argument('cl_train_split', float, '-clt',
                             default=0.2, help='Fraction of dataset used in classifier validation.'),
-        arghandler.Argument('cl_val_split', float, '-vas',
+        arghandler.Argument('cl_val_split', float, '-clv',
                             default=0.1, help='Fraction of dataset used in classifier validation.'),
-        arghandler.Argument('vae_val_split', float, '-vas',
+        arghandler.Argument('vae_val_split', float, '-vav',
                             default=0.1, help='Fraction of dataset used in VAE validation.'),
         arghandler.Argument('test_split', float, '-tes',
-                            default=0.1, help='Fraction of dataset used in testing for both the classifier and VAE.),
+                            default=0.1, help='Fraction of dataset used in testing for both the classifier and VAE.'),
         arghandler.Argument('epochs', float, '-epo',
                             default=1.0, help='Number of training epochs to run.'),
         arghandler.Argument('batch_size_train', int, '-tnb',
@@ -75,7 +75,9 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
         arghandler.Argument('cfg', str, '-s',
                             default=None, help='Specify name for destination config file. No action by default.'),
         arghandler.Argument('githash', str, '-git',
-                            default=None, help='git-hash for the latest commit')]
+                            default=None, help='git-hash for the latest commit'),
+        arghandler.Argument('num_samples', int, '-nsm',
+                            default=64, help='Number of samples to generate from the VAE. Only works is model.variant is VAE.')]
 
 ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
                                             list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
@@ -105,7 +107,7 @@ if __name__ == '__main__':
         
     # Check attributes for validity
     for task in config.tasks:
-        assert(task in ['train', 'test', 'valid', 'sample', 'generate'])
+        assert(task in ['train', 'test', 'valid', 'sample', 'generate', 'interpolate'])
         
     # Add the git-hash from the latest commit to the config
     git_hash = os.popen("git rev-parse HEAD").read()
@@ -127,6 +129,12 @@ if __name__ == '__main__':
     constructor = modelhandler.select_model(config.model)
     model = constructor(**params)
     
+    """
+    # Plot the computational graph of the model
+    model_dot = make_dot(model, params=dict(model.named_parameters()))
+    print(type(model_dot))
+    """
+    
     # Finally, construct the neural net
     nnet = net.EngineVAE(model, config, model.variant, model.train_type)
 
@@ -135,7 +143,9 @@ if __name__ == '__main__':
         nnet.restore_state(config.restore_state)
            
     if 'sample' in config.tasks:
-        nnet.sample(num_samples=64, trained=False)
+        nnet.sample(num_samples=config.num_samples, trained=False)
+    if 'interpolate' in config.tasks:
+        nnet.interpolate(subset="train", intervals=10, trained=False)
     if 'generate' in config.tasks:
         print("Generating pre-training latent vectors")
         nnet.generate_latent_vectors("pre")
@@ -146,11 +156,15 @@ if __name__ == '__main__':
         print("Generating post-training latent vectors")
         nnet.generate_latent_vectors("post")
     if 'test' in config.tasks:
-        nnet.test()
+        nnet.validate(subset="test")
     if 'valid' in config.tasks:
-        nnet.validate()
+        nnet.validate(subset="train")
+        nnet.validate(subset="validation")
     if 'sample' in config.tasks:
-        nnet.sample(num_samples=64, trained=False)
+        nnet.sample(num_samples=config.num_samples, trained=True)
+    if 'interpolate' in config.tasks:
+        nnet.interpolate(subset="train", intervals=10, trained=True)
+        
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))

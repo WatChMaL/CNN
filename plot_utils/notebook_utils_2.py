@@ -36,7 +36,7 @@ def plot_event(run_id, iteration, mode):
     
     # Load the numpy array
     np_arr = np.load(np_arr_path)
-    np_event, np_recon, np_labels, np_energies = np_arr["events"], np_arr["prediction"], np_arr["labels"], np_arr["energies"]
+    np_event, np_recon, np_labels, np_energies = np_arr["events"], np_arr["recon"], np_arr["labels"], np_arr["energies"]
 
     i = random.randint(0, np_labels.shape[0]-1)
     plot_utils.plot_actual_vs_recon(np_event[i], np_recon[i], 
@@ -54,29 +54,32 @@ def plot_log(run_id, model_name, iteration, variant, mode):
     if mode is "training":
         log = dump_dir + "log_train.csv"
     elif mode is "training_validation":
-        log = dump_dir + "val_test.csv"
+        log = dump_dir + "log_val.csv"
     elif mode is "validation":
-        log = dump_dir + "validation_log.csv"
+        log = dump_dir + "valid_validation_log.csv"
+    elif mode is "validation_training":
+        log = dump_dir + "train_validation_log.csv"
     else:
-        print("mode has to be one of training, training_validation, validation")
+        print("mode has to be one of training, training_validation, validation, validation_training")
         return None
     
     downsample_interval = 32 if mode is "training" else None
 
     if variant is "AE":
         plot_utils.plot_ae_training([log], [model_name], {model_name:["red"]},
-                                 downsample_interval=downsample_interval, show_plot=True, legend_loc=(1.1,1.1))
+                                 downsample_interval=downsample_interval, show_plot=True)
     elif variant is "VAE":
         plot_utils.plot_vae_training([log], [model_name], {model_name:["red", "blue"]},
-                                 downsample_interval=downsample_interval, show_plot=True, legend_loc=(1.1,1.1))
+                                 downsample_interval=downsample_interval, show_plot=True)
         
     if iteration is not None:
         plot_event(run_id, iteration, mode=mode)
         
-def plot_samples(run_id, num_samples, model_dir):
+def plot_samples(run_id, model_dir, trained):
     
     dump_dir = "/home/akajal/WatChMaL/VAE/dumps/" + run_id + "/"
-    np_arr_path = dump_dir + "samples/" + model_dir + "/" + str(num_samples) + "_samples.npy"
+    model_status = "trained" if trained is True else "untrained"
+    np_arr_path = dump_dir + "samples/" + model_dir + "/" + model_status + "_samples.npy"
     
     np_arr = np.load(np_arr_path)
     i, j = random.randint(0, np_arr.shape[0]-1), random.randint(0, np_arr.shape[0]-1)
