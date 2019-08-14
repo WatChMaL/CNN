@@ -826,7 +826,7 @@ def tile(canvas, ul, pmts):
             canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
 
 # Plot the reconstructed vs actual events
-def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=False, save_path=None):
+def plot_actual_vs_recon(actual_event, recon_event, label, energy, predicted_label="gamma", predicted_energy=500, show_plot=False, save_path=None):
     """
     plot_actual_vs_recon(actual_event=None, recon_event=None, show_plot=False, save_path=None):
                            
@@ -857,16 +857,16 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     
     # Setup the plot
     if label is not "e":
-        sup_title = r"$\{0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+        actual_event_title = r"Actual event display : $\{0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
     else:
-        sup_title = r"${0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
+        actual_event_title = r"Actual event display : ${0}$ event with true energy, $E = {1:.3f}$".format(label, energy)
         
-    fig.suptitle(sup_title, fontsize=30)
+    fig.suptitle("Actual vs Reconstructed event display", fontsize=30)
     
     # Plot the actual event
     im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
     
-    axes[0].set_title("Actual event display", fontsize=20)
+    axes[0].set_title(actual_event_title, fontsize=25)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
     axes[0].set_ylabel("PMT module Y-position", fontsize=20)
     axes[0].grid(True, which="both", axis="both")
@@ -883,7 +883,12 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, show_plot=Fal
     # Plot the reconstructed event
     im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
     
-    axes[1].set_title("Reconstructed event display", fontsize=20)
+    if predicted_label is not "e":
+        recon_event_title = r"Reconstructed event display : $\{0}$ event with true energy, $E = {1:.3f}$".format(predicted_label, predicted_energy)
+    else:
+        recon_event_title = r"Reconstructed event display : ${0}$ event with true energy, $E = {1:.3f}$".format(predicted_label, predicted_energy)
+        
+    axes[1].set_title(recon_event_title, fontsize=25)
     axes[1].set_xlabel("PMT module X-position", fontsize=20)
     axes[1].set_ylabel("PMT module Y-position", fontsize=20)
     axes[1].grid(True, which="both", axis="both")

@@ -28,8 +28,8 @@ from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
 # Logging and dumping keys : values to save during logging or dummping
-log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy"]
-event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples"]
+log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy", "log_det"]
+event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples", "z_k"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -74,8 +74,8 @@ class EngineVAE:
         # Initialize the optimizer with the correct parameters to optimize for different settings
         if self.model_train_type is "train_all":
             self.optimizer = optim.Adam(self.model.parameters(),lr=learning_rate)
-        elif self.model_train_type is "train_ae_or_vae_only":
-            self.optimizer = optim.Adam(self.model.parameters(),lr=learning_rate)
+        elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_nf_only":
+            self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
         elif self.model_train_type is "train_bottleneck_only":
             if type(self.model) is nn.DataParallel:
                 self.optimizer = optim.Adam(self.model.module.bottleneck.parameters(),lr=learning_rate)
@@ -103,7 +103,14 @@ class EngineVAE:
                 self.criterion = loss_funcs.CLRGLoss
             elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_ae_or_vae_only":
                 self.criterion = loss_funcs.VAELoss
-        
+        elif model_variant is "NF":
+            if self.model_train_type is "train_all":
+                self.criterion = loss_funcs.NFCLRGLoss
+            elif self.model_train_type is "train_cl_or_rg_only":
+                self.criterion = loss_funcs.CLRGLoss
+            elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_nf_only":
+                self.criterion = loss_funcs.PNFLoss
+            
         # Placeholders for data and labels
         self.data=None
         self.labels=None
@@ -231,6 +238,11 @@ class EngineVAE:
                                    "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
                                    "softmax"            : softmax,
                                    "predicted_energies" : predicted_energies.cpu().detach().numpy()}
+                    
+                # Forward for NF
+                elif self.model_variant is "NF":
+                    return None
+                    
 
             elif mode is "ae_or_vae":
                 
@@ -265,6 +277,12 @@ class EngineVAE:
 
                     return_dict = {"recon_loss" : loss.cpu().detach().item(),
                                     "recon"     : recon.cpu().detach().numpy()}
+                    
+            elif mode is "nf":
+                return None
+                
+                
+                
                 
             elif mode is "generate_latents":
                 
@@ -389,10 +407,12 @@ class EngineVAE:
                 # Setup the mode to call the forward method
                 if self.model_train_type is "train_all":
                     mode = "all"
-                elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
+                elif self.model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only"]:
                     mode = "ae_or_vae"
                 elif self.model_train_type is "train_cl_or_rg_only":
                     mode = "cl_or_rg"
+                elif self.model_train_type is "train_nf_only":
+                    mode = "nf"
 
                 # Call forward: pass the data to the model and compute predictions and loss
                 res = self.forward(mode=mode, forward_type="train")
@@ -518,7 +538,7 @@ class EngineVAE:
             # Setup the mode to call the forward method
             if self.model_train_type is "train_all":
                 mode = "all"
-            elif self.model_train_type is "train_ae_or_vae_only" or self.model_train_type is "train_bottleneck_only":
+            elif self.model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only", "train_nf_only"]:
                 mode = "ae_or_vae"
             elif self.model_train_type is "train_cl_or_rg_only":
                 mode = "cl_or_rg"

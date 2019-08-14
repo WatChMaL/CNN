@@ -36,11 +36,12 @@ def plot_event(run_id, iteration, mode):
     
     # Load the numpy array
     np_arr = np.load(np_arr_path)
-    np_event, np_recon, np_labels, np_energies = np_arr["events"], np_arr["recon"], np_arr["labels"], np_arr["energies"]
+    np_event, np_recon, np_labels, np_energies, np_predicted_labels, np_predicted_energies = np_arr["events"], np_arr["recon"], np_arr["labels"], np_arr["energies"], np_arr["predicted_labels"], np_arr["predicted_energies"]
 
     i = random.randint(0, np_labels.shape[0]-1)
     plot_utils.plot_actual_vs_recon(np_event[i], np_recon[i], 
                                     label_dict[np_labels[i]], np_energies[i].item(),
+                                    label_dict[np_predicted_labels[i]], np_predicted_energies[i].item(),
                                     show_plot=True)
 
     plot_utils.plot_charge_hist(torch.tensor(np_event).permute(0,2,3,1).numpy(),
@@ -81,12 +82,12 @@ def plot_samples(run_id, model_dir, trained):
     model_status = "trained" if trained is True else "untrained"
     np_arr_path = dump_dir + "samples/" + model_dir + "/" + model_status + "_samples.npy"
     
-    np_arr = np.load(np_arr_path)
+    np_arr = np.load(np_arr_path, allow_pickle=True)
     i, j = random.randint(0, np_arr.shape[0]-1), random.randint(0, np_arr.shape[0]-1)
-    
-    plot_utils.plot_actual_vs_recon(np_arr[i], np_arr[j], 
-                                    "e", 500,
+
+    plot_utils.plot_actual_vs_recon(np_arr[i][0][0], np_arr[j][0][0], 
+                                    label_dict[np_arr[i][1].item()], np_arr[i][2][0],
                                     show_plot=True)
-    
-    plot_utils.plot_charge_hist(np_arr[i],
-                                np_arr[j], 0, num_bins=200)
+
+    plot_utils.plot_charge_hist(np_arr[i][0][0],
+                                np_arr[j][0][0], 0, num_bins=200)

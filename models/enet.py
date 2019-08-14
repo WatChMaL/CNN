@@ -82,7 +82,7 @@ class ENet(nn.Module):
             
                 elif self.train_type is "train_cl_or_rg_only":
                 
-                    # Set require_grad = False for encoder parameters
+                    # Set require_grad = False for bottleneck parameters
                     for param in self.bottleneck.parameters():
                         param.requires_grad = False
                         
@@ -205,6 +205,8 @@ class Decoder(nn.Module):
         
     # Forward
     def forward(self, X, unflat_size):
+        
+        print(X.shape)
         
         x = self.relu(self.de_fc4(X))
         x = self.relu(self.de_fc3(x))
