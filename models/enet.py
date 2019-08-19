@@ -12,6 +12,9 @@ from torch import randn, randn_like, tensor, zeros
 from torch import device
 from torch import mean
 
+# WatChMaL imports
+from models import resnet
+
 # Global variables
 variant_dict = {0:"AE", 1:"VAE"}
 train_dict = {0:"train_all", 1:"train_ae_or_vae_only", 2:"train_bottleneck_only", 3:"train_cl_or_rg_only"}
@@ -35,7 +38,9 @@ class ENet(nn.Module):
         self.softmax = nn.Softmax(dim=1)
         
         # Add the layer blocks
-        self.encoder = Encoder(num_input_channels, num_latent_dims)
+        #self.encoder = Encoder(num_input_channels, num_latent_dims)
+        self.encoder = resnet.resnet101(num_input_channels=num_input_channels,
+                                        num_classes=num_latent_dims)
         self.decoder = Decoder(num_input_channels, num_latent_dims)
         self.classifier = Classifier(num_latent_dims, num_classes)
         self.regressor = Regressor(num_latent_dims, num_classes)
@@ -90,7 +95,7 @@ class ENet(nn.Module):
     def forward(self, X, mode, device):
         if mode is "sample":
             assert self.variant is "VAE"
-            z = self.bottleneck(None, mode, device)
+            z = self.bottleneck(X, mode, device)
             return self.decoder(z, None), self.classifier(z), self.regressor(z)
         elif mode is "decode":
             return self.decoder(X, None), self.classifier(X), self.regressor(X)
@@ -110,14 +115,14 @@ class ENet(nn.Module):
                 return self.classifier(z), self.regressor(z)
             elif mode is "ae_or_vae":
                 if self.variant is "AE":
-                    return self.decoder(z, self.encoder.unflat_size)
+                    return self.decoder(z, None)
                 elif self.variant is "VAE":
-                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime
+                    return self.decoder(z, None), z, mu, logvar, z_prime
             elif mode is "all":
                 if self.variant is "AE":
-                    return self.decoder(z, self.encoder.unflat_size), self.classifier(z), self.regressor(z)
+                    return self.decoder(z, None), self.classifier(z), self.regressor(z)
                 elif self.variant is "VAE":
-                    return self.decoder(z, self.encoder.unflat_size), z, mu, logvar, z_prime, self.classifier(z), self.regressor(z)
+                    return self.decoder(z, None), z, mu, logvar, z_prime, self.classifier(z), self.regressor(z)
                 
                 
 # Encoder class
@@ -206,8 +211,6 @@ class Decoder(nn.Module):
     # Forward
     def forward(self, X, unflat_size):
         
-        print(X.shape)
-        
         x = self.relu(self.de_fc4(X))
         x = self.relu(self.de_fc3(x))
         x = self.relu(self.de_fc2(x))
@@ -261,9 +264,7 @@ class VAEBottleneck(nn.Module):
     # Forward
     def forward(self, X, mode, device, shots=1):
         if mode is "sample":
-            z_samples = randn(shots, self.num_latent_dims, device=device)
-            for i in range(shots):
-                z_samples[i] = randn(1, self.num_latent_dims, device=device)
+            z_samples = randn((shots, X.size(0), self.num_latent_dims), device=device)
             return mean(z_samples, 0)
         else:
             mu, logvar = self.en_mu(X), self.en_var(X)

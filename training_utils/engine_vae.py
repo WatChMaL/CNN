@@ -28,8 +28,8 @@ from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
 # Logging and dumping keys : values to save during logging or dummping
-log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy", "log_det"]
-event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples", "z_k"]
+log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy", "logdet"]
+event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples", "z_k", "logdet"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -95,7 +95,7 @@ class EngineVAE:
             elif self.model_train_type is "train_cl_or_rg_only":
                 self.criterion = loss_funcs.CLRGLoss
             elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_ae_or_vae_only":
-                self.criterion = nn.MSELoss()
+                self.criterion = loss_funcs.AELoss
         elif model_variant is "VAE":
             if self.model_train_type is "train_all":
                 self.criterion = loss_funcs.VAECLRGLoss
@@ -109,7 +109,7 @@ class EngineVAE:
             elif self.model_train_type is "train_cl_or_rg_only":
                 self.criterion = loss_funcs.CLRGLoss
             elif self.model_train_type is "train_bottleneck_only" or self.model_train_type is "train_nf_only":
-                self.criterion = loss_funcs.PNFLoss
+                self.criterion = loss_funcs.NFLoss
             
         # Placeholders for data and labels
         self.data=None
@@ -157,7 +157,7 @@ class EngineVAE:
     # Method to compute the loss using the forward pass
     def forward(self, mode="all", forward_type="train"):
         
-        if self.data is not None and mode is not "decode":
+        if self.data is not None and len(self.data.size()) is 4 and mode is not "decode":
             # Move the data to the user-specified device
             self.data = self.data.to(self.device)
             self.data = self.data.permute(0,3,1,2)
@@ -241,7 +241,41 @@ class EngineVAE:
                     
                 # Forward for NF
                 elif self.model_variant is "NF":
-                    return None
+                    
+                    # Collect the output from the model
+                    recon, z_k, z, mu, logvar, z_prime, logdet, predicted_labels, predicted_energies = self.model(self.data, mode, device=self.devids[0])
+                    
+                    # Compute the loss for the hybrid model
+                    loss, recon_loss, kl_loss, logdet, ce_loss, mse_loss = self.criterion(recon, self.data, mu, logvar, logdet,
+                                                                                           predicted_labels, self.labels, predicted_energies, self.energies)
+                    
+                    self.loss = loss
+                    
+                    # Define the classifier predictions 
+                    softmax           = self.softmax(predicted_labels).cpu().detach().numpy()
+                    predicted_labels  = torch.argmax(predicted_labels, dim=-1)
+                    accuracy          = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
+
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+                    
+                    return_dict = {"loss"               : loss.cpu().detach().item(),
+                                   "recon_loss"         : recon_loss.cpu().detach().item(),
+                                   "kl_loss"            : kl_loss.cpu().detach().item(),
+                                   "logdet"             : logdet.cpu().detach().item(),
+                                   "ce_loss"            : ce_loss.cpu().detach().item(),
+                                   "mse_loss"           : mse_loss.cpu().detach().item(),
+                                   "accuracy"           : accuracy,
+                                   "recon"              : recon.cpu().detach().numpy(),
+                                   "z_k"                : z_k.cpu().detach().numpy(),
+                                   "logdet"             : logdet.cpu().detach().numpy(),
+                                   "z"                  : z.cpu().detach().numpy(),
+                                   "mu"                 : mu.cpu().detach().numpy(),
+                                   "logvar"             : logvar.cpu().detach().numpy(),
+                                   "z_prime"            : z_prime.cpu().detach().numpy(),
+                                   "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                                   "softmax"            : softmax,
+                                   "predicted_energies" : predicted_energies.cpu().detach().numpy()}
                     
 
             elif mode is "ae_or_vae":
@@ -275,14 +309,31 @@ class EngineVAE:
                     self.loss = loss
                     recon = recon.permute(0,2,3,1)
 
-                    return_dict = {"recon_loss" : loss.cpu().detach().item(),
-                                    "recon"     : recon.cpu().detach().numpy()}
+                    return_dict = {"loss" : loss.cpu().detach().item(),
+                                   "recon"     : recon.cpu().detach().numpy()}
                     
+            # Forward for the normalizing flow
             elif mode is "nf":
-                return None
                 
+                recon, z_k, logdet, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
+                loss, recon_loss, kl_loss, logdet = self.criterion(recon, self.data, mu, logvar, logdet)
                 
-                
+                self.loss = loss
+
+                # Restore the shape of recon
+                recon = recon.permute(0,2,3,1)
+
+                return_dict = {"loss"            : loss.cpu().detach().item(),
+                               "recon_loss"      : recon_loss.cpu().detach().item(),
+                               "kl_loss"         : kl_loss.cpu().detach().item(),
+                               "logdet"         : logdet.cpu().detach().item(),
+                               "recon"           : recon.cpu().detach().numpy(),
+                               "z_k"             : z_k.cpu().detach().numpy(),
+                               "logdet"          : logdet.cpu().detach().numpy(),
+                               "z"               : z.cpu().detach().numpy(),
+                               "mu"              : mu.cpu().detach().numpy(),
+                               "logvar"          : logvar.cpu().detach().numpy(),
+                               "z_prime"         : z_prime.cpu().detach().numpy()}
                 
             elif mode is "generate_latents":
                 
@@ -322,7 +373,7 @@ class EngineVAE:
             
             elif mode is "sample":
             
-                samples, predicted_labels, energies = self.model(None, mode, device=self.devids[0])
+                samples, predicted_labels, energies = self.model(self.data, mode, device=self.devids[0])
                 
                 labels = torch.argmax(predicted_labels,dim=-1)
                 
@@ -339,7 +390,7 @@ class EngineVAE:
                                "predicted_labels"   : labels.cpu().detach().numpy(),
                                "predicted_energies" : energies.cpu().detach().numpy()}
   
-        if self.data is not None and mode is not "decode":
+        if self.data is not None and len(self.data.size()) is 4 and mode is not "decode":
             # Restore the shape of the data
             self.data = self.data.permute(0,2,3,1)
         
@@ -538,8 +589,10 @@ class EngineVAE:
             # Setup the mode to call the forward method
             if self.model_train_type is "train_all":
                 mode = "all"
-            elif self.model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only", "train_nf_only"]:
+            elif self.model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only"]:
                 mode = "ae_or_vae"
+            elif self.model_train_type is "train_nf_only":
+                mode = "nf"
             elif self.model_train_type is "train_cl_or_rg_only":
                 mode = "cl_or_rg"
                     
@@ -588,24 +641,26 @@ class EngineVAE:
         model_status = "trained" if trained else "untrained"
         
         sample_save_path = sample_save_path + str(self.config.model[1])
-        
-        # Create the directory if it does not already exist
-        if not os.path.exists(sample_save_path):
-            os.mkdir(sample_save_path)
             
         # Samples list
         sample_list = []
-        
-        # Iterate over the counter
-        for i in range(num_samples):
             
-            with torch.no_grad():
+        with torch.no_grad():
 
-                res = self.forward(mode="sample", forward_type="sample")
-                sample_list.append([res["samples"], res["labels"], res["energies"]])
-        
-        # Convert the list to an numpy array and save to the given path
-        np.save(sample_save_path + '/' + model_status + "_samples.npy", np.array(sample_list))
+            self.data = torch.zeros((num_samples, 1), device=self.devids[0])
+            res = self.forward(mode="sample", forward_type="sample")
+            
+        save_arr_keys = []
+        save_arr_values = []
+        for key in event_dump_keys:
+            if key in res.keys():
+                save_arr_keys.append(key)
+                save_arr_values.append(res[key])
+
+        # Save the actual and reconstructed event to the disk
+        np.savez(sample_save_path + "_" + str(model_status) + ".npz", 
+                 **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
+            
         
     # Generate and save the latent vectors for training and validation sets
     

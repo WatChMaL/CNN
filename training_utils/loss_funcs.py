@@ -15,6 +15,15 @@ from torch import mean
 reconstruction_loss = nn.MSELoss(reduction="sum")
 cl_loss = nn.CrossEntropyLoss()
 
+# AE generic loss function i.e. RECON Loss
+# Returns : Tuple of total loss = RECON (reconstruction) loss
+def AELoss(recon, data):
+
+    # Reconstruction Loss
+    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    
+    return recon_loss
+
 # VAE generic loss function i.e. RECON Loss + KL Loss
 # Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss
 def VAELoss(recon, data, mu, log_var):
@@ -76,8 +85,8 @@ def CLRGLoss(predicted_label, label, predicted_energy, energy):
     return ce_loss + mse_loss, ce_loss, mse_loss
 
 # NF generic loss function i.e. RECON Loss + KL Loss + LOGDET
-# Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss
-def PNFLoss(recon, data, mu, log_var, log_det):
+# Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss, LOGDET
+def NFLoss(recon, data, mu, log_var, log_det):
     """
         Compute the loss for the planar normalizing flows
         Input :
@@ -97,6 +106,29 @@ def PNFLoss(recon, data, mu, log_var, log_det):
     
     # Logdet
     batch_log_det_flow = sum(log_det, dim=0)
-    log_det_flow = mean(batch_log_det_flow, dim=1)
+    log_det_flow = mean(batch_log_det_flow, dim=0)
     
+    a = recon_loss + kl_loss + log_det_flow
     return recon_loss + kl_loss + log_det_flow, recon_loss, kl_loss, log_det_flow
+
+# NF+CL+RG loss i.e. RECON Loss + KL Loss + LOGDET + CE Loss + MSE Loss
+def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predicted_energy, energy):
+    
+    # KL|q_0(z_0)||p(z_k)| == KL|q_0(z_0)||N(O,I)|
+    batch_kl_loss = -0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1)
+    kl_loss = mean(batch_kl_loss, dim=0)
+    
+    # Reconstruction Loss
+    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    
+    # Logdet
+    batch_log_det_flow = sum(log_det, dim=0)
+    log_det_flow = mean(batch_log_det_flow, dim=0)
+    
+    # Cross entropy loss
+    ce_loss = cl_loss(predicted_label, label)
+    
+    # Mean squared error loss
+    mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
+    
+    return recon_loss + kl_loss + log_det_flow + ce_loss + mse_loss, recon_loss, kl_loss, log_det_flow, ce_loss, mse_loss
