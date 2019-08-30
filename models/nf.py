@@ -117,9 +117,9 @@ class Radial(nn.Module):
         
         # Compute the log det jacobian term
         h_prime_r = self.h_prime(alpha, r)*r
-        det_jac_1 = (1 + beta_hat*h_a_r.view(h_a_r.size(0), 1, 1))**(self.num_latent_dims - 1)
+        det_jac_1 = (1 + beta_hat*h_a_r.view(h_a_r.size(0), 1, 1))
         det_jac_2 = 1 + (beta_hat*h_a_r.view(h_a_r.size(0), 1, 1)) + (h_prime_r).view(h_prime_r.size(0), 1, 1)
         
-        log_det_jacobian = log(bmm(det_jac_1, det_jac_2))
+        log_det_jacobian = log((self.num_latent_dims - 1)*det_jac_1) + log(det_jac_2)
         
         return z_l, log_det_jacobian.view(log_det_jacobian.size(0))

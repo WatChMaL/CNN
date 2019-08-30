@@ -29,7 +29,7 @@ import training_utils.loss_funcs as loss_funcs
 
 # Logging and dumping keys : values to save during logging or dummping
 log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy", "logdet"]
-event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "predicted_labels", "softmax", "predicted_energies", "samples", "z_k", "logdet"]
+event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "softmax", "samples", "predicted_labels", "predicted_energies", "z_k", "logdet"]
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -285,21 +285,41 @@ class EngineVAE:
 
                     # Collect the output from the model
                     recon, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
-                    loss, recon_loss, kl_loss = self.criterion(recon, self.data, 
-                                                               mu, logvar)
-                    self.loss = loss
+                    
+                    if forward_type is "training":
+                        loss, recon_loss, kl_loss = self.criterion(recon, self.data, 
+                                                                   mu, logvar)
+                        
+                        self.loss = loss
 
-                    # Restore the shape of recon
-                    recon = recon.permute(0,2,3,1)
+                        # Restore the shape of recon
+                        recon = recon.permute(0,2,3,1)
 
-                    return_dict = {"loss"            : loss.cpu().detach().item(),
-                                   "recon_loss"      : recon_loss.cpu().detach().item(),
-                                   "kl_loss"         : kl_loss.cpu().detach().item(),
-                                   "recon"           : recon.cpu().detach().numpy(),
-                                   "z"               : z.cpu().detach().numpy(),
-                                   "mu"              : mu.cpu().detach().numpy(),
-                                   "logvar"          : logvar.cpu().detach().numpy(),
-                                   "z_prime"         : z_prime.cpu().detach().numpy()}
+                        return_dict = {"loss"            : loss.cpu().detach().item(),
+                                       "recon_loss"      : recon_loss.cpu().detach().item(),
+                                       "kl_loss"         : kl_loss.cpu().detach().item(),
+                                       "recon"           : recon.cpu().detach().numpy(),
+                                       "z"               : z.cpu().detach().numpy(),
+                                       "mu"              : mu.cpu().detach().numpy(),
+                                       "logvar"          : logvar.cpu().detach().numpy(),
+                                       "z_prime"         : z_prime.cpu().detach().numpy()}
+                    
+                    elif forward_type is "validation":
+                        loss, recon_loss, kl_loss, recon_loss_val, kl_loss_val = loss_funcs.VAEVALLoss(recon, self.data, mu, logvar)
+                        
+                        # Restore the shape of recon
+                        recon = recon.permute(0,2,3,1)
+                        
+                        return_dict = {"loss"            : loss.cpu().detach().item(),
+                                       "recon_loss"      : recon_loss.cpu().detach().item(),
+                                       "kl_loss"         : kl_loss.cpu().detach().item(),
+                                       "recon"           : recon.cpu().detach().numpy(),
+                                       "z"               : z.cpu().detach().numpy(),
+                                       "mu"              : mu.cpu().detach().numpy(),
+                                       "logvar"          : logvar.cpu().detach().numpy(),
+                                       "z_prime"         : z_prime.cpu().detach().numpy(),
+                                       "recon_loss_val"  : recon_loss_val.cpu().detach().numpy(),
+                                       "kl_loss_val"     : kl_loss_val.cpu().detach().numpy()}
                         
                 # Forward for AE
                 elif self.model_variant is "AE":
@@ -530,7 +550,7 @@ class EngineVAE:
                     if res["loss"] < best_loss:
                         self.save_state(model_type="best")
                     
-                    # Save the best model
+                    # Save the latest model
                     self.save_state(model_type="latest")
 
                     self.val_log.write()
@@ -577,6 +597,14 @@ class EngineVAE:
             np_event_path = self.dirpath + "/test_valid_iteration_"
             data_iter = self.test_iter
         
+        # List holding the keys for values to dump at the end
+        metric_dump_keys = ["indices", "recon_loss", "kl_loss"]
+        
+        # Array holding all the dataset indices
+        global_indices = []
+        recon_loss_values = []
+        kl_loss_values = []
+        
         for data in iter(data_iter):
             
             sys.stdout.write("Iteration : " + str(iteration) + "\n")
@@ -585,6 +613,10 @@ class EngineVAE:
             self.data     = data[0][:,:,:,:19].float()
             self.labels   = data[1].long()
             self.energies = data[2].float()
+            indices       = data[3].cpu().numpy()
+            
+            # Add the indices from the dataset to the array
+            global_indices.extend(indices)
 
             # Setup the mode to call the forward method
             if self.model_train_type is "train_all":
@@ -609,6 +641,10 @@ class EngineVAE:
             self.log.record(keys, values)
             self.log.write()
             
+            # Add the loss values to the global arrays
+            recon_loss_values.extend(res["recon_loss_val"])
+            kl_loss_values.extend(res["kl_loss_val"])
+            
             # Save the actual and reconstructed event to the disk
             if iteration is 0:
                 save_arr_keys = ["events", "labels", "energies"]
@@ -623,40 +659,45 @@ class EngineVAE:
                          **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
             
             iteration += 1
+            
+        # Save and dump all the computed metrics for this training dataset
+        np.savez(np_event_path + "metrics.npz",
+                 **{key:value for key,value in zip(metric_dump_keys,[global_indices, recon_loss_values, kl_loss_values])})
         
     # Sample vectors from the normal distribution and decode to reconstruct events
     def sample(self, num_samples=10, trained=False):
         
         # Setup the path
         sample_save_path = self.dirpath + 'samples/'
-        
-        # Check if the iteration has not been specified
-        if self.iteration is None:
-            self.iteration = 0
             
         # Create the directory if it does not already exist
         if not os.path.exists(sample_save_path):
             os.mkdir(sample_save_path)
             
+        # Setup model status to differentiate samples from trained and untrained model
         model_status = "trained" if trained else "untrained"
         
         sample_save_path = sample_save_path + str(self.config.model[1])
-            
-        # Samples list
-        sample_list = []
-            
-        with torch.no_grad():
-
-            self.data = torch.zeros((num_samples, 1), device=self.devids[0])
+        if num_samples <= self.config.batch_size_val:
+            num_iterations = 1
+            sample_batch_size = num_samples
+        else:
+            num_iterations = int(num_samples/self.config.batch_size_val)
+            sample_batch_size = self.config.batch_size_val
+        
+        save_arr_keys = ["samples", "predicted_labels", "predicted_energies"]
+        save_arr_values = [[],[],[]]
+        
+        for i in range(num_iterations):
+            self.data = torch.zeros((sample_batch_size, 1), device=self.devids[0])
             res = self.forward(mode="sample", forward_type="sample")
             
-        save_arr_keys = []
-        save_arr_values = []
-        for key in event_dump_keys:
-            if key in res.keys():
-                save_arr_keys.append(key)
-                save_arr_values.append(res[key])
-
+            index = 0
+            for key in event_dump_keys:
+                if key in res.keys():
+                    save_arr_values[index].append(res[key])
+                    index = index + 1
+                    
         # Save the actual and reconstructed event to the disk
         np.savez(sample_save_path + "_" + str(model_status) + ".npz", 
                  **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
@@ -695,7 +736,7 @@ class EngineVAE:
                     print("... Training data iteration %d ..." %(i))
 
                 # Use only the charge data for the events
-                self.data, labels, energies = data[0][:,:,:,:19],data[1], data[3]
+                self.data, labels, energies = data[0][:,:,:,:19], data[1], data[2]
                 
                 res = self.forward(mode="generate")
 

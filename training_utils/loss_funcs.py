@@ -13,6 +13,7 @@ from torch import mean
 
 # Global variables
 reconstruction_loss = nn.MSELoss(reduction="sum")
+reconstruction_loss_val = nn.MSELoss(reduction="none")
 cl_loss = nn.CrossEntropyLoss()
 
 # AE generic loss function i.e. RECON Loss
@@ -132,3 +133,18 @@ def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predic
     mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
     
     return recon_loss + kl_loss + log_det_flow + ce_loss + mse_loss, recon_loss, kl_loss, log_det_flow, ce_loss, mse_loss
+
+# VAE validation loss
+def VAEVALLoss(recon, data, mu, log_var):
+
+    # Divergence Loss for Gaussian posterior
+    batch_kl_loss = -0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1)
+    kl_loss = mean(batch_kl_loss, dim=0)
+    
+    # Reconstruction Loss
+    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    
+    recon_loss_val = reconstruction_loss_val(recon, data)
+    recon_loss_val = recon_loss_val.view(recon_loss_val.size(0), -1).sum(dim=1)
+    
+    return recon_loss + kl_loss, recon_loss, kl_loss, recon_loss_val, batch_kl_loss

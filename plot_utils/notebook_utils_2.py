@@ -102,7 +102,7 @@ def plot_samples(run_id, model_dir, trained):
     
     dump_dir = "/home/akajal/WatChMaL/VAE/dumps/" + run_id + "/"
     model_status = "trained" if trained is True else "untrained"
-    np_arr_path = dump_dir + "samples/" + model_dir + "/" + model_status + "_samples.npy"
+    np_arr_path = dump_dir + "samples/" + model_dir + "_" + model_status + "_samples.npy"
     
     np_arr = np.load(np_arr_path, allow_pickle=True)
     i, j = random.randint(0, np_arr.shape[0]-1), random.randint(0, np_arr.shape[0]-1)
@@ -122,16 +122,23 @@ def plot_new_samples(run_id, model_dir, trained):
     
     np_arr = np.load(np_arr_path)
     np_samples, np_labels, np_energies = np_arr["samples"], np_arr["predicted_labels"], np_arr["predicted_energies"]
+    
+    np_samples = np_samples.reshape(-1, np_samples.shape[2], np_samples.shape[3], np_samples.shape[4])
+    np_labels = np_labels.reshape(-1, 1)
+    np_energies = np_energies.reshape(-1, 1)
 
     i, j = random.randint(0, np_labels.shape[0]-1), random.randint(0, np_labels.shape[0]-1)
+    
     plot_utils.plot_actual_vs_recon(np_samples[i], np_samples[j], 
-                                    label_dict[np_labels[i]], np_energies[i].item(),
-                                    label_dict[np_labels[j]], np_energies[j].item(),
+                                    label_dict[np_labels[i].item()], np_energies[i].item(),
+                                    label_dict[np_labels[j].item()], np_energies[j].item(),
                                     show_plot=True)
     
     plot_utils.plot_charge_hist(np_samples[i],
                                 np_samples[j], 0, num_bins=200)
     
+    plot_utils.plot_charge_hist(np_samples,
+                                np_samples, 0, num_bins=200)
     
 # Method to print out the comparison values
 def print_vae_metrics(run_id):
@@ -148,11 +155,15 @@ def print_vae_metrics(run_id):
     mse_loss_values  = log_df["recon_loss"].values
     kl_loss_values = log_df["kl_loss"].values
     
+    train_total_loss = np.mean(loss_values)
+    train_mse_loss, train_kl_loss  = np.mean(mse_loss_values), np.mean(kl_loss_values)
+    train_mse_std, train_kl_std = np.std(mse_loss_values), np.std(kl_loss_values)
+    
     # Print out the average values
     print("Printing metrics over the training subset :")
-    print("Average total loss : {0}".format(np.mean(loss_values)))
-    print("Average mse loss : {0}".format(np.mean(mse_loss_values)))
-    print("Average kl loss : {0}\n\n".format(np.mean(kl_loss_values)))
+    print("Average total loss : {0}".format(train_total_loss))
+    print("Average mse loss : {0}".format(train_mse_loss))
+    print("Average kl loss : {0}\n\n".format(train_kl_loss))
     
     # Print the average metrics on the training subset
     log_df = pd.read_csv(valid_val_log)
@@ -162,11 +173,17 @@ def print_vae_metrics(run_id):
     mse_loss_values  = log_df["recon_loss"].values
     kl_loss_values = log_df["kl_loss"].values
     
+    val_total_loss = np.mean(loss_values)
+    val_mse_loss, val_kl_loss  = np.mean(mse_loss_values), np.mean(kl_loss_values)
+    val_mse_std, val_kl_std = np.std(mse_loss_values), np.std(kl_loss_values)
+    
     # Print out the average values
     print("Printing metrics over the validation subset :")
-    print("Average total loss : {0}".format(np.mean(loss_values)))
-    print("Average mse loss : {0}".format(np.mean(mse_loss_values)))
-    print("Average kl loss : {0}".format(np.mean(kl_loss_values)))
+    print("Average total loss : {0}".format(val_total_loss))
+    print("Average mse loss : {0}".format(val_mse_loss))
+    print("Average kl loss : {0}".format(val_kl_loss))
+    
+    return train_mse_loss, train_kl_loss, train_mse_std, train_kl_std, val_mse_loss, val_kl_loss, val_mse_std, val_kl_std
     
 # Method to print out the comparison values for the classifier and energy regressor
 def print_cl_metrics(run_id):

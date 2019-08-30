@@ -15,7 +15,7 @@ import pandas as pd
 import matplotlib as mpl
 
 import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
+from matplotlib.colors import LogNorm, DivergingNorm
 from scipy.stats import gaussian_kde
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
@@ -853,7 +853,8 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, predicted_lab
     plt.subplots_adjust(hspace=0.2)
     
     # Setup the plot
-    lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), vmin=0.01, clip=True)
+    #lognorm = LogNorm(vmax=max(np.amax(actual_event), np.amax(recon_event)), vmin=0.01, clip=True)
+    dvgnorm = DivergingNorm(vcenter=0.1)
     
     # Setup the plot
     if label is not "e":
@@ -864,7 +865,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, predicted_lab
     fig.suptitle("Actual vs Reconstructed event display", fontsize=30)
     
     # Plot the actual event
-    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_0 = axes[0].imshow(get_plot_array(actual_event), origin="upper", cmap="afmhot", norm=dvgnorm, clim=(0.1, 10.0))
     
     axes[0].set_title(actual_event_title, fontsize=25)
     axes[0].set_xlabel("PMT module X-position", fontsize=20)
@@ -881,7 +882,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, predicted_lab
     axes[0].set_yticklabels((axes[0].get_yticks()/10).astype(int))
     
     # Plot the reconstructed event
-    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="inferno", norm=lognorm)
+    im_1 = axes[1].imshow(get_plot_array(recon_event), origin="upper", cmap="afmhot", norm=dvgnorm, clim=(0.1, 10.0))
     
     if predicted_label is not "e":
         recon_event_title = r"Reconstructed event display : $\{0}$ event with true energy, $E = {1:.3f}$".format(predicted_label, predicted_energy)

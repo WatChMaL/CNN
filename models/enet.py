@@ -38,9 +38,7 @@ class ENet(nn.Module):
         self.softmax = nn.Softmax(dim=1)
         
         # Add the layer blocks
-        #self.encoder = Encoder(num_input_channels, num_latent_dims)
-        self.encoder = resnet.resnet101(num_input_channels=num_input_channels,
-                                        num_classes=num_latent_dims)
+        self.encoder = Encoder(num_input_channels, num_latent_dims)
         self.decoder = Decoder(num_input_channels, num_latent_dims)
         self.classifier = Classifier(num_latent_dims, num_classes)
         self.regressor = Regressor(num_latent_dims, num_classes)
