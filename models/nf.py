@@ -62,7 +62,7 @@ class Planar(nn.Module):
         z_l = z + u_hat*self.tanh(self.w.t().matmul(z) + self.b)
         
         # Compute the log det jacobian term
-        psi_z = self.w * self.tanh_prime(self.w.t().matmul(z) + self.b)
+        psi_z = self.tanh_prime(self.w.t().matmul(z) + self.b) * self.w
         log_det_jacobian = log(abs(1 + u_hat.t().matmul(psi_z)))
         
         return z_l, log_det_jacobian.view(log_det_jacobian.size(0))

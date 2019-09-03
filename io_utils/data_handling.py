@@ -22,20 +22,13 @@ class WCH5Dataset(Dataset):
         hdf5_labels=f["labels"]
         hdf5_energies=f["energies"]
         hdf5_positions=f["positions"]
+        hdf5_angles=f["angles"]
 
         assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
         event_data_shape = hdf5_event_data.shape
         event_data_offset = hdf5_event_data.id.get_offset()
         event_data_dtype = hdf5_event_data.dtype
-        
-        labels_shape = hdf5_labels.shape
-        labels_offset = hdf5_labels.id.get_offset()
-        labels_dtype = hdf5_labels.dtype
-        
-        energies_shape = hdf5_energies.shape
-        energies_offset = hdf5_energies.id.get_offset()
-        energies_dtype = hdf5_energies.dtype
 
         #this creates a memory map - i.e. events are not loaded in memory here
         #only on get_item
@@ -44,8 +37,11 @@ class WCH5Dataset(Dataset):
         #this will fit easily in memory even for huge datasets
         self.labels = np.array(hdf5_labels)
         
-        # This will also fit easily in memory
+        # The energies will also fit easily in memory
         self.energies = np.array(hdf5_energies)
+        
+        # The angles will also fit easily in memory
+        self.angles = np.array(hdf5_angles)
         
         self.transform=transform
         
@@ -110,7 +106,7 @@ class WCH5Dataset(Dataset):
                 
     def __getitem__(self,index):
         if self.transform is None:
-            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], index
+            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], self.angles[index], index
         else:
             raise NotImplementedError
 

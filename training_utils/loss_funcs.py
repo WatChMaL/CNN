@@ -89,7 +89,7 @@ def CLRGLoss(predicted_label, label, predicted_energy, energy):
 # Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss, LOGDET
 def NFLoss(recon, data, mu, log_var, log_det):
     """
-        Compute the loss for the planar normalizing flows
+        Compute the loss for the normalizing flows
         Input :
             recon   = reconstructed event tensors, (minibatch_size, *)
             data    = actual event tensors, (minibatch_size, *)
@@ -109,8 +109,8 @@ def NFLoss(recon, data, mu, log_var, log_det):
     batch_log_det_flow = sum(log_det, dim=0)
     log_det_flow = mean(batch_log_det_flow, dim=0)
     
-    a = recon_loss + kl_loss + log_det_flow
-    return recon_loss + kl_loss + log_det_flow, recon_loss, kl_loss, log_det_flow
+    a = recon_loss + kl_loss - log_det_flow
+    return recon_loss + kl_loss - log_det_flow, recon_loss, kl_loss, log_det_flow
 
 # NF+CL+RG loss i.e. RECON Loss + KL Loss + LOGDET + CE Loss + MSE Loss
 def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predicted_energy, energy):
@@ -132,7 +132,7 @@ def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predic
     # Mean squared error loss
     mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
     
-    return recon_loss + kl_loss + log_det_flow + ce_loss + mse_loss, recon_loss, kl_loss, log_det_flow, ce_loss, mse_loss
+    return recon_loss + kl_loss - log_det_flow + ce_loss + mse_loss, recon_loss, kl_loss, log_det_flow, ce_loss, mse_loss
 
 # VAE validation loss
 def VAEVALLoss(recon, data, mu, log_var):
@@ -148,3 +148,33 @@ def VAEVALLoss(recon, data, mu, log_var):
     recon_loss_val = recon_loss_val.view(recon_loss_val.size(0), -1).sum(dim=1)
     
     return recon_loss + kl_loss, recon_loss, kl_loss, recon_loss_val, batch_kl_loss
+
+# NF validation loss
+def NFVALLoss(recon, data, mu, log_var, log_det):
+    """
+        Compute the validation loss for the normalizing flows
+        Input :
+            recon   = reconstructed event tensors, (minibatch_size, *)
+            data    = actual event tensors, (minibatch_size, *)
+            mu      = mu tensor for z_0, (minibatch_size, latent_dims)
+            log_var = log_var tensor for z_0, (minibatch_size, latent_dims)
+            log_det = log_det tensor for the flow, (minibatch_size, flow_depth)
+    """
+    
+    # KL|q_0(z_0)||p(z_k)| == KL|N(mu, log_var.exp())||N(O,I)|
+    batch_kl_loss = -0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1)
+    kl_loss = mean(batch_kl_loss, dim=0)
+    
+    # Reconstruction Loss
+    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    
+    recon_loss_val = reconstruction_loss_val(recon, data)
+    recon_loss_val = recon_loss_val.view(recon_loss_val.size(0), -1).sum(dim=1)
+    
+    # Logdet
+    batch_log_det_flow = sum(log_det, dim=0)
+    log_det_flow = mean(batch_log_det_flow, dim=0)
+    
+    a = recon_loss + kl_loss - log_det_flow
+    return recon_loss + kl_loss - log_det_flow, recon_loss, kl_loss, log_det_flow, recon_loss_val, batch_kl_loss
+

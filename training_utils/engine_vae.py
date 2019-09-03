@@ -11,7 +11,7 @@ import torch
 from torch import optim
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler
+from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
 
 # Standard and data processing imports
 import os
@@ -19,7 +19,12 @@ import sys
 import time
 import math
 import random
+import collections
 import numpy as np
+
+# Scikit learn imports
+from sklearn.neighbors import NearestNeighbors
+from sklearn.preprocessing import MinMaxScaler
 
 # WatChMaL imports
 from io_utils import ioconfig
@@ -30,6 +35,10 @@ import training_utils.loss_funcs as loss_funcs
 # Logging and dumping keys : values to save during logging or dummping
 log_keys = ["loss", "recon_loss", "kl_loss", "ce_loss", "mse_loss", "accuracy", "logdet"]
 event_dump_keys = ["recon", "z", "mu", "logvar", "z_prime", "softmax", "samples", "predicted_labels", "predicted_energies", "z_k", "logdet"]
+
+# Dictionaries for the particle types and their keys in the dataset
+label_dict = {0.:"gamma", 1.:"e", 2.:"mu"}
+inverse_label_dict = {"gamma":0., "e":1., "mu":2.}
 
 # Class for the training engine for the WatChMaLVAE
 class EngineVAE:
@@ -286,7 +295,7 @@ class EngineVAE:
                     # Collect the output from the model
                     recon, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
                     
-                    if forward_type is "training":
+                    if forward_type is "train":
                         loss, recon_loss, kl_loss = self.criterion(recon, self.data, 
                                                                    mu, logvar)
                         
@@ -335,25 +344,52 @@ class EngineVAE:
             # Forward for the normalizing flow
             elif mode is "nf":
                 
+                # Collect the output from the model
                 recon, z_k, logdet, z, mu, logvar, z_prime = self.model(self.data, mode, device=self.devids[0])
-                loss, recon_loss, kl_loss, logdet = self.criterion(recon, self.data, mu, logvar, logdet)
                 
-                self.loss = loss
+                # Forward for training passes
+                if forward_type is "train":
+                    loss, recon_loss, kl_loss, logdet = self.criterion(recon, self.data, mu, logvar, logdet)
 
-                # Restore the shape of recon
-                recon = recon.permute(0,2,3,1)
+                    self.loss = loss
 
-                return_dict = {"loss"            : loss.cpu().detach().item(),
-                               "recon_loss"      : recon_loss.cpu().detach().item(),
-                               "kl_loss"         : kl_loss.cpu().detach().item(),
-                               "logdet"         : logdet.cpu().detach().item(),
-                               "recon"           : recon.cpu().detach().numpy(),
-                               "z_k"             : z_k.cpu().detach().numpy(),
-                               "logdet"          : logdet.cpu().detach().numpy(),
-                               "z"               : z.cpu().detach().numpy(),
-                               "mu"              : mu.cpu().detach().numpy(),
-                               "logvar"          : logvar.cpu().detach().numpy(),
-                               "z_prime"         : z_prime.cpu().detach().numpy()}
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+
+                    return_dict = {"loss"            : loss.cpu().detach().item(),
+                                   "recon_loss"      : recon_loss.cpu().detach().item(),
+                                   "kl_loss"         : kl_loss.cpu().detach().item(),
+                                   "logdet"         : logdet.cpu().detach().item(),
+                                   "recon"           : recon.cpu().detach().numpy(),
+                                   "z_k"             : z_k.cpu().detach().numpy(),
+                                   "logdet"          : logdet.cpu().detach().numpy(),
+                                   "z"               : z.cpu().detach().numpy(),
+                                   "mu"              : mu.cpu().detach().numpy(),
+                                   "logvar"          : logvar.cpu().detach().numpy(),
+                                   "z_prime"         : z_prime.cpu().detach().numpy()}
+                    
+                # Forward for validation passes
+                elif forward_type is "validation":
+                    loss, recon_loss, kl_loss, logdet, recon_loss_val, kl_loss_val = loss_funcs.NFVALLoss(recon, self.data, mu, logvar, logdet)
+
+                    self.loss = loss
+
+                    # Restore the shape of recon
+                    recon = recon.permute(0,2,3,1)
+
+                    return_dict = {"loss"            : loss.cpu().detach().item(),
+                                   "recon_loss"      : recon_loss.cpu().detach().item(),
+                                   "kl_loss"         : kl_loss.cpu().detach().item(),
+                                   "logdet"         : logdet.cpu().detach().item(),
+                                   "recon"           : recon.cpu().detach().numpy(),
+                                   "z_k"             : z_k.cpu().detach().numpy(),
+                                   "logdet"          : logdet.cpu().detach().numpy(),
+                                   "z"               : z.cpu().detach().numpy(),
+                                   "mu"              : mu.cpu().detach().numpy(),
+                                   "logvar"          : logvar.cpu().detach().numpy(),
+                                   "z_prime"         : z_prime.cpu().detach().numpy(),
+                                   "recon_loss_val"  : recon_loss_val.cpu().detach().numpy(),
+                                   "kl_loss_val"     : kl_loss_val.cpu().detach().numpy()}
                 
             elif mode is "generate_latents":
                 
@@ -779,43 +815,147 @@ class EngineVAE:
         # Switch the model back to training
         self.model.train()
         
-    # Interpolate b/w two samples from the dataset
+    # Interpolate b/w two regions in the latent space
     
-    def interpolate(self, subset="validation", intervals=10, trained=False):
+    def interpolate(self, subset="validation", event_type="e", angle_1=0, energy_1=200, angle_2=0, energy_2=800, intervals=10, num_neighbors=1024, trained=False):
         
         assert subset in ["train", "validation", "test"]
+        assert energy_1 > 0 and energy_1 < 1000
+        assert energy_2 > 0 and energy_2 < 1000
+        assert angle_1 > -3.14 and angle_1 < 3.14
+        assert angle_2 > -3.14 and angle_2 < 3.14
         
         model_status = "trained" if trained else "untrained"
         
+        # Initialize the dataloader based on the user-defined subset of the entire dataset
         if subset is "train":
-            data_iter = self.train_iter
+            data_iter=DataLoader(self.dset,
+                                 batch_size=self.config.batch_size_train,
+                                 shuffle=False,
+                                 sampler=SubsetRandomSampler(self.dset.val_indices))
         elif subset is "validation":
-            data_iter = self.val_iter
+            data_iter=DataLoader(self.dset,
+                                 batch_size=self.config.batch_size_val,
+                                 shuffle=False,
+                                 sampler=SubsetRandomSampler(self.dset.val_indices))
         else:
-            data_iter = self.test_iter
+            data_iter = DataLoader(self.dset,
+                                  batch_size=self.config.batch_size_test,
+                                  shuffle=False,
+                                  sampler=SubsetRandomSampler(self.dset.val_indices))
             
-        # Read the data, labels and energies from data loader
-        data, labels, energies = next(iter(data_iter))
+        print("engine_vae.interpolate() : Initialized the dataloader object")
         
-        # Use only the charge data for the events
-        i, j = random.randint(0, data.size(0)-1), random.randint(0, data.size(0)-1)
+        # Iterate over the data_iter object and collect all the labels, energies, angles and indices
+        labels = []
+        energies = []
+        indices = []
+        angles = []
+
+        # Loop over the dataloader object to collect values
+        for data in data_iter:
+            labels.append(data[1])
+            energies.append(data[2])
+            angles.append(data[3])
+            indices.append(data[4])
+            
+        print("engine_vae.interpolate() : Collected the labels, energies, angles and indices from the dataset, list length =", len(labels))
+            
+        num_batches = len(labels)
+        num_samples_per_batch = labels[0].size(0)
+        num_samples = (num_batches-1)*num_samples_per_batch
+
+        labels_np, energies_np, indices_np, angles_np = np.ndarray((num_samples)), np.ndarray((num_samples)), np.ndarray((num_samples)), np.ndarray((num_samples))
+
+        i = 0
+        j = 0
+
+        # Read the values from the tensor and insert them into the 1-d numpy arrays
+        while i < num_batches-1:
+            labels_np[j:j+num_samples_per_batch]   = labels[i].numpy()
+            energies_np[j:j+num_samples_per_batch] = energies[i].numpy().reshape(-1)
+            indices_np[j:j+num_samples_per_batch]  = indices[i].numpy()
+            angles_np[j:j+num_samples_per_batch]   = angles[i].numpy()[:,1]
+
+            i = i + 1
+            j = j + num_samples_per_batch
+            
+        label_counter = collections.Counter(labels_np)
+        print("engine_vae.interpolate() : Label counter dictionary =", label_counter)
         
-        # Initialize the tensor to be used for the forward pass
-        tensor_shape = [2]
-        tensor_shape.extend(data[i].size()[:2])
-        tensor_shape.extend([19])
+        print("engine_vae.interpolate() : Constructed the numpy arrays for labels, energies, angles and indices, Shape =", labels_np.shape)
+            
+        # Select the values based on the particle type i.e. use the energy and index
+        # values to build the knn tree only for the user-defined particle type
+        energies_np = energies_np[labels_np == inverse_label_dict[event_type]]
+        indices_np  = indices_np[labels_np == inverse_label_dict[event_type]]
+        angles_np   = angles_np[labels_np == inverse_label_dict[event_type]]
         
-        self.data = torch.zeros(tensor_shape, dtype=torch.float32)
+        # Normalize the energy numpy array to the same scale as angle np array to prevent bias
+        # in the NearestNeighbors method
+        energy_scaler = MinMaxScaler(feature_range=(-math.pi, math.pi), copy=True)
+        energies_np = energy_scaler.fit_transform(energies_np.reshape(-1, 1)).reshape(-1)
         
-        # Insert the event values in the placeholder zero tensors
-        self.data[0], self.data[1] = data[i][:,:,:19], data[j][:,:,:19]
+        # Transform the query energies to allow for correct querying of the ball tree
+        energy_1 = energy_scaler.transform(np.array([energy_1]).reshape(-1,1)).item()
+        energy_2 = energy_scaler.transform(np.array([energy_2]).reshape(-1,1)).item()
+        
+        # Construct the tree for the k-nearest neighbors
+        nn_features = np.array([angles_np, energies_np]).T
+            
+        nbrs = NearestNeighbors(n_neighbors=num_neighbors, algorithm='ball_tree',
+                                metric='euclidean').fit(nn_features)
+        
+        print("engine_vae.interpolate() : Constructed the query tree using the nearest neighbors method")
+        print("engine_vae.interpolate() : NearestNeighbors object = ", nbrs)
+            
+        local_indices_1 = nbrs.kneighbors(np.array([angle_1, energy_1]).reshape(1,-1), return_distance=False)
+        local_indices_2 = nbrs.kneighbors(np.array([angle_2, energy_2]).reshape(1,-1), return_distance=False)
+            
+        indices_1 = indices_np[local_indices_1]
+        indices_2 = indices_np[local_indices_2]
+        
+        # Iterate over the dataset and collect the event data for the nearest neighbors
+        events_1 = torch.zeros(num_neighbors, 16, 40, 19)
+        events_2 = torch.zeros(num_neighbors, 16, 40, 19)
+        
+        energies_1 = torch.zeros(num_neighbors, 1)
+        energies_2 = torch.zeros(num_neighbors, 1)
+        
+        angles_1 = torch.zeros(num_neighbors, 1)
+        angles_2 = torch.zeros(num_neighbors, 1)
+        
+        events_1_index = 0
+        events_2_index = 0
+        
+        for data in data_iter:
+            data_indices = data[4]
+            for i, index in enumerate(data_indices):
+                if index.numpy().item() in indices_1:
+                    events_1[events_1_index] = data[0][i][:,:,:19]
+                    energies_1[events_1_index] = data[2][i][0]
+                    angles_1[events_1_index] = data[3][i][1]
+                    events_1_index = events_1_index + 1
+                if index.numpy().item() in indices_2:
+                    events_2[events_2_index] = data[0][i][:,:,:19]
+                    energies_2[events_2_index] = data[2][i][0]
+                    angles_2[events_2_index] = data[3][i][1]
+                    events_2_index = events_2_index + 1
+        
+        # Generate the latent vectors corresponding to the first cluster
+        self.data = events_1
+        z_gen_1 = self.forward(mode="generate_latents")["z_gen"]
+        
+        self.data = events_2
+        z_gen_2 = self.forward(mode="generate_latents")["z_gen"]
         
         # Initialize the dump arrays
-        save_arr_keys = ["events", "labels", "energies"]
-        save_arr_values = [self.data.cpu().numpy(), [labels[i], labels[j]], [energies[i], energies[j]]]
-
-        # Forward pass
-        z_gen = self.forward(mode="generate_latents")["z_gen"]
+        save_arr_keys = ["energies_1", "energies_2", "angles_1", "angles_2"]
+        save_arr_values = [energies_1.numpy(), energies_2.numpy(), angles_1.numpy(), angles_2.numpy()]
+        
+        # Compute the mean of the two latent cluster
+        z_gen_1 = np.mean(z_gen_1, axis=0).reshape(-1)
+        z_gen_2 = np.mean(z_gen_2, axis=0).reshape(-1)
         
         # Compute the alpha values to use given the number of intervals
         alpha = 0.0
@@ -823,7 +963,7 @@ class EngineVAE:
         
         # Initialize a placeholder for the z latent vectors
         z_tensor_shape = [intervals+1]
-        z_tensor_shape.extend(z_gen.shape[1:])
+        z_tensor_shape.extend(z_gen_1.shape)
         self.data = torch.zeros(z_tensor_shape, dtype=torch.float32, device=self.devids[0])
         
         i = 0
@@ -832,7 +972,7 @@ class EngineVAE:
         # polated vectors to the tensor
         while alpha <= 1.0:
             
-            self.data[i] = torch.from_numpy(alpha*z_gen[0] + (1-alpha)*z_gen[1])
+            self.data[i] = torch.from_numpy(alpha*z_gen_1 + (1-alpha)*z_gen_2)
             i = i + 1
             alpha = alpha + interval
             
@@ -849,7 +989,6 @@ class EngineVAE:
         np.savez(self.dirpath + "/" + model_status + "_interpolations.npz",
                  **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
         
-
     def save_state(self, model_type="latest"):
             
         filename = self.dirpath+"/"+str(self.config.model[1])+"_"+model_type+".pth"

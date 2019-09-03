@@ -144,8 +144,6 @@ if __name__ == '__main__':
            
     if 'sample' in config.tasks:
         nnet.sample(num_samples=config.num_samples, trained=False)
-    if 'interpolate' in config.tasks:
-        nnet.interpolate(subset="train", intervals=10, trained=False)
     if 'generate' in config.tasks:
         print("Generating pre-training latent vectors")
         nnet.generate_latent_vectors("pre")
@@ -163,7 +161,9 @@ if __name__ == '__main__':
     if 'sample' in config.tasks:
         nnet.sample(num_samples=config.num_samples, trained=True)
     if 'interpolate' in config.tasks:
-        nnet.interpolate(subset="train", intervals=10, trained=True)
+        nnet.interpolate(subset="test", event_type="mu", angle_1=0, energy_1=800,
+                         angle_2=-1.57, energy_2=800, intervals=10, num_neighbors=1024,
+                         trained=True)
         
         
     # Print script execution time
