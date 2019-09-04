@@ -21,6 +21,8 @@ class WCH5Dataset(Dataset):
         hdf5_event_data = f["event_data"]
         hdf5_labels=f["labels"]
         hdf5_energies=f["energies"]
+        hdf5_positions=f["positions"]
+        hdf5_angles=f["angles"]
 
         assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
@@ -37,6 +39,9 @@ class WCH5Dataset(Dataset):
         
         # The energies will also fit easily in memory
         self.energies = np.array(hdf5_energies)
+        
+        # The angles will also fit easily in memory
+        self.angles = np.array(hdf5_angles)
         
         self.transform=transform
         
@@ -101,7 +106,7 @@ class WCH5Dataset(Dataset):
                 
     def __getitem__(self,index):
         if self.transform is None:
-            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], index, index
+            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], self.angles[index], index
         else:
             raise NotImplementedError
 

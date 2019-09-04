@@ -649,7 +649,7 @@ class EngineVAE:
             self.data     = data[0][:,:,:,:19].float()
             self.labels   = data[1].long()
             self.energies = data[2].float()
-            indices       = data[3].cpu().numpy()
+            indices       = data[4].cpu().numpy()
             
             # Add the indices from the dataset to the array
             global_indices.extend(indices)
