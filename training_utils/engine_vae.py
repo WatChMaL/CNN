@@ -28,7 +28,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 # WatChMaL imports
 from io_utils import ioconfig
-from io_utils.data_handling import WCH5Dataset
+from io_utils.data_handling_2 import WCH5Dataset
 from plot_utils.notebook_utils import CSVData
 import training_utils.loss_funcs as loss_funcs
 
@@ -297,7 +297,8 @@ class EngineVAE:
                     
                     if forward_type is "train":
                         loss, recon_loss, kl_loss = self.criterion(recon, self.data, 
-                                                                   mu, logvar)
+                                                                   mu, logvar, self.iteration,
+                                                                  self.num_iterations)
                         
                         self.loss = loss
 
@@ -349,7 +350,7 @@ class EngineVAE:
                 
                 # Forward for training passes
                 if forward_type is "train":
-                    loss, recon_loss, kl_loss, logdet = self.criterion(recon, self.data, mu, logvar, logdet)
+                    loss, recon_loss, kl_loss, logdet = self.criterion(recon, self.data, mu, logvar, logdet, self.iteration, self.num_iterations)
 
                     self.loss = loss
 
@@ -601,7 +602,7 @@ class EngineVAE:
         self.train_log.close()
         
     # Method to validate the model training on the validation set
-    def validate(self, subset="validation"):
+    def validate(self, subset="validation", num_dump_events=1024):
         
         # Print start message
         if subset is "train":
@@ -617,21 +618,26 @@ class EngineVAE:
         print(message)
         
         # Variables to output at the end
-        iteration = 0
+        curr_iteration = 1
         
         # Setup the CSV file for logging the output, path to save the actual and reconstructed events, dataloader iterator
         if subset is "train":
             self.log = CSVData(self.dirpath+"train_validation_log.csv")
             np_event_path = self.dirpath + "/train_valid_iteration_"
             data_iter = self.train_iter
+            dump_iterations = max(1, math.ceil(num_dump_events/self.config.batch_size_train))
         elif subset is "validation":
             self.log = CSVData(self.dirpath+"valid_validation_log.csv")
             np_event_path = self.dirpath + "/val_valid_iteration_"
             data_iter = self.val_iter
+            dump_iterations = max(1, math.ceil(num_dump_events/self.config.batch_size_val))
         else:
             self.log = CSVData(self.dirpath+"test_validation_log.csv")
-            np_event_path = self.dirpath + "/test_valid_iteration_"
+            np_event_path = self.dirpath + "/test_validation_iteration_"
             data_iter = self.test_iter
+            dump_iterations = max(1, math.ceil(num_dump_events/self.config.batch_size_test))
+            
+        print("Dump iterations = {0}".format(dump_iterations))
         
         # List holding the keys for values to dump at the end
         metric_dump_keys = ["indices", "recon_loss", "kl_loss"]
@@ -641,9 +647,11 @@ class EngineVAE:
         recon_loss_values = []
         kl_loss_values = []
         
+        save_arr_dict = {"events":[], "labels":[], "energies":[]}
+        
         for data in iter(data_iter):
             
-            sys.stdout.write("Iteration : " + str(iteration) + "\n")
+            sys.stdout.write("Iteration : " + str(curr_iteration) + "\n")
 
             # Extract the event data from the input data tuple
             self.data     = data[0][:,:,:,:19].float()
@@ -667,7 +675,7 @@ class EngineVAE:
             res = self.forward(mode=mode, forward_type="validation")
                  
             keys = ["epoch"]
-            values = [iteration]
+            values = [curr_iteration]
             for key in log_keys:
                 if key in res.keys():
                     keys.append(key)
@@ -681,20 +689,29 @@ class EngineVAE:
             recon_loss_values.extend(res["recon_loss_val"])
             kl_loss_values.extend(res["kl_loss_val"])
             
-            # Save the actual and reconstructed event to the disk
-            if iteration is 0:
-                save_arr_keys = ["events", "labels", "energies"]
-                save_arr_values = [self.data.cpu().numpy(), data[1], data[2]]
-
+            # Add the result keys to the dump dict in the first iterations
+            if curr_iteration is 1:
                 for key in event_dump_keys:
                     if key in res.keys():
-                        save_arr_keys.append(key)
-                        save_arr_values.append(res[key])
-                
-                np.savez(np_event_path + str(iteration) + ".npz",
-                         **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
+                        save_arr_dict[key] = []
+                        
+                print(save_arr_dict)
             
-            iteration += 1
+            # Save the actual and reconstructed event to the disk
+            if curr_iteration <= dump_iterations:
+                save_arr_dict["events"].append(self.data.cpu().numpy())
+                save_arr_dict["labels"].append(self.labels.cpu().numpy())
+                save_arr_dict["energies"].append(self.energies.cpu().numpy())
+                
+                for key in event_dump_keys:
+                    if key in res.keys():
+                        save_arr_dict[key].append(res[key])
+                        
+                if curr_iteration == dump_iterations:
+                    print("Saving the npz array :")
+                    np.savez(np_event_path + "dump.npz", **save_arr_dict)
+            
+            curr_iteration += 1
             
         # Save and dump all the computed metrics for this training dataset
         np.savez(np_event_path + "metrics.npz",
@@ -832,7 +849,7 @@ class EngineVAE:
             data_iter=DataLoader(self.dset,
                                  batch_size=self.config.batch_size_train,
                                  shuffle=False,
-                                 sampler=SubsetRandomSampler(self.dset.val_indices))
+                                 sampler=SubsetRandomSampler(self.dset.train_indices))
         elif subset is "validation":
             data_iter=DataLoader(self.dset,
                                  batch_size=self.config.batch_size_val,
@@ -842,7 +859,7 @@ class EngineVAE:
             data_iter = DataLoader(self.dset,
                                   batch_size=self.config.batch_size_test,
                                   shuffle=False,
-                                  sampler=SubsetRandomSampler(self.dset.val_indices))
+                                  sampler=SubsetRandomSampler(self.dset.test_indices))
             
         print("engine_vae.interpolate() : Initialized the dataloader object")
         

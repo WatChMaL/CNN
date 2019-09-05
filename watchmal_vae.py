@@ -154,10 +154,10 @@ if __name__ == '__main__':
         print("Generating post-training latent vectors")
         nnet.generate_latent_vectors("post")
     if 'test' in config.tasks:
-        nnet.validate(subset="test")
+        nnet.validate(subset="test", num_dump_events=config.num_samples)
     if 'valid' in config.tasks:
-        nnet.validate(subset="train")
-        nnet.validate(subset="validation")
+        nnet.validate(subset="train", num_dump_events=config.num_samples)
+        nnet.validate(subset="validation", num_dump_events=config.num_samplesss)
     if 'sample' in config.tasks:
         nnet.sample(num_samples=config.num_samples, trained=True)
     if 'interpolate' in config.tasks:

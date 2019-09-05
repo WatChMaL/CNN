@@ -27,7 +27,7 @@ def AELoss(recon, data):
 
 # VAE generic loss function i.e. RECON Loss + KL Loss
 # Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss
-def VAELoss(recon, data, mu, log_var):
+def VAELoss(recon, data, mu, log_var, curr_iteration, num_iterations):
 
     # Divergence Loss for Gaussian posterior
     batch_kl_loss = -0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1)
@@ -36,7 +36,10 @@ def VAELoss(recon, data, mu, log_var):
     # Reconstruction Loss
     recon_loss = reconstruction_loss(recon, data) / data.size(0)
     
-    return recon_loss + kl_loss, recon_loss, kl_loss
+    # Beta for annealing the free energy
+    beta = curr_iteration / num_iterations
+    
+    return recon_loss + (beta*kl_loss), recon_loss, kl_loss
 
 
 # VAE+Classifier+Regressor loss function i.e. RECON Loss + KL Loss + CE Loss
@@ -87,7 +90,7 @@ def CLRGLoss(predicted_label, label, predicted_energy, energy):
 
 # NF generic loss function i.e. RECON Loss + KL Loss + LOGDET
 # Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss, LOGDET
-def NFLoss(recon, data, mu, log_var, log_det):
+def NFLoss(recon, data, mu, log_var, log_det, curr_iteration, num_iterations):
     """
         Compute the loss for the normalizing flows
         Input :
@@ -109,8 +112,10 @@ def NFLoss(recon, data, mu, log_var, log_det):
     batch_log_det_flow = sum(log_det, dim=0)
     log_det_flow = mean(batch_log_det_flow, dim=0)
     
-    a = recon_loss + kl_loss - log_det_flow
-    return recon_loss + kl_loss - log_det_flow, recon_loss, kl_loss, log_det_flow
+    # Beta for annealing the free energy
+    beta = curr_iteration / num_iterations
+    
+    return recon_loss + (beta*kl_loss) - log_det_flow, recon_loss, kl_loss, log_det_flow
 
 # NF+CL+RG loss i.e. RECON Loss + KL Loss + LOGDET + CE Loss + MSE Loss
 def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predicted_energy, energy):
