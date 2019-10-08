@@ -114,7 +114,7 @@ class EnfNet(nn.Module):
                 return self.decoder(z, None), self.classifier(z), self.regressor(z)
             elif self.variant is "NF":
                 z = self.vae_bottleneck(X, mode, device)
-                z_k, _ = self.nf_bottleneck(z, mode)
+                z_k, _ = self.nf_bottleneck(z, None, mode)
                 return self.decoder(z_k, None), self.classifier(z_k), self.regressor(z_k)
         
         # Decode the latent vector passed and generate a reconstruction
@@ -133,8 +133,7 @@ class EnfNet(nn.Module):
                 z, mu, logvar = self.bottleneck(z_prime, None, device)
             elif self.variant is "NF":
                 z, mu, logvar = self.vae_bottleneck(z_prime, None, device)
-                z_k, log_det = self.nf_bottleneck(z, None)
-                
+                z_k, log_det = self.nf_bottleneck(z, z_prime, None)
             if mode is "generate_latents":
                 if self.variant is "AE":
                     return z
@@ -192,7 +191,7 @@ class NFBottleneck(nn.Module):
             self.add_module('flow_' + str(k), flow_k)
             
     # Forward
-    def forward(self, X, mode=None, device=None):
+    def forward(self, X, h, mode=None, device=None):
         
         # Reshape the reparameterized latent vector X = z_0
         z = X.view(X.size(0), X.size(1), -1)
@@ -210,7 +209,7 @@ class NFBottleneck(nn.Module):
         for k in range(self.flow_depth):
             flow_k = getattr(self, 'flow_' + str(k))
             if self.flow_type is "planar":
-                z, log_det_jacobians[k] = flow_k(z)
+                z, log_det_jacobians[k] = flow_k(z, h)
             elif self.flow_type is "radial":
                 z, log_det_jacobians[k] = flow_k(z, z_0)
             

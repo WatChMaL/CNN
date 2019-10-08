@@ -13,8 +13,8 @@ class WCH5Dataset(Dataset):
     """
 
 
-    def __init__(self, path, cl_train_split, cl_val_split, vae_val_split, test_split, model_train_type,
-                 shuffle=True, transform=None, reduced_dataset_size=None, seed=42):
+    def __init__(self, path, val_split, test_split, shuffle=True, 
+                 transform=None, reduced_dataset_size=None, seed=42):
 
 
         f=h5py.File(path,'r')
@@ -71,38 +71,12 @@ class WCH5Dataset(Dataset):
             np.random.set_state(rstate)
 
         # Setup the indices to be used for different sections of the dataset
-        
-        if model_train_type is "train_all":
-            assert cl_train_split is None
-            assert cl_val_split is None
+        n_val = int(len(indices) * val_split)
+        n_test = int(len(indices) * test_split)
             
-            n_val = int(len(indices) * vae_val_split)
-            n_test = int(len(indices) * test_split)
-            
-            self.train_indices = indices[:-n_val-n_test]
-            self.val_indices = indices[-n_test-n_val:-n_test]
-            self.test_indices = indices[-n_test:]
-            
-        elif model_train_type in ["train_ae_or_vae_only", "train_bottleneck_only", "train_cl_or_rg_only", "train_nf_only"]:
-            assert cl_train_split is not None
-            assert cl_val_split is not None
-            assert test_split is not None
-            
-            n_cl_train = int(len(indices) * cl_train_split)
-            n_cl_val = int(len(indices) * cl_val_split)
-            n_vae_val = int(len(indices) * vae_val_split)
-            n_test = int(len(indices) * test_split)
-            
-            if model_train_type is "train_ae_or_vae_only" or model_train_type is "train_bottleneck_only":
-                self.train_indices = indices[:-n_vae_val-n_cl_train-n_cl_val-n_test]
-                self.val_indices = indices[-n_cl_train-n_cl_val-n_vae_val-n_test:-n_cl_train-n_cl_val-n_test]
-                self.test_indices = indices[-n_test:]
-            else:
-                self.train_indices = indices[-n_cl_train-n_cl_val-n_test:-n_cl_val-n_test]
-                self.val_indices = indices[-n_cl_val-n_test:-n_test]
-                self.test_indices = indices[-n_test:]
-        else:
-            raise ValueError
+        self.train_indices = indices[:-n_val-n_test]
+        self.val_indices = indices[-n_test-n_val:-n_test]
+        self.test_indices = indices[-n_test:]
                 
     def __getitem__(self,index):
         if self.transform is None:

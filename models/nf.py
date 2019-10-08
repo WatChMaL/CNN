@@ -34,36 +34,49 @@ class Planar(nn.Module):
         self.tanh = nn.Tanh()
         
         # Define the parameters of the flows
-        self.u = nn.Parameter(zeros((num_latent_dims, 1), device=device))
-        self.w = nn.Parameter(zeros((num_latent_dims, 1), device=device))
-        self.b = nn.Parameter(zeros((1), device=device))
-        
-        # Initialize the parameters of the flow using similar
-        # initialization to the linear layer
-        nn.init.kaiming_uniform_(self.u, a=math.sqrt(5))
-        nn.init.kaiming_uniform_(self.w, a=math.sqrt(5))
-        if self.b is not None:
-            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.w)
-            bound = 1 / math.sqrt(fan_in)
-            nn.init.uniform_(self.b, -bound, bound)
+        self.u_layer = nn.Linear(num_latent_dims, num_latent_dims)
+        self.w_layer = nn.Linear(num_latent_dims, num_latent_dims)
+        self.b_layer = nn.Linear(num_latent_dims, 1)
         
     # Derivative of the tanh activation function
     def tanh_prime(self, X):
         return 1 - self.tanh(X)**2
     
     # Forward pass
-    def forward(self, z):
-        # Enforce the constraint on u to make the flow invertible
-        wu = self.w.t().matmul(self.u)
+    def forward(self, z, z_prime):
+        
+        # Apply the amortization of the flow parameters as shown
+        # in arxiv.org/pdf/1803.05649
+        
+        # Compute the flow parameters
+        u = self.u_layer(z_prime)
+        w = self.w_layer(z_prime)
+        b = self.b_layer(z_prime)
+        
+        # Reshape the flow parameters for using torch matrix operations
+        u = u.view(u.size(0), u.size(1), 1)
+        w = w.view(w.size(0), w.size(1), 1)
+        b = b.view(b.size(0), b.size(1), 1)
+        
+        # Enforce the constraint on u to make the flow transformation invertible
+        wu = bmm(w.permute(0,2,1), u)
+        
         m_wu = -1 + self.softplus(-wu)
-        u_hat = self.u + (m_wu - wu) * (self.w / norm(self.w)**2)
+        
+        w_norm = norm(w, dim=1)**2
+        w_norm = w_norm.view(w_norm.size(0), 1, 1)
+        norm_w = w / w_norm
+        
+        u_diff = (m_wu - wu) * norm_w
+        u_hat = u + u_diff
         
         # Calculate the transformed latent vector z_l
-        z_l = z + u_hat*self.tanh(self.w.t().matmul(z) + self.b)
+        wzb = bmm(w.permute(0,2,1), z) + b
+        z_l = z + bmm(u_hat, wzb)
         
-        # Compute the log det jacobian term
-        psi_z = self.tanh_prime(self.w.t().matmul(z) + self.b) * self.w
-        log_det_jacobian = log(abs(1 + u_hat.t().matmul(psi_z)))
+        # Compute the log det jacobian term for the current flow
+        psi_z = bmm(w, self.tanh_prime(wzb))
+        log_det_jacobian = log(abs(1 + bmm(u_hat.permute(0,2,1), psi_z)))
         
         return z_l, log_det_jacobian.view(log_det_jacobian.size(0))
     
