@@ -48,14 +48,14 @@ def AELoss(recon, data):
 
 # VAE generic loss function i.e. RECON Loss + KL Loss
 # Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss
-def VAELoss(recon, data, mu, log_var, beta):
+def VAELoss(recon, data, mu, logvar, beta):
 
     # Divergence Loss for Gaussian posterior
-    batch_kl_loss = -0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1)
+    batch_kl_loss = -0.5 * sum(1 + logvar - mu.pow(2) - logvar.exp(), dim=1)
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = reconstruction_loss(recon, data) / recon.size(0)
     
     return recon_loss + (beta*kl_loss), recon_loss, kl_loss
 
@@ -247,7 +247,7 @@ def M2UnlabelledLoss(recon, data, mu, log_var, pi):
     weighted_loss = mean(bmm(softmax_pi, batch_elbo).view(-1))
     
     # Calculate the entropy of the variational distribution over the class variables, y
-    entropy_loss = mean(h_loss(softmax_pi.view(softmax_pi.size(0), softmax_pi.size(2))))
+    entropy_loss = mean(h_loss(pi))
     
     return weighted_loss + entropy_loss, mse, kl, entropy_loss
     

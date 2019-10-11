@@ -39,7 +39,7 @@ def add_attr(config, name, data_str, dtype, list_dtype=None):
         print('Load error encountered when parsing', data_str, 'as', dtype)
 
 # Loads configuration from a file in CONFIG_DIR
-def loadConfig(config, inFile, attr_dict):
+def load_config(config, inFile, attr_dict):
     if not inFile.endswith(CFG_EXT):
         inFile += CFG_EXT
     print('Requested load from:', inFile)
@@ -66,7 +66,7 @@ def loadConfig(config, inFile, attr_dict):
         print('No config files found, aborting.')
 
 # Saves config object to configuration file in CONFIG_DIR
-def saveConfig(config, outFile):
+def save_config(config, outFile):
     if not outFile.endswith(CFG_EXT):
         outFile += CFG_EXT
     print('Saving config file as', outFile)

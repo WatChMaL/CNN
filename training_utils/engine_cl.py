@@ -1,30 +1,46 @@
 """
-engine_vae.py
+engine_cl.py
 
-Derived engine class for training a unsupervised generative VAE
+Derived engine class for training a fully supervised classifier
 """
+
+# Python standard imports
+from sys import stdout
+from math import floor, ceil
+from time import strftime, localtime
+
+# Numerical imports
+from numpy import savez
+
+# PyTorch imports
+from torch import argmax
+from torch.nn import Softmax
+from torch.utils.data import DataLoader
+from torch.utils.data.sampler import SubsetRandomSampler
 
 # WatChMaL imports
 from training_utils.engine import Engine
-from training_utils.loss_funcs import VAELoss
+from training_utils.loss_funcs import CLLoss
+from plot_utils.notebook_utils import CSVData
 
 # Global variables
-_LOG_KEYS = ["loss", "recon_loss", "kl_loss"]
-_DUMP_KEYS = ["recon", "z", "mu", "logvar"]
+_SOFTMAX   = Softmax(dim=1)
+_LOG_KEYS  = ["loss", "accuracy"]
+_DUMP_KEYS = ["predicted_labels", "softmax"]
 
-class EngineVAE(Engine):
+class EngineCL(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
-        self.criterion = VAELoss
+        self.criterion = CLLoss
         
         # Split the dataset into labelled and unlabelled subsets
-        # Note : Only the unlabelled subset will be used for VAE training
+        # Note : Only the labelled subset will be used for classifier training
         n_cl_train = int(len(self.dset.train_indices) * config.cl_ratio)
         n_cl_val   = int(len(self.dset.val_indices) * config.cl_ratio)
         
-        self.train_indices = self.dset.train_indices[n_cl_train:]
-        self.val_indices   = self.dset.val_indices[n_cl_val:]
+        self.train_indices = self.dset.train_indices[:n_cl_train]
+        self.val_indices   = self.dset.val_indices[:n_cl_val]
         self.test_indices  = self.dset.test_indices
         
         # Initialize the torch dataloaders
@@ -40,58 +56,45 @@ class EngineVAE(Engine):
         self.labels         = None
         self.energies       = None
         
-        # Attributes to allow beta annealing of the ELBO Loss
-        self.iteration      = None
-        self.num_iteartions = None
-        
     def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
         
         Args:
         mode -- One of 'train', 'validation' to set the correct grad_mode
         """
-        
-        ret_dict = None
-        
-        if self.data is not None and len(self.data.size()) == 4 and mode in ["train", "validation"]:
+        if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.to(self.device)
             self.data = self.data.permute(0,3,1,2)
+            
+        if self.labels is not None:
+            self.labels = self.labels.to(self.device)
             
         # Set the correct grad_mode given the mode
         if mode == "train":
             grad_mode = True
             self.model.train()
-        elif mode in ["validation", "sample", "decode"]:
+        elif mode == "validation":
             grad_mode= False
             self.model.eval()
             
-        if mode in ["train", "validation"]:
-            recon, z, mu, logvar      = self.model(self.data, mode)
-            loss, recon_loss, kl_loss = self.criterion(recon, data, mu, logvar, self.iteration, self.num_iterations)
-            self.loss                 = loss
-            
-            ret_dict                  = {"loss"       : loss.cpu().detach().item(),
-                                         "recon_loss" : recon_loss.cpu().detach().item(),
-                                         "kl_loss"    : kl_loss.cpu().detach().item(),
-                                         "recon"      : recon.cpu().detach().numpy(),
-                                         "z"          : z.cpu().detach().numpy(),
-                                         "mu"         : mu.cpu().detach().numpy(),
-                                         "logvar"     : logvar.cpu().detach().numpy()}
-        elif mode == "sample":
-            recon, z = self.model(self.data, mode)
-            ret_dict = {"recon" : recon.cpu().detach().numpy(),
-                        "z"     : z.cpu().detach().numpy()}
-        elif mode == "decode":
-            recon    = self.model(self.data, mode)
-            ret_dict = {"recon" : recon.cpu().detach().numpy()}
+        predicted_labels = self.model(self.data)
+        loss             = self.criterion(predicted_labels, self.labels)
+        self.loss        = loss
+                
+        softmax          = _SOFTMAX(predicted_labels)
+        predicted_labels = argmax(predicted_labels, dim=-1)
+        accuracy         = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
         
-        if self.data is not None and len(self.data.size()) == 4 and mode in ["train", "validation"]:
+        if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.permute(0,2,3,1)
-            
-        return ret_dict
+                    
+        return {"loss"               : loss.cpu().detach().item(),
+                "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                "softmax"            : softmax.cpu().detach().numpy(),
+                "accuracy"           : accuracy}
     
     def train(self, epochs, report_interval, num_vals, num_val_batches):
-       """Overrides the train method in Engine.py.
+        """Overrides the train method in Engine.py.
         
         Args:
         epcohs          -- Number of epochs to train the model for
@@ -231,16 +234,84 @@ class EngineVAE(Engine):
             
         self.val_log.close()
         self.train_log.close()
-    
-    
         
-    
+    def validate(self, subset, num_dump_events):
+        """Overrides the validate method in Engine.py.
         
+        Args:
+        subset          -- One of 'train', 'validation', 'test' to select the subset to perform validation on
+        num_dump_events -- Number of (events, true labels, and predicted labels) to dump as a .npz file
+        """
+        # Print start message
+        if subset == "train":
+            message = "Validating model on the train set"
+        elif subset == "validation":
+            message = "Validating model on the validation set"
+        elif subset == "test":
+            message = "Validating model on the test set"
+        else:
+            print("validate() : arg subset has to be one of train, validation, test")
+            return None
         
+        print(message)
         
+        # Setup the CSV file for logging the output, path to save the actual and reconstructed events, dataloader iterator
+        if subset == "train":
+            self.log        = CSVData(self.dirpath+"train_validation_log.csv")
+            np_event_path   = self.dirpath + "/train_valid_iteration_"
+            data_iter       = self.train_loader
+            dump_iterations = max(1, ceil(num_dump_events/self.config.batch_size_train))
+        elif subset == "validation":
+            self.log        = CSVData(self.dirpath+"valid_validation_log.csv")
+            np_event_path   = self.dirpath + "/val_valid_iteration_"
+            data_iter       = self.val_loader
+            dump_iterations = max(1, ceil(num_dump_events/self.config.batch_size_val))
+        else:
+            self.log        = CSVData(self.dirpath+"test_validation_log.csv")
+            np_event_path   = self.dirpath + "/test_validation_iteration_"
+            data_iter       = self.test_loader
+            dump_iterations = max(1, ceil(num_dump_events/self.config.batch_size_test))
+            
+        print("Dump iterations = {0}".format(dump_iterations))
         
+        save_arr_dict = {"events":[], "labels":[], "energies":[]}
         
-        
-        
-    
-    
+        for iteration, data in enumerate(data_iter):
+            
+            stdout.write("Iteration : " + str(iteration) + "\n")
+
+            # Extract the event data from the input data tuple
+            self.data     = data[0][:,:,:,:19].float()
+            self.labels   = data[1].long()
+            self.energies = data[2].float()
+                    
+            res = self.forward(mode="validation")
+                 
+            keys   = ["iteration"]
+            values = [iteration]
+            for key in _LOG_KEYS:
+                if key in res.keys():
+                    keys.append(key)
+                    values.append(res[key])
+            
+            # Log/Report
+            self.log.record(keys, values)
+            self.log.write()
+            
+            # Add the result keys to the dump dict in the first iterations
+            if iteration == 0:
+                for key in _DUMP_KEYS:
+                    if key in res.keys():
+                        save_arr_dict[key] = []
+                        
+            if iteration < dump_iterations:
+                save_arr_dict["events"].append(self.data.cpu().numpy())
+                save_arr_dict["labels"].append(self.labels.cpu().numpy())
+                save_arr_dict["energies"].append(self.energies.cpu().numpy())
+                
+                for key in _DUMP_KEYS:
+                    if key in res.keys():
+                        save_arr_dict[key].append(res[key])
+            elif iteration == dump_iterations:
+                print("Saving the npz dump array :")
+                savez(np_event_path + "dump.npz", **save_arr_dict)

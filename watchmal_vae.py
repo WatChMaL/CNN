@@ -88,8 +88,7 @@ ARGS = [arghandler.Argument('model', list, '-mdl', list_dtype=str,
         arghandler.Argument('num_samples', int, '-nsm',
                             default=64, help='Number of samples to generate from the VAE. Only works is model.variant is VAE.')]
 
-ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
-                                            list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
+
 
 if __name__ == '__main__':
     
@@ -139,7 +138,7 @@ if __name__ == '__main__':
     model = constructor(**params)
     
     # Finally, construct the neural net
-    nnet = net.EngineVAE(model, config, model.variant, model.train_type)
+    nnet = net.EngineVAE(model, config)
 
     # Do some work...
     if config.restore_state != None:
