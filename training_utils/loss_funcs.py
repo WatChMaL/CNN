@@ -215,13 +215,13 @@ def M2LabelledLoss(recon, data, mu, log_var, pi, labels):
     # Compute the KL Loss averaged over the batch
     kl_loss = mean(-0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1))
     
-    # Compute the CE Loss average over the batch
-    ce_loss = cen_loss(softmax(pi), labels)
+    # Compute the CE Loss averaged over the batch
+    ce_loss = cen_loss(pi, labels)
     
     return mse_loss + kl_loss + ce_loss, mse_loss, kl_loss, ce_loss
 
 # M2 Unlabelled loss
-def M2UnlabelledLoss(recon, data, mu, log_var, pi):
+def M2UnlabelledLoss(recon, data, mu, log_var, pi, labels):
     # Make copies of the original data and reshape to the size of the recon data
     true_data = data.view(data.size(0), 1, data.size(1), data.size(2), data.size(3))
     true_data = true_data + zeros((data.size(0), pi.size(1), data.size(1), data.size(2), data.size(3)), device=true_data.device)
@@ -249,28 +249,7 @@ def M2UnlabelledLoss(recon, data, mu, log_var, pi):
     # Calculate the entropy of the variational distribution over the class variables, y
     entropy_loss = mean(h_loss(pi))
     
-    return weighted_loss + entropy_loss, mse, kl, entropy_loss
+    # Compute the CE Loss averaged over the batch
+    ce_loss = cen_loss(pi, labels)
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    return weighted_loss + entropy_loss, mse, kl, entropy_loss, ce_loss

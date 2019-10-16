@@ -22,7 +22,7 @@ class BaseModel(ABC):
         # BaseModel attributes
         self.arch_enc = _ARCH_DICT_ENC[arch_key]
         
-        if self.arch_enc == "edlenet":
+        if self.arch_enc == "elenet":
             assert arch_depth == 9
             self.encoder = getattr(edlenet, self.arch_enc + str(arch_depth))(num_input_channels=num_input_channels,
                                                                              num_latent_dims=num_latent_dims)

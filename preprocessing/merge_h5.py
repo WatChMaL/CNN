@@ -101,7 +101,7 @@ def merge_h5(config):
                                                + chunk_lengths[file_index-1]
 
             if data.dtype!=dtypes[key]:
-                raise(ValueError("dtype changed in file {} key {}".format(
+                raise(ValueError("d_type changed in file {} key {}".format(
                     file_name, key)))
 
             if data.shape[1:]!=shapes[key]:

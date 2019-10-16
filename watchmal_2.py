@@ -61,7 +61,7 @@ ARGS = [arghandler.Argument('model', list, list_dtype=str, flag='-m',
                             default=None, help='Specify name for destination config file. No action by default.')]
 
 ATTR_DICT = {arg.name : ioconfig.ConfigAttr(arg.name, arg.dtype,
-                                            list_dtype = arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in ARGS}
+                                            list_dtype = arg.list_dtype if hasattr(arg, 'list_d_type') else None) for arg in ARGS}
 
 if __name__ == '__main__':
     

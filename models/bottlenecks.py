@@ -59,7 +59,7 @@ class M2Bottleneck(Module):
         self.num_classes     = num_classes
 
         # Classifier layer for q_{phi}(y|x)
-        self.classifier = Classifier(num_latent_dims, num_classes)
+        self.classifier = LatentClassifier(num_latent_dims, num_classes)
         
         # Diagonal gaussian parameter layers : mu_{phi}(z|x,y), Sigma_{phi}(z|x)
         self.en_mu_1  = Linear(num_latent_dims+num_classes, num_latent_dims)

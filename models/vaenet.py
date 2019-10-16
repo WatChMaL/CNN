@@ -26,11 +26,11 @@ class VaeNet(Module, BaseModel):
         self.arch_dec = _ARCH_DICT_DEC[arch_key]
         self.bottleneck = VAEBottleneck(num_latent_dims)
         
-        if self.arch == "edlenet":
+        if self.arch_dec == "dlenet":
             assert arch_depth == 9
             self.decoder = getattr(edlenet, self.arch_dec + str(arch_depth))(num_input_channels=num_input_channels,
                                                                              num_latent_dims=num_latent_dims)
-        elif self.arch == "eresnet":
+        elif self.arch_dec == "dresnet":
             assert arch_depth in [18, 34, 50, 101, 152]
             self.decoder = getattr(edresnet, self.arch_dec + str(arch_depth))(num_input_channels=num_input_channels,
                                                                               num_latent_dims=num_latent_dims)
@@ -43,7 +43,7 @@ class VaeNet(Module, BaseModel):
         Args:
         X -- input minibatch tensor of size (mini_batch, *)
         """
-        if mode == None:
+        if mode in ["train","validation"]:
             z_prime = self.encoder(X)
             z, mu, logvar = self.bottleneck(z_prime, None)
             return self.decoder(z, None), z, mu, logvar

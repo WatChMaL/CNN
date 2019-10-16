@@ -25,14 +25,14 @@ class MtwoNet(Module, BaseModel):
         self.arch_dec = _ARCH_DICT_DEC[arch_key]
         self.bottleneck = M2Bottleneck(num_latent_dims, num_classes)
         
-        if self.arch == "edlenet":
+        if self.arch_dec == "dlenet":
             assert arch_depth == 9
             self.decoder = getattr(edlenet, self.arch_dec + str(arch_depth))(num_input_channels=num_input_channels,
                                                                              num_latent_dims=num_latent_dims + num_classes)
-        elif self.arch == "eresnet":
+        elif self.arch_dec == "dresnet":
             assert arch_depth in [18, 34, 50, 101, 152]
             self.decoder = getattr(edresnet, self.arch_dec + str(arch_depth))(num_input_channels=num_input_channels,
-                                                                              num_latent_dims=num_latent_dim + num_classes)
+                                                                              num_latent_dims=num_latent_dims + num_classes)
         else:
             raise NotImplementedError
         
@@ -42,6 +42,11 @@ class MtwoNet(Module, BaseModel):
         Args:
         X -- input minibatch tensor of size (mini_batch, *)
         """
-        z_prime = self.encoder(X)
-        z_y, z, mu, logvar, pi = self.bottleneck(z_prime, None, labels=labels)
-        return self.decoder(z_y, None), z, mu, logvar, z_prime, pi
+        if mode in ["train", "validation"]:
+            z_prime = self.encoder(X)
+            z_y, z, mu, logvar, pi = self.bottleneck(z_prime, None, labels=labels)
+            return self.decoder(z_y, None), z, mu, logvar, pi
+        elif mode == "sample":
+            raise NotImplementedError
+        elif mode == "decode":
+            return self.decoder(X, None)

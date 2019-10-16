@@ -15,6 +15,7 @@ from numpy import savez
 # PyTorch imports
 from torch import argmax
 from torch.nn import Softmax
+from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
@@ -34,6 +35,11 @@ class EngineCL(Engine):
         super().__init__(model, config)
         self.criterion = CLLoss
         
+        if config.train_all:
+            self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
+        else:
+            self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr)
+        
         # Split the dataset into labelled and unlabelled subsets
         # Note : Only the labelled subset will be used for classifier training
         n_cl_train = int(len(self.dset.train_indices) * config.cl_ratio)
@@ -52,9 +58,9 @@ class EngineCL(Engine):
                                        pin_memory=True, sampler=SubsetRandomSampler(self.test_indices))
         
         # Define the placeholder attributes
-        self.data           = None
-        self.labels         = None
-        self.energies       = None
+        self.data     = None
+        self.labels   = None
+        self.energies = None
         
     def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
@@ -102,11 +108,9 @@ class EngineCL(Engine):
         num_vals        -- Number of validations to perform throughout training
         num_val_batches -- Number of batches to use during each validation
         """
-        # Initialize the iterator over the validation subset
-        val_iter = iter(self.val_loader)
         
         # Set the iterations at which to dump the events and their metrics
-        dump_interations = self.dump_iterations(num_vals)
+        dump_iterations = self.set_dump_iterations(epochs, num_vals, self.train_loader)
         
         # Initialize epoch counter
         epoch = 0.
@@ -116,6 +120,9 @@ class EngineCL(Engine):
         
         # Parameter to upadte when saving the best model
         best_loss = 1000000.
+        
+        # Initialize the iterator over the validation subset
+        val_iter = iter(self.val_loader)
         
         # Global training loop for multiple epochs
         while (floor(epoch) < epochs):
@@ -160,10 +167,11 @@ class EngineCL(Engine):
                           (iteration, epoch, res["loss"], res["accuracy"]))
                     
                 # Run validation on given intervals
-                if iteration%valid_interval == 0:
+                if iteration%dump_iterations[0] == 0:
                     
                     curr_loss = 0.
                     val_batch = 0
+                    
                     keys = ['iteration','epoch']
                     values = [iteration, epoch]
                     
@@ -174,7 +182,8 @@ class EngineCL(Engine):
                         try:
                             val_data = next(val_iter)
                         except StopIteration:
-                            val_iter = iter(self.val_iter)
+                            val_iter = iter(self.val_loader)
+                            val_data = next(val_iter)
                         
                         # Extract the event data from the input data tuple
                         self.data     = val_data[0][:,:,:,:19].float()
@@ -208,7 +217,7 @@ class EngineCL(Engine):
 
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), val_data[1], val_data[2]]
+                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
                         for key in _DUMP_KEYS:
                             if key in res.keys():
                                 save_arr_keys.append(key)
@@ -230,7 +239,8 @@ class EngineCL(Engine):
                 if epoch >= epochs:
                     break
                     
-            print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f' % (iteration, epoch, res['loss']))
+            print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' %
+                  (iteration, epoch, res['loss'], res['accuracy']))
             
         self.val_log.close()
         self.train_log.close()
@@ -305,7 +315,6 @@ class EngineCL(Engine):
                         save_arr_dict[key] = []
                         
             if iteration < dump_iterations:
-                save_arr_dict["events"].append(self.data.cpu().numpy())
                 save_arr_dict["labels"].append(self.labels.cpu().numpy())
                 save_arr_dict["energies"].append(self.energies.cpu().numpy())
                 
@@ -315,3 +324,4 @@ class EngineCL(Engine):
             elif iteration == dump_iterations:
                 print("Saving the npz dump array :")
                 savez(np_event_path + "dump.npz", **save_arr_dict)
+                break

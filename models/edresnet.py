@@ -419,6 +419,8 @@ class DresNet(Module):
     def forward(self, X, unflat_size):
         if self.bool_deep:
             x = _RELU(self.fc2(X))
+        else:
+            x = X
             
         x = _RELU(self.fc1(x))
         

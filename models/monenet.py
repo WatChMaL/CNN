@@ -6,7 +6,7 @@ LatentClassiifer from bottlenecks.py
 """
 
 # WatChMaL imports
-from models.bottlenecks import VAEBottleneck, LatentClassifer
+from models.bottlenecks import VAEBottleneck, LatentClassifier
 from models.basemodel import BaseModel
 
 # PyTorch imports
@@ -22,6 +22,12 @@ class MoneNet(Module, BaseModel):
         self.bottleneck = VAEBottleneck(num_latent_dims)
         self.classifier = LatentClassifier(num_latent_dims, num_classes)
         
+        # Set require_grad = False for encoder and bottleneck parameters
+        for param in self.encoder.parameters():
+            param.requires_grad = False
+        for param in self.bottleneck.parameters():
+            param.requires_grad = False
+        
     def forward(self, X):
         """Overrides the generic forward() method in torch.nn.Module
         
@@ -30,4 +36,4 @@ class MoneNet(Module, BaseModel):
         """
         z_prime = self.encoder(X)
         z, mu, logvar = self.bottleneck(z_prime, None)
-        return self.classifier(z), z, mu, logvar
+        return self.classifier(z)
