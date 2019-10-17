@@ -38,21 +38,21 @@ if __name__ == '__main__':
         
     # Do the user-specified engine tasks
     if 'train' in config.tasks:
-        engine.train(config.epochs, config.report_interval, config.num_vals, config.num_val_batches)
+        engine.train()
         
     if 'valid' in config.tasks:
         if engine.best_savepath is not None:
             print("Loading the best state from the training :")
             engine.load_state(engine.best_savepath)
             
-        engine.validate("validation", config.num_dump_events)
+        engine.validate("validation")
         
     if 'test' in config.tasks:
         if engine.best_savepath is not None:
             print("Loading the best state from the training :")
             engine.load_state(engine.best_savepath)
             
-        engine.validate("test", config.num_dump_events)
+        engine.validate("test")
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))

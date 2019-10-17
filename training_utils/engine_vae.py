@@ -120,21 +120,22 @@ class EngineVAE(Engine):
 
         return ret_dict
 
-    def train(self, epochs, report_interval, num_vals, num_val_batches):
+    def train(self):
         """Overrides the train method in Engine.py.
         
-        Args:
-        epcohs          -- Number of epochs to train the model for
-        report_interval -- Interval at which to report the training metrics to the user
-        num_vals        -- Number of validations to perform throughout training
-        num_val_batches -- Number of batches to use during each validation
+        Args: None
         """
-
+        
+        epochs          = self.config.epochs
+        report_interval = self.config.report_interval
+        num_vals        = self.config.num_vals
+        num_val_batches = self.config.num_val_batches
+        
         # Calculate the total number of iterations in this training session
         self.num_iterations=ceil(epochs * len(self.train_loader))
 
         # Set the iterations at which to dump the events and their metrics
-        dump_iterations=self.set_dump_iterations(epochs, num_vals, self.train_loader)
+        dump_iterations=self.set_dump_iterations(self.train_loader)
 
         # Initialize epoch counter
         epoch=0.
@@ -271,12 +272,11 @@ class EngineVAE(Engine):
         self.val_log.close()
         self.train_log.close()
 
-    def validate(self, subset, num_dump_events):
+    def validate(self, subset):
         """Overrides the validate method in Engine.py.
         
         Args:
         subset          -- One of 'train', 'validation', 'test' to select the subset to perform validation on
-        num_dump_events -- Number of (events, true labels, and predicted labels) to dump as a .npz file
         """
         # Print start message
         if subset == "train":
@@ -290,6 +290,8 @@ class EngineVAE(Engine):
             return None
 
         print(message)
+        
+        num_dump_events = self.config.num_dump_events
 
         # Setup the CSV file for logging the output, path to save the actual and reconstructed events, dataloader iterator
         if subset == "train":
@@ -312,7 +314,7 @@ class EngineVAE(Engine):
 
         save_arr_dict={"events": [], "labels": [], "energies": []}
 
-        for iteration, data in enumerate(data_iter):
+        for data in data_iter:
 
             stdout.write("Iteration : " + str(iteration) + "\n")
 

@@ -18,6 +18,7 @@ from torch.nn import Softmax
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
+from torchviz import make_dot
 
 # WatChMaL imports
 from training_utils.engine import Engine
@@ -88,29 +89,30 @@ class EngineCL(Engine):
         self.loss        = loss
                 
         softmax          = _SOFTMAX(predicted_labels)
-        predicted_labels = argmax(predicted_labels, dim=-1)
-        accuracy         = (predicted_labels == self.labels).sum().item() / float(predicted_labels.nelement())
+        pred_labels      = argmax(predicted_labels, dim=-1)
+        accuracy         = (pred_labels == self.labels).sum().item() / float(pred_labels.nelement())
         
         if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.permute(0,2,3,1)
                     
         return {"loss"               : loss.cpu().detach().item(),
-                "predicted_labels"   : predicted_labels.cpu().detach().numpy(),
+                "predicted_labels"   : pred_labels.cpu().detach().numpy(),
                 "softmax"            : softmax.cpu().detach().numpy(),
-                "accuracy"           : accuracy}
+                "accuracy"           : accuracy,
+                "raw_pred_labels"    : predicted_labels}
     
-    def train(self, epochs, report_interval, num_vals, num_val_batches):
+    def train(self):
         """Overrides the train method in Engine.py.
         
-        Args:
-        epcohs          -- Number of epochs to train the model for
-        report_interval -- Interval at which to report the training metrics to the user
-        num_vals        -- Number of validations to perform throughout training
-        num_val_batches -- Number of batches to use during each validation
+        Args: None
         """
+        epochs          = self.config.epochs
+        report_interval = self.config.report_interval
+        num_vals        = self.config.num_vals
+        num_val_batches = self.config.num_val_batches
         
         # Set the iterations at which to dump the events and their metrics
-        dump_iterations = self.set_dump_iterations(epochs, num_vals, self.train_loader)
+        dump_iterations = self.set_dump_iterations(self.train_loader)
         
         # Initialize epoch counter
         epoch = 0.
@@ -131,7 +133,7 @@ class EngineCL(Engine):
                   'Starting @', strftime("%Y-%m-%d %H:%M:%S", localtime()))
         
             # Local training loop for a single epoch
-            for i, data in enumerate(self.train_loader):
+            for data in self.train_loader:
                 
                 # Using only the charge data [:19]
                 self.data     = data[0][:,:,:,:19].float()
@@ -162,9 +164,15 @@ class EngineCL(Engine):
                 self.train_log.write()
                 
                 # Print the metrics at given intervals
-                if i == 0 or (i+1)%report_interval == 0:
+                if iteration == 0 or (iteration+1)%report_interval == 0:
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
+                    
+                # Save the model computation graph to a file
+                if iteration == 1:
+                    graph = make_dot(res["raw_pred_labels"], params=dict(list(self.model_accs.named_parameters())))
+                    graph.render(self.dirpath + "/model", view=False)
+                    break
                     
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
@@ -239,18 +247,17 @@ class EngineCL(Engine):
                 if epoch >= epochs:
                     break
                     
-            print('... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f' %
+            print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                   (iteration, epoch, res['loss'], res['accuracy']))
             
         self.val_log.close()
         self.train_log.close()
         
-    def validate(self, subset, num_dump_events):
+    def validate(self, subset):
         """Overrides the validate method in Engine.py.
         
         Args:
         subset          -- One of 'train', 'validation', 'test' to select the subset to perform validation on
-        num_dump_events -- Number of (events, true labels, and predicted labels) to dump as a .npz file
         """
         # Print start message
         if subset == "train":
@@ -264,6 +271,8 @@ class EngineCL(Engine):
             return None
         
         print(message)
+        
+        num_dump_events = self.config.num_dump_events
         
         # Setup the CSV file for logging the output, path to save the actual and reconstructed events, dataloader iterator
         if subset == "train":

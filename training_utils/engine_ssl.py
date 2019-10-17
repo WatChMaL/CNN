@@ -164,20 +164,21 @@ class EngineSSL(Engine):
         return ret_dict
     
 
-    def train(self, epochs, report_interval, num_vals, num_val_batches):
+    def train(self):
         """Overrides the train method in Engine.py.
         
-        Args:
-        epcohs          -- Number of epochs to train the model for
-        report_interval -- Interval at which to report the training metrics to the user
-        num_vals        -- Number of validations to perform throughout training
-        num_val_batches -- Number of batches to use during each validation
+        Args: None
         """
+        epochs          = self.config.epochs
+        report_interval = self.config.report_interval
+        num_vals        = self.config.num_vals
+        num_val_batches = self.config.num_val_batches
+        
         # Calculate the total number of iterations in this training session
         self.num_iterations=ceil(epochs * len(self.u_train_loader))
 
         # Set the iterations at which to dump the events and their metrics
-        dump_iterations=self.set_dump_iterations(epochs, num_vals, self.u_train_loader)
+        dump_iterations=self.set_dump_iterations(self.u_train_loader)
         
         # Initialize the training labelled data iterator
         l_train_iter = iter(self.l_train_loader)
@@ -347,12 +348,11 @@ class EngineSSL(Engine):
         self.val_log.close()
         self.train_log.close()
         
-    def validate(self, subset, num_dump_events):
+    def validate(self, subset):
         """Overrides the validate method in Engine.py.
         
         Args:
         subset          -- One of 'train', 'validation', 'test' to select the subset to perform validation on
-        num_dump_events -- Number of (events, true labels, and predicted labels) to dump as a .npz file
         """
         # Print start message
         if subset == "train":
@@ -388,6 +388,141 @@ class EngineSSL(Engine):
         
         save_arr_dict={"events": [], "labels": [], "energies": []}
         
+        # Local training loop for a single epoch
+        for iteration, data in enumerate(data):
+            # Using only the charge data [:19]
+            self.u_data     = data[0][:,:,:,:19].float()
+            self.u_labels   = data[1].long()
+            self.u_energies = data[2]
+                
+            # Read the data and labels from the labelled dataset
+            try: l_data = next(l_val_iter)
+            except StopIteration:
+                l_val_iter = iter(self.l_val_loader)
+                l_data = next(l_val_iter)
+                    
+            self.l_data     = l_data[0][:,:,:,:19].float()
+            self.l_labels   = l_data[1].long()
+            self.l_energies = l_data[2]
+                
+            # Update the iteration counter
+            self.iteration = iteration
+                
+            # Call forward: pass the data to the model and compute predictions and loss
+            res = self.forward(mode="validation")
+                
+                # Call backward: backpropagate error and update weights
+                self.backward()
+                
+                # Epoch update
+                epoch += 1./len(self.u_train_loader)
+                iteration += 1
+                
+                # Iterate over the _LOG_KEYS and add the vakues to a list
+                keys = ['iteration','epoch']
+                values = [iteration, epoch]
+                
+                for key in _LOG_KEYS:
+                    if key in res.keys():
+                        keys.append(key)
+                        values.append(res[key])
+                        
+                # Record the metrics for the mini-batch in the log
+                self.train_log.record(keys, values)
+                self.train_log.write()
+                
+                # Print the metrics at given intervals
+                if iteration == 0 or (iteration)%report_interval == 0:
+                    print("""... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Recon Loss %1.3f ... KL Loss %1.3f ... CE Loss %1.3f ...  Accuracy %1.3f """ % (iteration, epoch, res["loss"], res["recon_loss"], res["kl_loss"], res["ce_loss"], res["accuracy"]))
+                    
+                # Run validation on user-defined intervals
+                if iteration % dump_iterations[0] == 0:
+                    
+                    curr_loss=0.
+                    val_batch=0
+                    
+                    keys=['iteration', 'epoch']
+                    values=[iteration, epoch]
+                    
+                    local_values=[]
+                    
+                    for val_batch in range(num_val_batches):
+                        
+                        # Iterate over the unlabelled validation 
+                        # dataset and collect the next mini-batch
+                        try:
+                            u_val_data = next(u_val_iter)
+                        except StopIteration:
+                            u_val_iter = iter(self.u_val_loader)
+                            u_val_data = next(u_val_iter)
+                         
+                        # Iterate over the labelled validation
+                        # dataset and collect the next sample
+                        try:
+                            l_val_data = next(l_val_iter)
+                        except StopIteration:
+                            l_val_iter = iter(self.l_val_loader)
+                            l_val_data = next(l_val_iter)
+                            
+                        self.u_data     = u_val_data[0][:,:,:,:19].float()
+                        self.u_labels   = u_val_data[1].long()
+                        self.u_energies = u_val_data[2]
+                        
+                        self.l_data     = l_val_data[0][:,:,:,:19].float()
+                        self.l_labels   = l_val_data[1].long()
+                        self.l_energies = l_val_data[2]
+                        
+                        res = self.forward(mode="validation")
+                        
+                        if val_batch == 0:
+                            for key in _LOG_KEYS:
+                                if key in res.keys():
+                                    keys.append(key)
+                                    local_values.append(res[key])
+                        else:
+                            log_index=0
+                            for key in _LOG_KEYS:
+                                if key in res.keys():
+                                    local_values[log_index]+=res[key]
+                                    log_index+=1
+
+                        curr_loss+=res["loss"]
+                        
+                    for local_value in local_values:
+                        values.append(local_value/num_val_batches)
+                            
+                    # Record the validation stats to the csv
+                    self.val_log.record(keys, values)
+                        
+                    # Average the loss over the validation batch
+                    curr_loss=curr_loss/num_val_batches
+
+                    if iteration in dump_iterations:
+                        save_arr_keys=["events", "labels", "energies"]
+                        
+                        data     = cat((self.u_data, self.l_data), dim=0)
+                        labels   = cat((self.u_labels, self.l_labels), dim=0)
+                        energies = cat((self.u_energies, self.l_energies), dim=0)
+                        
+                        save_arr_values=[data.cpu().numpy(), labels.cpu().numpy(), energies.cpu().numpy()]
+                        for key in _DUMP_KEYS:
+                            if key in res.keys():
+                                save_arr_keys.append(key)
+                                save_arr_values.append(res[key])
+
+                        # Save the actual and reconstructed event to the disk
+                        savez(self.dirpath + "/iteration_" + str(iteration) + ".npz",
+                              **{key: value for key, value in zip(save_arr_keys, save_arr_values)})
+
+                    # Save the best model
+                    if curr_loss < best_loss:
+                        self.save_state(mode="best")
+
+                    # Save the latest model
+                    self.save_state(mode="latest")
+
+                    self.val_log.write()
+        
         return None
     
     def sample(self):
@@ -395,12 +530,3 @@ class EngineSSL(Engine):
 
     def interpolate(self):
         raise NotImpelementedError
-        
-        
-        
-    
-                        
-                        
-                
-                
-                

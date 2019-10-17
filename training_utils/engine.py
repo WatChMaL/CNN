@@ -101,7 +101,7 @@ class Engine(ABC):
         self.optimizer.step()  # Update the optimizer parameters
 
     @abstractmethod
-    def train(self, epochs, report_interval, num_vals, num_val_batches):
+    def train(self):
         """Training loop over the entire dataset for a given number of epochs."""
         raise NotImplementedError
 
@@ -139,7 +139,7 @@ class Engine(ABC):
         with open(path, 'rb') as f:
 
             # Interpret the file using torch.load()
-            checkpoint=load(f)
+            checkpoint=load(f, map_location=self.device)
 
             print("Loading weights from file : {0}".format(path))
 
@@ -148,19 +148,20 @@ class Engine(ABC):
                 if module in local_module_keys:
                     getattr(self.model_accs, module).load_state_dict(checkpoint[module])
 
-    def set_dump_iterations(self, epochs, num_vals, train_loader):
+    def set_dump_iterations(self, train_loader):
         """Determine the intervals during training at which to dump the events and metrics.
         
         Args:
-        num_vals       -- Total number of validations performed throughout training
+        train_loader       -- Total number of validations performed throughout training
         """
 
         # Determine the validation interval to use depending on the 
         # total number of iterations in the current session
-        valid_interval=max(1, floor(ceil(epochs * len(train_loader)) / num_vals))
+        valid_interval=max(1, floor(ceil(self.config.epochs * len(train_loader)) / self.config.num_vals))
 
         # Save the dump at the earliest validation, middle of the training
         # and last validation near the end of training
-        dump_iterations=[valid_interval, valid_interval * floor(num_vals / 2), valid_interval * num_vals]
+        dump_iterations=[valid_interval, valid_interval*floor(self.config.num_vals/2),
+                         valid_interval*self.config.num_vals]
 
         return dump_iterations

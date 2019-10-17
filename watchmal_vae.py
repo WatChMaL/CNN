@@ -39,19 +39,19 @@ if __name__ == '__main__':
         
     # Do the user-specified engine tasks
     if 'train' in config.tasks:
-        engine.train(config.epochs, config.report_interval, config.num_vals, config.num_val_batches)
+        engine.train()
         
     if 'valid' in config.tasks:
-        engine.validate("validation", config.num_dump_events)
+        engine.validate("validation")
         
     if 'test' in config.tasks:
-        engine.validate("test", config.num_dump_events)
+        engine.validate("test")
         
     if 'sample' in config.tasks:
         engine.sample(config.num_dump_events)
         
     if 'interpolate' in config.tasks:
-        engine.interpolate(**to_kwargs(config.itp_params))
+        engine.interpolate()
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))

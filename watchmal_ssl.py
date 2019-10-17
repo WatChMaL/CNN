@@ -1,7 +1,7 @@
 """
 watchmal_ssl.py
 
-Main script to execute the training and evaluation of a fully supervised classifier
+Main script to execute the training and evaluation of a semi-supervised classifier
 """
 
 # Standard python imports
@@ -13,7 +13,7 @@ from training_utils.engine_ssl import EngineSSL
 from io_utils.ioconfig import to_kwargs
 
 # Global variables
-_VAE_TASKS = ['train', 'valid', 'test', 'interpolate', 'sample']
+_SSL_TASKS = ['train', 'valid', 'test', 'interpolate', 'sample']
 
 if __name__ == '__main__':
     
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     
     # Check the validity of tasks to perform
     for task in config.tasks:
-        assert task in _VAE_TASKS
+        assert task in _SSL_TASKS
         
     # Construct the model
     model = handle_model(config.model, config.model_params)
@@ -39,19 +39,19 @@ if __name__ == '__main__':
         
     # Do the user-specified engine tasks
     if 'train' in config.tasks:
-        engine.train(config.epochs, config.report_interval, config.num_vals, config.num_val_batches)
+        engine.train()
         
     if 'valid' in config.tasks:
-        engine.validate("validation", config.num_dump_events)
+        engine.validate("validation")
         
     if 'test' in config.tasks:
-        engine.validate("test", config.num_dump_events)
+        engine.validate("test")
         
     if 'sample' in config.tasks:
-        engine.sample(config.num_dump_events)
+        engine.sample()
         
     if 'interpolate' in config.tasks:
-        engine.interpolate(**to_kwargs(config.itp_params))
+        engine.interpolate()
         
     # Print script execution time
     print("Time taken to execute the script : {0}".format(datetime.now() - start_time))
