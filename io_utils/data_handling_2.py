@@ -13,7 +13,7 @@ class WCH5Dataset(Dataset):
     """
 
 
-    def __init__(self, path, val_split, test_split, shuffle=True, 
+    def __init__(self, path, val_split, test_split, shuffle=1, 
                  transform=None, reduced_dataset_size=None, seed=42):
 
 

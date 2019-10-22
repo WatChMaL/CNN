@@ -146,6 +146,7 @@ class Engine(ABC):
             local_module_keys=list(self.model_accs._modules.keys())
             for module in checkpoint.keys():
                 if module in local_module_keys:
+                    print("Loading weights for module = ", module)
                     getattr(self.model_accs, module).load_state_dict(checkpoint[module])
 
     def set_dump_iterations(self, train_loader):

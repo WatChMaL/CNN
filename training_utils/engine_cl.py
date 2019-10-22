@@ -22,7 +22,7 @@ from torchviz import make_dot
 
 # WatChMaL imports
 from training_utils.engine import Engine
-from training_utils.loss_funcs import CLLoss
+from training_utils.loss_funcs import CELoss
 from plot_utils.notebook_utils import CSVData
 
 # Global variables
@@ -34,7 +34,7 @@ class EngineCL(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
-        self.criterion = CLLoss
+        self.criterion = CELoss
         
         if config.train_all:
             self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
@@ -169,10 +169,10 @@ class EngineCL(Engine):
                           (iteration, epoch, res["loss"], res["accuracy"]))
                     
                 # Save the model computation graph to a file
-                if iteration == 1:
+                """if iteration == 1:
                     graph = make_dot(res["raw_pred_labels"], params=dict(list(self.model_accs.named_parameters())))
                     graph.render(self.dirpath + "/model", view=False)
-                    break
+                    break"""
                     
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
@@ -222,6 +222,11 @@ class EngineCL(Engine):
                     
                     # Average the loss over the validation batch
                     curr_loss = curr_loss / num_val_batches
+                    
+                    # Save the best model
+                    if curr_loss < best_loss:
+                        self.save_state(mode="best")
+                        curr_loss = best_loss
 
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
@@ -234,16 +239,12 @@ class EngineCL(Engine):
                         # Save the actual and reconstructed event to the disk
                         savez(self.dirpath + "/iteration_" + str(iteration) + ".npz",
                               **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
-
-                    # Save the best model
-                    if curr_loss < best_loss:
-                        self.save_state(mode="best")
+                        
+                    self.val_log.write()
                     
                     # Save the latest model
                     self.save_state(mode="latest")
-
-                    self.val_log.write()
-                    
+   
                 if epoch >= epochs:
                     break
                     

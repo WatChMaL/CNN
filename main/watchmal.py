@@ -25,7 +25,7 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
        Argument('path', str, '-pth', default=None, help='Absolute path for the training dataset. Default=None.'),
        Argument('subset', int, '-sbt', default=None,
                 help='Number of samples to use from the entire dataset. Default=None.'),
-       Argument('shuffle', bool, '-shf', default=True,
+       Argument('shuffle', int, '-shf', default=1,
                 help='Specify whether or not to shuffle the dataset. Default=True.'),
        Argument('cl_ratio', float, '-clr', default=0.1,
                 help='Fraction of dataset to be used for classifier training and validation. Default=0.1.'),
@@ -54,7 +54,7 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
        Argument('num_dump_events', int, '-nde', default=128,
                 help='Number of events and their results to dump to a .npz file'),
        Argument('lr', float, '-lr', default=0.0001, help='Initial learning rate to use for the optimizer.'),
-       Argument('train_all', bool, '-tal', default=True, help='Used for modular and pre-trained models.')]
+       Argument('train_all', int, '-tal', default=0, help='Used for modular and pre-trained models.')]
 
 _ATTR_DICT={arg.name: ConfigAttr(arg.name, arg.dtype, list_dtype=arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in _ARGS}
 

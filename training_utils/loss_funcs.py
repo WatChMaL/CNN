@@ -32,45 +32,51 @@ class HLoss(nn.Module):
         return b
 
 # Global variables
-reconstruction_loss = nn.MSELoss(reduction="sum")
-reconstruction_loss_val = nn.MSELoss(reduction="none")
-cen_loss = nn.CrossEntropyLoss()
-h_loss = HLoss()
+_RECON_LOSS     = nn.MSELoss(reduction="sum")
+_RECON_LOSS_VAL = nn.MSELoss(reduction="none")
+_CE_LOSS        = nn.CrossEntropyLoss()
+_H_LOSS         = HLoss()
 
-# AE generic loss function i.e. RECON Loss
-# Returns : RECON (reconstruction) loss
 def AELoss(recon, data):
-
-    # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    """Return a reconstruction loss b/w the input and the output
     
-    return recon_loss
+    Args:
+    recon -- n-dimensional tensor with dims = (mini_batch_size, *)
+    data  -- n-dimensional tensor with same dimensionality as recon
+    """
+    return _RECON_LOSS(recon, data) / data.size(0)
 
-# VAE generic loss function i.e. RECON Loss + KL Loss
-# Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss
 def VAELoss(recon, data, mu, logvar, beta):
-
-    # Divergence Loss for Gaussian posterior
+    """Return the ELBO loss for the VAE
+    
+    Args:
+    recon  -- n-dimensional tensor with dims = (mini_batch_size, *)
+    data   -- n-dimensional tensor with same dimensionality as recon
+    mu     -- 2-dimensional tensor with dims = (mini_batch_size, latent_dims),
+              corresponds to the mean of each component of the latent vector
+              for each sample in the mini-batch
+    logvar -- 2-dimensional tensor with dims = (mini_batch_size, latent_dims),
+              corresponds to the log variance of each component of the latent
+              vector for each sample in the mini-batch
+    beta   -- scalar value to weight the KL term in the loss relative to the
+              autoencoding term (reconstruction loss)
+    """
     batch_kl_loss = -0.5 * sum(1 + logvar - mu.pow(2) - logvar.exp(), dim=1)
     kl_loss = mean(batch_kl_loss, dim=0)
     
-    # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / recon.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / recon.size(0)
     
     return recon_loss + (beta*kl_loss), recon_loss, kl_loss
 
-# Classifier loss function i.e. CE loss
-# Returns : CE (cross-entropy) loss
-def CLLoss(predicted_label, label):
+def CELoss(predictions, labels):
+    """Return the cross-entropy loss.
     
-    # Cross entropy loss
-    ce_loss = cen_loss(predicted_label, label)
-    
-    return ce_loss
+    Args:
+    predictions -- raw, unnormalized output from the classifier
+    labels      -- integer labels for each events in the mini-batch
+    """
+    return _CE_LOSS(prediction, labels)
 
-
-# VAE+Classifier+Regressor loss function i.e. RECON Loss + KL Loss + CE Loss
-# Returns : Tuple of total loss, RECON (reconstruction) loss, KL (divergence) loss, CE (cross-entropy) loss, MSE (mean-squared) loss
 def VAECLRGLoss(recon, data, mu, log_var, predicted_label, label, predicted_energy, energy):
     
     # Divergence Loss for Gaussian posterior
@@ -78,13 +84,13 @@ def VAECLRGLoss(recon, data, mu, log_var, predicted_label, label, predicted_ener
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
     # Cross entropy loss
-    ce_loss = cen_loss(predicted_label, label)
+    ce_loss = _CE_LOSS(predicted_label, label)
     
     # Mean squared error loss
-    mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
+    mse_loss = _RECON_LOSS(predicted_energy, energy) / data.size(0)
     
     return recon_loss + kl_loss + ce_loss + mse_loss, recon_loss, kl_loss, ce_loss, mse_loss
 
@@ -93,13 +99,13 @@ def VAECLRGLoss(recon, data, mu, log_var, predicted_label, label, predicted_ener
 def AECLRGLoss(recon, data, predicted_label, label, predicted_energy, energy):
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
     # Cross entropy loss
-    ce_loss = cen_loss(predicted_label, label)
+    ce_loss = _CE_LOSS(predicted_label, label)
     
     # Mean squared error loss
-    mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
+    mse_loss = _RECON_LOSS(predicted_energy, energy) / data.size(0)
     
     return recon_loss + ce_loss + mse_loss, recon_loss, ce_loss, mse_loss
 
@@ -108,10 +114,10 @@ def AECLRGLoss(recon, data, predicted_label, label, predicted_energy, energy):
 def CLRGLoss(predicted_label, label, predicted_energy, energy):
     
     # Cross entropy loss
-    ce_loss = cen_loss(predicted_label, label)
+    ce_loss = _CE_LOSS(predicted_label, label)
 
     # Mean squared error loss
-    mse_loss = reconstruction_loss(predicted_energy, energy) / energy.size(0)
+    mse_loss = _RECON_LOSS(predicted_energy, energy) / energy.size(0)
     
     return ce_loss + mse_loss, ce_loss, mse_loss
 
@@ -133,7 +139,7 @@ def NFLoss(recon, data, mu, log_var, log_det, beta):
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
     # Logdet
     batch_log_det_flow = sum(log_det, dim=0)
@@ -149,17 +155,17 @@ def NFCLRGLoss(recon, data, mu, log_var, log_det, predicted_label, label, predic
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
     # Logdet
     batch_log_det_flow = sum(log_det, dim=0)
     log_det_flow = mean(batch_log_det_flow, dim=0)
     
     # Cross entropy loss
-    ce_loss = cen_loss(predicted_label, label)
+    ce_loss = _CE_LOSS(predicted_label, label)
     
     # Mean squared error loss
-    mse_loss = reconstruction_loss(predicted_energy, energy) / data.size(0)
+    mse_loss = _RECON_LOSS(predicted_energy, energy) / data.size(0)
     
     return recon_loss + kl_loss - log_det_flow + ce_loss + mse_loss, recon_loss, kl_loss, log_det_flow, ce_loss, mse_loss
 
@@ -171,9 +177,9 @@ def VAEVALLoss(recon, data, mu, log_var):
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
-    recon_loss_val = reconstruction_loss_val(recon, data)
+    recon_loss_val = _RECON_LOSS_VAL(recon, data)
     recon_loss_val = sum(recon_loss_val.view(recon_loss_val.size(0), -1),dim=1)
     
     return recon_loss + kl_loss, recon_loss, kl_loss, recon_loss_val, batch_kl_loss
@@ -195,9 +201,9 @@ def NFVALLoss(recon, data, mu, log_var, log_det):
     kl_loss = mean(batch_kl_loss, dim=0)
     
     # Reconstruction Loss
-    recon_loss = reconstruction_loss(recon, data) / data.size(0)
+    recon_loss = _RECON_LOSS(recon, data) / data.size(0)
     
-    recon_loss_val = reconstruction_loss_val(recon, data)
+    recon_loss_val = _RECON_LOSS(recon, data)
     recon_loss_val = sum(recon_loss_val.view(recon_loss_val.size(0), -1), dim=1)
     
     # Logdet
@@ -210,13 +216,13 @@ def NFVALLoss(recon, data, mu, log_var, log_det):
 # M2 labelled loss
 def M2LabelledLoss(recon, data, mu, log_var, pi, labels):
     # Compute the MSE Loss averaged over the batch
-    mse_loss = mean(sum(reconstruction_loss_val(recon, data).view(data.size(0), -1), dim=1))
+    mse_loss = mean(sum(_RECON_LOSS_VAL(recon, data).view(data.size(0), -1), dim=1))
     
     # Compute the KL Loss averaged over the batch
     kl_loss = mean(-0.5 * sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1))
     
     # Compute the CE Loss averaged over the batch
-    ce_loss = cen_loss(pi, labels)
+    ce_loss = _CE_LOSS(pi, labels)
     
     return mse_loss + kl_loss + ce_loss, mse_loss, kl_loss, ce_loss
 
@@ -229,7 +235,7 @@ def M2UnlabelledLoss(recon, data, mu, log_var, pi, labels):
     true_data = true_data.view(data.size(0)*pi.size(1), data.size(1), data.size(2), data.size(3))
     
     # Compute the per sample and per class MSE loss
-    batch_sample_mse = reconstruction_loss_val(recon, true_data).view(data.size(0)*pi.size(1), -1)
+    batch_sample_mse = _RECON_LOSS_VAL(recon, true_data).view(data.size(0)*pi.size(1), -1)
     batch_mse = sum(batch_sample_mse, dim=1).view(data.size(0), pi.size(1), 1)
     mse = mean(mean(batch_mse, dim=1))
     
@@ -250,6 +256,6 @@ def M2UnlabelledLoss(recon, data, mu, log_var, pi, labels):
     entropy_loss = mean(h_loss(pi))
     
     # Compute the CE Loss averaged over the batch
-    ce_loss = cen_loss(pi, labels)
+    ce_loss = _CE_LOSS(pi, labels)
     
     return weighted_loss + entropy_loss, mse, kl, entropy_loss, ce_loss
