@@ -258,6 +258,7 @@ class EngineVAE(Engine):
                     # Save the best model
                     if curr_loss < best_loss:
                         self.save_state(mode="best")
+                        curr_loss = best_loss
 
                     # Save the latest model
                     self.save_state(mode="latest")

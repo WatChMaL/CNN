@@ -97,8 +97,8 @@ class Engine(ABC):
     def backward(self):
         """Backward pass using the loss computed for a mini-batch."""
         self.optimizer.zero_grad()  # Reset gradient accumulation
-        self.loss.backward()  # Propagate the loss backwards
-        self.optimizer.step()  # Update the optimizer parameters
+        self.loss.backward()        # Propagate the loss backwards
+        self.optimizer.step()       # Update the optimizer parameters
 
     @abstractmethod
     def train(self):
@@ -113,7 +113,7 @@ class Engine(ABC):
                 the latest model from the model with the
                 lowest loss on the validation subset (default "latest")
         """
-        path=self.dirpath + "/" + str(self.config.model[1]) + "_" + mode + ".pth"
+        path=self.dirpath + str(self.config.model[1]) + "_" + mode + ".pth"
 
         # Update the corresponding path attribute for restoring state during runtime 
         if mode == "latest":

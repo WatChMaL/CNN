@@ -42,9 +42,15 @@ if __name__ == '__main__':
         engine.train()
         
     if 'valid' in config.tasks:
+        if engine.best_savepath is not None:
+            print("Loading the best state from the training :")
+            engine.load_state(engine.best_savepath)
         engine.validate("validation")
         
     if 'test' in config.tasks:
+        if engine.best_savepath is not None:
+            print("Loading the best state from the training :")
+            engine.load_state(engine.best_savepath)
         engine.validate("test")
         
     if 'sample' in config.tasks:

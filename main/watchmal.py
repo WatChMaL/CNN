@@ -73,7 +73,6 @@ def handle_config():
     # Load the config from file
     if config.load is not None:
         load_config(config, config.load, _ATTR_DICT)
-        config.cfg=None
 
     # Add the git-hash from the latest commit to config
     git_hash=popen("git rev-parse HEAD").read()
@@ -90,7 +89,7 @@ def handle_config():
 
 
 def handle_model(model_id, model_params):
-    """Call the appropriate model constructor given config arg."""
+    """Call the appropriate model constructor given config args."""
 
     # Check if the constructor params are valid
     check_params(model_id[0], to_kwargs(model_params))

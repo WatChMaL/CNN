@@ -38,8 +38,10 @@ class EngineCL(Engine):
         
         if config.train_all:
             self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
+            print("Entire model parameters passed to the optimizer")
         else:
             self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr)
+            print("Only model.classifier parameters passed to the optimizer")
         
         # Split the dataset into labelled and unlabelled subsets
         # Note : Only the labelled subset will be used for classifier training
@@ -164,7 +166,7 @@ class EngineCL(Engine):
                 self.train_log.write()
                 
                 # Print the metrics at given intervals
-                if iteration == 0 or (iteration+1)%report_interval == 0:
+                if iteration == 0 or iteration%report_interval == 0:
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
                     
@@ -218,7 +220,7 @@ class EngineCL(Engine):
                         values.append(local_value/num_val_batches)
                     
                     # Record the validation stats to the csv
-                    self.val_log.record(keys,values)
+                    self.val_log.record(keys, values)
                     
                     # Average the loss over the validation batch
                     curr_loss = curr_loss / num_val_batches

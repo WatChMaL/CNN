@@ -75,7 +75,7 @@ def CELoss(predictions, labels):
     predictions -- raw, unnormalized output from the classifier
     labels      -- integer labels for each events in the mini-batch
     """
-    return _CE_LOSS(prediction, labels)
+    return _CE_LOSS(predictions, labels)
 
 def VAECLRGLoss(recon, data, mu, log_var, predicted_label, label, predicted_energy, energy):
     

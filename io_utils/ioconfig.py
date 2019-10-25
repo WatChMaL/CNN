@@ -67,11 +67,13 @@ def load_config(config, inFile, attr_dict):
 
 # Saves config object to configuration file in CONFIG_DIR
 def save_config(config, outFile):
+    
     if not outFile.endswith(CFG_EXT):
         outFile += CFG_EXT
     print('Saving config file as', outFile)
     conf = configparser.ConfigParser()
     conf.add_section('config')
+    
     # Store all config attributes in ConfigParser
     for x in dir(config):
         if not x.startswith('_'):
@@ -82,6 +84,7 @@ def save_config(config, outFile):
                     listStr += DELIM + str(t)
                 item = listStr
             conf.set('config', str(x), str(item))
+            
     # Do not overwrite existing config files
     while os.path.isfile(outFile):
         n_outFile = outFile.split('.')[0]
@@ -89,8 +92,10 @@ def save_config(config, outFile):
         n_outFile = name_split[0]+NAME_DELIM+('0' if len(name_split) == 1 else str(int(name_split[1])+1))+CFG_EXT
         print('Config file with name', outFile, 'already exists. Saving to:', n_outFile)
         outFile = n_outFile
+        
     with open(outFile, 'w') as configFile:
         conf.write(configFile)
+        
     print('Config file saved at', outFile)
     
 # Function to convert a list of strings into a kwargs-interpretable dict
