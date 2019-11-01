@@ -86,7 +86,7 @@ class EngineVAE(Engine):
 
         if mode in ["train", "validation"]:
             recon, z, mu, logvar      = self.model(self.data, mode)
-            loss, recon_loss, kl_loss = self.criterion(recon, self.data, mu, logvar, self.iteration/self.num_iterations)
+            loss, recon_loss, kl_loss = self.criterion(recon, self.data, mu, logvar, 1)#self.iteration/self.num_iterations)
             
             self.loss = loss
             
@@ -164,7 +164,7 @@ class EngineVAE(Engine):
 
                 self.iteration=iteration
 
-                # Using only the charge data [:19]
+                # Using only the charge data
                 self.data     = data[0][:, :, :, :19].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
@@ -314,6 +314,9 @@ class EngineVAE(Engine):
         print("Dump iterations = {0}".format(dump_iterations))
 
         save_arr_dict={"events": [], "labels": [], "energies": []}
+        
+        # Initialize iteration counter
+        iteration=0
 
         for data in data_iter:
 
@@ -325,6 +328,8 @@ class EngineVAE(Engine):
             self.energies=data[2].float()
 
             res=self.forward(mode="validation")
+            
+            iteration += 1
 
             keys=["iteration"]
             values=[iteration]
@@ -338,19 +343,21 @@ class EngineVAE(Engine):
             self.log.write()
 
             # Add the result keys to the dump dict in the first iterations
-            if iteration == 0:
-                for key in _DUMP_KEYS:
-                    if key in res.keys():
-                        save_arr_dict[key]=[]
-
             if iteration < dump_iterations:
-                save_arr_dict["events"].append(self.data.cpu().numpy())
-                save_arr_dict["labels"].append(self.labels.cpu().numpy())
-                save_arr_dict["energies"].append(self.energies.cpu().numpy())
-
+                
+                if iteration == 1:
+                    for key in _DUMP_KEYS:
+                        if key in res.keys():
+                            save_arr_dict[key]=[]
+                        
+                save_arr_dict["events"].extend(self.data.cpu().numpy())
+                save_arr_dict["labels"].extend(self.labels.cpu().numpy())
+                save_arr_dict["energies"].extend(self.energies.cpu().numpy())
+                
                 for key in _DUMP_KEYS:
                     if key in res.keys():
-                        save_arr_dict[key].append(res[key])
+                        save_arr_dict[key].extend(res[key])
+                        
             elif iteration == dump_iterations:
                 print("Saving the npz dump array :")
                 savez(np_event_path + "dump.npz", **save_arr_dict)

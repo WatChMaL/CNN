@@ -556,7 +556,7 @@ def plot_signal_efficiency(softmaxes, labels, energies, softmax_index_dict, labe
     else:
         plt.clf() # Clear the current figure
         plt.close() # Close the opened window
-        
+
 # Plot background rejection for a given event
 def plot_background_rejection(softmaxes, labels, energies, softmax_index_dict, label_0, label_1,
                               avg_efficiencies=[0.2, 0.5, 0.8], avg_efficiency_colors=None,
@@ -812,7 +812,7 @@ def get_plot_array(event_data):
         i += 10 + PADDING
         
     return output
-            
+
 def tile(canvas, ul, pmts):
     
     # First, create 10x10 grid representing single mpmt
@@ -911,7 +911,7 @@ def plot_actual_vs_recon(actual_event, recon_event, label, energy, predicted_lab
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
-        
+
 # Plot model performance over the training iterations
 def plot_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
@@ -1050,7 +1050,7 @@ def plot_training(log_paths, model_names, model_color_dict, downsample_interval=
         plt.savefig(save_path, format='eps', dpi=300, bbox_extra_artists=(lgd))
     else:
         plt.show()
-        
+
 # Plot model performance over the training iterations
 def plot_vae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
@@ -1208,7 +1208,7 @@ def plot_vae_training(log_paths, model_names, model_color_dict, downsample_inter
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
-        
+
 # Plot model performance over the training iterations
 def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interval=None, legend_loc=(0.8,0.5), show_plot=False, save_path=None):
     """
@@ -1343,7 +1343,7 @@ def plot_ae_training(log_paths, model_names, model_color_dict, downsample_interv
     else:
         plt.clf() # Clear the plot frame
         plt.close() # Close the opened window if any
-                     
+
 # Plot the charge distribution for a given batch
 def plot_charge_hist(event, recon, iteration, num_bins=100):
     

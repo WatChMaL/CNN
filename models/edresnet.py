@@ -13,7 +13,7 @@ __all__ = ['eresnet18', 'eresnet34', 'eresnet50', 'eresnet101', 'eresnet152',
            'dresnet18', 'dresnet34', 'dresnet50', 'dresnet101', 'dresnet152']
 _RELU = ReLU()
 
-#-------------------------------
+#-------------------------------w
 # Encoder Conv2d layers
 #-------------------------------
 
@@ -259,7 +259,7 @@ class EresNet(Module):
         self.unroll_size = 512 * block.expansion
         self.bool_deep = False
         
-        self.conv3 = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(1,4), stride=(1,1))
+        self.conv3 = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(4,4), stride=(1,1))
         self.bn3   = BatchNorm2d(self.unroll_size)
         
         for m in self.modules():
@@ -363,7 +363,7 @@ class DresNet(Module):
         self.unroll_size = 512 * block.expansion
         self.bool_deep = False
         
-        self.conv3 = ConvTranspose2d(self.unroll_size, self.unroll_size, kernel_size=(1,4), stride=(1,1))
+        self.conv3 = ConvTranspose2d(self.unroll_size, self.unroll_size, kernel_size=(4,4), stride=(1,1))
         self.bn3   = BatchNorm2d(self.unroll_size)
         
         for m in self.modules():

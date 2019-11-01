@@ -137,7 +137,7 @@ class EngineCL(Engine):
             # Local training loop for a single epoch
             for data in self.train_loader:
                 
-                # Using only the charge data [:19]
+                # Using only the charge data
                 self.data     = data[0][:,:,:,:19].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
