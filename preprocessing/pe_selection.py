@@ -95,7 +95,7 @@ def split_and_save_idxs(idxs, train_ratio, val_ratio, output_file):
     num_val = int(len(idxs) * val_ratio)
     
     train_idxs = idxs[:num_train]
-    val_idxs = idxs[num_train:num_val]
+    val_idxs = idxs[num_train:num_train+num_val]
     test_idxs = idxs[num_train+num_val:]
     
     np.savez(output_file, **{"train_idxs":train_idxs, "val_idxs":val_idxs, "test_idxs":test_idxs})

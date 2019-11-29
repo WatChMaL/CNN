@@ -259,8 +259,9 @@ class EresNet(Module):
         self.unroll_size = 512 * block.expansion
         self.bool_deep = False
         
-        self.conv3 = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(4,4), stride=(1,1))
-        self.bn3   = BatchNorm2d(self.unroll_size)
+        self.conv3a = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(4,4), stride=(1,1))
+        self.conv3b = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(1,1), stride=(1,1))
+        self.bn3    = BatchNorm2d(self.unroll_size)
         
         for m in self.modules():
             if isinstance(m, EresNetBottleneck):
@@ -316,19 +317,33 @@ class EresNet(Module):
         x = self.bn1(x)
         x = _RELU(x)
         
+        print("conv1 :", x.size())
+        
         x = self.conv2(x)
         x = self.bn2(x)
         x = _RELU(x)
         
-        x = self.layer0(x)
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
+        print("conv2 :", x.size())
         
-        x = self.conv3(x)
+        x = self.layer0(x)
+        print("layer0 :", x.size())
+        x = self.layer1(x)
+        print("layer1 :", x.size())
+        x = self.layer2(x)
+        print("layer2 :", x.size())
+        x = self.layer3(x)
+        print("layer3 :", x.size())
+        x = self.layer4(x)
+        print("layer4 :", x.size())
+        
+        if x.size()[-2:] == (4,4):
+            x = self.conv3a(x)
+        elif x.size()[-2:] == (1,1):
+            x = self.conv3b(x)
+            
         x = self.bn3(x)
         x = _RELU(x)
+        print("conv3 :", x.size())
         
         x = x.view(x.size(0), -1)
         

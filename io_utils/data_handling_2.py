@@ -83,7 +83,7 @@ class WCH5Dataset(Dataset):
                 
     def __getitem__(self,index):
         if self.transform is None:
-            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], self.angles[index],  index, self.positions[index]
+            return np.array(self.event_data[index,:]),  self.labels[index], self.energies[index], self.angles[index], index, self.positions[index]
         else:
             raise NotImplementedError
 
