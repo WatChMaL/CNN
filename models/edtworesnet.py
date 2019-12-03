@@ -6,6 +6,7 @@ inference models with a corresponding symmetric decoder.
 """
 
 # PyTorch imports
+from torch import cat
 from torch.nn import Module, Sequential, Linear, Conv2d, ConvTranspose2d, BatchNorm2d, ReLU
 from torch.nn.init import kaiming_normal_, constant_
 
@@ -13,15 +14,15 @@ from torch.nn.init import kaiming_normal_, constant_
 from models import resnetblocks
 
 # Global variables
-__all__ = ['eresnet18', 'eresnet34', 'eresnet50', 'eresnet101', 'eresnet152',
-           'dresnet18', 'dresnet34', 'dresnet50', 'dresnet101', 'dresnet152']
+__all__ = ['etworesnet18', 'etworesnet34', 'etworesnet50', 'etworesnet101', 'etworesnet152',
+           'dtworesnet18', 'dtworesnet34', 'dtworesnet50', 'dtworesnet101', 'dtworesnet152']
 _RELU = ReLU()
 
 #-------------------------------
 # Encoder architecture layers
 #-------------------------------
 
-class EresNet(Module):
+class EtworesNet(Module):
 
     def __init__(self, block, layers, num_input_channels, num_latent_dims, zero_init_residual=False):
         
@@ -41,23 +42,27 @@ class EresNet(Module):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         
-        self.unroll_size = 512 * block.expansion
+        self.unroll_size = 512 * block.expansion * 2
         self.bool_deep = False
         
-        self.conv3a = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(4,4), stride=(1,1))
-        self.conv3b = Conv2d(self.unroll_size, self.unroll_size, kernel_size=(1,4), stride=(1,1))
-        self.bn3    = BatchNorm2d(self.unroll_size)
+        self.conv3barrel = Conv2d(int(self.unroll_size/2), int(self.unroll_size/2), kernel_size=(1,4), stride=(1,1))
+        self.conv3endcap = Conv2d(int(self.unroll_size/4), int(self.unroll_size/4), kernel_size=(1,1), stride=(1,1))
+        
+        self.bn3barrel = BatchNorm2d(int(self.unroll_size/2))
+        self.bn3endcap = BatchNorm2d(int(self.unroll_size/4))
         
         for m in self.modules():
             if isinstance(m, resnetblocks.EresNetBottleneck):
                 self.fc1 = Linear(self.unroll_size, int(self.unroll_size/2))
-                self.fc2 = Linear(int(self.unroll_size/2), num_latent_dims)
+                self.fc2 = Linear(int(self.unroll_size/2), int(self.unroll_size/4))
+                self.fc3 = Linear(int(self.unroll_size/4), num_latent_dims)
                 self.bool_deep = True
                 break
                 
         if not self.bool_deep:
-            self.fc1 = Linear(self.unroll_size, num_latent_dims)
-
+            self.fc1 = Linear(self.unroll_size, int(self.unroll_size/2))
+            self.fc2 = Linear(int(self.unroll_size/2), num_latent_dims)
+        
         for m in self.modules():
             if isinstance(m, Conv2d):
                 kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
@@ -98,7 +103,40 @@ class EresNet(Module):
         return Sequential(*layers)
 
     def forward(self, X):
-        x = self.conv1(X)
+        
+        # -------------------------------------------
+        # Split the input into the 3 components
+        # -------------------------------------------
+        X_endcap_top = X[:, :, 0:12, 14:26]
+        X_barrel = X[:, :, 12:28, :]
+        X_endcap_bottom = X[:, :, 28:40, 14:26]
+        
+        # -------------------------------------------
+        # Apply the operations on the top endcap data
+        # -------------------------------------------
+        x = self.conv1(X_endcap_top)
+        x = self.bn1(x)
+        x = _RELU(x)
+        
+        x = self.conv2(x)
+        x = self.bn2(x)
+        x = _RELU(x)
+        
+        x = self.layer0(x)
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        
+        x = self.conv3endcap(x)
+        x = self.bn3endcap(x)
+        x = _RELU(x)
+        
+        x_endcap_top = x.view(x.size(0), -1)
+            
+        # -------------------------------------------
+        # Apply the operations on the central barrel
+        # -------------------------------------------
+        x = self.conv1(X_barrel)
         x = self.bn1(x)
         x = _RELU(x)
         
@@ -112,26 +150,50 @@ class EresNet(Module):
         x = self.layer3(x)
         x = self.layer4(x)
         
-        if x.size()[-2:] == (4,4):
-            x = self.conv3a(x)
-        elif x.size()[-2:] == (1,1):
-            x = self.conv3b(x)
-            
-        x = self.bn3(x)
+        x = self.conv3barrel(x)
+        x = self.bn3barrel(x)
         x = _RELU(x)
         
-        x = x.view(x.size(0), -1)
+        x_barrel = x.view(x.size(0), -1)
         
-        x = _RELU(self.fc1(x))
+        # -------------------------------------------
+        # Apply the operations on the bottom endcap
+        # -------------------------------------------
+        x = self.conv1(X_endcap_bottom)
+        x = self.bn1(x)
+        x = _RELU(x)
+        
+        x = self.conv2(x)
+        x = self.bn2(x)
+        x = _RELU(x)
+        
+        x = self.layer0(x)
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        
+        x = self.conv3endcap(x)
+        x = self.bn3endcap(x)
+        x = _RELU(x)
+        
+        x_endcap_bottom = x.view(x.size(0), -1)
+        
+        # -------------------------------------------
+        # Conatenate the 1d features extracted
+        # -------------------------------------------
+        x_tank = cat((x_endcap_top, x_barrel, x_endcap_bottom), dim=1)
+        
+        x = _RELU(self.fc1(x_tank))
+        x = _RELU(self.fc2(x))
         if self.bool_deep:
-            x = _RELU(self.fc2(x))
-        
+            x = _RELU(self.fc3(x))
+            
         return x
     
 #-------------------------------
 # Decoder architecture layers
 #-------------------------------
-class DresNet(Module):
+class DtworesNet(Module):
 
     def __init__(self, block, layers, num_input_channels, num_latent_dims, zero_init_residual=False):
         
@@ -239,56 +301,56 @@ class DresNet(Module):
 # Initializers for model encoders with various depths
 #-------------------------------------------------------
 
-def eresnet18(**kwargs):
+def etworesnet18(**kwargs):
     """Constructs a EresNet-18 model encoder.
     """
-    return EresNet(resnetblocks.EresNetBasicBlock, [2, 2, 2, 2], **kwargs)
+    return EtworesNet(resnetblocks.EresNetBasicBlock, [2, 2, 2, 2], **kwargs)
 
-def eresnet34(**kwargs):
+def etworesnet34(**kwargs):
     """Constructs a EresNet-34 model encoder.
     """
-    return EresNet(resnetblocks.EresNetBasicBlock, [3, 4, 6, 3], **kwargs)
+    return EtworesNet(resnetblocks.EresNetBasicBlock, [3, 4, 6, 3], **kwargs)
 
-def eresnet50(**kwargs):
+def etworesnet50(**kwargs):
     """Constructs a EresNet-50 model encoder.
     """
-    return EresNet(resnetblocks.EresNetBottleneck, [3, 4, 6, 3], **kwargs)
+    return EtworesNet(resnetblocks.EresNetBottleneck, [3, 4, 6, 3], **kwargs)
 
-def eresnet101(**kwargs):
+def etworesnet101(**kwargs):
     """Constructs a EresNet-101 model encoder.
     """
-    return EresNet(resnetblocks.EresNetBottleneck, [3, 4, 23, 3], **kwargs)
+    return EtworesNet(resnetblocks.EresNetBottleneck, [3, 4, 23, 3], **kwargs)
 
-def eresnet152(**kwargs):
+def etworesnet152(**kwargs):
     """Constructs a ErsNet-152 model encoder.
     """
-    return EresNet(resnetblocks.EresNetBottleneck, [3, 8, 36, 3], **kwargs)
+    return EtworesNet(resnetblocks.EresNetBottleneck, [3, 8, 36, 3], **kwargs)
 
 #-------------------------------------------------------
 # Initializers for model decoders with various depths
 #-------------------------------------------------------
 
-def dresnet18(**kwargs):
+def dtworesnet18(**kwargs):
     """Constructs a DresNet-18 model decoder.
     """
-    return DresNet(resnetblocks.DresNetBasicBlock, [2, 2, 2, 2], **kwargs)
+    return DtworesNet(resnetblocks.DresNetBasicBlock, [2, 2, 2, 2], **kwargs)
 
-def dresnet34(**kwargs):
+def dtworesnet34(**kwargs):
     """Constructs a DresNet-34 model decoder.
     """
-    return DresNet(resnetblocks.DresNetBasicBlock, [3, 4, 6, 3], **kwargs)
+    return DtworesNet(resnetblocks.DresNetBasicBlock, [3, 4, 6, 3], **kwargs)
 
-def dresnet50(**kwargs):
+def dtworesnet50(**kwargs):
     """Constructs a DresNet-50 model encoder.
     """
-    return DresNet(resnetblocks.DresNetBottleneck, [3, 4, 6, 3], **kwargs)
+    return DtworesNet(resnetblocks.DresNetBottleneck, [3, 4, 6, 3], **kwargs)
 
-def dresnet101(**kwargs):
+def dtworesnet101(**kwargs):
     """Constructs a DresNet-101 model decoder.
     """
-    return DresNet(resnetblocks.DresNetBottleneck, [3, 4, 23, 3], **kwargs)
+    return DtworesNet(resnetblocks.DresNetBottleneck, [3, 4, 23, 3], **kwargs)
 
-def dresnet152(**kwargs):
+def dtworesnet152(**kwargs):
     """Constructs a DresNet-152 model decoder.
     """
-    return DresNet(resnetblocks.DresNetBottleneck, [3, 8, 36, 3], **kwargs)
+    return DtworesNet(resnetblocks.DresNetBottleneck, [3, 8, 36, 3], **kwargs)

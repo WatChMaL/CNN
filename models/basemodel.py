@@ -9,10 +9,10 @@ deep generative models and their extensions in the VAE framework
 from abc import ABC, abstractmethod
 
 # WatChMaL imports
-from models import edlenet, edresnet
+from models import edlenet, edresnet, edtworesnet
 
 # Global variables
-_ARCH_DICT_ENC = {0:"elenet", 1:"eresnet"}
+_ARCH_DICT_ENC = {0:"elenet", 1:"eresnet", 2:"etworesnet"}
 
 class BaseModel(ABC):
     
@@ -30,6 +30,10 @@ class BaseModel(ABC):
             assert arch_depth in [18, 34, 50, 101, 152]
             self.encoder = getattr(edresnet, self.arch_enc + str(arch_depth))(num_input_channels=num_input_channels,
                                                                               num_latent_dims=num_latent_dims)
+        elif self.arch_enc == "etworesnet":
+            assert arch_depth in [18, 34, 50, 101, 152]
+            self.encoder = getattr(edtworesnet, self.arch_enc + str(arch_depth))(num_input_channels=num_input_channels,
+                                                                                 num_latent_dims=num_latent_dims)
         else:
             raise NotImplementedError
         

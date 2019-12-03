@@ -43,21 +43,24 @@ class EngineCL(Engine):
             self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr)
             print("Only model.classifier parameters passed to the optimizer")
         
+        # Assert that we have samples to train the classifier
+        assert config.cl_ratio > 0, "Set config.cl_ratio > 0 since samples needed to train the classifier"
+        
         # Split the dataset into labelled and unlabelled subsets
         # Note : Only the labelled subset will be used for classifier training
-        n_cl_train = int(len(self.dset.train_indices) * config.cl_ratio)
-        n_cl_val   = int(len(self.dset.val_indices) * config.cl_ratio)
+        n_cl_train = int(len(self.trainval_dset.train_indices) * config.cl_ratio)
+        n_cl_val   = int(len(self.trainval_dset.val_indices) * config.cl_ratio)
         
-        self.train_indices = self.dset.train_indices[:n_cl_train]
-        self.val_indices   = self.dset.val_indices[:n_cl_val]
-        self.test_indices  = self.dset.test_indices
+        self.train_indices = self.trainval_dset.train_indices[:n_cl_train]
+        self.val_indices   = self.trainval_dset.val_indices[:n_cl_val]
+        self.test_indices  = self.test_dset.test_indices
         
         # Initialize the torch dataloaders
-        self.train_loader = DataLoader(self.dset, batch_size=config.batch_size_train, shuffle=False,
+        self.train_loader = DataLoader(self.trainval_dset, batch_size=config.batch_size_train, shuffle=False,
                                        pin_memory=True, sampler=SubsetRandomSampler(self.train_indices))
-        self.val_loader   = DataLoader(self.dset, batch_size=config.batch_size_val, shuffle=False,
+        self.val_loader   = DataLoader(self.trainval_dset, batch_size=config.batch_size_val, shuffle=False,
                                        pin_memory=True, sampler=SubsetRandomSampler(self.val_indices))
-        self.test_loader  = DataLoader(self.dset, batch_size=config.batch_size_test, shuffle=False,
+        self.test_loader  = DataLoader(self.test_dset, batch_size=config.batch_size_test, shuffle=False,
                                        pin_memory=True, sampler=SubsetRandomSampler(self.test_indices))
         
         # Define the placeholder attributes
@@ -87,6 +90,7 @@ class EngineCL(Engine):
             self.model.eval()
             
         predicted_labels = self.model(self.data)
+        #print(predicted_labels.size(), self.labels.size())
         loss             = self.criterion(predicted_labels, self.labels)
         self.loss        = loss
                 
@@ -138,7 +142,7 @@ class EngineCL(Engine):
             for data in self.train_loader:
                 
                 # Using only the charge data
-                self.data     = data[0][:,:12,:12,:19].float()
+                self.data     = data[0][:,:,:,:19].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
 
@@ -196,7 +200,7 @@ class EngineCL(Engine):
                             val_data = next(val_iter)
                         
                         # Extract the event data from the input data tuple
-                        self.data     = val_data[0][:,:12,:12,:19].float()
+                        self.data     = val_data[0][:,:,:,:19].float()
                         self.labels   = val_data[1].long()
                         self.energies = val_data[2].float()
 

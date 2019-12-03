@@ -12,7 +12,8 @@ from os import stat, mkdir
 from math import floor, ceil
 
 # WatChMaL imports
-from io_utils.data_handling_2 import WCH5Dataset
+from io_utils.data_handling_trainval import WCH5DatasetTV
+from io_utils.data_handling_test import WCH5DatasetTest
 from io_utils.ioconfig import save_config
 from plot_utils.notebook_utils import CSVData
 
@@ -23,7 +24,6 @@ from torch.cuda import is_available
 
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
-
 
 class Engine(ABC):
 
@@ -62,9 +62,11 @@ class Engine(ABC):
         else:
             self.model_accs=self.model
 
-        # Create the dataset object
-        self.dset=WCH5Dataset(config.path, config.val_split, config.test_split,
-                              shuffle=config.shuffle, reduced_dataset_size=config.subset)
+        # Create the dataset object for the trainval and test samples
+        self.trainval_dset=WCH5DatasetTV(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
+                                         shuffle=config.shuffle, trainval_subset=config.trainval_subset)
+        self.test_dset=WCH5DatasetTest(config.test_path, config.norm_params_path, config.chrg_norm, config.time_norm,
+                                       shuffle=config.shuffle, test_subset=config.test_subset)
 
         # Define the variant dependent attributes
         self.criterion=None
