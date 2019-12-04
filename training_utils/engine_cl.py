@@ -142,7 +142,7 @@ class EngineCL(Engine):
             for data in self.train_loader:
                 
                 # Using only the charge data
-                self.data     = data[0][:,:,:,:19].float()
+                self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
 
@@ -197,10 +197,9 @@ class EngineCL(Engine):
                             val_data = next(val_iter)
                         except StopIteration:
                             val_iter = iter(self.val_loader)
-                            val_data = next(val_iter)
                         
                         # Extract the event data from the input data tuple
-                        self.data     = val_data[0][:,:,:,:19].float()
+                        self.data     = val_data[0][:,:,:,:].float()
                         self.labels   = val_data[1].long()
                         self.energies = val_data[2].float()
 
@@ -307,7 +306,7 @@ class EngineCL(Engine):
             stdout.write("Iteration : " + str(iteration) + "\n")
 
             # Extract the event data from the input data tuple
-            self.data     = data[0][:,:,:,:19].float()
+            self.data     = data[0][:,:,:,:].float()
             self.labels   = data[1].long()
             self.energies = data[2].float()
                     
