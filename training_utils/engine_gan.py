@@ -95,7 +95,7 @@ class EngineGAN(Engine):
         self.fake = None
         
         
-    def forward(self, mode):
+    def forward(self, mode, iteration):
         """Overrides the forward abstract method in Engine.py.
         
         Args:
@@ -104,8 +104,10 @@ class EngineGAN(Engine):
        
         if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.to(self.device)
+            
             # Put data into same range as output
             self.data = (self.data/self.scale) - 0.5
+            
             #self.data = self.data.permute(0,3,1,2)
             
         if self.labels is not None:
@@ -122,45 +124,7 @@ class EngineGAN(Engine):
         
         valid = Tensor(self.data.shape[0], 1).fill_(1.0).to(self.device)
         fake = Tensor(self.data.shape[0], 1).fill_(0.0).to(self.device)
-        
-        # Discriminator gets updated multiple times for every time the generator does
-        for i in np.arange(9):
-            # Sample noise as generator input
-            z = Tensor(np.random.normal(0, 1, (self.data.shape[0], 128, 1, 1))).to(self.device)
-            #self.model.zero_grad()
-            model_results = self.model(self.data, z)
-            gen_results = model_results['genresults'].detach()
-            real_results = model_results['realresults'].detach()
-
-            # ---------------------
-            #  Discriminator Loss 1 
-            # ---------------------
-
-            # Measure discriminator's ability to classify real from generated samples
-            dreal_loss = self.criterion(real_results, valid)
-            self.dreal_loss = dreal_loss
-
-            dfake_loss = self.criterion(gen_results, fake)
-            self.dfake_loss = dfake_loss
-
-            d_loss = dreal_loss + dfake_loss
-            #self.d_loss = d_loss
-
-            if self.dreal_loss.requires_grad is False:
-                self.dreal_loss.requires_grad = True
-
-            if self.dfake_loss.requires_grad is False:
-                self.dfake_loss.requires_grad = True
-
-            # Discriminator gets updated
-            self.optimizer_D.zero_grad()  # Reset gradient accumulation   
-            self.dreal_loss.contiguous()
-            self.dreal_loss.backward()    # Propagate the loss backwards
-            self.dfake_loss.contiguous()
-            self.dfake_loss.backward()    # Propagate the loss backwards
-            self.optimizer_D.step()       # Update the optimizer parameters
-
-            del z, gen_results, real_results, model_results
+       
         
         # Sample noise as generator input
         z = Tensor(np.random.normal(0, 1, (self.data.shape[0], 128, 1, 1))).to(self.device)
@@ -230,16 +194,20 @@ class EngineGAN(Engine):
                 "D_G_z"      : D_G_z
                }
     
-    def backward(self):
+    def backward(self, iteration, epoch):
         """Overrides the backward method in Engine.py."""
         
         """Backward pass using the loss computed for a mini-batch."""
         
+        # For one epoch, only discriminator is updated
+        # Discriminator gets updated multiple times for every time the generator does
+           
         # Generator
         self.optimizer_G.zero_grad()  # Reset gradient accumulation
-        self.g_loss.contiguous()
-        self.g_loss.backward()        # Propagate the loss backwards
-        self.optimizer_G.step()       # Update the optimizer parameters
+        if epoch > 1 & (iteration % 10 == 0): 
+            self.g_loss.contiguous()
+            self.g_loss.backward()        # Propagate the loss backwards
+            self.optimizer_G.step()       # Update the optimizer parameters
 
         # Discriminator
         self.optimizer_D.zero_grad()  # Reset gradient accumulation   
@@ -294,7 +262,7 @@ class EngineGAN(Engine):
                 res = self.forward(mode="train")
 
                 # Do a backward pass using loss = self.loss
-                self.backward()
+                self.backward(iteration, epoch)
                 
                 # Update the epoch and iteration
                 epoch     += 1./len(self.train_loader)
@@ -492,3 +460,5 @@ class EngineGAN(Engine):
         #if not path.exists(np_event_path + "dump.npz"):
         #    print("Saving the npz dump array :")
         #    savez(np_event_path + "dump.npz", **save_arr_dict)
+
+
