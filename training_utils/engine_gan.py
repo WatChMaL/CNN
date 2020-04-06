@@ -105,7 +105,7 @@ class EngineGAN(Engine):
         if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.to(self.device)
             # Put data into same range as output
-            self.data = (self.data - (self.scale/2))/self.scale
+            self.data = (self.data/self.scale) - 0.5
             #self.data = self.data.permute(0,3,1,2)
             
         if self.labels is not None:
@@ -217,7 +217,7 @@ class EngineGAN(Engine):
         D_G_z = gen_results.mean().item()
         
         if mode == "validation":
-            genimgs = model_results['genimgs'][:50].cpu().detach().numpy()*self.scale
+            genimgs = (model_results['genimgs'][:50].cpu().detach().numpy() + 0.5)*self.scale
         else:
             genimgs = None
         
