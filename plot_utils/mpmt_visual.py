@@ -68,7 +68,7 @@ def make_mpmt(pmt_array):
     for i, val in enumerate(pmt_array):
         mpmt[POS_MAP[i][0]][POS_MAP[i][1]] = val
     return mpmt
-            
+
 # Helper function to tile a canvas with mpmt subplots
 def tile(canvas, ul, pmts):
     # First, create 10x10 grid representing single mPMT

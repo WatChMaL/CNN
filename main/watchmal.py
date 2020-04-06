@@ -22,11 +22,13 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
        Argument('device', str, '-dev', default='cpu', help='Choose either cpu or gpu, Default=cpu.'),
        Argument('gpu_list', list, '-gpu', list_dtype=int, default=0,
                 help='Indices of the device GPUs to utilize. E.g. 0 1. Default=0.'),
-       Argument('trainval_path', str, '-tvp', default=None,
+       Argument('trainval_path', list, '-tvp', list_dtype=str, default=None,
                 help='Absolute path for the training and validation dataset. Default=None.'),
-       Argument('trainval_idxs', str, '-tvi', default=None,
+       Argument('trainval_idxs', list, '-tvi', list_dtype=str, default=None,
                 help='Absolute path for the indices to use to split the training and validation datasets. Default=None.'),
-       Argument('test_path', str, '-tsp', default=None,
+       Argument('test_idxs', list, '-ti', list_dtype=str, default=None,
+                help='Absolute path for the indices to use for the training datasets. Default=None.'),
+       Argument('test_path', list, '-tsp', list_dtype=str, default=None,
                 help='Absolute path for the test dataset. Default=None.'),
        Argument('norm_params_path', str, '-npp', default=None,
                 help='Absolute path to the .npz file with the normalization parameters. Default=None.'),
@@ -64,7 +66,8 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
                 help='Number of events and their results to dump to a .npz file during final validation or testing'),
        Argument('lr', float, '-lrt', default=0.0001, help='Initial learning rate to use for the optimizer.'),
        Argument('train_all', int, '-tal', default=0,
-                help='Used for modular and pre-trained models. Set to 1 to train the entire model and 0 to train subset of the models')]
+                help='Used for modular and pre-trained models. Set to 1 to train the entire model and 0 to train subset of the models'),
+       Argument('num_datasets', int, '-sets', default=1, help='Number of datasets to use.')]
 
 _ATTR_DICT={arg.name: ConfigAttr(arg.name, arg.dtype, list_dtype=arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in _ARGS}
 

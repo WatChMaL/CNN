@@ -1,7 +1,7 @@
 """
-engine_cl.py
+engine_gan.py
 
-Derived engine class for training a fully supervised classifier
+Derived engine class for training a GAN
 """
 
 # +
@@ -15,15 +15,16 @@ from math import floor, ceil
 from time import strftime, localtime
 import numpy as np
 import random
+import pdb
 # -
 
 # Numerical imports
 from numpy import savez
 
 # PyTorch imports
-from torch import cat
+from torch import cat, Tensor, from_numpy
 from torch import argmax
-from torch.nn import Softmax
+from torch.nn import Softmax, BCEWithLogitsLoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
@@ -36,24 +37,24 @@ from plot_utils.notebook_utils import CSVData
 
 # Global variables
 _SOFTMAX   = Softmax(dim=1)
-_LOG_KEYS  = ["loss", "accuracy"]
-_DUMP_KEYS = ["predicted_labels", "softmax"]
+_LOG_KEYS  = ["g_loss", "d_loss"]
+_DUMP_KEYS = ["g_loss", "d_loss", "gen_imgs"]
 
-class EngineCL(Engine):
+class EngineGAN(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
-        self.criterion = CELoss
         
-        if config.train_all:
-            self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
-            print("Entire model parameters passed to the optimizer")
-        else:
-            self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr)
-            print("Only model.classifier parameters passed to the optimizer")
+        # Factor used to scale real images into range of generator output
+        self.scale = 3146.8333
         
-        # Assert that we have samples to train the classifier
-        assert config.cl_ratio > 0, "Set config.cl_ratio > 0 since samples needed to train the classifier"
+        # Loss function
+        self.criterion = BCEWithLogitsLoss()
+            
+        # Optimizers
+        self.optimizer_G = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
+        self.optimizer_D = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
+
 
         for i in np.arange(config.num_datasets):
             # Split the dataset into labelled and unlabelled subsets
@@ -69,8 +70,6 @@ class EngineCL(Engine):
                 self.train_indices = np.concatenate((self.train_indices,self.train_dset.train_indices[i]),axis=0)
                 self.train_indices = np.concatenate((self.val_indices,self.val_dset.val_indices[i]),axis=0)
                 self.test_indices = np.concatenate((self.test_indices, self.test_dset.test_indices[i]),axis=0)
-            
-
 
         
         # Initialize the torch dataloaders
@@ -86,15 +85,27 @@ class EngineCL(Engine):
         self.labels   = None
         self.energies = None
         
+        self.g_loss = None
+        self.d_loss = None
+        self.dreal_loss = None
+        self.dfake_loss = None
+        
+        # Adversarial ground truths
+        self.valid = None
+        self.fake = None
+        
+        
     def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
         
         Args:
         mode -- One of 'train', 'validation' to set the correct grad_mode
         """
-
+       
         if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.to(self.device)
+            # Put data into same range as output
+            self.data = (self.data - (self.scale/2))/self.scale
             #self.data = self.data.permute(0,3,1,2)
             
         if self.labels is not None:
@@ -107,24 +118,137 @@ class EngineCL(Engine):
         elif mode == "validation":
             grad_mode= False
             self.model.eval()
-            
-        predicted_labels = self.model(self.data)
-        #print(predicted_labels.size(), self.labels.size())
-        loss             = self.criterion(predicted_labels, self.labels)
-        self.loss        = loss
-   
-        softmax          = _SOFTMAX(predicted_labels)
-        pred_labels      = argmax(predicted_labels, dim=-1)
-        accuracy         = (pred_labels == self.labels).sum().item() / float(pred_labels.nelement())
         
-        #if self.data is not None and len(self.data.size()) == 4:
-            #self.data = self.data.permute(0,2,3,1)
-                    
-        return {"loss"               : loss.cpu().detach().item(),
-                "predicted_labels"   : pred_labels.cpu().detach().numpy(),
-                "softmax"            : softmax.cpu().detach().numpy(),
-                "accuracy"           : accuracy,
-                "raw_pred_labels"    : predicted_labels}
+        
+        valid = Tensor(self.data.shape[0], 1).fill_(1.0).to(self.device)
+        fake = Tensor(self.data.shape[0], 1).fill_(0.0).to(self.device)
+        
+        # Discriminator gets updated multiple times for every time the generator does
+        for i in np.arange(9):
+            # Sample noise as generator input
+            z = Tensor(np.random.normal(0, 1, (self.data.shape[0], 128, 1, 1))).to(self.device)
+            #self.model.zero_grad()
+            model_results = self.model(self.data, z)
+            gen_results = model_results['genresults'].detach()
+            real_results = model_results['realresults'].detach()
+
+            # ---------------------
+            #  Discriminator Loss 1 
+            # ---------------------
+
+            # Measure discriminator's ability to classify real from generated samples
+            dreal_loss = self.criterion(real_results, valid)
+            self.dreal_loss = dreal_loss
+
+            dfake_loss = self.criterion(gen_results, fake)
+            self.dfake_loss = dfake_loss
+
+            d_loss = dreal_loss + dfake_loss
+            #self.d_loss = d_loss
+
+            if self.dreal_loss.requires_grad is False:
+                self.dreal_loss.requires_grad = True
+
+            if self.dfake_loss.requires_grad is False:
+                self.dfake_loss.requires_grad = True
+
+            # Discriminator gets updated
+            self.optimizer_D.zero_grad()  # Reset gradient accumulation   
+            self.dreal_loss.contiguous()
+            self.dreal_loss.backward()    # Propagate the loss backwards
+            self.dfake_loss.contiguous()
+            self.dfake_loss.backward()    # Propagate the loss backwards
+            self.optimizer_D.step()       # Update the optimizer parameters
+
+            del z, gen_results, real_results, model_results
+        
+        # Sample noise as generator input
+        z = Tensor(np.random.normal(0, 1, (self.data.shape[0], 128, 1, 1))).to(self.device)
+        
+        #self.model.zero_grad()
+        
+        model_results = self.model(self.data, z)
+        
+        # -----------------
+        #  Generator Loss
+        # -----------------
+        
+        gen_results = model_results['genresults'].detach()
+        #gen_numpy = gen_results.cpu().detach().numpy()
+        #gen_numpy = gen_numpy + abs(min(gen_numpy))
+        #gen_range = max(gen_numpy) - min(gen_numpy)
+        #gen_numpy = (gen_numpy - min(gen_numpy)) / gen_range
+        #gen_results = from_numpy(gen_numpy).to(self.device)
+        
+        real_results = model_results['realresults'].detach()
+        #real_numpy = real_results.cpu().detach().numpy()
+        #real_numpy = real_numpy + abs(min(real_numpy))
+        #real_range = max(real_numpy) - min(real_numpy)
+        #real_numpy = (real_numpy - min(real_numpy)) / real_range
+        #real_results = from_numpy(real_numpy).to(self.device)
+
+        g_loss = self.criterion(gen_results, valid)
+        self.g_loss = g_loss
+
+        # ---------------------
+        #  Discriminator Loss 2
+        # ---------------------
+        
+        # Measure discriminator's ability to classify real from generated samples
+        dreal_loss = self.criterion(real_results, valid)
+        self.dreal_loss = dreal_loss
+        
+        dfake_loss = self.criterion(gen_results, fake)
+        self.dfake_loss = dfake_loss
+        
+        d_loss = dreal_loss + dfake_loss
+        #self.d_loss = d_loss
+        
+        if self.g_loss.requires_grad is False:
+            self.g_loss.requires_grad = True
+        
+        if self.dreal_loss.requires_grad is False:
+            self.dreal_loss.requires_grad = True
+            
+        if self.dfake_loss.requires_grad is False:
+            self.dfake_loss.requires_grad = True
+        
+        D_x = real_results.mean().item()
+        D_G_z = gen_results.mean().item()
+        
+        if mode == "validation":
+            genimgs = model_results['genimgs'][:50].cpu().detach().numpy()*self.scale
+        else:
+            genimgs = None
+        
+        del z, fake, valid, gen_results, real_results, model_results
+        
+        return {"g_loss"               : g_loss.cpu().detach().item(),
+                "d_loss"               : d_loss.cpu().detach().item(),
+                "gen_imgs"   : genimgs,
+                "D_x"        : D_x,
+                "D_G_z"      : D_G_z
+               }
+    
+    def backward(self):
+        """Overrides the backward method in Engine.py."""
+        
+        """Backward pass using the loss computed for a mini-batch."""
+        
+        # Generator
+        self.optimizer_G.zero_grad()  # Reset gradient accumulation
+        self.g_loss.contiguous()
+        self.g_loss.backward()        # Propagate the loss backwards
+        self.optimizer_G.step()       # Update the optimizer parameters
+
+        # Discriminator
+        self.optimizer_D.zero_grad()  # Reset gradient accumulation   
+        self.dreal_loss.contiguous()
+        self.dreal_loss.backward()    # Propagate the loss backwards
+        self.dfake_loss.contiguous()
+        self.dfake_loss.backward()    # Propagate the loss backwards
+        self.optimizer_D.step()       # Update the optimizer parameters
+
     
     def train(self):
         """Overrides the train method in Engine.py.
@@ -146,7 +270,8 @@ class EngineCL(Engine):
         iteration = 0
         
         # Parameter to upadte when saving the best model
-        best_loss = 1000000.
+        best_g_loss = 1000000.
+        best_d_loss = 1000000.
         
         # Initialize the iterator over the validation subset
         val_iter = iter(self.val_loader)
@@ -164,18 +289,18 @@ class EngineCL(Engine):
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
-
+                
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
 
                 # Do a backward pass using loss = self.loss
                 self.backward()
-
+                
                 # Update the epoch and iteration
                 epoch     += 1./len(self.train_loader)
                 iteration += 1
 
-                # Iterate over the _LOG_KEYS and add the vakues to a list
+                # Iterate over the _LOG_KEYS and add the values to a list
                 keys   = ["iteration", "epoch"]
                 values = [iteration, epoch]
 
@@ -190,8 +315,8 @@ class EngineCL(Engine):
 
                 # Print the metrics at given intervals
                 if iteration == 0 or iteration%report_interval == 0:
-                    print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
-                          (iteration, epoch, res["loss"], res["accuracy"]))
+                    print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f ... D_x %1.3f ... D_G_z %1.3f" %
+                          (iteration, epoch, res["g_loss"], res["d_loss"], res["D_x"], res["D_G_z"]))
 
                 # Save the model computation graph to a file
                 """if iteration == 1:
@@ -202,7 +327,8 @@ class EngineCL(Engine):
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
 
-                    curr_loss = 0.
+                    curr_g_loss = 0.
+                    curr_d_loss = 0.
                     val_batch = 0
 
                     keys = ['iteration','epoch']
@@ -221,7 +347,7 @@ class EngineCL(Engine):
                         self.data     = val_data[0][:,:,:,:].float()
                         self.labels   = val_data[1].long()
                         self.energies = val_data[2].float()
-
+                        
                         res = self.forward(mode="validation")
 
                         if val_batch == 0:
@@ -236,7 +362,8 @@ class EngineCL(Engine):
                                     local_values[log_index] += res[key]
                                     log_index += 1
 
-                        curr_loss += res["loss"]
+                        curr_g_loss += res["g_loss"]
+                        curr_d_loss += res["d_loss"]
 
                     for local_value in local_values:
                         values.append(local_value/num_val_batches)
@@ -245,12 +372,13 @@ class EngineCL(Engine):
                     self.val_log.record(keys, values)
 
                     # Average the loss over the validation batch
-                    curr_loss = curr_loss / num_val_batches
+                    curr_g_loss = curr_g_loss / num_val_batches
+                    curr_d_loss = curr_d_loss / num_val_batches
 
                     # Save the best model
-                    if curr_loss < best_loss:
+                    if curr_g_loss < best_g_loss:
                         self.save_state(mode="best")
-                        curr_loss = best_loss
+                        curr_g_loss = best_g_loss
 
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
@@ -272,8 +400,8 @@ class EngineCL(Engine):
                 if epoch >= epochs:
                     break
 
-            print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
-                  (iteration, epoch, res['loss'], res['accuracy']))
+            print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f" %
+                  (iteration, epoch, res['g_loss'], res['d_loss']))
 
             
         self.val_log.close()
@@ -356,6 +484,7 @@ class EngineCL(Engine):
                     if key in res.keys():
                         save_arr_dict[key].append(res[key])
             elif iteration == dump_iterations:
+                save_arr_dict["gen_imgs"].append(res["gen_imgs"])
                 print("Saving the npz dump array :")
                 savez(np_event_path + "dump.npz", **save_arr_dict)
                 break

@@ -1,0 +1,23 @@
+X[I 23:36:02.860 NotebookApp] The port 8888 is already in use, trying another port.
+[I 23:36:02.861 NotebookApp] The port 8889 is already in use, trying another port.
+[I 23:36:02.861 NotebookApp] The port 8890 is already in use, trying another port.
+[I 23:36:02.861 NotebookApp] The port 8891 is already in use, trying another port.
+[I 23:36:02.861 NotebookApp] The port 8892 is already in use, trying another port.
+[I 23:36:02.927 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 23:36:02.927 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 23:36:02.929 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/TRISEP_ML_tutorial
+[I 23:36:02.929 NotebookApp] The Jupyter Notebook is running at:
+[I 23:36:02.929 NotebookApp] http://localhost:8894/?token=7daa03d82f1372d0eb66f17876bcb8e156e89d7aae9ad113
+[I 23:36:02.929 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 23:36:02.933 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-26582-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8894/?token=7daa03d82f1372d0eb66f17876bcb8e156e89d7aae9ad113
+[I 23:36:31.065 NotebookApp] 302 GET /?token=7daa03d82f1372d0eb66f17876bcb8e156e89d7aae9ad113 (::1) 1.98ms
+[I 23:40:50.856 NotebookApp] Kernel started: 0cc1dda5-f480-44f2-826e-a448c7685402
+[W 23:40:50.898 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200110233601 (::1) 34.32ms referer=http://localhost:8894/notebooks/notebooks/MLP_CNN.ipynb
+[I 23:40:52.699 NotebookApp] Adapting to protocol v5.1 for kernel 0cc1dda5-f480-44f2-826e-a448c7685402
+[I 23:58:14.194 NotebookApp] Starting buffering for 0cc1dda5-f480-44f2-826e-a448c7685402:06e598f1b2854126a7babb0959880b78
+[I 23:58:14.646 NotebookApp] Kernel shutdown: 0cc1dda5-f480-44f2-826e-a448c7685402

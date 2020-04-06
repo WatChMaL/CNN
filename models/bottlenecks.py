@@ -21,7 +21,7 @@ class AEBottleneck(Module):
         
     def forward(self, X):
         return X
-    
+
 # Reparameterization bottleneck for a simple Variational Autoencoder
 class VAEBottleneck(Module):
     
@@ -47,8 +47,8 @@ class VAEBottleneck(Module):
         elif mode == "sample":
             z_samples = randn((shots, X.size(0), self.num_latent_dims), device=X.device)
             return mean(z_samples, dim=0)
-            
-        
+
+
 # Reparameterization bottleneck for a semi-supervised Variational Autoencoder
 class M2Bottleneck(Module):
     

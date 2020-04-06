@@ -5,14 +5,21 @@ Abstract base class for supporting engines for different types of models with
 varying architectures and forward passes
 """
 
+# +
+# For debugging
+import pdb
+
 # Python standard imports
 from abc import ABC, abstractmethod
 from time import strftime
 from os import stat, mkdir
 from math import floor, ceil
+import numpy as np
+# -
 
 # WatChMaL imports
-from io_utils.data_handling_trainval import WCH5DatasetTV
+from io_utils.data_handling_train import WCH5DatasetT
+from io_utils.data_handling_val import WCH5DatasetV
 from io_utils.data_handling_test import WCH5DatasetTest
 from io_utils.ioconfig import save_config
 from plot_utils.notebook_utils import CSVData
@@ -63,11 +70,14 @@ class Engine(ABC):
             self.model_accs=self.model
 
         # Create the dataset object for the trainval and test samples
-        self.trainval_dset=WCH5DatasetTV(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                         shuffle=config.shuffle, trainval_subset=config.trainval_subset)
-        self.test_dset=WCH5DatasetTest(config.test_path, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                       shuffle=config.shuffle, test_subset=config.test_subset)
-
+        self.train_dset = WCH5DatasetT(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
+                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
+        self.val_dset = WCH5DatasetV(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
+                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
+        
+        self.test_dset = WCH5DatasetTest(config.test_path, config.test_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
+                                       shuffle=config.shuffle, num_datasets=config.num_datasets, test_subset=config.test_subset)
+        
         # Define the variant dependent attributes
         self.criterion=None
 
@@ -90,7 +100,7 @@ class Engine(ABC):
 
         # Save a copy of the config in the dump path
         save_config(self.config, self.dirpath + "config_file.ini")
-
+        
     @abstractmethod
     def forward(self, mode):
         """Forward pass using self.data as input."""
@@ -99,6 +109,7 @@ class Engine(ABC):
     def backward(self):
         """Backward pass using the loss computed for a mini-batch."""
         self.optimizer.zero_grad()  # Reset gradient accumulation
+        self.loss.contiguous()
         self.loss.backward()        # Propagate the loss backwards
         self.optimizer.step()       # Update the optimizer parameters
 

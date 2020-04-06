@@ -17,7 +17,7 @@ class Argument():
         self.default = default
         self.required = required
         self.help = help
-        
+
 # Given a list of Argument objects, generate a config argparse.Namespace object
 def parse_args(args_list):
     parser = argparse.ArgumentParser()

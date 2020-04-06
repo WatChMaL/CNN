@@ -25,7 +25,7 @@ class ConfigAttr():
         self.dtype = dtype
         self.list_dtype = list_dtype
         self.overwrite = overwrite
-        
+
 # Helper function to add an attribute to a config object
 def add_attr(config, name, data_str, dtype, list_dtype=None):
     if data_str == 'None':
@@ -97,7 +97,7 @@ def save_config(config, outFile):
         conf.write(configFile)
         
     print('Config file saved at', outFile)
-    
+
 # Function to convert a list of strings into a kwargs-interpretable dict
 def to_kwargs(arglist):
     args = [arg.split(ARG_DELIM) for arg in arglist]

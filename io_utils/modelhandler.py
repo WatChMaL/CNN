@@ -41,7 +41,7 @@ def print_models():
             print('\tConstructor parameters:', arglist, '\n')
         else:
             print('\tNo general constructor (__init__) found.\n')
-    
+
 # Returns a function pointer corresponding to the constructor for the specified model
 # REQUIRES: All constructors across all models must SHARE THE SAME PARAMETERS,
 #           otherwise calling this function may break the program

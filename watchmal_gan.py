@@ -1,7 +1,7 @@
 """
-watchmal_cl.py
+watchmal_gan.py
 
-Main script to execute the training and evaluation of a fully supervised classifier
+Main script to execute the training and evaluation of a GAN
 """
 
 # Standard python imports
@@ -9,10 +9,10 @@ from datetime import datetime
 
 # WatChMaL imports
 from main.watchmal import handle_config, handle_model
-from training_utils.engine_cl import EngineCL
+from training_utils.engine_gan import EngineGAN
 
 # Global variables
-_CL_TASKS = ['train', 'valid', 'test']
+_GAN_TASKS = ['train', 'valid', 'test']
 
 if __name__ == '__main__':
     
@@ -24,13 +24,13 @@ if __name__ == '__main__':
     
     # Check the validity of tasks to perform
     for task in config.tasks:
-        assert task in _CL_TASKS
-        
+        assert task in _GAN_TASKS
+    
     # Construct the model
     model = handle_model(config.model, config.model_params)
     
     # Initialize the training engine
-    engine = EngineCL(model, config)
+    engine = EngineGAN(model, config)
     
     # Restore the model state if path given
     if config.restore_state is not None:

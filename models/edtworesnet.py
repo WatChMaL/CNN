@@ -1,14 +1,21 @@
 """
-edresnet.py
+edtworesnet.py
 
 PyTorch implementation of ResNet-style architecture to be used as an encoder and decoder in the variational
 inference models with a corresponding symmetric decoder.
+
+Model run separately on the data for each end cap and the barrel and 'stitched' together.
 """
+
+# +
+# For debugging
+import pdb
 
 # PyTorch imports
 from torch import cat
 from torch.nn import Module, Sequential, Linear, Conv2d, ConvTranspose2d, BatchNorm2d, ReLU
 from torch.nn.init import kaiming_normal_, constant_
+# -
 
 # WatChMaL imports
 from models import resnetblocks
@@ -18,9 +25,9 @@ __all__ = ['etworesnet18', 'etworesnet34', 'etworesnet50', 'etworesnet101', 'etw
            'dtworesnet18', 'dtworesnet34', 'dtworesnet50', 'dtworesnet101', 'dtworesnet152']
 _RELU = ReLU()
 
-#-------------------------------
+# -------------------------------
 # Encoder architecture layers
-#-------------------------------
+# -------------------------------
 
 class EtworesNet(Module):
 
@@ -115,11 +122,11 @@ class EtworesNet(Module):
         # Apply the operations on the top endcap data
         # -------------------------------------------
         x = self.conv1(X_endcap_top)
-        x = self.bn1(x)
+        #x = self.bn1(x)
         x = _RELU(x)
         
         x = self.conv2(x)
-        x = self.bn2(x)
+        #x = self.bn2(x)
         x = _RELU(x)
         
         x = self.layer0(x)
@@ -128,7 +135,7 @@ class EtworesNet(Module):
         x = self.layer3(x)
         
         x = self.conv3endcap(x)
-        x = self.bn3endcap(x)
+        #x = self.bn3endcap(x)
         x = _RELU(x)
         
         x_endcap_top = x.view(x.size(0), -1)
@@ -137,11 +144,11 @@ class EtworesNet(Module):
         # Apply the operations on the central barrel
         # -------------------------------------------
         x = self.conv1(X_barrel)
-        x = self.bn1(x)
+        #x = self.bn1(x)
         x = _RELU(x)
         
         x = self.conv2(x)
-        x = self.bn2(x)
+        #x = self.bn2(x)
         x = _RELU(x)
         
         x = self.layer0(x)
@@ -151,7 +158,7 @@ class EtworesNet(Module):
         x = self.layer4(x)
         
         x = self.conv3barrel(x)
-        x = self.bn3barrel(x)
+        #x = self.bn3barrel(x)
         x = _RELU(x)
         
         x_barrel = x.view(x.size(0), -1)
@@ -160,11 +167,11 @@ class EtworesNet(Module):
         # Apply the operations on the bottom endcap
         # -------------------------------------------
         x = self.conv1(X_endcap_bottom)
-        x = self.bn1(x)
+        #x = self.bn1(x)
         x = _RELU(x)
         
         x = self.conv2(x)
-        x = self.bn2(x)
+        #x = self.bn2(x)
         x = _RELU(x)
         
         x = self.layer0(x)
@@ -173,13 +180,13 @@ class EtworesNet(Module):
         x = self.layer3(x)
         
         x = self.conv3endcap(x)
-        x = self.bn3endcap(x)
+        #x = self.bn3endcap(x)
         x = _RELU(x)
         
         x_endcap_bottom = x.view(x.size(0), -1)
         
         # -------------------------------------------
-        # Conatenate the 1d features extracted
+        # Concatenate the 1d features extracted
         # -------------------------------------------
         x_tank = cat((x_endcap_top, x_barrel, x_endcap_bottom), dim=1)
         
@@ -189,7 +196,7 @@ class EtworesNet(Module):
             x = _RELU(self.fc3(x))
             
         return x
-    
+
 #-------------------------------
 # Decoder architecture layers
 #-------------------------------
@@ -297,9 +304,9 @@ class DtworesNet(Module):
         return x
 
 
-#-------------------------------------------------------
+# -------------------------------------------------------
 # Initializers for model encoders with various depths
-#-------------------------------------------------------
+# -------------------------------------------------------
 
 def etworesnet18(**kwargs):
     """Constructs a EresNet-18 model encoder.
@@ -326,9 +333,9 @@ def etworesnet152(**kwargs):
     """
     return EtworesNet(resnetblocks.EresNetBottleneck, [3, 8, 36, 3], **kwargs)
 
-#-------------------------------------------------------
+# -------------------------------------------------------
 # Initializers for model decoders with various depths
-#-------------------------------------------------------
+# -------------------------------------------------------
 
 def dtworesnet18(**kwargs):
     """Constructs a DresNet-18 model decoder.

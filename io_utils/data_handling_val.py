@@ -1,6 +1,8 @@
 """
-WCH5Dataset update to apply normalization on the fly to the test dataset
+WCH5Dataset update to apply normalization on the fly and use
+the pre-computed indices for the training and validation datasets
 """
+import pdb
 
 # PyTorch imports
 from torch.utils.data import Dataset
@@ -10,7 +12,6 @@ import numpy as np
 import numpy.ma as ma
 import math
 import random
-import pdb
 
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
@@ -88,16 +89,18 @@ def find_bounds(pos, ang, label, energy):
     return np.array([lb, ub, np.minimum(np.minimum(length1,length2), length3)]).transpose()
 
 
-class WCH5DatasetTest(Dataset):
+class WCH5DatasetV(Dataset):
     """
     Dataset storing image-like data from Water Cherenkov detector
     memory-maps the detector data from the hdf5 file
     The detector data must be uncompresses and unchunked
     labels are loaded into memory outright
     No other data is currently loaded
+    
+    Use on the traning and validation datasets
     """
 
-    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
@@ -116,21 +119,14 @@ class WCH5DatasetTest(Dataset):
         self.angles = []
         
         self.train_indices = []
+        self.train_indices_original = []
         self.val_indices = []
-        
-        
-        self.event_data = []
-        self.labels = []
-        self.energies = []
-        self.positions = []
-        self.angles = []
-        
-        self.test_indices = []
+        self.val_indices_original = []
         
         for i in np.arange(num_datasets):
 
 
-            f = h5py.File(test_dset_path[i], "r")
+            f = h5py.File(trainval_dset_path[i], "r")
 
             hdf5_event_data = f["event_data"]
             hdf5_labels = f["labels"]
@@ -141,7 +137,7 @@ class WCH5DatasetTest(Dataset):
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
-            self.event_data.append(np.memmap(test_dset_path[i], mode="r", shape=hdf5_event_data.shape,
+            self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
                                         offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
 
             # Load the contents which could fit easily into memory
@@ -150,72 +146,72 @@ class WCH5DatasetTest(Dataset):
             self.positions.append(np.array(hdf5_positions))
             self.angles.append(np.array(hdf5_angles))
 
-
             # Set the total size of the trainval dataset to use
-            self.reduced_size = test_subset                
-                
-            if test_idx_path[i] is not None:
+            self.reduced_size = trainval_subset
 
-                test_indices = np.load(test_idx_path[i], allow_pickle=True)
-                self.test_indices.append(test_indices["test_idxs"])
-                self.test_indices[i] = self.test_indices[i][:]
-                print("Loading test indices from: ", test_idx_path[i])
-            
+             # Load the train and validation indices from the disk
+            if trainval_idx_path[i] is not None:
+                trainval_indices = np.load(trainval_idx_path[i], allow_pickle=True)
+                train_indices = trainval_indices["train_idxs"]
+                self.train_indices.append(train_indices[0,:])
+                val_indices = trainval_indices["val_idxs"]
+                self.val_indices.append(val_indices[0,:])
+                print("Loading validation indices from: ", trainval_idx_path[i])
             else:
-                
-                test_indices = np.arange(self.labels[i].shape[0])
-                np.random.shuffle(test_indices)
-                #n_test = int(0.9 * test_indices.shape[0])
-                #self.test_indices[i] = test_indices[n_test:]
-                self.test_indices.append(test_indices)
-                    
-                
-            #np.random.shuffle(self.test_indices[i])
+                trainval_indices = np.arange(self.labels.shape[0])
+                np.random.shuffle(trainval_indices)
+                n_train = int(0.8 * trainval_indices.shape[0])
+                n_valid = int(0.1 * trainval_indices.shape[0])
+                self.train_indices = trainval_indices[:n_train]
+                self.val_indices = trainval_indices[n_train:n_train+n_valid]
+                print("Validation Indices Randomized")
 
-            ## Seed the pseudo random number generator
-            #if seed is not None:
-                #np.random.seed(seed)
+            np.random.shuffle(self.train_indices[i])
+            np.random.shuffle(self.val_indices[i])
+
+            # Seed the pseudo random number generator
+            if seed is not None:
+                np.random.seed(seed)
 
             # Shuffle the indices
-            #if shuffle:
-                #np.random.shuffle(self.test_indices[i])
+            if shuffle:
+                np.random.shuffle(self.train_indices[i])
+                np.random.shuffle(self.val_indices[i])
 
-            # If using a subset of the entire dataset
+            # If using a subset of the entire dataset, preserve the ratio b/w
+            # the training and validation subsets
             if self.reduced_size is not None:
-                assert len(self.test_indices[i])>=self.reduced_size
-                self.test_indices[i] = np.random.choice(self.labels[i].shape[0], self.reduced_size)
+                assert (len(self.train_indices[i]) + len(self.val_indices[i]))>=self.reduced_size
+                total_indices = len(self.train_indices[i]) + len(self.val_indices[i])
+                n_train = int((len(self.train_indices[i])/total_indices) * self.reduced_size)
+                n_val = int((len(self.val_indices[i])/total_indices) * self.reduced_size)
 
+                self.train_indices[i] = self.train_indices[i][:n_train]
 
-            # For center dataset:
+            self.train_indices_original.append(self.train_indices[i])
+            self.val_indices_original.append(self.val_indices[i])
+            # Use only data within barrel that does not touch the edges of the tank
             '''
-            # find barrel-only events
-            #max_ang = abs(np.arccos(1/(1.33)))
-            #total_ang = np.arctan(400/375)
-            interval = 8
-            #bound = (total_ang-max_ang)
-            bound = 0.17453*interval
+            # For center dataset:
+            # train indices
+            c = ma.masked_where((find_height_center(self.angles[self.train_indices], self.labels[self.train_indices], self.energies[self.train_indices,0]) > 400) | (find_height_center(self.angles[self.train_indices], self.labels[self.train_indices], self.energies[self.train_indices,0]) < -400), self.train_indices)
+            self.train_indices = c.compressed()
 
-            lb = math.pi/2 - bound
-            ub = math.pi/2 + bound
-
-            c = ma.masked_where((self.angles[self.test_indices,0] > ub) | (self.angles[self.test_indices,0] < lb), self.test_indices)
-            self.test_indices = c.compressed()
-            #self.test_indices = self.test_indices[:32343]
-
+            # validation indices
+            c = ma.masked_where((find_height_center(self.angles[self.val_indices], self.labels[self.val_indices], self.energies[self.val_indices,0]) > 400) | (find_height_center(self.angles[self.val_indices], self.labels[self.val_indices], self.energies[self.val_indices,0]) < -400), self.val_indices) 
+            self.val_indices = c.compressed()
 
             # For dataset with varying position:
             bound = find_bounds(self.positions[:,0,:], self.angles[:,:], self.labels[:], self.energies[:,0])
+            c = ma.masked_where(bound[self.train_indices,2] < 200, self.train_indices)
+            c = ma.masked_where(abs(self.positions[self.train_indices,0,1]) > 250, c)
+            c = ma.masked_where((self.angles[self.train_indices,0] > bound[self.train_indices,1]) | (self.angles[self.train_indices,0] < bound[self.train_indices,0]), self.train_indices)
+            self.train_indices = c.compressed()
 
-            c = ma.masked_where(bound[self.test_indices,2] < 200, self.test_indices)
-            c = ma.masked_where(abs(self.positions[self.test_indices,0,1]) > 250, c)
-            c = ma.masked_where((self.angles[self.test_indices,0] > bound[:,1]) | (self.angles[self.test_indices,0] < bound[:,0]), self.test_indices)
-
-            bound = find_bounds(self.positions[self.test_indices,0,:], self.angles[self.test_indices,:], self.labels[self.test_indices], self.energies[self.test_indices,0])
-            c = ma.masked_where((self.positions[self.test_indices,0,0]**2 + self.positions[self.test_indices,0,2]**2 + self.positions[self.test_indices,0,1]**2)**0.5 > 400, self.test_indices)
-            c = ma.masked_where((self.angles[self.test_indices,0] > bound[:,1]) | (self.angles[self.test_indices,0] < bound[:,0]), c)
-            #c = ma.masked_where(bound[self.test_indices,2] < 200, c)
-            #c = ma.masked_where(bound[self.test_indices,2] > 400, c)
-            self.test_indices = c.compressed()
+            c = ma.masked_where(bound[self.val_indices,2] < 200, self.val_indices)
+            c = ma.masked_where(abs(self.positions[self.val_indices,0,1]) > 250, c)
+            c = ma.masked_where((self.angles[self.val_indices,0] > bound[self.val_indices,1]) | (self.angles[self.val_indices,0] < bound[self.val_indices,0]), self.val_indices)
+            self.val_indices = c.compressed()
             '''
 
             if self.event_data[i][0,:,:,:].shape[0] == 16:         
@@ -286,9 +282,10 @@ class WCH5DatasetTest(Dataset):
         
         
         self.endcap_mPMT_order = np.array([[0,6],[1,7],[2,8],[3,9],[4,10],[5,11],[6,0],[7,1],[8,2],[9,3],[10,4],[11,5],[12,15],[13,16],[14,17],[15,12],[16,13],[17,14],[18,18]])
+        
         self.datasets = np.array(np.arange(num_datasets))
+    
 
-            
     def __getitem__(self, index):
         '''
         self.a = self.event_data[self.datasets[0]][index,:,:,:19]
@@ -299,8 +296,9 @@ class WCH5DatasetTest(Dataset):
         '''
         np.random.shuffle(self.datasets)
         for i in np.arange(len(self.datasets)):
-            
-            if index < (self.labels[self.datasets[i]].shape[0]):
+
+            if index < self.labels[self.datasets[i]].shape[0]:
+
                 if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
 
                     self.a = self.event_data[self.datasets[i]][index, :, :, :19]
@@ -321,7 +319,7 @@ class WCH5DatasetTest(Dataset):
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
-        
+        s
         assert False, "empty batch"
         raise RuntimeError("empty batch")
         
@@ -331,5 +329,3 @@ class WCH5DatasetTest(Dataset):
             return self.labels.shape[0]
         else:
             return self.reduced_size
-
-
