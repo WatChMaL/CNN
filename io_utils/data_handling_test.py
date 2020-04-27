@@ -124,12 +124,50 @@ class WCH5DatasetTest(Dataset):
         self.energies = []
         self.positions = []
         self.angles = []
+        self.eventids = []
+        self.rootfiles = []
         
         self.test_indices = []
         
         for i in np.arange(num_datasets):
+            '''
+            
+            # Import test events from h5 file
+            filtered_index = "/fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz"
+            filtered_indices = np.load(filtered_index, allow_pickle=True)
+            test_filtered_indices = filtered_indices['test_idxs']
 
+            original_data_path = "/data/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M.h5"
+            f = h5py.File(original_data_path, "r")
 
+            hdf5_event_data = (f["event_data"])
+            self.event_data.append(np.memmap(original_data_path, mode="r", shape=hdf5_event_data.shape,
+                                                offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+
+            original_eventids = np.array(f['event_ids'])
+            original_rootfiles = np.array(f['root_files'])
+            original_energies = np.array(f['energies'])
+            original_positions = np.array(f['positions'])
+            original_angles = np.array(f['angles'])
+            original_labels = np.array(f['labels'])
+
+            filtered_eventids = original_eventids[test_filtered_indices]
+            filtered_rootfiles = original_rootfiles[test_filtered_indices]
+            filtered_energies = original_energies[test_filtered_indices]
+            filtered_positions = original_positions[test_filtered_indices]
+            filtered_angles = original_angles[test_filtered_indices]
+            filtered_labels = original_labels[test_filtered_indices]
+            
+            self.labels.append(filtered_labels)
+            self.energies.append(filtered_energies)
+            self.positions.append(filtered_positions)
+            self.angles.append(filtered_angles)
+            self.eventids.append(filtered_eventids)
+            self.rootfiles.append(filtered_rootfiles)
+            
+            
+            self.reduced_size = test_subset
+            '''
             f = h5py.File(test_dset_path[i], "r")
 
             hdf5_event_data = f["event_data"]
@@ -137,6 +175,8 @@ class WCH5DatasetTest(Dataset):
             hdf5_energies = f["energies"]
             hdf5_positions = f["positions"]
             hdf5_angles = f["angles"]
+            hdf5_eventids = f["event_ids"]
+            hdf5_rootfiles = f["root_files"]
 
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
@@ -149,11 +189,17 @@ class WCH5DatasetTest(Dataset):
             self.energies.append(np.array(hdf5_energies))
             self.positions.append(np.array(hdf5_positions))
             self.angles.append(np.array(hdf5_angles))
-
+            self.eventids.append(np.array(hdf5_eventids))
+            self.rootfiles.append(np.array(hdf5_rootfiles))
+            
+            # Running only on events that went through fiTQun
+            
+            
 
             # Set the total size of the trainval dataset to use
             self.reduced_size = test_subset                
-                
+            
+            
             if test_idx_path[i] is not None:
 
                 test_indices = np.load(test_idx_path[i], allow_pickle=True)
@@ -184,8 +230,8 @@ class WCH5DatasetTest(Dataset):
             if self.reduced_size is not None:
                 assert len(self.test_indices[i])>=self.reduced_size
                 self.test_indices[i] = np.random.choice(self.labels[i].shape[0], self.reduced_size)
-
-
+            
+            
             # For center dataset:
             '''
             # find barrel-only events
@@ -311,7 +357,7 @@ class WCH5DatasetTest(Dataset):
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
 
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
 
                 else:
                     self.a = self.event_data[self.datasets[i]][index,:,:,:19]
@@ -320,7 +366,7 @@ class WCH5DatasetTest(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
         
         assert False, "empty batch"
         raise RuntimeError("empty batch")
@@ -328,7 +374,7 @@ class WCH5DatasetTest(Dataset):
         
     def __len__(self):
         if self.reduced_size is None:
-            return self.labels.shape[0]
+            return self.labels[0].shape[0]
         else:
             return self.reduced_size
 

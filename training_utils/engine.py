@@ -26,11 +26,28 @@ from plot_utils.notebook_utils import CSVData
 
 # PyTorch imports
 from torch import device, load, save
-from torch.nn import DataParallel
+from torch.nn import DataParallel, init
 from torch.cuda import is_available
 
+# +
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
+
+import torchvision.datasets as dset
+import torchvision.transforms as transforms
+import torchvision.utils as vutils
+
+
+# -
+
+def weights_init(m):
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        init.normal_(m.weight.data, 0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        init.normal_(m.weight.data, 1.0, 0.02)
+        init.constant_(m.bias.data, 0)
+
 
 class Engine(ABC):
 
@@ -52,6 +69,8 @@ class Engine(ABC):
                 if len(self.devids) > 1:
                     print("Using DataParallel on these devices: {}".format(self.devids))
                     self.model=DataParallel(self.model, device_ids=config.gpu_list, dim=0)
+                    #self.model.generator=DataParallel(self.model.generator, device_ids=config.gpu_list, dim=0)
+                    #self.model.discriminator=DataParallel(self.model.discriminator, device_ids=config.gpu_list, dim=0)
                 print("CUDA is available")
             else:
                 self.device=device("cpu")
@@ -62,6 +81,11 @@ class Engine(ABC):
 
         # Send the model to the selected device
         self.model.to(self.device)
+        #self.model.generator.to(self.device)
+        #self.model.discriminator.to(self.device)
+        
+        # Apply model weights
+        self.model.apply(weights_init)
 
         # Setup the parameters tp save given the model type
         if type(self.model) == DataParallel:
@@ -69,6 +93,21 @@ class Engine(ABC):
         else:
             self.model_accs=self.model
 
+        # We can use an image folder dataset the way we have it setup.
+        # Create the dataset
+        '''
+        dataroot = "/home/ttuinstr/VAE/debugging/celeba"
+        image_size = 64
+        
+        self.dataset = dset.ImageFolder(root=dataroot,
+                                   transform=transforms.Compose([
+                                       transforms.Resize(image_size),
+                                       transforms.CenterCrop(image_size),
+                                       transforms.ToTensor(),
+                                       transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                                   ]))    
+            
+        '''
         # Create the dataset object for the trainval and test samples
         self.train_dset = WCH5DatasetT(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
                                          shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
@@ -77,6 +116,7 @@ class Engine(ABC):
         
         self.test_dset = WCH5DatasetTest(config.test_path, config.test_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
                                        shuffle=config.shuffle, num_datasets=config.num_datasets, test_subset=config.test_subset)
+        
         
         # Define the variant dependent attributes
         self.criterion=None

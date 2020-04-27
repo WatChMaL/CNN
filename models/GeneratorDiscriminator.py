@@ -95,7 +95,8 @@ class Generator(Module):
                     constant_(m.bn2.weight, 0)
                 elif isinstance(m, resnetblocks.DresNetBasicBlock):
                     constant_(m.bn2.weight, 0)
-        '''          
+        '''
+         
         ngf = 64
         nc = 19
         
@@ -113,10 +114,13 @@ class Generator(Module):
         
         self.conv5 = ConvTranspose2d( ngf, nc, 3, 1, 1, bias=False)
         
-        '''
+        ''' 
+        
+        ngf = 64
+        nc = 3
         self.main = Sequential(
             # input is Z, going into a convolution
-            ConvTranspose2d(128, ngf * 8, 4, 1, 0, bias=False),
+            ConvTranspose2d(100, ngf * 8, 4, 1, 0, bias=False),
             BatchNorm2d(ngf * 8),
             ReLU(True),
             # state size. (ngf*8) x 4 x 4
@@ -137,6 +141,7 @@ class Generator(Module):
             # state size. (nc) x 64 x 64
         )
         '''
+        
 
 
     def _make_layer_up(self, block, planes, blocks, stride=1):
@@ -257,8 +262,10 @@ class Generator(Module):
         x = _RELU(x)
 
         x = self.conv5(x)
-        x = _Tanh(x)
-
+        #x = _Tanh(x)
+        '''
+        x = self.main(X)
+        '''
         return x
 
 #-------------------------------
@@ -269,7 +276,7 @@ class Discriminator(Module):
     def __init__(self, block1, block2, layers, num_input_channels, num_latent_dims, zero_init_residual=False):
         
         super().__init__()
-        
+        '''
         self.inplanes = 64
         
         self.conv1 = Conv2d(num_input_channels, 16, kernel_size=1, stride=1, padding=0, bias=False)
@@ -297,18 +304,86 @@ class Discriminator(Module):
         self.cl_fc2 = Linear(int(num_latent_dims/2), int(num_latent_dims/4))
         self.cl_fc3 = Linear(int(num_latent_dims/4), int(num_latent_dims/8))
         self.cl_fc4 = Linear(int(num_latent_dims/8), 1)
+        '''
+        
+        nc = 19
+        ndf = 64
+        
+        #self.conv1 = Conv2d(nc, ndf, kernel_size=4, stride=2, padding=1, bias=False)
+        #self.conv2 = Conv2d(ndf, ndf*2, kernel_size=4, stride=2, padding=1, bias = False)
+        #self.bn2 = BatchNorm2d(ndf*2)
+        #self.conv3 = Conv2d(ndf*2, ndf*4, kernel_size=4, stride=2, padding=1, bias = False)
+        #self.bn3 = BatchNorm2d(ndf*4)
+        #self.conv4 = Conv2d(ndf*4, ndf*8, kernel_size=4, stride=2, padding=1, bias = False)
+        #self.bn4 = BatchNorm2d(ndf*8)
+        #self.conv5 = Conv2d(ndf*8, 1, kernel_size=2, stride=1, padding=0, bias=False)
+        
+        self.main = Sequential(
+            # input is (nc) x 64 x 64
+            Conv2d(nc, ndf, 4, 2, 1, bias=False),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf) x 32 x 32
+            Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 2),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*2) x 16 x 16
+            Conv2d(ndf * 2, ndf * 4, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 4),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*4) x 8 x 8
+            Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 8),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*8) x 4 x 4
+            Conv2d(ndf * 8, 1, 2, 1, 0, bias=False),
+            Sigmoid()
+        )
         
         '''
-        self.conv1 = Conv2d(num_input_channels, 64, kernel_size=4, stride=2, padding=1, bias=False)
-        self.conv2 = Conv2d(64, 128, kernel_size=4, stride=2, padding=1, bias = False)
-        self.bn2 = BatchNorm2d(128)
-        self.conv3 = Conv2d(128, 256, kernel_size=4, stride=2, padding=1, bias = False)
-        self.bn3 = BatchNorm2d(256)
-        self.conv4 = Conv2d(256, 520, kernel_size=4, stride=2, padding=1, bias = False)
-        self.bn4 = BatchNorm2d(520)
-        self.conv5 = Conv2d(520, 1, kernel_size=2, stride=1, padding=0, bias=False)
+        nc = 19
+        ndf = 64
+        
+        self.main = Sequential(
+            # input is (nc) x 64 x 64
+            Conv2d(nc, ndf, 4, 2, 1, bias=False),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf) x 32 x 32
+            Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 2),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*2) x 16 x 16
+            Conv2d(ndf * 2, ndf * 4, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 4),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*4) x 8 x 8
+            Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False),
+            BatchNorm2d(ndf * 8),
+            LeakyReLU(0.2, inplace=True),
+            # state size. (ndf*8) x 4 x 4
+            Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),
+            Sigmoid()
+        )
         '''
-    
+            
+        '''
+        for m in self.modules():
+            if isinstance(m, Conv2d):
+                kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+            elif isinstance(m, BatchNorm2d):
+                constant_(m.weight, 1)
+                constant_(m.bias, 0)
+
+        # Zero-initialize the last BN in each residual branch,
+        # so that the residual branch starts with zeros, and each residual block behaves like an identity.
+        # This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677
+        if zero_init_residual:
+            for m in self.modules():
+                if isinstance(m, resnetblocks.EresNetBottleneck):
+                    constant_(m.bn3.weight, 0)
+                elif isinstance(m, resnetblocks.EresNetBasicBlock):
+                    constant_(m.bn2.weight, 0)
+        '''
+        
     def _make_layer_up(self, block, planes, blocks, stride=1):
         downsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
@@ -334,14 +409,14 @@ class Discriminator(Module):
     def forward(self, X):
         
         # downsampling
-        
+        '''
         x = self.conv1(X)
         x = self.bn1(x)
-        x = _LeakyRELU(x)
+        x = _RELU(x)
        
         x = self.conv2(x)
         x = self.bn2(x)
-        x = _LeakyRELU(x)
+        x = _RELU(x)
         
         x = self.layer0(x)
         x = self.layer1(x)
@@ -357,18 +432,19 @@ class Discriminator(Module):
             x = self.conv3c(x)
        
         x = self.bn3(x)
-        x = _LeakyRELU(x)
+        x = _RELU(x)
         
         x = x.view(x.size(0), -1)
         
-        x = _LeakyRELU(self.fc1(x))
+        x = _RELU(self.fc1(x))
         
         # Fully-connected layers
-        x = _LeakyRELU(self.cl_fc1(x))
-        x = _LeakyRELU(self.cl_fc2(x))
-        x = _LeakyRELU(self.cl_fc3(x))
+        x = _RELU(self.cl_fc1(x))
+        x = _RELU(self.cl_fc2(x))
+        x = _RELU(self.cl_fc3(x))
         x = self.cl_fc4(x)
         
+        '''
         '''
        
         x = self.conv1(X)
@@ -391,6 +467,7 @@ class Discriminator(Module):
         x = _Sigmoid(x)
         '''
         #x = x.view(x.size(0), -1)
+        x = self.main(X)
         
         return x
 

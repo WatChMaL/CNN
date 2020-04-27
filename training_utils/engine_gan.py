@@ -16,19 +16,30 @@ from time import strftime, localtime
 import numpy as np
 import random
 import pdb
+import torchvision.transforms as transforms
 # -
 
 # Numerical imports
 from numpy import savez
 
+# +
 # PyTorch imports
-from torch import cat, Tensor, from_numpy
+from torch import cat, Tensor, from_numpy, randn, manual_seed, full
 from torch import argmax
-from torch.nn import Softmax, BCEWithLogitsLoss
+from torch.nn import Softmax, BCEWithLogitsLoss, BCELoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
-from torchviz import make_dot
+#from torchviz import make_dot
+from random import seed
+
+# Set random seed for reproducibility
+manualSeed = 999
+#manualSeed = random.randint(1, 10000) # use if you want new results
+print("Random Seed: ", manualSeed)
+seed(manualSeed)
+manual_seed(manualSeed)
+# -
 
 # WatChMaL imports
 from training_utils.engine import Engine
@@ -45,17 +56,21 @@ class EngineGAN(Engine):
     def __init__(self, model, config):
         super().__init__(model, config)
         
+        
         # Factor used to scale real images into range of generator output
-        self.scale = 3146.8333
+        #self.scale = 1168
         
         # Loss function
-        self.criterion = BCEWithLogitsLoss()
-            
+        #self.criterion = BCEWithLogitsLoss()
+        self.criterion = BCELoss()
+
         # Optimizers
-        self.optimizer_G = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
-        self.optimizer_D = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
-
-
+        #self.optimizer_G = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
+        #self.optimizer_D = Adam(self.model_accs.parameters(), lr=config.lr, betas=(0.5, 0.999))
+        self.optimizerG = Adam(self.model.generator.parameters(), lr=config.lr, betas=(0.5, 0.999))
+        self.optimizerD = Adam(self.model.discriminator.parameters(), lr=config.lr, betas=(0.5, 0.999))
+        
+        
         for i in np.arange(config.num_datasets):
             # Split the dataset into labelled and unlabelled subsets
             # Note : Only the labelled subset will be used for classifier training
@@ -70,15 +85,30 @@ class EngineGAN(Engine):
                 self.train_indices = np.concatenate((self.train_indices,self.train_dset.train_indices[i]),axis=0)
                 self.train_indices = np.concatenate((self.val_indices,self.val_dset.val_indices[i]),axis=0)
                 self.test_indices = np.concatenate((self.test_indices, self.test_dset.test_indices[i]),axis=0)
-
+        
         
         # Initialize the torch dataloaders
+        
+        # Create the dataloader
+        '''
+        batch_size = 128
+        workers = 2
+        
+        
+        self.train_loader = DataLoader(self.dataset, batch_size=batch_size,
+                                                 shuffle=True, num_workers=workers)
+        self.val_loader = DataLoader(self.dataset, batch_size=batch_size,
+                                                 shuffle=True, num_workers=workers)
+        self.test_loader = DataLoader(self.dataset, batch_size=batch_size,
+                                                 shuffle=True, num_workers=workers)
+        '''
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=5)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=5)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=10)
+                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=5)
+        
 
         # Define the placeholder attributes
         self.data     = None
@@ -90,29 +120,33 @@ class EngineGAN(Engine):
         self.dreal_loss = None
         self.dfake_loss = None
         
-        # Adversarial ground truths
-        self.valid = None
-        self.fake = None
+        
+        # Create batch of latent vectors that we will use to visualize
+        #  the progression of the generator
+        self.nz = 128
+        self.fixed_noise = randn(64, self.nz, 1, 1, device=self.device)
+
+        # Establish convention for real and fake labels during training
+        self.real_label = 1
+        self.fake_label = 0
         
         
-    def forward(self, mode, iteration):
+    def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
         
         Args:
         mode -- One of 'train', 'validation' to set the correct grad_mode
         """
-       
+
         if self.data is not None and len(self.data.size()) == 4:
             self.data = self.data.to(self.device)
-            
             # Put data into same range as output
-            self.data = (self.data/self.scale) - 0.5
-            
+            #self.data = (self.data/(self.scale/2))
+            #data_range = self.data.max()-self.data.min()
+            #self.data = self.data - data_range/2
+            #data_range = data_range.cpu().detach().numpy()
             #self.data = self.data.permute(0,3,1,2)
-            
-        if self.labels is not None:
-            self.labels = self.labels.to(self.device)
-        
+
         # Set the correct grad_mode given the mode
         if mode == "train":
             grad_mode = True
@@ -122,76 +156,78 @@ class EngineGAN(Engine):
             self.model.eval()
         
         
-        valid = Tensor(self.data.shape[0], 1).fill_(1.0).to(self.device)
-        fake = Tensor(self.data.shape[0], 1).fill_(0.0).to(self.device)
-       
-        
-        # Sample noise as generator input
-        z = Tensor(np.random.normal(0, 1, (self.data.shape[0], 128, 1, 1))).to(self.device)
-        
-        #self.model.zero_grad()
-        
-        model_results = self.model(self.data, z)
-        
-        # -----------------
-        #  Generator Loss
-        # -----------------
-        
-        gen_results = model_results['genresults'].detach()
-        #gen_numpy = gen_results.cpu().detach().numpy()
-        #gen_numpy = gen_numpy + abs(min(gen_numpy))
-        #gen_range = max(gen_numpy) - min(gen_numpy)
-        #gen_numpy = (gen_numpy - min(gen_numpy)) / gen_range
-        #gen_results = from_numpy(gen_numpy).to(self.device)
-        
-        real_results = model_results['realresults'].detach()
-        #real_numpy = real_results.cpu().detach().numpy()
-        #real_numpy = real_numpy + abs(min(real_numpy))
-        #real_range = max(real_numpy) - min(real_numpy)
-        #real_numpy = (real_numpy - min(real_numpy)) / real_range
-        #real_results = from_numpy(real_numpy).to(self.device)
+        ############################
+        # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
+        ###########################
+        ## Train with all-real batch
+        self.model.discriminator.zero_grad()
+        # Format batch
+        b_size = self.data.size(0)
+        label = full((b_size,), self.real_label, device=self.device)
+        # Forward pass real batch through D
+        output = self.model.discriminator(self.data).view(-1)
+        # Calculate loss on all-real batch
+        errD_real = self.criterion(output, label)
+        # Calculate gradients for D in backward pass
+        errD_real.backward()
+        D_x = output.mean().item()
 
-        g_loss = self.criterion(gen_results, valid)
-        self.g_loss = g_loss
+        ## Train with all-fake batch
+        # Generate batch of latent vectors
+        noise = randn(b_size, self.nz, 1, 1, device=self.device)
+        # Generate fake image batch with G
+        fake = self.model.generator(noise)
+        label.fill_(self.fake_label)
+        # Classify all fake batch with D
+        output = self.model.discriminator(fake.detach()).view(-1)
+        # Calculate D's loss on the all-fake batch
+        errD_fake = self.criterion(output, label)
+        # Calculate the gradients for this batch
+        errD_fake.backward()
+        D_G_z1 = output.mean().item()
+        # Add the gradients from the all-real and all-fake batches
+        errD = errD_real + errD_fake
+        # Update D
+        self.optimizerD.step()
 
-        # ---------------------
-        #  Discriminator Loss 2
-        # ---------------------
+        ############################
+        # (2) Update G network: maximize log(D(G(z)))
+        ###########################
+
+        self.model.generator.zero_grad()
+        label.fill_(self.real_label)  # fake labels are real for generator cost
+        # Since we just updated D, perform another forward pass of all-fake batch through D
+        output = self.model.discriminator(fake).view(-1)
+        # Calculate G's loss based on this output
+        errG = self.criterion(output, label)
+        # Calculate gradients for G
+        errG.backward()
+        D_G_z2 = output.mean().item()
+        # Update G
+        self.optimizerG.step()
         
-        # Measure discriminator's ability to classify real from generated samples
-        dreal_loss = self.criterion(real_results, valid)
-        self.dreal_loss = dreal_loss
-        
-        dfake_loss = self.criterion(gen_results, fake)
-        self.dfake_loss = dfake_loss
-        
-        d_loss = dreal_loss + dfake_loss
-        #self.d_loss = d_loss
-        
-        if self.g_loss.requires_grad is False:
-            self.g_loss.requires_grad = True
-        
-        if self.dreal_loss.requires_grad is False:
-            self.dreal_loss.requires_grad = True
-            
-        if self.dfake_loss.requires_grad is False:
-            self.dfake_loss.requires_grad = True
-        
-        D_x = real_results.mean().item()
-        D_G_z = gen_results.mean().item()
-        
+
         if mode == "validation":
-            genimgs = (model_results['genimgs'][:50].cpu().detach().numpy() + 0.5)*self.scale
+            genimgs = self.model.generator(self.fixed_noise).cpu().detach().numpy()
+            #genimgs = (genimgs + abs(genimgs.min()))*(self.scale/2)
+            #genimgs = (model_results['genimgs'][:50].cpu().detach().numpy() + data_range/2)*(self.scale/2)
         else:
             genimgs = None
         
-        del z, fake, valid, gen_results, real_results, model_results
         
-        return {"g_loss"               : g_loss.cpu().detach().item(),
-                "d_loss"               : d_loss.cpu().detach().item(),
+        #del fake, output, label, noise, errD_real, errD_fake
+        
+        
+        #"g_loss"               : g_loss.cpu().detach().item(),
+        #"d_loss"               : d_loss.cpu().detach().item(),
+        
+        
+        return {"g_loss"               : errG.cpu().detach().item(),
+                "d_loss"               : errD.cpu().detach().item(),
                 "gen_imgs"   : genimgs,
                 "D_x"        : D_x,
-                "D_G_z"      : D_G_z
+                "D_G_z1"     : D_G_z1,
+                "D_G_z2"     : D_G_z2
                }
     
     def backward(self, iteration, epoch):
@@ -201,7 +237,7 @@ class EngineGAN(Engine):
         
         # For one epoch, only discriminator is updated
         # Discriminator gets updated multiple times for every time the generator does
-           
+        '''
         # Generator
         self.optimizer_G.zero_grad()  # Reset gradient accumulation
         if epoch > 1 & (iteration % 10 == 0): 
@@ -216,7 +252,7 @@ class EngineGAN(Engine):
         self.dfake_loss.contiguous()
         self.dfake_loss.backward()    # Propagate the loss backwards
         self.optimizer_D.step()       # Update the optimizer parameters
-
+        '''
     
     def train(self):
         """Overrides the train method in Engine.py.
@@ -254,15 +290,15 @@ class EngineGAN(Engine):
             for data in self.train_loader:
 
                 # Using only the charge data
-                self.data     = data[0][:,:,:,:].float()
-                self.labels   = data[1].long()
-                self.energies = data[2]
+                self.data     = data[0]
+                #self.labels   = data[1].long()
+                #self.energies = data[2]
                 
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
 
                 # Do a backward pass using loss = self.loss
-                self.backward(iteration, epoch)
+                #self.backward(iteration, epoch)
                 
                 # Update the epoch and iteration
                 epoch     += 1./len(self.train_loader)
@@ -283,8 +319,8 @@ class EngineGAN(Engine):
 
                 # Print the metrics at given intervals
                 if iteration == 0 or iteration%report_interval == 0:
-                    print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f ... D_x %1.3f ... D_G_z %1.3f" %
-                          (iteration, epoch, res["g_loss"], res["d_loss"], res["D_x"], res["D_G_z"]))
+                    print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f ... D_x %1.3f ... D_G_z1 %1.3f ... D_G_z2 %1.3f" %
+                          (iteration, epoch, res["g_loss"], res["d_loss"], res["D_x"], res["D_G_z1"], res["D_G_z2"]))
 
                 # Save the model computation graph to a file
                 """if iteration == 1:
@@ -312,9 +348,9 @@ class EngineGAN(Engine):
                             val_iter = iter(self.val_loader)
 
                         # Extract the event data from the input data tuple
-                        self.data     = val_data[0][:,:,:,:].float()
-                        self.labels   = val_data[1].long()
-                        self.energies = val_data[2].float()
+                        self.data     = val_data[0]
+                        #self.labels   = val_data[1].long()
+                        #self.energies = val_data[2].float()
                         
                         res = self.forward(mode="validation")
 
@@ -350,12 +386,14 @@ class EngineGAN(Engine):
 
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
+                       # save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
+                        save_arr_values = [self.data.cpu().detach().numpy()]
                         for key in _DUMP_KEYS:
                             if key in res.keys():
                                 save_arr_keys.append(key)
                                 save_arr_values.append(res[key])
-
+                        save_arr_keys.append("gen_imgs")
+                        save_arr_values.append(res["gen_imgs"])
                         # Save the actual and reconstructed event to the disk
                         savez(self.dirpath + "/iteration_" + str(iteration) + ".npz",
                               **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
@@ -421,9 +459,9 @@ class EngineGAN(Engine):
             stdout.write("Iteration : " + str(iteration) + "\n")
 
             # Extract the event data from the input data tuple
-            self.data     = data[0][:,:,:,:].float()
-            self.labels   = data[1].long()
-            self.energies = data[2].float()
+            self.data     = data[0]
+            #self.labels   = data[1].long()
+            #self.energies = data[2].float()
                     
             res = self.forward(mode="validation")
                  
@@ -445,8 +483,8 @@ class EngineGAN(Engine):
                         save_arr_dict[key] = []
                         
             if iteration < dump_iterations:
-                save_arr_dict["labels"].append(self.labels.cpu().numpy())
-                save_arr_dict["energies"].append(self.energies.cpu().numpy())
+                #save_arr_dict["labels"].append(self.labels.cpu().numpy())
+                #save_arr_dict["energies"].append(self.energies.cpu().numpy())
                 
                 for key in _DUMP_KEYS:
                     if key in res.keys():

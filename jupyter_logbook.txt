@@ -1,149 +1,43 @@
-[I 09:00:10.616 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:00:10.617 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:00:10.617 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:00:10.617 NotebookApp] The port 8891 is already in use, trying another port.
-[I 09:00:10.617 NotebookApp] The port 8892 is already in use, trying another port.
-[I 09:00:11.723 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:00:11.773 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:00:11.773 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:00:11.774 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:00:11.774 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
-[I 09:00:11.774 NotebookApp] The Jupyter Notebook is running at:
-[I 09:00:11.774 NotebookApp] http://hostname:8888/?token=a0fd7d521cf6dc8638b3a394339dc1f0ed60a507c2d3baf9
-[I 09:00:11.774 NotebookApp]  or http://127.0.0.1:8970/?token=a0fd7d521cf6dc8638b3a394339dc1f0ed60a507c2d3baf9
-[I 09:00:11.774 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:00:11.778 NotebookApp] 
+[I 08:22:40.698 NotebookApp] The port 8888 is already in use, trying another port.
+[I 08:22:40.699 NotebookApp] The port 8889 is already in use, trying another port.
+[I 08:22:40.699 NotebookApp] The port 8890 is already in use, trying another port.
+[I 08:22:40.699 NotebookApp] The port 8891 is already in use, trying another port.
+[I 08:22:40.699 NotebookApp] The port 8892 is already in use, trying another port.
+[I 08:22:42.365 NotebookApp] jupyter_tensorboard extension loaded.
+[I 08:22:42.431 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 08:22:42.431 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 08:22:42.432 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 08:22:42.432 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
+[I 08:22:42.432 NotebookApp] The Jupyter Notebook is running at:
+[I 08:22:42.432 NotebookApp] http://hostname:8888/?token=58359b50e5c7d8745a5ae6080f958c58eb6428dd78909710
+[I 08:22:42.432 NotebookApp]  or http://127.0.0.1:8832/?token=58359b50e5c7d8745a5ae6080f958c58eb6428dd78909710
+[I 08:22:42.432 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 08:22:42.437 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-43123-open.html
+        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-3663-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=a0fd7d521cf6dc8638b3a394339dc1f0ed60a507c2d3baf9
-     or http://127.0.0.1:8970/?token=a0fd7d521cf6dc8638b3a394339dc1f0ed60a507c2d3baf9
-[I 09:00:40.661 NotebookApp] 302 GET /?token=a0fd7d521cf6dc8638b3a394339dc1f0ed60a507c2d3baf9 (::1) 1.15ms
-[W 09:01:17.667 NotebookApp] Notebook /preprocessing/pe_selection.py is not trusted
-[I 09:01:17.905 NotebookApp] Kernel started: 8fde5e3c-1191-4c37-a0b3-fa11f76cec48
-[W 09:01:17.944 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 13.00ms referer=http://127.0.0.1:8970/notebooks/preprocessing/pe_selection.py
-[I 09:01:57.718 NotebookApp] Starting buffering for 8fde5e3c-1191-4c37-a0b3-fa11f76cec48:56633d8e32b9427c8176f9ac93934cf6
-[W 09:02:08.483 NotebookApp] Notebook /preprocessing/preprocessing_gamma.py is not trusted
-[I 09:02:08.616 NotebookApp] Kernel started: feb3e236-9dbe-4e88-bf7a-627dc62a1790
-[W 09:02:08.690 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 4.12ms referer=http://127.0.0.1:8970/notebooks/preprocessing/preprocessing_gamma.py
-[I 09:02:16.219 NotebookApp] Starting buffering for feb3e236-9dbe-4e88-bf7a-627dc62a1790:a766f2bbb9b24523ba5e8a30dbf17514
-[I 09:20:36.883 NotebookApp] Kernel started: fd5b30eb-5db8-498d-9c0d-ef087da1e359
-[W 09:20:36.970 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 5.71ms referer=http://127.0.0.1:8970/notebooks/debugging/Plotting%20GANs.ipynb
-[I 09:21:21.219 NotebookApp] Kernel started: f282f1be-3158-45c5-8f55-c7f124b48aa1
-[W 09:21:21.325 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 2.44ms referer=http://127.0.0.1:8970/notebooks/debugging/fiTQun%20Energy%20Binning.ipynb
-[W 09:21:37.571 NotebookApp] IOPub data rate exceeded.
-    The notebook server will temporarily stop sending output
-    to the client in order to avoid crashing it.
-    To change this limit, set the config variable
-    `--NotebookApp.iopub_data_rate_limit`.
-    
-    Current values:
-    NotebookApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
-    NotebookApp.rate_limit_window=3.0 (secs)
-    
-[I 09:22:37.633 NotebookApp] Saving file at /debugging/Plotting GANs.ipynb
-[I 09:22:37.634 NotebookApp] Saving Plotting GANs.ipynb
-[I 09:23:21.739 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:23:21.739 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 09:26:36.933 NotebookApp] Saving file at /debugging/Plotting GANs.ipynb
-[I 09:26:36.933 NotebookApp] Saving Plotting GANs.ipynb
-[W 09:26:47.745 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 3.04ms referer=http://127.0.0.1:8970/notebooks/debugging/Varying%20Position%20Dataset.ipynb
-[I 09:26:48.288 NotebookApp] Kernel started: aa2def7c-fa56-4e64-9ccc-b0904b3159ed
-[I 09:27:04.642 NotebookApp] Starting buffering for aa2def7c-fa56-4e64-9ccc-b0904b3159ed:f23421368f634e51b5db472b68dc67a3
-[W 09:28:36.943 NotebookApp] Notebook /training_utils/engine_gan.py is not trusted
-[I 09:28:37.161 NotebookApp] Kernel started: 0032f675-002d-4f9b-93ba-e69b05ffc780
-[W 09:28:37.242 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 4.44ms referer=http://127.0.0.1:8970/notebooks/training_utils/engine_gan.py
-[I 09:28:37.628 NotebookApp] Saving file at /debugging/Plotting GANs.ipynb
-[I 09:28:37.629 NotebookApp] Saving Plotting GANs.ipynb
-[I 09:28:45.299 NotebookApp] Saving file at /training_utils/engine_gan.py
-[I 09:28:45.299 NotebookApp] Saving engine_gan.py in format py:light
-[I 09:28:51.871 NotebookApp] Saving file at /training_utils/engine_gan.py
-[I 09:28:51.872 NotebookApp] Saving engine_gan.py in format py:light
-[I 09:29:13.065 NotebookApp] Saving file at /config/engine_config/test.ini
-[I 09:29:33.537 NotebookApp] Saving file at /config/engine_config/test.ini
-[I 09:49:21.381 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:49:21.383 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 09:51:21.346 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:51:21.346 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 09:53:21.716 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:53:21.717 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 09:55:13.129 NotebookApp] Starting buffering for 0032f675-002d-4f9b-93ba-e69b05ffc780:b521e46966ac4d4186afce4307b3fc97
-[I 09:57:21.317 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:57:21.317 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 09:59:21.301 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 09:59:21.301 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:00:40.162 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:00:40.163 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:01:08.153 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:01:08.154 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:01:21.316 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:01:21.316 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:03:21.325 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:03:21.325 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:05:21.328 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:05:21.328 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:07:21.699 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:07:21.700 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:11:21.330 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:11:21.331 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:13:21.257 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:13:21.258 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:14:52.048 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:14:52.048 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:15:21.261 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:15:21.262 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:17:21.682 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:17:21.696 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:20:54.890 NotebookApp] Starting buffering for f282f1be-3158-45c5-8f55-c7f124b48aa1:eb1a370fd9a3425fb48be65cb4d573bf
-[I 10:21:00.293 NotebookApp] Kernel restarted: f282f1be-3158-45c5-8f55-c7f124b48aa1
-[I 10:21:02.527 NotebookApp] Restoring connection for f282f1be-3158-45c5-8f55-c7f124b48aa1:eb1a370fd9a3425fb48be65cb4d573bf
-[I 10:21:02.527 NotebookApp] Replaying 3 buffered messages
-[I 10:21:08.245 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:21:08.246 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:21:21.248 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:21:21.248 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:23:21.274 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:23:21.274 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:25:21.640 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:25:21.641 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:35:21.654 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:35:21.655 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:39:21.291 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:39:21.292 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:41:21.276 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:41:21.276 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:42:37.471 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:42:37.471 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:43:23.478 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:43:23.479 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 10:45:21.700 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 10:45:21.700 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:05:21.841 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:05:21.845 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:07:21.373 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:07:21.373 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[W 11:07:52.202 NotebookApp] Notebook /notebooks/2510 - New data exploration.ipynb is not trusted
-[I 11:07:53.012 NotebookApp] Kernel started: 8d28abdd-2f24-42ac-8a62-fd45bca5bc8e
-[W 11:07:53.125 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 6.20ms referer=http://127.0.0.1:8970/notebooks/notebooks/2510%20-%20New%20data%20exploration.ipynb
-[I 11:09:21.716 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:09:21.729 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:10:21.123 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:10:21.123 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:11:21.349 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:11:21.350 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:13:21.370 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:13:21.371 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:15:21.733 NotebookApp] Saving file at /debugging/fiTQun Energy Binning.ipynb
-[I 11:15:21.734 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:27:59.853 NotebookApp] Kernel started: d27131a3-b3aa-4eaf-abd1-b816dd2c189d
-[W 11:28:00.170 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 4.75ms referer=http://127.0.0.1:8970/notebooks/debugging/Comparing%20fiTQun%20and%20ResNet-18.ipynb
-[W 11:45:23.858 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 5.47ms referer=http://127.0.0.1:8970/notebooks/debugging/Varying%20Position%20Dataset.ipynb
-[I 11:47:26.488 NotebookApp] Saving file at /debugging/Varying Position Dataset.ipynb
-[I 11:47:26.495 NotebookApp] Saving Varying Position Dataset.ipynb
-[W 11:48:09.408 NotebookApp] Notebook /training_utils/engine_gan.py is not trusted
-[W 11:48:09.982 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200406090010 (::1) 9.85ms referer=http://127.0.0.1:8970/notebooks/training_utils/engine_gan.py
-[I 11:50:09.923 NotebookApp] Saving file at /training_utils/engine_gan.py
-[I 11:50:09.931 NotebookApp] Saving engine_gan.py in format py:light
-[I 12:19:25.575 NotebookApp] Saving file at /debugging/Varying Position Dataset.ipynb
-[I 12:19:25.577 NotebookApp] Saving Varying Position Dataset.ipynb
+        http://hostname:8888/?token=58359b50e5c7d8745a5ae6080f958c58eb6428dd78909710
+     or http://127.0.0.1:8832/?token=58359b50e5c7d8745a5ae6080f958c58eb6428dd78909710
+[I 08:23:23.712 NotebookApp] 302 GET /?token=58359b50e5c7d8745a5ae6080f958c58eb6428dd78909710 (::1) 1.21ms
+[I 08:25:04.362 NotebookApp] Kernel started: 363346e2-3055-4dd6-86ac-df2f3744816f
+[W 08:25:04.385 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200427082239 (::1) 11.37ms referer=http://127.0.0.1:8832/notebooks/debugging/Plotting%20Flagged%20Events.ipynb
+[I 08:27:04.443 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 08:27:04.443 NotebookApp] Saving Plotting Flagged Events.ipynb
+[W 08:45:22.500 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200427082239 (::1) 3.48ms referer=http://127.0.0.1:8832/notebooks/debugging/Varying%20Position%20Dataset.ipynb
+[I 08:45:24.856 NotebookApp] Kernel started: 81214f31-4ca2-4e77-bdc2-0b6988a7303f
+[I 08:47:04.435 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 08:47:04.435 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 08:49:04.434 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 08:49:04.447 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 08:51:04.746 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 08:51:04.812 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 08:57:04.899 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 08:57:04.900 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 09:01:04.764 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 09:01:04.765 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 09:05:04.483 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 09:05:04.483 NotebookApp] Saving Plotting Flagged Events.ipynb
+[I 09:11:04.803 NotebookApp] Saving file at /debugging/Plotting Flagged Events.ipynb
+[I 09:11:04.804 NotebookApp] Saving Plotting Flagged Events.ipynb
+[W 09:16:47.675 NotebookApp] delete /debugging/celeba

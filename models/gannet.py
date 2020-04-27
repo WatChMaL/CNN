@@ -10,7 +10,9 @@ from models.basemodel import BaseModel
 
 # PyTorch imports
 from torch.nn import Module, init
-from torch import Tensor
+from torch import Tensor, randn, full
+from torch.nn import Softmax, BCEWithLogitsLoss, BCELoss
+from torch.optim import Adam
 import numpy as np
 import pdb
 
@@ -29,9 +31,9 @@ class GanNet(Module, BaseModel):
         Module.__init__(self)
         BaseModel.__init__(self, num_input_channels, num_latent_dims, arch_key, arch_depth)
         
-        #self.classifier = LatentClassifier(num_latent_dims, num_classes)
-        self.discriminator.apply(weights_init)
-        self.generator.apply(weights_init)
+        self.classifier = LatentClassifier(num_latent_dims, num_classes)
+        #self.discriminator.apply(weights_init)
+        #self.generator.apply(weights_init)
         
         if not train_all:
             for param in self.encoder.parameters():

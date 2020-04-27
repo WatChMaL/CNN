@@ -54,7 +54,8 @@ class EngineCL(Engine):
         
         # Assert that we have samples to train the classifier
         assert config.cl_ratio > 0, "Set config.cl_ratio > 0 since samples needed to train the classifier"
-
+        
+        
         for i in np.arange(config.num_datasets):
             # Split the dataset into labelled and unlabelled subsets
             # Note : Only the labelled subset will be used for classifier training
@@ -70,21 +71,32 @@ class EngineCL(Engine):
                 self.train_indices = np.concatenate((self.val_indices,self.val_dset.val_indices[i]),axis=0)
                 self.test_indices = np.concatenate((self.test_indices, self.test_dset.test_indices[i]),axis=0)
             
-
-
+        
+        
         
         # Initialize the torch dataloaders
+        '''
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=10)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=10)
-
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
+        '''
+        filtered_index = "/fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz"
+        filtered_indices = np.load(filtered_index, allow_pickle=True)
+        test_filtered_indices = filtered_indices['test_idxs']
+        
+        self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
+                                        pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
+        
         # Define the placeholder attributes
         self.data     = None
         self.labels   = None
         self.energies = None
+        self.eventids = None
+        self.rootfiles = None
+        self.angles = None
         
     def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
@@ -164,6 +176,9 @@ class EngineCL(Engine):
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
+                self.eventids = data[5]
+                self.rootfiles = data[6]
+                self.angles = data[3]
 
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
@@ -221,7 +236,10 @@ class EngineCL(Engine):
                         self.data     = val_data[0][:,:,:,:].float()
                         self.labels   = val_data[1].long()
                         self.energies = val_data[2].float()
-
+                        self.eventids = val_data[5].float()
+                        self.rootfiles = val_data[6]
+                        self.angles = val_data[3].float()
+                    
                         res = self.forward(mode="validation")
 
                         if val_batch == 0:
@@ -253,8 +271,8 @@ class EngineCL(Engine):
                         curr_loss = best_loss
 
                     if iteration in dump_iterations:
-                        save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
+                        save_arr_keys = ["events", "labels", "energies", "angles", "eventids", "rootfiles"]
+                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy(), self.angles.cpu().numpy(), self.eventids.cpu().numpy(), self.rootfiles]
                         for key in _DUMP_KEYS:
                             if key in res.keys():
                                 save_arr_keys.append(key)
@@ -318,8 +336,8 @@ class EngineCL(Engine):
             dump_iterations = max(1, ceil(num_dump_events/self.config.batch_size_test))
         
         print("Dump iterations = {0}".format(dump_iterations))
-        save_arr_dict = {"events":[], "labels":[], "energies":[]}
-        
+        save_arr_dict = {"events":[], "labels":[], "energies":[], "angles":[], "eventids":[], "rootfiles":[]}
+
         for iteration, data in enumerate(data_iter):
             
             stdout.write("Iteration : " + str(iteration) + "\n")
@@ -328,6 +346,10 @@ class EngineCL(Engine):
             self.data     = data[0][:,:,:,:].float()
             self.labels   = data[1].long()
             self.energies = data[2].float()
+            self.eventids = data[5].float()
+            self.rootfiles = data[6]
+            self.angles = data[3].float()
+            
                     
             res = self.forward(mode="validation")
                  
@@ -351,6 +373,9 @@ class EngineCL(Engine):
             if iteration < dump_iterations:
                 save_arr_dict["labels"].append(self.labels.cpu().numpy())
                 save_arr_dict["energies"].append(self.energies.cpu().numpy())
+                save_arr_dict["eventids"].append(self.eventids.cpu().numpy())
+                save_arr_dict["rootfiles"].append(self.rootfiles)
+                save_arr_dict["angles"].append(self.angles.cpu().numpy())
                 
                 for key in _DUMP_KEYS:
                     if key in res.keys():
@@ -360,6 +385,6 @@ class EngineCL(Engine):
                 savez(np_event_path + "dump.npz", **save_arr_dict)
                 break
         
-        #if not path.exists(np_event_path + "dump.npz"):
-        #    print("Saving the npz dump array :")
-        #    savez(np_event_path + "dump.npz", **save_arr_dict)
+        if not path.exists(np_event_path + "dump.npz"):
+            print("Saving the npz dump array :")
+            savez(np_event_path + "dump.npz", **save_arr_dict)

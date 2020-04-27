@@ -64,7 +64,7 @@ class EresNetBasicBlock(Module):
         if downsample is None:
             self.conv1 = conv3x3(inplanes, planes, stride)
         else:
-            if planes < 128:
+            if planes < 512:
                 self.conv1 = conv4x4(inplanes, planes, stride=2)
             else:
                 self.conv1 = conv2x2(inplanes, planes)
