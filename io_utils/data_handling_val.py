@@ -190,6 +190,8 @@ class WCH5DatasetV(Dataset):
 
             self.train_indices_original.append(self.train_indices[i])
             self.val_indices_original.append(self.val_indices[i])
+            
+            # DATA SLICING
             # Use only data within barrel that does not touch the edges of the tank
             '''
             # For center dataset:

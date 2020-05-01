@@ -7,6 +7,7 @@ Derived class implementing a GAN using the generator and discriminator from base
 # WatChMaL imports
 from models.bottlenecks import LatentClassifier
 from models.basemodel import BaseModel
+from models import GeneratorDiscriminator
 
 # PyTorch imports
 from torch.nn import Module, init
@@ -29,12 +30,14 @@ class GanNet(Module, BaseModel):
     
     def __init__(self, num_input_channels, num_latent_dims, num_classes, arch_key, arch_depth, train_all):
         Module.__init__(self)
-        BaseModel.__init__(self, num_input_channels, num_latent_dims, arch_key, arch_depth)
         
-        self.classifier = LatentClassifier(num_latent_dims, num_classes)
+        #self.classifier = LatentClassifier(num_latent_dims, num_classes)
         #self.discriminator.apply(weights_init)
         #self.generator.apply(weights_init)
-        
+        self.generator = getattr(GeneratorDiscriminator, "genresnet" + str(arch_depth))(num_input_channels=num_input_channels,
+                                                                               num_latent_dims=num_latent_dims)
+        self.discriminator = getattr(GeneratorDiscriminator, "disresnet" + str(arch_depth))(num_input_channels=num_input_channels,
+                                                                                 num_latent_dims=num_latent_dims)
         if not train_all:
             for param in self.encoder.parameters():
                 param.requires_grad = False

@@ -186,7 +186,7 @@ class WCH5DatasetT(Dataset):
 
                 self.train_indices[i] = self.train_indices[i][:n_train]
 
-
+            # DATA SLICING
             # Use only data within barrel that does not touch the edges of the tank
             '''
             # For center dataset:

@@ -231,7 +231,7 @@ class WCH5DatasetTest(Dataset):
                 assert len(self.test_indices[i])>=self.reduced_size
                 self.test_indices[i] = np.random.choice(self.labels[i].shape[0], self.reduced_size)
             
-            
+            # DATA SLICING
             # For center dataset:
             '''
             # find barrel-only events

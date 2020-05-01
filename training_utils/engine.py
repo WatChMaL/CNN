@@ -68,9 +68,9 @@ class Engine(ABC):
                 self.device=device(self.devids[0])
                 if len(self.devids) > 1:
                     print("Using DataParallel on these devices: {}".format(self.devids))
-                    self.model=DataParallel(self.model, device_ids=config.gpu_list, dim=0)
-                    #self.model.generator=DataParallel(self.model.generator, device_ids=config.gpu_list, dim=0)
-                    #self.model.discriminator=DataParallel(self.model.discriminator, device_ids=config.gpu_list, dim=0)
+                    #self.model=DataParallel(self.model, device_ids=config.gpu_list, dim=0)
+                    self.model.generator=DataParallel(self.model.generator, device_ids=config.gpu_list, dim=0)
+                    self.model.discriminator=DataParallel(self.model.discriminator, device_ids=config.gpu_list, dim=0)
                 print("CUDA is available")
             else:
                 self.device=device("cpu")
@@ -80,9 +80,9 @@ class Engine(ABC):
             self.device=device("cpu")
 
         # Send the model to the selected device
-        self.model.to(self.device)
-        #self.model.generator.to(self.device)
-        #self.model.discriminator.to(self.device)
+        #self.model.to(self.device)
+        self.model.generator.to(self.device)
+        self.model.discriminator.to(self.device)
         
         # Apply model weights
         self.model.apply(weights_init)
@@ -90,6 +90,8 @@ class Engine(ABC):
         # Setup the parameters tp save given the model type
         if type(self.model) == DataParallel:
             self.model_accs=self.model.module
+            self.model.generator = self.model.module.generator
+            self.model.discriminator = self.model.module.discriminator
         else:
             self.model_accs=self.model
 

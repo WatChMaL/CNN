@@ -262,10 +262,9 @@ class Generator(Module):
         x = _RELU(x)
 
         x = self.conv5(x)
+        #x = _RELU(x)
         #x = _Tanh(x)
-        '''
-        x = self.main(X)
-        '''
+
         return x
 
 #-------------------------------
