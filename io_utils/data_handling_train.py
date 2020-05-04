@@ -151,9 +151,9 @@ class WCH5DatasetT(Dataset):
             if trainval_idx_path[i] is not None:
                 trainval_indices = np.load(trainval_idx_path[i], allow_pickle=True)
                 train_indices = trainval_indices["train_idxs"]
-                self.train_indices.append(train_indices[0,:])
+                self.train_indices.append(train_indices[:])
                 val_indices = trainval_indices["val_idxs"]
-                self.val_indices.append(val_indices[0,:])
+                self.val_indices.append(val_indices[:])
                 print("Loading training indices from: ", trainval_idx_path[i])
             else:
                 trainval_indices = np.arange(self.labels.shape[0])

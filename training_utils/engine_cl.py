@@ -75,21 +75,14 @@ class EngineCL(Engine):
         
         
         # Initialize the torch dataloaders
-        '''
+  
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=10)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
-        '''
-        filtered_index = "/fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz"
-        filtered_indices = np.load(filtered_index, allow_pickle=True)
-        test_filtered_indices = filtered_indices['test_idxs']
-        
-        self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                        pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
-        
+
         # Define the placeholder attributes
         self.data     = None
         self.labels   = None
@@ -97,6 +90,7 @@ class EngineCL(Engine):
         self.eventids = None
         self.rootfiles = None
         self.angles = None
+        self.index = None
         
     def forward(self, mode):
         """Overrides the forward abstract method in Engine.py.
@@ -176,9 +170,9 @@ class EngineCL(Engine):
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
                 self.energies = data[2]
-                self.eventids = data[5]
-                self.rootfiles = data[6]
                 self.angles = data[3]
+                self.index = data[4]
+
 
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
@@ -236,8 +230,6 @@ class EngineCL(Engine):
                         self.data     = val_data[0][:,:,:,:].float()
                         self.labels   = val_data[1].long()
                         self.energies = val_data[2].float()
-                        self.eventids = val_data[5].float()
-                        self.rootfiles = val_data[6]
                         self.angles = val_data[3].float()
                     
                         res = self.forward(mode="validation")
@@ -271,8 +263,8 @@ class EngineCL(Engine):
                         curr_loss = best_loss
 
                     if iteration in dump_iterations:
-                        save_arr_keys = ["events", "labels", "energies", "angles", "eventids", "rootfiles"]
-                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy(), self.angles.cpu().numpy(), self.eventids.cpu().numpy(), self.rootfiles]
+                        save_arr_keys = ["events", "labels", "energies", "angles"]
+                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy(), self.angles.cpu().numpy()]
                         for key in _DUMP_KEYS:
                             if key in res.keys():
                                 save_arr_keys.append(key)

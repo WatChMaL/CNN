@@ -1,172 +1,157 @@
-[I 07:41:59.757 NotebookApp] The port 8888 is already in use, trying another port.
-[I 07:41:59.757 NotebookApp] The port 8889 is already in use, trying another port.
-[I 07:41:59.757 NotebookApp] The port 8890 is already in use, trying another port.
-[I 07:42:01.343 NotebookApp] jupyter_tensorboard extension loaded.
-[I 07:42:01.410 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 07:42:01.410 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 07:42:01.411 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 07:42:01.412 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
-[I 07:42:01.412 NotebookApp] The Jupyter Notebook is running at:
-[I 07:42:01.412 NotebookApp] http://hostname:8888/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
-[I 07:42:01.412 NotebookApp]  or http://127.0.0.1:8891/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
-[I 07:42:01.412 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 07:42:01.416 NotebookApp] 
+[I 13:39:39.265 NotebookApp] The port 8888 is already in use, trying another port.
+[I 13:39:39.266 NotebookApp] The port 8889 is already in use, trying another port.
+[I 13:39:39.266 NotebookApp] The port 8890 is already in use, trying another port.
+[I 13:39:39.266 NotebookApp] The port 8891 is already in use, trying another port.
+[I 13:39:40.820 NotebookApp] jupyter_tensorboard extension loaded.
+[I 13:39:40.882 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 13:39:40.882 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 13:39:40.883 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 13:39:40.884 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
+[I 13:39:40.884 NotebookApp] The Jupyter Notebook is running at:
+[I 13:39:40.884 NotebookApp] http://hostname:8888/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
+[I 13:39:40.884 NotebookApp]  or http://127.0.0.1:8892/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
+[I 13:39:40.884 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:39:40.888 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-19255-open.html
+        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-22791-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
-     or http://127.0.0.1:8891/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
-[I 07:42:22.911 NotebookApp] 302 GET /?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93 (::1) 1.34ms
-[W 07:43:25.039 NotebookApp] Notebook /data_slicing/PlottingEventDisplays.py is not trusted
-[W 07:43:25.584 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 18.93ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
-[I 07:43:26.075 NotebookApp] Kernel started: 87f50292-eb6a-47f3-8009-93233517cf26
-[W 07:43:27.049 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.38ms referer=http://127.0.0.1:8891/notebooks/data_slicing/PlottingEventDisplays.py
-[I 07:43:28.227 NotebookApp] Kernel started: 7464a832-cbdb-4267-a7a8-011af75a5828
-[I 07:45:26.440 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:45:26.440 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 07:45:37.032 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 07:45:37.032 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 07:50:28.632 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:50:28.632 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 07:55:26.440 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:55:26.441 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 07:56:38.776 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:56:38.776 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 07:59:26.121 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:59:26.121 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 07:59:29.486 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 07:59:29.487 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:00:15.520 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:00:15.521 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:01:26.096 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:01:26.096 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:02:11.287 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:02:11.287 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:02:56.664 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:02:56.665 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:05:43.710 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:05:43.710 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:06:10.840 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:06:10.840 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:06:13.407 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:06:13.408 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:06:55.384 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:06:55.384 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:06:55.830 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:06:55.830 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:07:04.623 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:07:04.624 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:07:14.397 NotebookApp] Starting buffering for 7464a832-cbdb-4267-a7a8-011af75a5828:564d317542f64f5784c54f34bd148414
-[I 08:07:15.009 NotebookApp] Kernel shutdown: 7464a832-cbdb-4267-a7a8-011af75a5828
-[I 08:07:20.688 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:07:20.688 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:07:23.117 NotebookApp] Starting buffering for 87f50292-eb6a-47f3-8009-93233517cf26:6940a695817c4d5d8e0f360d2ee9d3cd
-[I 08:07:23.438 NotebookApp] Kernel shutdown: 87f50292-eb6a-47f3-8009-93233517cf26
-[W 08:07:33.225 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 3.81ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
-[I 08:07:36.579 NotebookApp] Kernel started: 331be153-1406-4bd4-b7ec-be6d084ed6c0
-[I 08:08:54.143 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:08:54.143 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:09:37.195 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:09:37.195 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:11:37.302 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:11:37.303 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:13:37.196 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:13:37.196 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:15:37.203 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:15:37.203 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:15:57.443 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:15:57.443 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:17:37.930 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:17:37.931 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:18:16.995 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:18:16.995 NotebookApp] Saving Varying Position Dataset.ipynb
-[W 08:18:57.920 NotebookApp] Notebook /data_slicing/PlottingEventDisplays.py is not trusted
-[I 08:18:58.303 NotebookApp] Kernel started: a141a589-b6f0-465f-8743-a75a2a48bd4d
-[W 08:18:58.426 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.09ms referer=http://127.0.0.1:8891/notebooks/data_slicing/PlottingEventDisplays.py
-[I 08:19:37.195 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:19:37.196 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:20:34.353 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:20:34.354 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:20:58.416 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:20:58.416 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:21:36.695 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:21:36.696 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:23:36.711 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:23:36.711 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:23:48.159 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:23:48.159 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:25:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:25:36.704 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:27:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:27:36.703 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:27:55.878 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:27:55.879 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:28:52.696 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:28:52.696 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:29:19.495 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:29:19.495 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:29:36.719 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:29:36.719 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:31:36.680 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:31:36.680 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:32:53.647 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:32:53.647 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:33:27.087 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:33:27.088 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:33:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:33:36.703 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:33:48.359 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:33:48.360 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:34:45.847 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:34:45.847 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:35:15.481 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:35:15.481 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:35:32.832 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:35:32.832 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:35:33.232 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
-[I 08:35:33.232 NotebookApp] Saving PlottingEventDisplays.py in format py:light
-[I 08:35:37.407 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:35:37.408 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:35:39.541 NotebookApp] Starting buffering for a141a589-b6f0-465f-8743-a75a2a48bd4d:5a3ea8dd2f764b2c8878b5dc25cc4e83
-[I 08:35:39.854 NotebookApp] Kernel shutdown: a141a589-b6f0-465f-8743-a75a2a48bd4d
-[I 08:35:50.071 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:35:50.072 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:35:54.117 NotebookApp] Starting buffering for 331be153-1406-4bd4-b7ec-be6d084ed6c0:1e998c6b7d81496a88b6cdef80ec204f
-[I 08:35:54.623 NotebookApp] Kernel shutdown: 331be153-1406-4bd4-b7ec-be6d084ed6c0
-[I 08:36:00.272 NotebookApp] Kernel started: a4b7be8f-dbaf-4b49-b48c-218bb555687c
-[W 08:36:00.371 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 5.08ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
-[I 08:38:07.581 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:38:07.582 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:39:09.551 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:39:09.552 NotebookApp] Saving Varying Position Dataset.ipynb
-[I 08:39:13.740 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
-[I 08:39:13.740 NotebookApp] Saving Varying Position Dataset.ipynb
-[W 08:39:14.199 NotebookApp] Notebook /data_slicing/Data Slicing.md is not trusted
-[I 08:39:14.599 NotebookApp] Kernel started: 54ab8457-5f1c-4a4b-8473-41e91af190a4
-[W 08:39:14.690 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.88ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Data%20Slicing.md
-[I 08:39:43.057 NotebookApp] Saving file at /data_slicing/Data Slicing.md
-[I 08:39:43.057 NotebookApp] Saving Data Slicing.md
-[I 08:40:09.656 NotebookApp] Saving file at /data_slicing/Data Slicing.md
-[I 08:40:09.657 NotebookApp] Saving Data Slicing.md
-[I 08:40:14.616 NotebookApp] Saving file at /data_slicing/Data Slicing.md
-[I 08:40:14.616 NotebookApp] Saving Data Slicing.md
-[I 08:40:18.061 NotebookApp] Starting buffering for 54ab8457-5f1c-4a4b-8473-41e91af190a4:8dc0aec533304ed0a9b63cf1ea3e6620
-[I 08:40:18.374 NotebookApp] Kernel shutdown: 54ab8457-5f1c-4a4b-8473-41e91af190a4
-[I 08:40:24.869 NotebookApp] Starting buffering for a4b7be8f-dbaf-4b49-b48c-218bb555687c:1c366f2eef68491287b5968700b6cdc8
-[I 08:40:25.382 NotebookApp] Kernel shutdown: a4b7be8f-dbaf-4b49-b48c-218bb555687c
-[W 08:40:32.112 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:32.113 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:32.113 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.78ms referer=http://127.0.0.1:8891/tree/data_slicing
-[W 08:40:36.559 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:36.560 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:36.560 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.23ms referer=http://127.0.0.1:8891/tree/data_slicing
-[W 08:40:41.832 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:41.832 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:41.833 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.23ms referer=http://127.0.0.1:8891/tree/data_slicing
-[W 08:40:47.055 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:47.056 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:47.056 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 2.54ms referer=http://127.0.0.1:8891/tree/data_slicing
-[W 08:40:51.903 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:51.904 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
-[W 08:40:51.904 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.09ms referer=http://127.0.0.1:8891/tree/data_slicing
+        http://hostname:8888/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
+     or http://127.0.0.1:8892/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
+[I 13:39:57.012 NotebookApp] 302 GET /?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500 (::1) 1.24ms
+[W 13:54:14.640 NotebookApp] Notebook /notebooks/Plotting examples.ipynb is not trusted
+[W 13:54:32.973 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 17.65ms referer=http://127.0.0.1:8892/notebooks/notebooks/Plotting%20examples.ipynb
+[I 13:55:11.415 NotebookApp] Kernel started: a4f6151d-32c9-4e01-a853-3b7986b4a847
+[I 13:55:24.181 NotebookApp] Saving file at /config/engine_config/test.ini
+[I 14:11:08.294 NotebookApp] Saving file at /config/engine_config/test.ini
+[I 14:11:26.101 NotebookApp] Copying config/engine_config/test.ini to /config/engine_config
+[I 14:11:47.926 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:11:50.734 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[W 14:12:16.082 NotebookApp] Notebook /io_utils/data_handling_test.py is not trusted
+[I 14:12:17.551 NotebookApp] Kernel started: 3b1c88f9-7fa0-46e2-b57e-d7cf79f96fc1
+[W 14:12:17.580 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 7.04ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_test.py
+[I 14:14:12.646 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:14:18.117 NotebookApp] Saving file at /io_utils/data_handling_test.py
+[I 14:14:18.117 NotebookApp] Saving data_handling_test.py in format py:light
+[I 14:14:51.429 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:06.981 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:32.078 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:34.230 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:35.453 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:45.613 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:15:55.685 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:17:00.374 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:17:25.053 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[W 14:17:48.063 NotebookApp] Notebook /training_utils/engine.py is not trusted
+[I 14:17:48.816 NotebookApp] Kernel started: 233c052e-b400-47c3-abf1-2a7de2fcf941
+[W 14:17:48.903 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.17ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine.py
+[I 14:19:15.020 NotebookApp] Saving file at /training_utils/engine.py
+[I 14:19:15.021 NotebookApp] Saving engine.py in format py:light
+[I 14:19:38.438 NotebookApp] Saving file at /training_utils/engine.py
+[I 14:19:38.438 NotebookApp] Saving engine.py in format py:light
+[I 14:19:48.917 NotebookApp] Saving file at /training_utils/engine.py
+[I 14:19:48.917 NotebookApp] Saving engine.py in format py:light
+[I 14:19:51.373 NotebookApp] Saving file at /training_utils/engine.py
+[I 14:19:51.373 NotebookApp] Saving engine.py in format py:light
+[W 14:21:13.047 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 3.76ms referer=http://127.0.0.1:8892/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
+[I 14:21:39.502 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:21:45.082 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
+[I 14:22:03.286 NotebookApp] Saving file at /config/engine_config/test.ini
+[W 14:22:28.168 NotebookApp] Notebook /io_utils/data_handling_train.py is not trusted
+[I 14:22:29.651 NotebookApp] Kernel started: 5aef3692-7ae7-4161-bbfd-ca84bd2f8176
+[W 14:22:29.981 NotebookApp] Notebook /io_utils/data_handling_val.py is not trusted
+[I 14:22:31.160 NotebookApp] Kernel started: 0c1eb72b-ed1b-4c59-bcce-b52f6a29a94c
+[W 14:22:31.263 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 2.68ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_val.py
+[W 14:22:31.984 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.68ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_train.py
+[I 14:22:48.382 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:22:48.382 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:22:56.636 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:22:56.637 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:22:57.725 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:22:57.726 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:23:21.981 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:23:21.982 NotebookApp] Saving data_handling_train.py in format py:light
+[W 14:24:15.184 NotebookApp] Notebook /training_utils/engine_cl.py is not trusted
+[I 14:24:15.865 NotebookApp] Kernel started: f58134a1-67e3-430c-921d-07aff9e9aab8
+[W 14:24:17.095 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.28ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine_cl.py
+[I 14:24:40.732 NotebookApp] Saving file at /training_utils/engine.py
+[I 14:24:40.733 NotebookApp] Saving engine.py in format py:light
+[I 14:25:10.725 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:25:10.725 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:26:15.949 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:26:15.950 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:27:02.532 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:27:02.533 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:27:10.109 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:27:10.110 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:28:13.564 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:28:13.565 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:28:21.470 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:28:21.470 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:29:52.397 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:29:52.398 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:30:29.541 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:30:29.541 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:30:29.917 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:30:29.917 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:30:54.460 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:30:54.461 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:31:54.637 NotebookApp] Copying config/engine_config/test.ini to /config/engine_config
+[I 14:32:19.709 NotebookApp] Saving file at /config/engine_config/dcgan.ini
+[I 14:33:01.084 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:33:01.084 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:33:15.517 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:33:15.518 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:33:20.140 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:33:20.141 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:33:31.573 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:33:31.573 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:33:35.140 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:33:35.141 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:33:39.405 NotebookApp] Saving file at /io_utils/data_handling_test.py
+[I 14:33:39.405 NotebookApp] Saving data_handling_test.py in format py:light
+[I 14:34:29.748 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:34:29.749 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:34:39.589 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:34:39.589 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:34:47.077 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:34:47.077 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:35:44.733 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 14:35:44.734 NotebookApp] Saving engine_cl.py in format py:light
+[I 14:36:22.996 NotebookApp] Saving file at /io_utils/data_handling_val.py
+[I 14:36:22.997 NotebookApp] Saving data_handling_val.py in format py:light
+[I 14:36:29.741 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:36:29.741 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:36:31.645 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:36:31.645 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:37:20.941 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 14:37:20.953 NotebookApp] Saving data_handling_train.py in format py:light
+[I 14:37:25.884 NotebookApp] Saving file at /config/engine_config/dcgan.ini
+[W 14:37:35.558 NotebookApp] Notebook /training_utils/engine_gan.py is not trusted
+[I 14:37:36.039 NotebookApp] Kernel started: d630e8d6-2d56-4d2e-8f4d-dcc5b3a4951f
+[W 14:37:36.053 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 7.64ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine_gan.py
+[I 14:37:53.237 NotebookApp] Saving file at /training_utils/engine_gan.py
+[I 14:37:53.238 NotebookApp] Saving engine_gan.py in format py:light
+[I 14:37:55.067 NotebookApp] Starting buffering for d630e8d6-2d56-4d2e-8f4d-dcc5b3a4951f:30d18a8669394241935878d55e8aac94
+[I 14:38:06.773 NotebookApp] Saving file at /config/engine_config/dcgan.ini
+[I 14:41:12.934 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
+[I 14:41:12.935 NotebookApp] Saving Plotting examples.ipynb
+[W 14:41:12.936 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
+[I 14:41:26.498 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
+[I 14:41:26.498 NotebookApp] Saving Plotting examples.ipynb
+[W 14:41:26.499 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
+[I 14:41:45.540 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
+[I 14:41:45.541 NotebookApp] Saving Plotting examples.ipynb
+[W 14:41:45.541 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
+[I 14:41:46.546 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
+[I 14:41:46.547 NotebookApp] Saving Plotting examples.ipynb
+[W 14:41:46.548 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
+[I 14:41:49.571 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
+[I 14:41:49.571 NotebookApp] Saving Plotting examples.ipynb
+[W 14:41:49.572 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
+[I 14:41:50.218 NotebookApp] Starting buffering for a4f6151d-32c9-4e01-a853-3b7986b4a847:b8b96639f3eb48bf9d7b5db8cd9e746f
+[I 14:41:55.634 NotebookApp] Starting buffering for 0c1eb72b-ed1b-4c59-bcce-b52f6a29a94c:b0bcd3445486483c8ed945e5194e2299
+[I 14:41:56.059 NotebookApp] Starting buffering for 5aef3692-7ae7-4161-bbfd-ca84bd2f8176:80aeaae3c3c24baa864f30fcca4f35db
+[I 14:41:56.434 NotebookApp] Starting buffering for 3b1c88f9-7fa0-46e2-b57e-d7cf79f96fc1:cc2b3c888c254cf18a9c80d92b9aec6a
+[I 14:41:56.826 NotebookApp] Starting buffering for 233c052e-b400-47c3-abf1-2a7de2fcf941:b9f7842784bc43cb8e9fa0124cce14a6
+[I 14:41:57.362 NotebookApp] Starting buffering for f58134a1-67e3-430c-921d-07aff9e9aab8:2a4ab796a6d1493081168127fac8311e

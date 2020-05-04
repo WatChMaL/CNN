@@ -68,9 +68,11 @@ class Engine(ABC):
                 self.device=device(self.devids[0])
                 if len(self.devids) > 1:
                     print("Using DataParallel on these devices: {}".format(self.devids))
-                    #self.model=DataParallel(self.model, device_ids=config.gpu_list, dim=0)
-                    self.model.generator=DataParallel(self.model.generator, device_ids=config.gpu_list, dim=0)
-                    self.model.discriminator=DataParallel(self.model.discriminator, device_ids=config.gpu_list, dim=0)
+                    if hasattr(self.model, 'generator'):
+                        self.model.generator=DataParallel(self.model.generator, device_ids=config.gpu_list, dim=0)
+                        self.model.discriminator=DataParallel(self.model.discriminator, device_ids=config.gpu_list, dim=0)
+                    else:
+                        self.model=DataParallel(self.model, device_ids=config.gpu_list, dim=0)
                 print("CUDA is available")
             else:
                 self.device=device("cpu")
@@ -80,9 +82,11 @@ class Engine(ABC):
             self.device=device("cpu")
 
         # Send the model to the selected device
-        #self.model.to(self.device)
-        self.model.generator.to(self.device)
-        self.model.discriminator.to(self.device)
+        if hasattr(self.model, 'generator'):
+            self.model.generator.to(self.device)
+            self.model.discriminator.to(self.device)
+        else:
+            self.model.to(self.device)
         
         # Apply model weights
         self.model.apply(weights_init)
@@ -90,26 +94,14 @@ class Engine(ABC):
         # Setup the parameters tp save given the model type
         if type(self.model) == DataParallel:
             self.model_accs=self.model.module
-            self.model.generator = self.model.module.generator
-            self.model.discriminator = self.model.module.discriminator
+            if hasattr(self.model, 'generator'):
+                self.model.generator = self.model.module.generator
+                self.model.discriminator = self.model.module.discriminator
         else:
             self.model_accs=self.model
 
         # We can use an image folder dataset the way we have it setup.
-        # Create the dataset
-        '''
-        dataroot = "/home/ttuinstr/VAE/debugging/celeba"
-        image_size = 64
-        
-        self.dataset = dset.ImageFolder(root=dataroot,
-                                   transform=transforms.Compose([
-                                       transforms.Resize(image_size),
-                                       transforms.CenterCrop(image_size),
-                                       transforms.ToTensor(),
-                                       transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-                                   ]))    
-            
-        '''
+
         # Create the dataset object for the trainval and test samples
         self.train_dset = WCH5DatasetT(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
                                          shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
