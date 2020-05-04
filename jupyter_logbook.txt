@@ -1,276 +1,172 @@
-[I 08:47:16.311 NotebookApp] The port 8888 is already in use, trying another port.
-[I 08:47:16.311 NotebookApp] The port 8889 is already in use, trying another port.
-[I 08:47:16.311 NotebookApp] The port 8890 is already in use, trying another port.
-[I 08:47:16.311 NotebookApp] The port 8891 is already in use, trying another port.
-[I 08:47:16.312 NotebookApp] The port 8892 is already in use, trying another port.
-[I 08:47:16.312 NotebookApp] The port 8982 is already in use, trying another port.
-[I 08:47:16.312 NotebookApp] The port 8826 is already in use, trying another port.
-[I 08:47:18.148 NotebookApp] jupyter_tensorboard extension loaded.
-[I 08:47:18.214 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 08:47:18.214 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 08:47:18.216 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 08:47:18.216 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
-[I 08:47:18.216 NotebookApp] The Jupyter Notebook is running at:
-[I 08:47:18.216 NotebookApp] http://hostname:8888/?token=4b3b3e930b25b0545ecf50dd5ebc3eaa93082fa409be6b8b
-[I 08:47:18.216 NotebookApp]  or http://127.0.0.1:8850/?token=4b3b3e930b25b0545ecf50dd5ebc3eaa93082fa409be6b8b
-[I 08:47:18.216 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 08:47:18.233 NotebookApp] 
+[I 07:41:59.757 NotebookApp] The port 8888 is already in use, trying another port.
+[I 07:41:59.757 NotebookApp] The port 8889 is already in use, trying another port.
+[I 07:41:59.757 NotebookApp] The port 8890 is already in use, trying another port.
+[I 07:42:01.343 NotebookApp] jupyter_tensorboard extension loaded.
+[I 07:42:01.410 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 07:42:01.410 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 07:42:01.411 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 07:42:01.412 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
+[I 07:42:01.412 NotebookApp] The Jupyter Notebook is running at:
+[I 07:42:01.412 NotebookApp] http://hostname:8888/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
+[I 07:42:01.412 NotebookApp]  or http://127.0.0.1:8891/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
+[I 07:42:01.412 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 07:42:01.416 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-22959-open.html
+        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-19255-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=4b3b3e930b25b0545ecf50dd5ebc3eaa93082fa409be6b8b
-     or http://127.0.0.1:8850/?token=4b3b3e930b25b0545ecf50dd5ebc3eaa93082fa409be6b8b
-[I 08:47:39.069 NotebookApp] 302 GET /?token=4b3b3e930b25b0545ecf50dd5ebc3eaa93082fa409be6b8b (::1) 1.17ms
-[W 09:16:11.024 NotebookApp] Notebook /GANs.md is not trusted
-[I 09:16:11.496 NotebookApp] Kernel started: 961ca2e8-a10b-4474-83de-767b8333a2c8
-[W 09:16:11.518 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 10.90ms referer=http://127.0.0.1:8850/notebooks/GANs.md
-[W 09:16:20.516 NotebookApp] Notebook GANs.md is not trusted
-[I 09:18:11.397 NotebookApp] Saving file at /Winter 2020 Model Implementation.md
-[I 09:18:11.397 NotebookApp] Saving Winter 2020 Model Implementation.md
-[I 09:18:11.629 NotebookApp] Saving file at /Winter 2020 Model Implementation.md
-[I 09:18:11.630 NotebookApp] Saving Winter 2020 Model Implementation.md
-[I 09:18:13.877 NotebookApp] Saving file at /Winter 2020 Model Implementation.md
-[I 09:18:13.877 NotebookApp] Saving Winter 2020 Model Implementation.md
-[W 09:19:04.421 NotebookApp] Notebook /data_slicing/Data Slicing.md is not trusted
-[I 09:19:04.734 NotebookApp] Kernel started: 1ea4a679-d98c-4573-a626-19ad3dbbb42d
-[W 09:19:04.967 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.91ms referer=http://127.0.0.1:8850/notebooks/data_slicing/Data%20Slicing.md
-[I 09:21:04.958 NotebookApp] Saving file at /data_slicing/Data Slicing.md
-[I 09:21:04.958 NotebookApp] Saving Data Slicing.md
-[I 09:42:30.499 NotebookApp] Starting buffering for 1ea4a679-d98c-4573-a626-19ad3dbbb42d:6f389ede2c9345bc8649f47a69946c60
-[I 09:42:30.511 NotebookApp] Starting buffering for 961ca2e8-a10b-4474-83de-767b8333a2c8:a1f58efd04674f248ab31d0cd32f6e88
-[I 09:54:46.485 NotebookApp] Restoring connection for 1ea4a679-d98c-4573-a626-19ad3dbbb42d:6f389ede2c9345bc8649f47a69946c60
-[I 09:54:46.651 NotebookApp] Restoring connection for 961ca2e8-a10b-4474-83de-767b8333a2c8:a1f58efd04674f248ab31d0cd32f6e88
-[W 10:07:53.048 NotebookApp] Notebook /notebooks/Plotting examples.ipynb is not trusted
-[I 10:07:56.862 NotebookApp] Kernel started: f9b38df0-d78e-41f1-b4d1-ce23a38ecf1a
-[W 10:07:56.954 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 6.66ms referer=http://127.0.0.1:8850/notebooks/notebooks/Plotting%20examples.ipynb
-[I 10:09:58.966 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 10:09:58.967 NotebookApp] Saving Plotting examples.ipynb
-[W 10:09:58.968 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[W 10:12:36.825 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/README.md is not trusted
-[I 10:12:37.256 NotebookApp] Kernel started: dd9fecf1-65b5-47a5-ad47-bbba9fdc7b46
-[W 10:12:37.378 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.85ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/README.md
-[I 10:14:37.349 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 10:14:37.349 NotebookApp] Saving README.md
-[I 10:14:46.813 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 10:14:46.813 NotebookApp] Saving README.md
-[I 10:14:49.885 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 10:14:49.885 NotebookApp] Saving README.md
-[W 10:23:09.221 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:23:10.530 NotebookApp] Kernel started: 627210a3-4f25-4cbe-825e-c4ff3965382b
-[W 10:23:10.783 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.25ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Position%20Binning.ipynb
-[I 10:24:43.054 NotebookApp] Kernel started: 28211fcf-7fde-4df4-9759-62022677c824
-[W 10:24:43.422 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.50ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/fiTQun%20Position%20Binning.ipynb
-[I 10:25:11.558 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:25:11.559 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:25:11.570 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:25:29.127 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/fiTQun Position Binning.ipynb
-[I 10:25:29.128 NotebookApp] Saving fiTQun Position Binning.ipynb
-[I 10:25:36.266 NotebookApp] Starting buffering for 28211fcf-7fde-4df4-9759-62022677c824:2f9351463d504cbdbc8eaab15207430c
-[I 10:27:10.854 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:27:10.854 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:27:10.855 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:30:41.474 NotebookApp] Kernel started: 60e72297-9627-44b3-85b7-6311350b2d39
-[W 10:30:41.737 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 6.07ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Energy%20Binning.ipynb
-[I 10:31:11.535 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:31:11.535 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:31:11.537 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:32:03.978 NotebookApp] Starting buffering for f9b38df0-d78e-41f1-b4d1-ce23a38ecf1a:5b8c555ef9a24e3c8843594e5928deb0
-[I 10:32:05.626 NotebookApp] Starting buffering for 1ea4a679-d98c-4573-a626-19ad3dbbb42d:6f389ede2c9345bc8649f47a69946c60
-[I 10:32:06.690 NotebookApp] Starting buffering for 961ca2e8-a10b-4474-83de-767b8333a2c8:a1f58efd04674f248ab31d0cd32f6e88
-[I 10:32:13.547 NotebookApp] Kernel started: ff7cc11a-7d5a-4e29-999a-092c8080486f
-[W 10:32:13.718 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.31ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/Direct%20Result%20Comparison.ipynb
-[I 10:32:42.542 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 10:32:42.543 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 10:33:11.862 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:33:11.862 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:33:11.863 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:35:10.838 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:35:10.839 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:35:10.840 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:41:11.621 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:41:11.633 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:41:11.634 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:43:11.605 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:43:11.606 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:43:11.607 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:46:41.733 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 10:46:41.734 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 10:47:10.077 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 10:47:10.078 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 10:48:41.765 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 10:48:41.765 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 10:50:22.874 NotebookApp] Starting buffering for 60e72297-9627-44b3-85b7-6311350b2d39:1772f2e2fea84eff873204667fb9779c
-[I 10:50:28.264 NotebookApp] Kernel shutdown: 60e72297-9627-44b3-85b7-6311350b2d39
-[I 10:53:00.958 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:53:00.959 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:53:00.960 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[W 10:53:50.615 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.80ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/fiTQun%20Position%20Binning.ipynb
-[I 10:55:10.854 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:55:10.855 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:55:10.856 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:57:10.880 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:57:10.880 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:57:10.881 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:59:10.934 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:59:10.934 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:59:10.935 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 10:59:41.871 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 10:59:41.871 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 10:59:41.872 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:00:08.362 NotebookApp] Starting buffering for 28211fcf-7fde-4df4-9759-62022677c824:b60ade1a795946f784be3cd14a9440f7
-[I 11:00:13.472 NotebookApp] Kernel started: c38466e4-a8ea-445f-9b79-c81bcee1294e
-[W 11:00:13.729 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.69ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Energy%20Binning.ipynb
-[I 11:01:05.231 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:01:05.231 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:01:05.234 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:01:10.847 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:01:10.847 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:01:10.848 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:02:14.510 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:02:14.511 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:03:10.846 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:03:10.847 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:03:10.847 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:05:11.518 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:05:11.519 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:05:11.531 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:08:14.526 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:08:14.526 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:08:19.055 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:08:19.055 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:08:19.056 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:09:11.535 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:09:11.535 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:09:11.536 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:09:28.967 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:09:28.967 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:09:28.968 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:09:53.143 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:09:53.143 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:10:13.672 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:10:13.672 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:11:02.360 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:11:02.361 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:11:11.655 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:11:11.655 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:11:11.656 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:11:28.430 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:11:28.430 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:11:28.431 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:11:32.198 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:11:32.199 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:12:02.991 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:12:02.992 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:12:08.958 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:12:08.958 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:14:14.519 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:14:14.520 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:14:32.271 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:14:32.271 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[W 11:14:32.272 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb is not trusted
-[I 11:15:10.677 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:15:10.677 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[I 11:15:19.701 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:15:19.701 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[I 11:15:21.323 NotebookApp] Starting buffering for 627210a3-4f25-4cbe-825e-c4ff3965382b:43830f1ed40744bc8b06b98fd60dcf62
-[I 11:16:13.573 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:16:13.574 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:16:16.381 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:16:16.382 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[I 11:16:34.021 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Energy Binning.ipynb
-[I 11:16:34.022 NotebookApp] Saving ResNet-18 Energy Binning.ipynb
-[W 11:16:40.265 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 5.16ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Position%20Binning.ipynb
-[I 11:17:05.925 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/ResNet-18 Position Binning.ipynb
-[I 11:17:05.925 NotebookApp] Saving ResNet-18 Position Binning.ipynb
-[I 11:17:07.135 NotebookApp] Starting buffering for 627210a3-4f25-4cbe-825e-c4ff3965382b:cdc64e0c574a43a7871cb9d9811ad24b
-[I 11:17:08.403 NotebookApp] Starting buffering for c38466e4-a8ea-445f-9b79-c81bcee1294e:d20e7200d8044410a30dde35d38bacc2
-[W 11:18:24.742 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/README.md is not trusted
-[W 11:18:25.208 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.77ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/README.md
-[I 11:20:25.349 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 11:20:25.349 NotebookApp] Saving README.md
-[I 11:43:05.267 NotebookApp] Starting buffering for ff7cc11a-7d5a-4e29-999a-092c8080486f:70c26fdc2e2f4e4384e2381b4cb5fb49
-[I 11:43:05.268 NotebookApp] Starting buffering for dd9fecf1-65b5-47a5-ad47-bbba9fdc7b46:9bfa6986993c4603ba4d29087fed7064
-[I 11:45:35.112 NotebookApp] Restoring connection for ff7cc11a-7d5a-4e29-999a-092c8080486f:70c26fdc2e2f4e4384e2381b4cb5fb49
-[I 11:46:24.397 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb
-[I 11:46:24.398 NotebookApp] Saving Direct Result Comparison.ipynb
-[I 11:46:25.547 NotebookApp] Starting buffering for ff7cc11a-7d5a-4e29-999a-092c8080486f:70c26fdc2e2f4e4384e2381b4cb5fb49
-[I 11:46:29.059 NotebookApp] Starting buffering for dd9fecf1-65b5-47a5-ad47-bbba9fdc7b46:9bfa6986993c4603ba4d29087fed7064
-[I 11:46:53.290 NotebookApp] Kernel started: ff7ff01d-7120-4a15-b368-2116caf5201f
-[W 11:46:53.370 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.63ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/fiTQun%20Barrel%20Containment.ipynb
-[I 11:47:56.326 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/fiTQun Barrel Containment.ipynb
-[I 11:47:56.326 NotebookApp] Saving fiTQun Barrel Containment.ipynb
-[I 11:47:57.403 NotebookApp] Starting buffering for ff7ff01d-7120-4a15-b368-2116caf5201f:5d668ff73df045058781ae6c454f13eb
-[I 11:48:03.984 NotebookApp] Kernel started: 98b3cf7a-3a9c-4911-8818-2a6e66d222b1
-[W 11:48:04.847 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.43ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/fiTQun%20Energy%20Binning.ipynb
-[I 11:50:31.679 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/fiTQun Energy Binning.ipynb
-[I 11:50:31.679 NotebookApp] Saving fiTQun Energy Binning.ipynb
-[I 11:50:34.563 NotebookApp] Starting buffering for 98b3cf7a-3a9c-4911-8818-2a6e66d222b1:ac7a516123774cb9be54a6cc016bdb66
-[W 11:50:40.078 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.50ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/fiTQun%20Position%20Binning.ipynb
-[I 12:00:40.136 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/fiTQun Position Binning.ipynb
-[I 12:00:40.137 NotebookApp] Saving fiTQun Position Binning.ipynb
-[I 12:01:42.135 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/fiTQun Position Binning.ipynb
-[I 12:01:42.136 NotebookApp] Saving fiTQun Position Binning.ipynb
-[I 12:01:43.170 NotebookApp] Starting buffering for 28211fcf-7fde-4df4-9759-62022677c824:13ada1b6c7b2446988b86485e52431ef
-[W 12:01:47.623 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/README.md is not trusted
-[W 12:01:48.069 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 2.44ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/README.md
-[I 12:02:37.548 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 12:02:37.548 NotebookApp] Saving README.md
-[I 12:02:40.140 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/README.md
-[I 12:02:40.140 NotebookApp] Saving README.md
-[I 12:02:42.332 NotebookApp] Starting buffering for dd9fecf1-65b5-47a5-ad47-bbba9fdc7b46:9a022b85e87b42ab828476cc99e8549c
-[I 12:03:20.512 NotebookApp] Kernel started: a785dabb-f1de-4ab2-b52b-fa00764d9bb6
-[W 12:03:20.720 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.45ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/Plotting%20Flagged%20Events.ipynb
-[I 12:03:40.252 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Plotting Flagged Events.ipynb
-[I 12:03:40.253 NotebookApp] Saving Plotting Flagged Events.ipynb
-[I 12:04:16.831 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Plotting Flagged Events.ipynb
-[I 12:04:16.831 NotebookApp] Saving Plotting Flagged Events.ipynb
-[I 12:04:29.967 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Plotting Flagged Events.ipynb
-[I 12:04:29.967 NotebookApp] Saving Plotting Flagged Events.ipynb
-[I 12:04:32.035 NotebookApp] Starting buffering for a785dabb-f1de-4ab2-b52b-fa00764d9bb6:9eb6aeebd6a74a078390dcb5f1bcda52
-[W 12:04:52.589 NotebookApp] delete /Comparing_ResNet_and_FiTQun/history.sqlite
-[W 12:04:58.390 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.28ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Energy%20Binning.ipynb
-[I 12:05:06.234 NotebookApp] Starting buffering for c38466e4-a8ea-445f-9b79-c81bcee1294e:858cb32ad0c44a7cb4eb488f5051aebc
-[W 12:05:09.078 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.60ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20Position%20Binning.ipynb
-[I 12:05:12.298 NotebookApp] Starting buffering for 627210a3-4f25-4cbe-825e-c4ff3965382b:e411b9b91fae4c308a2aa04cd4426b49
-[I 12:05:15.740 NotebookApp] Kernel started: 55c6c0f7-0e5d-40e9-a441-6f74b677c1cd
-[W 12:05:15.784 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 5.08ms referer=http://127.0.0.1:8850/notebooks/Comparing_ResNet_and_FiTQun/ResNet-18%20to%20FiTQun.ipynb
-[I 12:05:48.522 NotebookApp] Starting buffering for 55c6c0f7-0e5d-40e9-a441-6f74b677c1cd:4cbc9ed4c3644b9f8b12bf89ce00a9ca
-[W 12:06:05.820 NotebookApp] Notebook /io_utils/data_handling_test.py is not trusted
-[I 12:06:06.096 NotebookApp] Kernel started: e3d5d67c-da56-40a0-8294-fe682324644b
-[W 12:06:06.311 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.13ms referer=http://127.0.0.1:8850/notebooks/io_utils/data_handling_test.py
-[W 12:06:47.496 NotebookApp] Notebook /io_utils/data_handling_train.py is not trusted
-[I 12:06:47.786 NotebookApp] Kernel started: ec56533b-a997-4953-8ac8-9250af9d1569
-[W 12:06:47.821 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 3.07ms referer=http://127.0.0.1:8850/notebooks/io_utils/data_handling_train.py
-[W 12:06:59.736 NotebookApp] Notebook /io_utils/data_handling_val.py is not trusted
-[I 12:07:00.017 NotebookApp] Kernel started: e3b1b1bd-05c2-4ebe-bfa7-5e293146a617
-[W 12:07:00.095 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200501084715 (::1) 4.42ms referer=http://127.0.0.1:8850/notebooks/io_utils/data_handling_val.py
-[I 12:07:08.781 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 12:07:08.781 NotebookApp] Saving data_handling_val.py in format py:light
-[I 12:07:10.251 NotebookApp] Starting buffering for e3b1b1bd-05c2-4ebe-bfa7-5e293146a617:dcab0202df5d4edb8c35783a3c6942e8
-[I 12:07:12.892 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 12:07:12.893 NotebookApp] Saving data_handling_train.py in format py:light
-[I 12:07:14.084 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 12:07:14.085 NotebookApp] Saving data_handling_train.py in format py:light
-[I 12:07:15.538 NotebookApp] Starting buffering for ec56533b-a997-4953-8ac8-9250af9d1569:09c637cbea7c420b91f859949dc306f6
-[I 12:07:16.917 NotebookApp] Saving file at /io_utils/data_handling_test.py
-[I 12:07:16.917 NotebookApp] Saving data_handling_test.py in format py:light
-[I 12:07:18.611 NotebookApp] Starting buffering for e3d5d67c-da56-40a0-8294-fe682324644b:31288fae35d04318b9ddbbac5e715e73
-[I 12:07:26.564 NotebookApp] Kernel shutdown: 961ca2e8-a10b-4474-83de-767b8333a2c8
-[I 12:07:28.266 NotebookApp] Kernel shutdown: f9b38df0-d78e-41f1-b4d1-ce23a38ecf1a
-[I 12:07:28.573 NotebookApp] Kernel shutdown: dd9fecf1-65b5-47a5-ad47-bbba9fdc7b46
-[I 12:07:34.647 NotebookApp] Kernel shutdown: c38466e4-a8ea-445f-9b79-c81bcee1294e
-[I 12:07:34.963 NotebookApp] Kernel shutdown: ff7ff01d-7120-4a15-b368-2116caf5201f
-[I 12:07:35.268 NotebookApp] Kernel shutdown: a785dabb-f1de-4ab2-b52b-fa00764d9bb6
-[I 12:07:35.573 NotebookApp] Kernel shutdown: 55c6c0f7-0e5d-40e9-a441-6f74b677c1cd
-[I 12:07:35.877 NotebookApp] Kernel shutdown: e3d5d67c-da56-40a0-8294-fe682324644b
-[I 12:07:36.182 NotebookApp] Kernel shutdown: ec56533b-a997-4953-8ac8-9250af9d1569
-[I 12:07:36.497 NotebookApp] Kernel shutdown: e3b1b1bd-05c2-4ebe-bfa7-5e293146a617
-[I 12:07:42.884 NotebookApp] Kernel shutdown: 1ea4a679-d98c-4573-a626-19ad3dbbb42d
-[I 12:07:44.073 NotebookApp] Kernel shutdown: 28211fcf-7fde-4df4-9759-62022677c824
-[I 12:07:45.837 NotebookApp] Kernel shutdown: ff7cc11a-7d5a-4e29-999a-092c8080486f
-[I 12:07:49.329 NotebookApp] Kernel shutdown: 627210a3-4f25-4cbe-825e-c4ff3965382b
-[I 12:07:49.636 NotebookApp] Kernel shutdown: 98b3cf7a-3a9c-4911-8818-2a6e66d222b1
-[W 12:07:49.644 NotebookApp] 404 DELETE /api/sessions/dad9734a-62e9-4ce7-962e-14852ca62c5f (::1): Session not found: session_id='dad9734a-62e9-4ce7-962e-14852ca62c5f'
-[W 12:07:49.644 NotebookApp] Session not found: session_id='dad9734a-62e9-4ce7-962e-14852ca62c5f'
-[W 12:07:49.644 NotebookApp] 404 DELETE /api/sessions/dad9734a-62e9-4ce7-962e-14852ca62c5f (::1) 3.56ms referer=http://127.0.0.1:8850/tree
+        http://hostname:8888/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
+     or http://127.0.0.1:8891/?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93
+[I 07:42:22.911 NotebookApp] 302 GET /?token=10680cd0e64649a50533f26a0c6d6f933f2636d07e856b93 (::1) 1.34ms
+[W 07:43:25.039 NotebookApp] Notebook /data_slicing/PlottingEventDisplays.py is not trusted
+[W 07:43:25.584 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 18.93ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
+[I 07:43:26.075 NotebookApp] Kernel started: 87f50292-eb6a-47f3-8009-93233517cf26
+[W 07:43:27.049 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.38ms referer=http://127.0.0.1:8891/notebooks/data_slicing/PlottingEventDisplays.py
+[I 07:43:28.227 NotebookApp] Kernel started: 7464a832-cbdb-4267-a7a8-011af75a5828
+[I 07:45:26.440 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:45:26.440 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 07:45:37.032 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 07:45:37.032 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 07:50:28.632 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:50:28.632 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 07:55:26.440 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:55:26.441 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 07:56:38.776 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:56:38.776 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 07:59:26.121 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:59:26.121 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 07:59:29.486 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 07:59:29.487 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:00:15.520 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:00:15.521 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:01:26.096 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:01:26.096 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:02:11.287 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:02:11.287 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:02:56.664 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:02:56.665 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:05:43.710 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:05:43.710 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:06:10.840 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:06:10.840 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:06:13.407 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:06:13.408 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:06:55.384 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:06:55.384 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:06:55.830 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:06:55.830 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:07:04.623 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:07:04.624 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:07:14.397 NotebookApp] Starting buffering for 7464a832-cbdb-4267-a7a8-011af75a5828:564d317542f64f5784c54f34bd148414
+[I 08:07:15.009 NotebookApp] Kernel shutdown: 7464a832-cbdb-4267-a7a8-011af75a5828
+[I 08:07:20.688 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:07:20.688 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:07:23.117 NotebookApp] Starting buffering for 87f50292-eb6a-47f3-8009-93233517cf26:6940a695817c4d5d8e0f360d2ee9d3cd
+[I 08:07:23.438 NotebookApp] Kernel shutdown: 87f50292-eb6a-47f3-8009-93233517cf26
+[W 08:07:33.225 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 3.81ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
+[I 08:07:36.579 NotebookApp] Kernel started: 331be153-1406-4bd4-b7ec-be6d084ed6c0
+[I 08:08:54.143 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:08:54.143 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:09:37.195 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:09:37.195 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:11:37.302 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:11:37.303 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:13:37.196 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:13:37.196 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:15:37.203 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:15:37.203 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:15:57.443 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:15:57.443 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:17:37.930 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:17:37.931 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:18:16.995 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:18:16.995 NotebookApp] Saving Varying Position Dataset.ipynb
+[W 08:18:57.920 NotebookApp] Notebook /data_slicing/PlottingEventDisplays.py is not trusted
+[I 08:18:58.303 NotebookApp] Kernel started: a141a589-b6f0-465f-8743-a75a2a48bd4d
+[W 08:18:58.426 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.09ms referer=http://127.0.0.1:8891/notebooks/data_slicing/PlottingEventDisplays.py
+[I 08:19:37.195 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:19:37.196 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:20:34.353 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:20:34.354 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:20:58.416 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:20:58.416 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:21:36.695 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:21:36.696 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:23:36.711 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:23:36.711 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:23:48.159 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:23:48.159 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:25:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:25:36.704 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:27:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:27:36.703 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:27:55.878 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:27:55.879 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:28:52.696 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:28:52.696 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:29:19.495 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:29:19.495 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:29:36.719 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:29:36.719 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:31:36.680 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:31:36.680 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:32:53.647 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:32:53.647 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:33:27.087 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:33:27.088 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:33:36.703 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:33:36.703 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:33:48.359 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:33:48.360 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:34:45.847 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:34:45.847 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:35:15.481 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:35:15.481 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:35:32.832 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:35:32.832 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:35:33.232 NotebookApp] Saving file at /data_slicing/PlottingEventDisplays.py
+[I 08:35:33.232 NotebookApp] Saving PlottingEventDisplays.py in format py:light
+[I 08:35:37.407 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:35:37.408 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:35:39.541 NotebookApp] Starting buffering for a141a589-b6f0-465f-8743-a75a2a48bd4d:5a3ea8dd2f764b2c8878b5dc25cc4e83
+[I 08:35:39.854 NotebookApp] Kernel shutdown: a141a589-b6f0-465f-8743-a75a2a48bd4d
+[I 08:35:50.071 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:35:50.072 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:35:54.117 NotebookApp] Starting buffering for 331be153-1406-4bd4-b7ec-be6d084ed6c0:1e998c6b7d81496a88b6cdef80ec204f
+[I 08:35:54.623 NotebookApp] Kernel shutdown: 331be153-1406-4bd4-b7ec-be6d084ed6c0
+[I 08:36:00.272 NotebookApp] Kernel started: a4b7be8f-dbaf-4b49-b48c-218bb555687c
+[W 08:36:00.371 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 5.08ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
+[I 08:38:07.581 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:38:07.582 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:39:09.551 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:39:09.552 NotebookApp] Saving Varying Position Dataset.ipynb
+[I 08:39:13.740 NotebookApp] Saving file at /data_slicing/Varying Position Dataset.ipynb
+[I 08:39:13.740 NotebookApp] Saving Varying Position Dataset.ipynb
+[W 08:39:14.199 NotebookApp] Notebook /data_slicing/Data Slicing.md is not trusted
+[I 08:39:14.599 NotebookApp] Kernel started: 54ab8457-5f1c-4a4b-8473-41e91af190a4
+[W 08:39:14.690 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504074158 (::1) 4.88ms referer=http://127.0.0.1:8891/notebooks/data_slicing/Data%20Slicing.md
+[I 08:39:43.057 NotebookApp] Saving file at /data_slicing/Data Slicing.md
+[I 08:39:43.057 NotebookApp] Saving Data Slicing.md
+[I 08:40:09.656 NotebookApp] Saving file at /data_slicing/Data Slicing.md
+[I 08:40:09.657 NotebookApp] Saving Data Slicing.md
+[I 08:40:14.616 NotebookApp] Saving file at /data_slicing/Data Slicing.md
+[I 08:40:14.616 NotebookApp] Saving Data Slicing.md
+[I 08:40:18.061 NotebookApp] Starting buffering for 54ab8457-5f1c-4a4b-8473-41e91af190a4:8dc0aec533304ed0a9b63cf1ea3e6620
+[I 08:40:18.374 NotebookApp] Kernel shutdown: 54ab8457-5f1c-4a4b-8473-41e91af190a4
+[I 08:40:24.869 NotebookApp] Starting buffering for a4b7be8f-dbaf-4b49-b48c-218bb555687c:1c366f2eef68491287b5968700b6cdc8
+[I 08:40:25.382 NotebookApp] Kernel shutdown: a4b7be8f-dbaf-4b49-b48c-218bb555687c
+[W 08:40:32.112 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:32.113 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:32.113 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.78ms referer=http://127.0.0.1:8891/tree/data_slicing
+[W 08:40:36.559 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:36.560 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:36.560 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.23ms referer=http://127.0.0.1:8891/tree/data_slicing
+[W 08:40:41.832 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:41.832 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:41.833 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.23ms referer=http://127.0.0.1:8891/tree/data_slicing
+[W 08:40:47.055 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:47.056 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:47.056 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 2.54ms referer=http://127.0.0.1:8891/tree/data_slicing
+[W 08:40:51.903 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1): Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:51.904 NotebookApp] Session not found: session_id='103b94c2-61d6-40d1-82aa-b88bc53262ae'
+[W 08:40:51.904 NotebookApp] 404 DELETE /api/sessions/103b94c2-61d6-40d1-82aa-b88bc53262ae (::1) 3.09ms referer=http://127.0.0.1:8891/tree/data_slicing

@@ -17,7 +17,7 @@ This notebook was also used to generate indices for the contained events. These 
 
 Other notebooks performed the same purpose for other datasets, but they were accidentally deleted during a github commit - but subbing out the dataset pathway for another dataset should easily allow the same slicing and indexing to be performed for a different dataset.
 
-This notebook also displays event images for the sliced data in two separate formats. The first shows individual PMTs within mPMTS, and the second displays mPMTs as one point. Unfortunately, several of the functions necessary to generate the first format were also accidentally deleted.
+This notebook also displays event images for the sliced data in two separate formats. The first shows individual PMTs within mPMTS, and the second displays each mPMT as one point in the image. `PlottingEventDisplays.py` contains the functions used for making these displays.
 <!-- #endregion -->
 
 ```bash
