@@ -81,7 +81,7 @@ class EngineCL(Engine):
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
+                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=10)
 
         # Define the placeholder attributes
         self.data     = None
