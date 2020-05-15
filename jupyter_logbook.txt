@@ -1,216 +1,38 @@
-[I 13:02:24.087 NotebookApp] The port 8888 is already in use, trying another port.
-[I 13:02:24.087 NotebookApp] The port 8889 is already in use, trying another port.
-[I 13:02:24.087 NotebookApp] The port 8890 is already in use, trying another port.
-[I 13:02:24.087 NotebookApp] The port 8891 is already in use, trying another port.
-[I 13:02:24.088 NotebookApp] The port 8892 is already in use, trying another port.
-[I 13:02:24.088 NotebookApp] The port 8889 is already in use, trying another port.
-[I 13:02:25.619 NotebookApp] jupyter_tensorboard extension loaded.
-[I 13:02:25.678 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 13:02:25.679 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 13:02:25.680 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 13:02:25.680 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 13:02:25.680 NotebookApp] The Jupyter Notebook is running at:
-[I 13:02:25.680 NotebookApp] http://hostname:8888/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
-[I 13:02:25.680 NotebookApp]  or http://127.0.0.1:8921/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
-[I 13:02:25.680 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 13:02:25.683 NotebookApp] 
+[I 15:13:58.703 NotebookApp] The port 8888 is already in use, trying another port.
+[I 15:13:58.703 NotebookApp] The port 8889 is already in use, trying another port.
+[I 15:13:58.703 NotebookApp] The port 8890 is already in use, trying another port.
+[I 15:13:58.703 NotebookApp] The port 8891 is already in use, trying another port.
+[I 15:13:58.703 NotebookApp] The port 8892 is already in use, trying another port.
+[I 15:13:59.895 NotebookApp] jupyter_tensorboard extension loaded.
+[I 15:13:59.954 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 15:13:59.954 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 15:13:59.956 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 15:13:59.956 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 15:13:59.956 NotebookApp] The Jupyter Notebook is running at:
+[I 15:13:59.956 NotebookApp] http://hostname:8888/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
+[I 15:13:59.956 NotebookApp]  or http://127.0.0.1:8823/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
+[I 15:13:59.956 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 15:13:59.959 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-1177-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-18418-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
-     or http://127.0.0.1:8921/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
-[I 13:03:01.394 NotebookApp] 302 GET /?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8 (::1) 1.35ms
-[W 13:34:04.509 NotebookApp] Could not determine jupyterlab build status without nodejs
-[E 13:34:05.192 NotebookApp] Uncaught exception GET /lab/api/extensions?1589488445022 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8921', method='GET', uri='/lab/api/extensions?1589488445022', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
-        result = await result
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 13:34:05.209 NotebookApp] Unhandled error
-[E 13:34:05.209 NotebookApp] {
-      "Host": "127.0.0.1:8921",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8921/lab",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589488444|23:username-127-0-0-1-8921|44:ODYzY2RmNzZhMGIzNDczYmE2MGVhOTUwZTZmODIzODc=|b1515ac1b40cffa8cf2afcea6b85ac307c72527df9b8e5454f6240f86e65dd2e\""
-    }
-[E 13:34:05.210 NotebookApp] 500 GET /lab/api/extensions?1589488445022 (::1) 240.31ms referer=http://127.0.0.1:8921/lab
-[E 13:34:05.210 NotebookApp] Uncaught exception GET /lab/api/extensions?1589488444872 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8921', method='GET', uri='/lab/api/extensions?1589488444872', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
-        result = await result
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
-        result = await result
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 13:34:05.211 NotebookApp] Unhandled error
-[E 13:34:05.212 NotebookApp] {
-      "Host": "127.0.0.1:8921",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8921/lab",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589488444|23:username-127-0-0-1-8921|44:ODYzY2RmNzZhMGIzNDczYmE2MGVhOTUwZTZmODIzODc=|b1515ac1b40cffa8cf2afcea6b85ac307c72527df9b8e5454f6240f86e65dd2e\""
-    }
-[E 13:34:05.212 NotebookApp] 500 GET /lab/api/extensions?1589488444872 (::1) 212.62ms referer=http://127.0.0.1:8921/lab
-[W 13:34:06.182 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
-[W 13:34:06.201 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
-[I 13:34:09.547 NotebookApp] Kernel started: ca30fed3-2c4b-4de4-8ae5-2edf32ee9103
-[I 13:34:09.568 NotebookApp] Kernel started: 0e45012e-aa7b-4524-81dd-4cbbfa517c34
-[I 13:38:07.794 NotebookApp] Starting buffering for ca30fed3-2c4b-4de4-8ae5-2edf32ee9103:44b9236a-516e-4e6a-bebc-93272927c88e
-[I 13:38:07.796 NotebookApp] Starting buffering for 0e45012e-aa7b-4524-81dd-4cbbfa517c34:1466af74-5abe-4481-9009-9190afde346c
-[I 13:46:04.841 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb
-[I 13:46:04.842 NotebookApp] Saving Direct Result Comparison.ipynb
-[W 13:46:04.842 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
-[I 13:48:04.979 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb
-[I 13:48:04.979 NotebookApp] Saving Direct Result Comparison.ipynb
-[W 13:48:04.980 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
-[I 13:57:22.684 NotebookApp] Starting buffering for ca30fed3-2c4b-4de4-8ae5-2edf32ee9103:10ecb918-ecb2-4756-b2d5-6664af8d9be8
-[W 13:57:29.297 NotebookApp] Notebook /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[I 13:57:30.618 NotebookApp] Kernel started: b6629617-1aa8-4cf7-b8c8-21ad960983ed
-[I 13:59:30.495 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
-[I 13:59:30.495 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
-[W 13:59:30.496 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[I 14:09:32.100 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
-[I 14:09:32.101 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
-[W 14:09:32.102 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[I 14:15:05.837 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
-[I 14:15:05.846 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
-[W 14:15:05.850 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[I 14:15:20.194 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
-[I 14:15:20.195 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
-[W 14:15:20.195 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[I 14:17:20.499 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
-[I 14:17:20.500 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
-[W 14:17:20.501 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
-[W 15:05:02.189 NotebookApp] WebSocket ping timeout after 119967 ms.
-[I 15:05:07.265 NotebookApp] Starting buffering for b6629617-1aa8-4cf7-b8c8-21ad960983ed:43c36fb8-741d-446b-bf09-e415c61fe7d1
+        http://hostname:8888/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
+     or http://127.0.0.1:8823/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
+[I 15:14:35.155 NotebookApp] 302 GET /?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac (::1) 1.20ms
+[I 15:16:30.016 NotebookApp] Creating new notebook in /Repeating_Classifier_Training
+[I 15:16:30.087 NotebookApp] Saving Untitled.ipynb
+[I 15:16:37.564 NotebookApp] Kernel started: bc354e56-7ff7-438a-9e8b-fefd7bd01160
+[W 15:17:32.106 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
+[I 15:17:32.443 NotebookApp] Kernel started: 5a9f44eb-4175-4624-8966-3d35b2e3172b
+[I 15:18:05.673 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 15:18:05.673 NotebookApp] Saving Untitled.ipynb
+[I 15:19:32.812 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 15:19:32.813 NotebookApp] Saving Untitled.ipynb
+[I 15:19:46.492 NotebookApp] Starting buffering for 5a9f44eb-4175-4624-8966-3d35b2e3172b:990687d93eed4923a0e7425a45a9692c
+[I 15:19:59.396 NotebookApp] Kernel started: 9dde8da1-186a-48f2-aefe-9703f3ff07fd
+[I 15:20:15.228 NotebookApp] Kernel interrupted: bc354e56-7ff7-438a-9e8b-fefd7bd01160
+[I 15:20:37.588 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 15:20:37.589 NotebookApp] Saving Untitled.ipynb
+[I 15:25:37.023 NotebookApp] Starting buffering for 9dde8da1-186a-48f2-aefe-9703f3ff07fd:6d97e114850e4e7d98c015c11639ace5
+[W 15:25:42.593 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
