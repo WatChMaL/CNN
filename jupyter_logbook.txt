@@ -1,60 +1,73 @@
-[I 09:04:26.914 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:04:26.914 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:04:26.914 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:04:26.915 NotebookApp] The port 8891 is already in use, trying another port.
-[I 09:04:26.915 NotebookApp] The port 8892 is already in use, trying another port.
-[I 09:04:28.483 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:04:28.548 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:04:28.548 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:04:28.550 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:04:28.550 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:04:28.550 NotebookApp] The Jupyter Notebook is running at:
-[I 09:04:28.550 NotebookApp] http://hostname:8888/?token=8986663fd1877d851ca146dd4645e2ff4556d07505661ddd
-[I 09:04:28.550 NotebookApp]  or http://127.0.0.1:8819/?token=8986663fd1877d851ca146dd4645e2ff4556d07505661ddd
-[I 09:04:28.550 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:04:28.554 NotebookApp] 
+[I 13:02:24.087 NotebookApp] The port 8888 is already in use, trying another port.
+[I 13:02:24.087 NotebookApp] The port 8889 is already in use, trying another port.
+[I 13:02:24.087 NotebookApp] The port 8890 is already in use, trying another port.
+[I 13:02:24.087 NotebookApp] The port 8891 is already in use, trying another port.
+[I 13:02:24.088 NotebookApp] The port 8892 is already in use, trying another port.
+[I 13:02:24.088 NotebookApp] The port 8889 is already in use, trying another port.
+[I 13:02:25.619 NotebookApp] jupyter_tensorboard extension loaded.
+[I 13:02:25.678 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 13:02:25.679 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 13:02:25.680 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 13:02:25.680 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 13:02:25.680 NotebookApp] The Jupyter Notebook is running at:
+[I 13:02:25.680 NotebookApp] http://hostname:8888/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
+[I 13:02:25.680 NotebookApp]  or http://127.0.0.1:8921/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
+[I 13:02:25.680 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:02:25.683 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-35341-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-1177-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=8986663fd1877d851ca146dd4645e2ff4556d07505661ddd
-     or http://127.0.0.1:8819/?token=8986663fd1877d851ca146dd4645e2ff4556d07505661ddd
-[I 09:05:01.951 NotebookApp] 302 GET /?token=8986663fd1877d851ca146dd4645e2ff4556d07505661ddd (::1) 1.33ms
-[W 09:06:35.554 NotebookApp] Could not determine jupyterlab build status without nodejs
-[E 09:06:36.351 NotebookApp] Uncaught exception GET /lab/api/extensions?1589213197682 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589213197682', version='HTTP/1.1', remote_ip='::1')
+        http://hostname:8888/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
+     or http://127.0.0.1:8921/?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8
+[I 13:03:01.394 NotebookApp] 302 GET /?token=4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8 (::1) 1.35ms
+[W 13:34:04.509 NotebookApp] Could not determine jupyterlab build status without nodejs
+[E 13:34:05.192 NotebookApp] Uncaught exception GET /lab/api/extensions?1589488445022 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8921', method='GET', uri='/lab/api/extensions?1589488445022', version='HTTP/1.1', remote_ip='::1')
     Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
         result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
         extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
         pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
         outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
         outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
         logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
       File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
         return self.__get_result()
@@ -69,73 +82,73 @@
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
         raise ValueError(msg)
     ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 09:06:36.354 NotebookApp] Unhandled error
-[E 09:06:36.355 NotebookApp] {
-      "Host": "127.0.0.1:8819",
+[W 13:34:05.209 NotebookApp] Unhandled error
+[E 13:34:05.209 NotebookApp] {
+      "Host": "127.0.0.1:8921",
       "Connection": "keep-alive",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
       "Dnt": "1",
       "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
+      "Authorization": "token 4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8",
       "Content-Type": "application/json",
       "Accept": "*/*",
       "Sec-Fetch-Site": "same-origin",
       "Sec-Fetch-Mode": "cors",
       "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/",
+      "Referer": "http://127.0.0.1:8921/lab",
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589213195|23:username-127-0-0-1-8819|44:MzQwMmQxZmE5NWIwNDFjNThiYWIyZWU5YzU5NjE5OGY=|b3a5a0638668661426c80e4ab8800857fc1abb8e5fbf0f4f5bec1e5f9a695e47\""
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589488444|23:username-127-0-0-1-8921|44:ODYzY2RmNzZhMGIzNDczYmE2MGVhOTUwZTZmODIzODc=|b1515ac1b40cffa8cf2afcea6b85ac307c72527df9b8e5454f6240f86e65dd2e\""
     }
-[E 09:06:36.355 NotebookApp] 500 GET /lab/api/extensions?1589213197682 (::1) 22.53ms referer=http://127.0.0.1:8819/
-[E 09:06:36.363 NotebookApp] Uncaught exception GET /lab/api/extensions?1589213197636 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589213197636', version='HTTP/1.1', remote_ip='::1')
+[E 13:34:05.210 NotebookApp] 500 GET /lab/api/extensions?1589488445022 (::1) 240.31ms referer=http://127.0.0.1:8921/lab
+[E 13:34:05.210 NotebookApp] Uncaught exception GET /lab/api/extensions?1589488444872 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8921', method='GET', uri='/lab/api/extensions?1589488444872', version='HTTP/1.1', remote_ip='::1')
     Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
         result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
         extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
         extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
         pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
         outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
         outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
         yielded = self.gen.throw(*exc_info)  # type: ignore
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
         logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
         value = future.result()
       File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
         return self.__get_result()
@@ -150,648 +163,54 @@
       File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
         raise ValueError(msg)
     ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 09:06:36.364 NotebookApp] Unhandled error
-[E 09:06:36.364 NotebookApp] {
-      "Host": "127.0.0.1:8819",
+[W 13:34:05.211 NotebookApp] Unhandled error
+[E 13:34:05.212 NotebookApp] {
+      "Host": "127.0.0.1:8921",
       "Connection": "keep-alive",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
       "Dnt": "1",
       "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
+      "Authorization": "token 4bbed1c91e9b2f349c8e0710d9e3bb5a3ac0f8d6e4a455c8",
       "Content-Type": "application/json",
       "Accept": "*/*",
       "Sec-Fetch-Site": "same-origin",
       "Sec-Fetch-Mode": "cors",
       "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/",
+      "Referer": "http://127.0.0.1:8921/lab",
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589213195|23:username-127-0-0-1-8819|44:MzQwMmQxZmE5NWIwNDFjNThiYWIyZWU5YzU5NjE5OGY=|b3a5a0638668661426c80e4ab8800857fc1abb8e5fbf0f4f5bec1e5f9a695e47\""
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589488444|23:username-127-0-0-1-8921|44:ODYzY2RmNzZhMGIzNDczYmE2MGVhOTUwZTZmODIzODc=|b1515ac1b40cffa8cf2afcea6b85ac307c72527df9b8e5454f6240f86e65dd2e\""
     }
-[E 09:06:36.365 NotebookApp] 500 GET /lab/api/extensions?1589213197636 (::1) 310.82ms referer=http://127.0.0.1:8819/
-[I 09:06:38.493 NotebookApp] Kernel started: 5594ee9c-a006-4a46-96a1-680ced1d0f4c
-[I 09:06:38.745 NotebookApp] Kernel started: 69c87286-a4ee-4d04-84e1-dfe5dc093795
-[I 09:06:38.772 NotebookApp] Kernel started: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 09:08:38.532 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:08:38.532 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:10:38.622 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:10:38.623 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:12:38.985 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:12:38.986 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:14:15.017 NotebookApp] Kernel interrupted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 09:14:43.157 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:14:43.157 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:16:44.016 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:16:44.017 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:23:30.619 NotebookApp] Kernel restarted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 09:24:44.216 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:24:44.218 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:26:44.424 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:26:44.424 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:28:44.861 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:28:44.862 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:28:56.231 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:28:56.231 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:29:41.493 NotebookApp] Kernel restarted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[W 09:29:52.258 NotebookApp] delete /Repeating_Classifier_Training/resnet_predictedlabels.npz
-[W 09:29:52.262 NotebookApp] delete /Repeating_Classifier_Training/resnet_energies.npz
-[W 09:29:52.275 NotebookApp] delete /Repeating_Classifier_Training/resnet_rootfiles.npz
-[W 09:29:52.280 NotebookApp] delete /Repeating_Classifier_Training/resnet_eventids.npz
-[W 09:29:52.294 NotebookApp] delete /Repeating_Classifier_Training/resnet_softmaxes.npz
-[W 09:30:11.382 NotebookApp] delete /Repeating_Classifier_Training/test_indices_e.npz
-[W 09:30:11.402 NotebookApp] delete /Repeating_Classifier_Training/test_indices_gamma.npz
-[W 09:30:11.403 NotebookApp] delete /Repeating_Classifier_Training/test_indices_mu.npz
-[W 09:30:43.944 NotebookApp] delete /Repeating_Classifier_Training/map_indices_resnet.npz
-[I 09:30:56.341 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:30:56.341 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:32:56.449 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:32:56.449 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:33:32.976 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:33:32.977 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:35:41.084 NotebookApp] Kernel restarted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 09:37:33.087 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:37:33.087 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:39:33.219 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:39:33.219 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:41:33.328 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:41:33.328 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:47:34.022 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:47:34.023 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:49:35.531 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:49:35.532 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:51:37.113 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:51:37.114 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:55:37.358 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:55:37.358 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:57:37.662 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:57:37.662 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:57:47.678 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:57:47.678 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 09:59:47.783 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 09:59:47.783 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:01:47.969 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:01:47.970 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:03:48.146 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:03:48.146 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:04:56.486 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:04:56.487 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:05:54.260 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:05:54.260 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:26:59.529 NotebookApp] Kernel interrupted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 10:27:56.117 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:27:56.118 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:32:15.602 NotebookApp] Kernel interrupted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 10:32:45.867 NotebookApp] Kernel interrupted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 10:32:54.316 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:32:54.317 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 10:33:33.663 NotebookApp] Kernel restarted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 10:34:54.426 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 10:34:54.426 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 11:12:30.529 NotebookApp] 302 GET / (::1) 1.07ms
-[W 11:12:53.755 NotebookApp] Could not determine jupyterlab build status without nodejs
-[E 11:12:54.115 NotebookApp] Uncaught exception GET /lab/api/extensions?1589220773861 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589220773861', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 11:12:54.116 NotebookApp] Unhandled error
-[E 11:12:54.116 NotebookApp] {
-      "Host": "127.0.0.1:8819",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/lab/workspaces/auto-6/Repeating_Classifier_Training?clone",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589220773|23:username-127-0-0-1-8819|44:NGRlYjUyNTkwMGQ0NDczYzg2NWJhOTM3YTYxYTc2MWI=|7d032b59b5d36bfc885d57f15d4c2c081cef6c602a10f1abfe4db8731e3c3f1f\""
-    }
-[E 11:12:54.116 NotebookApp] 500 GET /lab/api/extensions?1589220773861 (::1) 13.02ms referer=http://127.0.0.1:8819/lab/workspaces/auto-6/Repeating_Classifier_Training?clone
-[E 11:12:54.128 NotebookApp] Uncaught exception GET /lab/api/extensions?1589220773893 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589220773893', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 11:12:54.128 NotebookApp] Unhandled error
-[E 11:12:54.129 NotebookApp] {
-      "Host": "127.0.0.1:8819",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/lab/workspaces/auto-6/Repeating_Classifier_Training?clone",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589220773|23:username-127-0-0-1-8819|44:NGRlYjUyNTkwMGQ0NDczYzg2NWJhOTM3YTYxYTc2MWI=|7d032b59b5d36bfc885d57f15d4c2c081cef6c602a10f1abfe4db8731e3c3f1f\""
-    }
-[E 11:12:54.129 NotebookApp] 500 GET /lab/api/extensions?1589220773893 (::1) 12.22ms referer=http://127.0.0.1:8819/lab/workspaces/auto-6/Repeating_Classifier_Training?clone
-[I 11:16:44.929 NotebookApp] Saving file at /Repeating_Classifier_Training/Classifier Repeat Training.ipynb
-[I 11:16:44.929 NotebookApp] Saving Classifier Repeat Training.ipynb
-[I 11:48:57.227 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 11:48:57.228 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 11:50:57.348 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 11:50:57.348 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 12:09:21.419 NotebookApp] Starting buffering for 5594ee9c-a006-4a46-96a1-680ced1d0f4c:070e58da-fd26-4a6d-8180-37242fb8ad49
-[I 12:09:25.116 NotebookApp] Kernel interrupted: 6a412962-6358-4771-87cd-cbba54b9a3a5
-[I 12:09:27.889 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 12:09:27.889 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 12:13:29.081 NotebookApp] Saving file at /Repeating_Classifier_Training/ResNet-18 to FiTQun.ipynb
-[I 12:13:29.081 NotebookApp] Saving ResNet-18 to FiTQun.ipynb
-[I 12:17:55.650 NotebookApp] 302 GET / (::1) 0.86ms
-[I 12:17:56.132 NotebookApp] Starting buffering for 69c87286-a4ee-4d04-84e1-dfe5dc093795:334f124b-26fe-4f2b-ad3d-b61042f46782
-[I 12:18:06.981 NotebookApp] Kernel started: 458d98ae-844c-47f9-90e8-01b648ec530e
-[W 12:18:07.342 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200511090426 (::1) 18.63ms referer=http://127.0.0.1:8819/notebooks/Repeating_Classifier_Training/Classifier%20Repeat%20Training.ipynb
-[I 12:18:09.802 NotebookApp] Starting buffering for 458d98ae-844c-47f9-90e8-01b648ec530e:9ca8c140a21748f88fa51f96f1f38768
-[W 12:18:12.087 NotebookApp] Could not determine jupyterlab build status without nodejs
-[E 12:18:12.104 NotebookApp] Uncaught exception GET /lab/api/extensions?1589224691663 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589224691663', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 12:18:12.105 NotebookApp] Unhandled error
-[E 12:18:12.106 NotebookApp] {
-      "Host": "127.0.0.1:8819",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589224691|23:username-127-0-0-1-8819|44:NDZhMzczYWI5MzA3NDdlNzhkNGMzM2RhYjJjNzkwOWI=|eaa4ab398d36aafbeb67704afcafedbd61fca5d32b831da4a0544b7c3efc89bc\""
-    }
-[E 12:18:12.106 NotebookApp] 500 GET /lab/api/extensions?1589224691663 (::1) 17.02ms referer=http://127.0.0.1:8819/
-[E 12:18:12.117 NotebookApp] Uncaught exception GET /lab/api/extensions?1589224691710 (::1)
-    HTTPServerRequest(protocol='http', host='127.0.0.1:8819', method='GET', uri='/lab/api/extensions?1589224691710', version='HTTP/1.1', remote_ip='::1')
-    Traceback (most recent call last):
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/web.py", line 1699, in _execute
-        result = await result
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
-        extensions = yield self.manager.list_extensions()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
-        pkg_info = yield self._get_pkg_info(name, data)
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
-        outdated = yield self._get_outdated()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
-        yielded = self.gen.throw(*exc_info)  # type: ignore
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
-        logger=self.log,
-      File "/opt/conda/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
-        return self.__get_result()
-      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
-        raise self._exception
-      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
-        result = self.fn(*self.args, **self.kwargs)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
-        return handler.latest_compatible_package_versions(names)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
-        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
-      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
-        raise ValueError(msg)
-    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
-[W 12:18:12.118 NotebookApp] Unhandled error
-[E 12:18:12.118 NotebookApp] {
-      "Host": "127.0.0.1:8819",
-      "Connection": "keep-alive",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-      "Dnt": "1",
-      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
-      "Authorization": "token 8986663fd1877d851ca146dd4645e2ff4556d07505661ddd",
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8819/",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589224691|23:username-127-0-0-1-8819|44:OGFkZWNmMDg0MWZjNGVmMmI3Y2Y0NGJhNDFmNGYyYzE=|a67d957e433c8d32e085ddaedb7cc1da868366a0caac913446b86befc8efdefa\""
-    }
-[E 12:18:12.118 NotebookApp] 500 GET /lab/api/extensions?1589224691710 (::1) 11.72ms referer=http://127.0.0.1:8819/
-[I 12:18:22.040 NotebookApp] Starting buffering for 458d98ae-844c-47f9-90e8-01b648ec530e:a5aa42f4-a177-4e7c-a9f0-45636e02cc55
-[I 12:24:26.178 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 12:24:44.565 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 12:26:20.061 NotebookApp] Saving file at /training_utils/engine_cl.py
+[E 13:34:05.212 NotebookApp] 500 GET /lab/api/extensions?1589488444872 (::1) 212.62ms referer=http://127.0.0.1:8921/lab
+[W 13:34:06.182 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
+[W 13:34:06.201 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
+[I 13:34:09.547 NotebookApp] Kernel started: ca30fed3-2c4b-4de4-8ae5-2edf32ee9103
+[I 13:34:09.568 NotebookApp] Kernel started: 0e45012e-aa7b-4524-81dd-4cbbfa517c34
+[I 13:38:07.794 NotebookApp] Starting buffering for ca30fed3-2c4b-4de4-8ae5-2edf32ee9103:44b9236a-516e-4e6a-bebc-93272927c88e
+[I 13:38:07.796 NotebookApp] Starting buffering for 0e45012e-aa7b-4524-81dd-4cbbfa517c34:1466af74-5abe-4481-9009-9190afde346c
+[I 13:46:04.841 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb
+[I 13:46:04.842 NotebookApp] Saving Direct Result Comparison.ipynb
+[W 13:46:04.842 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
+[I 13:48:04.979 NotebookApp] Saving file at /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb
+[I 13:48:04.979 NotebookApp] Saving Direct Result Comparison.ipynb
+[W 13:48:04.980 NotebookApp] Notebook Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
+[I 13:57:22.684 NotebookApp] Starting buffering for ca30fed3-2c4b-4de4-8ae5-2edf32ee9103:10ecb918-ecb2-4756-b2d5-6664af8d9be8
+[W 13:57:29.297 NotebookApp] Notebook /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[I 13:57:30.618 NotebookApp] Kernel started: b6629617-1aa8-4cf7-b8c8-21ad960983ed
+[I 13:59:30.495 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 13:59:30.495 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[W 13:59:30.496 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[I 14:09:32.100 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 14:09:32.101 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[W 14:09:32.102 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[I 14:15:05.837 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 14:15:05.846 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[W 14:15:05.850 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[I 14:15:20.194 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 14:15:20.195 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[W 14:15:20.195 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[I 14:17:20.499 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 14:17:20.500 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[W 14:17:20.501 NotebookApp] Notebook Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb is not trusted
+[W 15:05:02.189 NotebookApp] WebSocket ping timeout after 119967 ms.
+[I 15:05:07.265 NotebookApp] Starting buffering for b6629617-1aa8-4cf7-b8c8-21ad960983ed:43c36fb8-741d-446b-bf09-e415c61fe7d1

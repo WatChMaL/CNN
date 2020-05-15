@@ -26,7 +26,8 @@ from torch import argmax
 from torch.nn import Softmax
 from torch.optim import Adam
 from torch.utils.data import DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
+from torch.utils.data.sampler import SubsetRandomSampler
+from io_utils.custom_samplers import SubsetSequenceSampler
 from torchviz import make_dot
 
 # WatChMaL imports
@@ -81,7 +82,7 @@ class EngineCL(Engine):
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=10)
 
         # Define the placeholder attributes
         self.data     = None

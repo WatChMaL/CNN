@@ -10,9 +10,9 @@ CUDA is available
 Loading training indices from:  /fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval_idxs.npz
 Loading validation indices from:  /fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval_idxs.npz
 Loading test indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz
-Creating a directory for run dump at : dumps/20200508_162456/
-Saving config file as dumps/20200508_162456/config_file.ini
-Config file saved at dumps/20200508_162456/config_file.ini
+Creating a directory for run dump at : dumps/20200511_151728/
+Saving config file as dumps/20200511_151728/config_file.ini
+Config file saved at dumps/20200511_151728/config_file.ini
 Entire model parameters passed to the optimizer
 Loading weights from file : /home/cmacdonald/CNN/dumps/20200506_104330/ClNet_best.pth
 Loading weights for module =  encoder
@@ -6565,4 +6565,4 @@ Iteration : 6542
 Iteration : 6543
 Iteration : 6544
 Saving the npz dump array :
-Time taken to execute the script : 9:12:31.427864
+Time taken to execute the script : 9:08:03.028394
