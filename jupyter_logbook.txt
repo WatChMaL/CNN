@@ -464,3 +464,9 @@
 [I 15:18:34.737 NotebookApp] Starting buffering for 6bafffbe-849f-4564-a0f8-9994a06641cc:8f7233f3-c359-4d9b-97a7-a347c789a6d9
 [I 15:18:37.129 NotebookApp] Starting buffering for c667a7c1-35cd-407e-ba35-2bbca8424c87:07874cfb4f044b818c8823a7d9d9b564
 [I 15:18:37.921 NotebookApp] Starting buffering for 8a9497bf-a97b-46df-911b-659ddf576967:b28bc96cc4a548ba806110f3fb0d7fa7
+[I 15:22:16.985 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:22:16.986 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:22:29.223 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:22:29.224 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:22:36.279 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:22:36.279 NotebookApp] Saving 5. Comparing Training Runs.ipynb
