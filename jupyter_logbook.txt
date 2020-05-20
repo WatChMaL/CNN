@@ -1,38 +1,466 @@
-[I 15:13:58.703 NotebookApp] The port 8888 is already in use, trying another port.
-[I 15:13:58.703 NotebookApp] The port 8889 is already in use, trying another port.
-[I 15:13:58.703 NotebookApp] The port 8890 is already in use, trying another port.
-[I 15:13:58.703 NotebookApp] The port 8891 is already in use, trying another port.
-[I 15:13:58.703 NotebookApp] The port 8892 is already in use, trying another port.
-[I 15:13:59.895 NotebookApp] jupyter_tensorboard extension loaded.
-[I 15:13:59.954 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 15:13:59.954 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 15:13:59.956 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 15:13:59.956 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 15:13:59.956 NotebookApp] The Jupyter Notebook is running at:
-[I 15:13:59.956 NotebookApp] http://hostname:8888/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
-[I 15:13:59.956 NotebookApp]  or http://127.0.0.1:8823/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
-[I 15:13:59.956 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 15:13:59.959 NotebookApp] 
+[I 09:02:59.876 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:02:59.876 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:02:59.876 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:02:59.876 NotebookApp] The port 8891 is already in use, trying another port.
+[I 09:02:59.876 NotebookApp] The port 8892 is already in use, trying another port.
+[I 09:03:01.535 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:03:01.646 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:03:01.646 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:03:01.649 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:03:01.649 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:03:01.649 NotebookApp] The Jupyter Notebook is running at:
+[I 09:03:01.649 NotebookApp] http://hostname:8888/?token=6e09d287586ec594f5b54825fde76658d13f49f34557e2f4
+[I 09:03:01.649 NotebookApp]  or http://127.0.0.1:8878/?token=6e09d287586ec594f5b54825fde76658d13f49f34557e2f4
+[I 09:03:01.649 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:03:01.655 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-18418-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-12424-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
-     or http://127.0.0.1:8823/?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac
-[I 15:14:35.155 NotebookApp] 302 GET /?token=7b1a669b82b89d2dba690bd12499f66d73d1045e209bdeac (::1) 1.20ms
-[I 15:16:30.016 NotebookApp] Creating new notebook in /Repeating_Classifier_Training
-[I 15:16:30.087 NotebookApp] Saving Untitled.ipynb
-[I 15:16:37.564 NotebookApp] Kernel started: bc354e56-7ff7-438a-9e8b-fefd7bd01160
-[W 15:17:32.106 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
-[I 15:17:32.443 NotebookApp] Kernel started: 5a9f44eb-4175-4624-8966-3d35b2e3172b
-[I 15:18:05.673 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
-[I 15:18:05.673 NotebookApp] Saving Untitled.ipynb
-[I 15:19:32.812 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
-[I 15:19:32.813 NotebookApp] Saving Untitled.ipynb
-[I 15:19:46.492 NotebookApp] Starting buffering for 5a9f44eb-4175-4624-8966-3d35b2e3172b:990687d93eed4923a0e7425a45a9692c
-[I 15:19:59.396 NotebookApp] Kernel started: 9dde8da1-186a-48f2-aefe-9703f3ff07fd
-[I 15:20:15.228 NotebookApp] Kernel interrupted: bc354e56-7ff7-438a-9e8b-fefd7bd01160
-[I 15:20:37.588 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
-[I 15:20:37.589 NotebookApp] Saving Untitled.ipynb
-[I 15:25:37.023 NotebookApp] Starting buffering for 9dde8da1-186a-48f2-aefe-9703f3ff07fd:6d97e114850e4e7d98c015c11639ace5
-[W 15:25:42.593 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
+        http://hostname:8888/?token=6e09d287586ec594f5b54825fde76658d13f49f34557e2f4
+     or http://127.0.0.1:8878/?token=6e09d287586ec594f5b54825fde76658d13f49f34557e2f4
+[I 09:03:40.120 NotebookApp] 302 GET /?token=6e09d287586ec594f5b54825fde76658d13f49f34557e2f4 (::1) 1.06ms
+[I 09:06:36.874 NotebookApp] Kernel started: fa2b9045-cfc9-4dae-854f-c4802aefcea7
+[I 09:09:38.098 NotebookApp] Kernel started: c667a7c1-35cd-407e-ba35-2bbca8424c87
+[I 09:10:37.458 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 09:10:37.458 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 09:11:37.778 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:11:37.778 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:14:05.274 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:14:05.276 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:14:37.463 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 09:14:37.463 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[W 09:14:37.942 NotebookApp] Notebook /Repeating_Classifier_Training/3. Mapping Previous Test Results.ipynb is not trusted
+[I 09:14:38.326 NotebookApp] Kernel started: fc817c18-3bd7-40a4-8a21-35e86e287ebd
+[I 09:14:45.384 NotebookApp] Kernel started: 2db98c54-cb8b-41f5-8ec4-fa718acc467e
+[I 09:14:45.462 NotebookApp] Starting buffering for fc817c18-3bd7-40a4-8a21-35e86e287ebd:e87b9e72b99640428862ab584016e0dd
+[I 09:15:06.208 NotebookApp] Starting buffering for 2db98c54-cb8b-41f5-8ec4-fa718acc467e:bffc55a167fb4a899c6b1f3af5ed2eca
+[I 09:15:09.670 NotebookApp] Kernel started: 3f2cc38e-09ab-435b-bbab-cd5dad27c2a8
+[I 09:16:19.528 NotebookApp] Starting buffering for 3f2cc38e-09ab-435b-bbab-cd5dad27c2a8:8c0ee437c62d431b9ebe682257132671
+[W 09:16:22.333 NotebookApp] Notebook /Repeating_Classifier_Training/0. Create Index .npz Files.ipynb is not trusted
+[E 09:16:22.919 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-fb9cb3e0-14fd-4023-8cb5-e04cde0e85d3.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/Repeating_Classifier_Training', 'start_new_session': True}
+    
+[E 09:16:22.920 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8878', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 09:16:22.928 NotebookApp] Unhandled error
+[E 09:16:22.929 NotebookApp] {
+      "Host": "127.0.0.1:8878",
+      "Connection": "keep-alive",
+      "Content-Length": "179",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8878",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8878/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1589990620|23:username-127-0-0-1-8878|44:YmUxNWQ5NmZlN2MwNDY4MjhkYTVlYzM2ZGE4M2E0OGI=|d372de11aea2bb158e4f3e4c99cb31315dea51c6faaf3521cafcc72169ccd4c9\""
+    }
+[E 09:16:22.930 NotebookApp] 500 POST /api/sessions (::1) 29.24ms referer=http://127.0.0.1:8878/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb
+[I 09:17:28.667 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:17:28.668 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:17:53.162 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:17:53.162 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:23:37.788 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:23:37.789 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:23:55.813 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:23:55.814 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[W 09:24:06.612 NotebookApp] Notebook /Repeating_Classifier_Training/3. Mapping Previous Test Results.ipynb is not trusted
+[I 09:24:13.812 NotebookApp] Starting buffering for fc817c18-3bd7-40a4-8a21-35e86e287ebd:0fe2676b561946338baf7297a06b2c1e
+[I 09:24:22.988 NotebookApp] Starting buffering for 2db98c54-cb8b-41f5-8ec4-fa718acc467e:63cd2771b01d47bda817c1b37f373919
+[W 09:24:25.762 NotebookApp] Notebook /Repeating_Classifier_Training/0. Create Index .npz Files.ipynb is not trusted
+[E 09:24:26.315 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-daffe6b5-3ef9-4528-8b3a-b68dc3612cb2.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/Repeating_Classifier_Training', 'start_new_session': True}
+    
+[E 09:24:26.316 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8878', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 09:24:26.317 NotebookApp] Unhandled error
+[E 09:24:26.318 NotebookApp] {
+      "Host": "127.0.0.1:8878",
+      "Connection": "keep-alive",
+      "Content-Length": "179",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8878",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8878/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1589990620|23:username-127-0-0-1-8878|44:YmUxNWQ5NmZlN2MwNDY4MjhkYTVlYzM2ZGE4M2E0OGI=|d372de11aea2bb158e4f3e4c99cb31315dea51c6faaf3521cafcc72169ccd4c9\""
+    }
+[E 09:24:26.318 NotebookApp] 500 POST /api/sessions (::1) 24.48ms referer=http://127.0.0.1:8878/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb
+[I 09:25:37.757 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:25:37.757 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:27:37.769 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:27:37.770 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:29:37.803 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:29:37.804 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:29:55.340 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:29:55.341 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:30:16.393 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:30:16.393 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:31:37.782 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:31:37.782 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[W 09:32:52.556 NotebookApp] Notebook /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb is not trusted
+[I 09:32:53.377 NotebookApp] Kernel started: 8a9497bf-a97b-46df-911b-659ddf576967
+[I 09:33:37.811 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:33:37.812 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:35:38.405 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:35:38.406 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:37:20.440 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:37:20.441 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:37:37.866 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:37:37.867 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 09:41:37.864 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 09:41:37.864 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:03:38.221 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 10:03:38.287 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:05:37.979 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 10:05:37.980 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:07:38.010 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 10:07:38.010 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:09:38.234 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 10:09:38.235 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:11:19.518 NotebookApp] Starting buffering for 8a9497bf-a97b-46df-911b-659ddf576967:0161aa610ea44ef4a74145e45d65f8f3
+[I 10:11:20.358 NotebookApp] Starting buffering for fa2b9045-cfc9-4dae-854f-c4802aefcea7:61dac5643e1946a8b663fcbef342e86a
+[W 10:11:36.638 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/ResNet-18 to FiTQun.ipynb is not trusted
+[I 10:11:36.961 NotebookApp] Kernel started: 7f3d096b-8783-4737-9112-fbef845f6f5e
+[W 10:18:06.312 NotebookApp] Notebook /Comparing_ResNet_and_FiTQun/Direct Result Comparison.ipynb is not trusted
+[I 10:18:08.021 NotebookApp] Kernel started: c745345b-3780-484e-b46a-0167a54c6289
+[W 10:19:21.526 NotebookApp] Notebook /Repeating_Classifier_Training/repeating_classifier_training_utils.py is not trusted
+[I 10:19:21.792 NotebookApp] Kernel started: 8b0397bb-9388-435f-b834-719d2c9e3507
+[I 10:19:38.061 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 10:19:38.062 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 10:21:21.870 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:21:21.871 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[W 10:37:46.627 NotebookApp] Notebook /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb is not trusted
+[I 10:39:48.197 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 10:39:48.198 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[W 10:39:48.199 NotebookApp] Notebook Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb is not trusted
+[I 10:49:48.138 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 10:49:48.139 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[W 10:49:48.140 NotebookApp] Notebook Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb is not trusted
+[I 10:55:47.932 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 10:55:47.933 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 10:57:48.362 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 10:57:48.362 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 10:58:37.522 NotebookApp] Starting buffering for 8b0397bb-9388-435f-b834-719d2c9e3507:7942a5d7e88143458dddf21b3a04b19b
+[I 11:05:48.349 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:05:48.349 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 11:09:38.069 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 11:09:38.070 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 11:09:51.785 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 11:09:51.785 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 11:10:22.909 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 11:10:22.910 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 11:11:42.639 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 11:11:42.640 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 11:21:38.308 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb
+[I 11:21:38.309 NotebookApp] Saving 6. Repeating Testing with Best Model Weights.ipynb
+[I 11:28:37.995 NotebookApp] Starting buffering for 7f3d096b-8783-4737-9112-fbef845f6f5e:6db690c38070400a892ce7ba94dee62f
+[I 11:28:38.017 NotebookApp] Starting buffering for c745345b-3780-484e-b46a-0167a54c6289:84ddaa52ee2849b084515e4ac13f905e
+[W 11:28:51.895 NotebookApp] Could not determine jupyterlab build status without nodejs
+[E 11:28:52.281 NotebookApp] Uncaught exception GET /lab/api/extensions?1589999333647 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8878', method='GET', uri='/lab/api/extensions?1589999333647', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 11:28:52.283 NotebookApp] Unhandled error
+[E 11:28:52.284 NotebookApp] {
+      "Host": "127.0.0.1:8878",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "Authorization": "token 6e09d287586ec594f5b54825fde76658d13f49f34557e2f4",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8878/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1589999331|23:username-127-0-0-1-8878|44:N2U3M2QxZjEwNTg3NGVmNGJhMTM5ZjE4MGM5MDBjZmU=|a72a6b20e0fd87dcb4a7f704afbf9a141c76fa5bf05f2c5caa86a6dc92d372c0\""
+    }
+[E 11:28:52.284 NotebookApp] 500 GET /lab/api/extensions?1589999333647 (::1) 217.11ms referer=http://127.0.0.1:8878/
+[E 11:28:52.284 NotebookApp] Uncaught exception GET /lab/api/extensions?1589999333764 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8878', method='GET', uri='/lab/api/extensions?1589999333764', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 11:28:52.285 NotebookApp] Unhandled error
+[E 11:28:52.285 NotebookApp] {
+      "Host": "127.0.0.1:8878",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "Authorization": "token 6e09d287586ec594f5b54825fde76658d13f49f34557e2f4",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8878/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1589999332|23:username-127-0-0-1-8878|44:MWVkZWViYTgwMjYzNDk0ODhhNDkyY2IzYjRlMTZhYWY=|f309c1419e1fbb88f0154e52b8721d5bc73548a4c1100b8919e58141957289a0\""
+    }
+[E 11:28:52.285 NotebookApp] 500 GET /lab/api/extensions?1589999333764 (::1) 111.64ms referer=http://127.0.0.1:8878/
+[I 11:28:53.713 NotebookApp] Kernel started: e17301d8-3aea-42b8-8d97-c44ebe24c28a
+[I 11:29:59.177 NotebookApp] Kernel restarted: e17301d8-3aea-42b8-8d97-c44ebe24c28a
+[I 11:30:31.128 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 11:30:31.128 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[I 11:31:00.539 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:31:00.540 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 11:31:36.982 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:31:36.983 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 11:31:48.045 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:31:48.046 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 11:38:34.516 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Analyzing Classifier Performance.ipynb
+[I 11:38:34.517 NotebookApp] Saving 2. Analyzing Classifier Performance.ipynb
+[I 11:43:48.135 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:43:48.135 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 11:51:48.275 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Re-creating Previous Metrics.ipynb
+[I 11:51:48.275 NotebookApp] Saving 4. Re-creating Previous Metrics.ipynb
+[I 13:21:30.102 NotebookApp] Starting buffering for e17301d8-3aea-42b8-8d97-c44ebe24c28a:45aeb405-d65e-49c4-99b5-3d59c9499862
+[I 13:21:30.170 NotebookApp] Starting buffering for c667a7c1-35cd-407e-ba35-2bbca8424c87:07874cfb4f044b818c8823a7d9d9b564
+[I 13:21:30.170 NotebookApp] Starting buffering for 8a9497bf-a97b-46df-911b-659ddf576967:b28bc96cc4a548ba806110f3fb0d7fa7
+[I 13:44:27.131 NotebookApp] Restoring connection for e17301d8-3aea-42b8-8d97-c44ebe24c28a:45aeb405-d65e-49c4-99b5-3d59c9499862
+[I 13:44:27.365 NotebookApp] Restoring connection for 8a9497bf-a97b-46df-911b-659ddf576967:b28bc96cc4a548ba806110f3fb0d7fa7
+[I 13:44:27.430 NotebookApp] Restoring connection for c667a7c1-35cd-407e-ba35-2bbca8424c87:07874cfb4f044b818c8823a7d9d9b564
+[I 14:45:02.340 NotebookApp] Kernel started: 6bafffbe-849f-4564-a0f8-9994a06641cc
+[I 14:47:02.500 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 14:47:02.501 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 14:51:02.850 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 14:51:02.851 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 14:55:03.049 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 14:55:03.050 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 14:57:03.303 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 14:57:03.304 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 14:59:03.604 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 14:59:03.604 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:00:44.215 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:00:44.216 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:01:35.964 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:01:35.965 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:02:15.018 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:02:15.019 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:03:09.631 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:03:09.632 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:05:10.300 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:05:10.301 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:15:10.632 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
+[I 15:15:10.633 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+[I 15:18:34.050 NotebookApp] Starting buffering for e17301d8-3aea-42b8-8d97-c44ebe24c28a:45aeb405-d65e-49c4-99b5-3d59c9499862
+[I 15:18:34.737 NotebookApp] Starting buffering for 6bafffbe-849f-4564-a0f8-9994a06641cc:8f7233f3-c359-4d9b-97a7-a347c789a6d9
+[I 15:18:37.129 NotebookApp] Starting buffering for c667a7c1-35cd-407e-ba35-2bbca8424c87:07874cfb4f044b818c8823a7d9d9b564
+[I 15:18:37.921 NotebookApp] Starting buffering for 8a9497bf-a97b-46df-911b-659ddf576967:b28bc96cc4a548ba806110f3fb0d7fa7

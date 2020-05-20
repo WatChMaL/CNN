@@ -12,12 +12,13 @@
 #     name: python3
 # ---
 
-# +
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
 import os,sys
+import matplotlib.gridspec as gridspec
+
 
 def moving_average(a, n=3) :
     ret = np.cumsum(a, dtype=float)
@@ -75,7 +76,6 @@ def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val
         return
 
     return fig
-# -
 
 # Function to plot a confusion matrix
 def plot_confusion_matrix(labels, predictions, class_names,title=None):
@@ -125,7 +125,7 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
                     ha="center", va="center", fontsize=20,
                     color="white" if mat[i,j] > (0.5*mat.max()) else "black")
     plt.show()
-    
+
 # Plot multiple ROC curves on the same figure
 def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, lbound, ubound,png_name='roc_plot',title='ROC Curve'):
     
@@ -250,3 +250,48 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
     total_labels = np.concatenate((e_labels_0, e_labels_1, mu_labels_0, mu_labels_1), axis=0)
     
     return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
+
+
+def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None):
+    fig = plt.figure(facecolor='w',figsize=(16,8))
+    gs = gridspec.GridSpec(1,len(locations),figure=fig)
+#     fig,axes = plt.subplots(1,len(locations),sharey=True,facecolor='w',constrained_layout=True)
+    
+    for i,location in enumerate(locations):
+        train_log=location+'/log_train.csv'
+        val_log=location+'/log_val.csv'
+
+        train_log_csv = pd.read_csv(train_log)
+        val_log_csv  = pd.read_csv(val_log)
+        
+        ax1=fig.add_subplot(gs[i],facecolor='w')
+        line11 = ax1.plot(train_log_csv.epoch, train_log_csv.loss, linewidth=2, label='Train loss', color='b', alpha=0.3)
+        line12 = ax1.plot(val_log_csv.epoch, val_log_csv.loss, marker='o', markersize=3, linestyle='', label='Validation loss', color='blue')
+        if losslim is not None:
+            ax1.set_ylim(0.,losslim)
+        if titles is not None:
+            ax1.set_title(titles[i])
+        ax2 = ax1.twinx()
+        line21 = ax2.plot(train_log_csv.epoch, train_log_csv.accuracy, linewidth=2, label='Train accuracy', color='r', alpha=0.3)
+        line22 = ax2.plot(val_log_csv.epoch, val_log_csv.accuracy, marker='o', markersize=3, linestyle='', label='Validation accuracy', color='red')
+
+        ax1.set_xlabel('Epoch',fontweight='bold',fontsize=24,color='black')
+        ax1.tick_params('x',colors='black',labelsize=18)
+        ax1.set_ylabel('Loss', fontsize=24, fontweight='bold',color='b')
+        ax1.tick_params('y',colors='b',labelsize=18)
+
+
+        ax2.set_ylabel('Accuracy', fontsize=24, fontweight='bold',color='r')
+        ax2.tick_params('y',colors='r',labelsize=18)
+        ax2.set_ylim(0.,1.05)
+
+        # added these four lines
+        lines  = line11 + line12 + line21 + line22
+        labels = [l.get_label() for l in lines]
+        leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1)
+        leg_frame = leg.get_frame()
+        leg_frame.set_facecolor('white')
+    gs.tight_layout(fig)
+    return fig
+
+
