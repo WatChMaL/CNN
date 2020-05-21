@@ -252,23 +252,35 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
     return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
 
 
-def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None):
+def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False):
     fig = plt.figure(facecolor='w',figsize=(16,8))
     gs = gridspec.GridSpec(1,len(locations),figure=fig)
-#     fig,axes = plt.subplots(1,len(locations),sharey=True,facecolor='w',constrained_layout=True)
-    
+    axes = []
     for i,location in enumerate(locations):
         train_log=location+'/log_train.csv'
-        val_log=location+'/log_val.csv'
-
+        val_log=location+'/log_val.csv'        
         train_log_csv = pd.read_csv(train_log)
         val_log_csv  = pd.read_csv(val_log)
         
-        ax1=fig.add_subplot(gs[i],facecolor='w')
+        if best_only:
+            best_idxs = [0]
+            best_epoch=0
+            best_loss = val_log_csv.loss[0]
+            for idx,loss in enumerate(val_log_csv.loss):
+                if loss < best_loss: 
+                    best_loss=loss
+                    best_idxs.append(idx)
+                    best_epoch=val_log_csv.epoch[idx]
+            val_log_csv = val_log_csv.loc[best_idxs]
+            titles[i] = titles[i] + ", Best Val Loss = {loss:.4f} @ Epoch {epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
+                
+        ax1=fig.add_subplot(gs[i],facecolor='w') if i ==0 else fig.add_subplot(gs[i],facecolor='w',sharey=axes[0])
+        ax1.set_xlim(0,train_log_csv.epoch.max())
+        axes.append(ax1)
         line11 = ax1.plot(train_log_csv.epoch, train_log_csv.loss, linewidth=2, label='Train loss', color='b', alpha=0.3)
         line12 = ax1.plot(val_log_csv.epoch, val_log_csv.loss, marker='o', markersize=3, linestyle='', label='Validation loss', color='blue')
         if losslim is not None:
-            ax1.set_ylim(0.,losslim)
+            ax1.set_ylim(None,losslim)
         if titles is not None:
             ax1.set_title(titles[i])
         ax2 = ax1.twinx()
@@ -285,7 +297,6 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None):
         ax2.tick_params('y',colors='r',labelsize=18)
         ax2.set_ylim(0.,1.05)
 
-        # added these four lines
         lines  = line11 + line12 + line21 + line22
         labels = [l.get_label() for l in lines]
         leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1)
@@ -293,5 +304,3 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None):
         leg_frame.set_facecolor('white')
     gs.tight_layout(fig)
     return fig
-
-
