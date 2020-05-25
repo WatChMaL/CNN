@@ -15,6 +15,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 from sklearn.metrics import roc_curve, auc
 import os,sys
 import matplotlib.gridspec as gridspec
@@ -66,7 +67,7 @@ def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val
 
     labels = [l.get_label() for l in lines]
     
-    leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1)
+    leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1,prop={'size:',6})
     leg_frame = leg.get_frame()
     leg_frame.set_facecolor('white')
 
@@ -252,9 +253,9 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
     return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
 
 
-def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False):
+def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10):
     fig = plt.figure(facecolor='w',figsize=(16,8))
-    gs = gridspec.GridSpec(1,len(locations),figure=fig)
+    gs = gridspec.GridSpec(math.ceil(len(locations)/3),3,figure=fig)
     axes = []
     for i,location in enumerate(locations):
         train_log=location+'/log_train.csv'
@@ -272,7 +273,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
                     best_idxs.append(idx)
                     best_epoch=val_log_csv.epoch[idx]
             val_log_csv = val_log_csv.loc[best_idxs]
-            titles[i] = titles[i] + ", Best Val Loss = {loss:.4f} @ Epoch {epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
+            titles[i] = titles[i] + ", Best Val Loss ={loss:.4f}@Ep.{epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
                 
         ax1=fig.add_subplot(gs[i],facecolor='w') if i ==0 else fig.add_subplot(gs[i],facecolor='w',sharey=axes[0])
         ax1.set_xlim(0,train_log_csv.epoch.max())
@@ -299,8 +300,103 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
 
         lines  = line11 + line12 + line21 + line22
         labels = [l.get_label() for l in lines]
-        leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1)
+        leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1,prop={'size':leg_font})
         leg_frame = leg.get_frame()
         leg_frame.set_facecolor('white')
     gs.tight_layout(fig)
     return fig
+
+
+# Function to plot a confusion matrix
+def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,titles=None):
+    fig = plt.figure(facecolor='w',figsize=(16,8))
+    gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    axes = []
+    
+    """
+    plot_confusion_matrix(labels, predictions, class_names)
+    
+    Purpose : Plot the confusion matrix for a given energy interval
+    
+    Args: labels              ... 1D array of true label value, the length = sample size
+          predictions         ... 1D array of predictions, the length = sample size
+          class_names         ... 1D array of string label for classification targets, the length = number of categories
+       
+ 
+    """
+    for i,labels in enumerate(label_arrays):
+        predictions = prediction_arrays[i]
+        ax=fig.add_subplot(gs[i],facecolor='w')
+        num_labels = len(class_names)
+        max_value = np.max([np.max(np.unique(labels)),np.max(np.unique(labels))])
+        assert max_value < num_labels
+        mat,_,_,im = ax.hist2d(predictions, labels,
+                               bins=(num_labels,num_labels),
+                               range=((-0.5,num_labels-0.5),(-0.5,num_labels-0.5)),cmap=plt.cm.Blues)
+
+        # Normalize the confusion matrix
+        mat = mat.astype("float") / mat.sum(axis=0)
+
+        cbar = plt.colorbar(im, ax=ax)
+        cbar.ax.tick_params(labelsize=20) 
+
+        ax.set_xticks(np.arange(num_labels))
+        ax.set_yticks(np.arange(num_labels))
+        ax.set_xticklabels(class_names,fontsize=20)
+        ax.set_yticklabels(class_names,fontsize=20)
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+                 rotation_mode="anchor")
+        plt.setp(ax.get_yticklabels(), rotation=45, ha="right",
+                 rotation_mode="anchor")
+        ax.set_xlabel('Prediction',fontsize=20)
+        ax.set_ylabel('True Label',fontsize=20)
+        if titles is not None: 
+            ax.set_title(titles[i])
+
+        for i in range(mat.shape[0]):
+            for j in range(mat.shape[1]):
+                ax.text(i,j, r"${0:0.3f}$".format(mat[i,j]),
+                        ha="center", va="center", fontsize=20,
+                        color="white" if mat[i,j] > (0.5*mat.max()) else "black")
+    gs.tight_layout(fig)
+    return fig
+
+
+def load_test_output(location,index_path):
+    test_dump_np = np.load(location, allow_pickle=True)
+    
+    res_predictedlabels = np.concatenate(list([batch_array for batch_array in test_dump_np['predicted_labels']]))
+    res_softmaxes  = np.concatenate(list([batch_array for batch_array in test_dump_np['softmax']]))
+    res_labels   = np.concatenate(list([batch_array for batch_array in test_dump_np['labels']]))
+    res_energies = np.concatenate(list([batch_array for batch_array in test_dump_np['energies']]))
+    res_rootfiles = np.concatenate(list([batch_array for batch_array in test_dump_np['rootfiles']]))
+    res_eventids = np.concatenate(list([batch_array for batch_array in test_dump_np['eventids']]))
+    res_angles = np.concatenate(list([batch_array for batch_array in test_dump_np['angles']]))
+    
+    failed_idxs = np.load(os.path.join(index_path, 'fq_failed_idxs.npz'),allow_pickle=True)['failed_indices_pointing_to_h5_test_set'].astype(int)
+    flagged_idxs = np.load(os.path.join(index_path, 'fq_flagged_idxs.npz'),allow_pickle=True)['arr_0'].astype(int)
+    
+    sres_predictedlabels = np.delete(res_predictedlabels,failed_idxs)
+    sres_softmaxes  = np.delete(res_softmaxes,failed_idxs,0)
+    sres_labels  = np.delete(res_labels,failed_idxs)
+    sres_energies = np.delete(res_energies,failed_idxs)
+    sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
+    sres_eventids = np.delete(res_eventids,failed_idxs)
+    sres_angles = np.delete(res_angles,failed_idxs,0)
+    
+    filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
+    filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
+    filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
+    filtered_res_energies = np.delete(sres_energies,flagged_idxs)
+    filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
+    filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
+    filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
+    
+    return{'filtered_predictions':filtered_res_predictedlabels,
+            'filtered_softmaxes':filtered_res_softmaxes,
+            'filtered_labels':filtered_res_labels,
+            'filtered_energies':filtered_res_energies,
+            'filtered_rootfiles':filtered_res_rootfiles,
+            'filtered_eventids':filtered_res_eventids,
+            'filtered_angles':filtered_res_angles          
+          }

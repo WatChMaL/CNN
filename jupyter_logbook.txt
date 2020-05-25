@@ -1,217 +1,336 @@
-[I 09:11:23.711 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:11:23.711 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:11:23.712 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:11:23.712 NotebookApp] The port 8891 is already in use, trying another port.
-[I 09:11:23.712 NotebookApp] The port 8892 is already in use, trying another port.
-[I 09:11:25.189 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:11:25.256 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:11:25.256 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:11:25.258 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:11:25.258 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:11:25.258 NotebookApp] The Jupyter Notebook is running at:
-[I 09:11:25.258 NotebookApp] http://hostname:8888/?token=3ad2259eeadf88ef278f609ee5dd1735af9b8f953e906c8d
-[I 09:11:25.258 NotebookApp]  or http://127.0.0.1:8803/?token=3ad2259eeadf88ef278f609ee5dd1735af9b8f953e906c8d
-[I 09:11:25.258 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:11:25.262 NotebookApp] 
+[I 10:14:22.518 NotebookApp] The port 8888 is already in use, trying another port.
+[I 10:14:22.518 NotebookApp] The port 8889 is already in use, trying another port.
+[I 10:14:22.518 NotebookApp] The port 8890 is already in use, trying another port.
+[I 10:14:22.518 NotebookApp] The port 8891 is already in use, trying another port.
+[I 10:14:22.518 NotebookApp] The port 8892 is already in use, trying another port.
+[I 10:14:22.518 NotebookApp] The port 8803 is already in use, trying another port.
+[I 10:14:23.856 NotebookApp] jupyter_tensorboard extension loaded.
+[I 10:14:23.924 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 10:14:23.924 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 10:14:23.925 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 10:14:23.926 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 10:14:23.926 NotebookApp] The Jupyter Notebook is running at:
+[I 10:14:23.926 NotebookApp] http://hostname:8888/?token=2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8
+[I 10:14:23.926 NotebookApp]  or http://127.0.0.1:8954/?token=2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8
+[I 10:14:23.926 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 10:14:23.930 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-64655-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-4629-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=3ad2259eeadf88ef278f609ee5dd1735af9b8f953e906c8d
-     or http://127.0.0.1:8803/?token=3ad2259eeadf88ef278f609ee5dd1735af9b8f953e906c8d
-[I 09:12:47.718 NotebookApp] 302 GET /?token=3ad2259eeadf88ef278f609ee5dd1735af9b8f953e906c8d (::1) 1.09ms
-[I 09:13:15.973 NotebookApp] Kernel started: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[W 09:17:07.608 NotebookApp] Notebook /Repeating_Classifier_Training/repeating_classifier_training_utils.py is not trusted
-[I 09:17:07.845 NotebookApp] Kernel started: c1277fc6-ee9a-4113-b239-5f0efb454fd4
-[I 09:19:07.875 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 09:19:07.875 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 09:24:47.398 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 09:24:47.399 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 09:27:08.001 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 09:27:08.002 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 09:27:50.356 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 09:27:50.356 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 09:27:57.210 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 09:27:57.529 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 09:27:58.638 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 09:27:58.638 NotebookApp] Replaying 6 buffered messages
-[I 09:29:16.050 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 09:29:16.050 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 09:29:41.560 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 09:29:41.561 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 09:40:08.517 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 09:40:08.518 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 09:43:17.407 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 09:43:17.407 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[W 09:50:41.678 NotebookApp] Notebook /training_utils/engine_cl.py is not trusted
-[I 09:50:41.942 NotebookApp] Kernel started: 42fcb29c-2c78-49b3-b152-fb26e9427565
-[I 09:52:41.971 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 09:52:41.972 NotebookApp] Saving engine_cl.py in format py:light
-[W 10:06:27.389 NotebookApp] Notebook /training_utils/engine.py is not trusted
-[I 10:06:27.663 NotebookApp] Kernel started: 98a778a8-9b10-43e4-856b-5a308bea49b2
-[I 10:08:28.380 NotebookApp] Saving file at /training_utils/engine.py
-[I 10:08:28.381 NotebookApp] Saving engine.py in format py:light
-[I 10:11:16.063 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:11:16.063 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:15:16.039 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:15:16.040 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:15:29.944 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:15:29.944 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:16:35.928 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:16:35.928 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:16:37.699 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:16:37.700 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:17:51.959 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:17:51.960 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:18:02.791 NotebookApp] Kernel started: c533108f-d350-4214-b37d-a4cf2b4cdd7a
-[I 10:18:45.829 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:18:45.830 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:19:08.229 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:19:08.230 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:19:16.043 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:19:16.043 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:20:09.038 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:20:09.039 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:21:16.089 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:21:16.089 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:23:16.034 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:23:16.034 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:33:16.076 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:33:16.077 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:35:12.238 NotebookApp] Kernel started: a1a5cf99-4ebb-42ce-9f3e-e71172ef5ed7
-[I 10:37:16.682 NotebookApp] Saving file at /Repeating_Classifier_Training/1. Map ResNet-18 to FiTQun.ipynb
-[I 10:37:16.683 NotebookApp] Saving 1. Map ResNet-18 to FiTQun.ipynb
-[I 10:39:07.917 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:39:07.918 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:39:21.907 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:39:21.909 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:39:30.127 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 10:39:30.916 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 10:39:31.842 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 10:39:31.842 NotebookApp] Replaying 3 buffered messages
-[I 10:40:42.055 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:40:42.056 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:41:16.034 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:41:16.035 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:45:07.900 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:45:07.900 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:45:51.409 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:45:51.410 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:46:43.254 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:46:43.255 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:47:07.929 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:47:07.930 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:47:16.450 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:47:16.453 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:47:52.304 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 10:47:52.305 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 10:49:16.039 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:49:16.040 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:49:19.838 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 10:49:20.463 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 10:49:21.430 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 10:49:21.430 NotebookApp] Replaying 3 buffered messages
-[I 10:50:19.592 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:50:19.592 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:51:16.045 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:51:16.046 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:52:54.394 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:52:54.395 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:53:16.091 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:53:16.091 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:55:12.654 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:55:12.655 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:55:16.083 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:55:16.083 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:57:00.976 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:57:00.977 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:57:16.069 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:57:16.069 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 10:59:20.162 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 10:59:20.162 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:01:16.092 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:01:16.094 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:03:16.080 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:03:16.081 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:05:16.118 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:05:16.118 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:07:16.139 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:07:16.140 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:09:16.251 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:09:16.252 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:09:27.167 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:09:27.168 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:10:25.987 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:10:25.988 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:10:33.586 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:10:33.587 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:11:16.417 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:11:16.418 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:11:48.621 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:11:48.622 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:13:16.100 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:13:16.101 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:14:36.469 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:14:36.469 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:15:16.111 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:15:16.112 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:17:16.159 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:17:16.160 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:17:29.537 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:17:29.538 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:22:55.554 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:22:55.561 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:23:05.579 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:23:05.579 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:23:09.579 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:23:11.222 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 11:23:12.890 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:23:12.890 NotebookApp] Replaying 6 buffered messages
-[I 11:23:15.987 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:23:15.988 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:25:16.653 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:25:16.654 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:27:07.943 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:27:07.943 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:27:57.199 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:27:57.199 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:28:04.184 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:28:05.920 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 11:28:07.623 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:28:07.623 NotebookApp] Replaying 3 buffered messages
-[I 11:29:08.424 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:29:08.425 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:29:15.994 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:29:15.994 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:29:24.127 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:29:24.127 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:29:36.441 NotebookApp] Starting buffering for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:29:37.062 NotebookApp] Kernel restarted: de5bb12b-c3f2-42f7-ba33-c25fbfd72e89
-[I 11:29:37.978 NotebookApp] Restoring connection for de5bb12b-c3f2-42f7-ba33-c25fbfd72e89:0913e60a274d4c78b9da4967c2d98471
-[I 11:29:37.978 NotebookApp] Replaying 3 buffered messages
-[I 11:30:24.825 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:30:24.825 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:31:08.412 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:31:08.413 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:31:16.097 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:31:16.098 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:33:16.126 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:33:16.126 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:35:16.120 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:35:16.121 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:37:51.293 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:37:51.293 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:38:34.600 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 11:38:34.601 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 11:39:16.610 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:39:16.610 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:41:16.576 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:41:16.576 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:41:55.612 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:41:55.613 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:41:58.715 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:41:58.716 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 11:42:05.999 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 11:42:05.999 NotebookApp] Saving 5. Comparing Training Runs.ipynb
-[I 12:00:24.233 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Comparing Training Runs.ipynb
-[I 12:00:24.233 NotebookApp] Saving 5. Comparing Training Runs.ipynb
+        http://hostname:8888/?token=2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8
+     or http://127.0.0.1:8954/?token=2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8
+[I 10:15:03.942 NotebookApp] 302 GET /?token=2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8 (::1) 1.51ms
+[I 10:15:50.207 NotebookApp] Kernel started: 693e9188-8578-444b-8da7-13d73f6d1c77
+[I 10:15:58.068 NotebookApp] Starting buffering for 693e9188-8578-444b-8da7-13d73f6d1c77:597926f497dc4c858b912e092e1012db
+[W 10:16:18.536 NotebookApp] Could not determine jupyterlab build status without nodejs
+[E 10:16:18.890 NotebookApp] Uncaught exception GET /lab/api/extensions?1590426980712 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8954', method='GET', uri='/lab/api/extensions?1590426980712', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 10:16:18.897 NotebookApp] Unhandled error
+[E 10:16:18.898 NotebookApp] {
+      "Host": "127.0.0.1:8954",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "Authorization": "token 2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8954/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1590020950|23:username-127-0-0-1-8878|44:ZTA2ZjEyNmYyODc5NDZmOTlkYjMzM2JiM2E4N2E4ZmM=|c5362af3d5e1be3071992abb07717252993222d0fd691727bd35f34cb19addbc\"; username-127-0-0-1-8803=\"2|1:0|10:1590077567|23:username-127-0-0-1-8803|44:MzdjOTY3ZWY4ODhlNDc2ZGE3NjNjMmU2YjRhYzQwYzM=|c7131c295154dabbac3cc844abd505ee1e3721aa087686918aed0cd8052fa542\"; username-127-0-0-1-8905=\"2|1:0|10:1590173415|23:username-127-0-0-1-8905|44:ZDQ4NGJjMTA5OTY1NDE4Y2EyMDI1M2FlNWJkYzk2OTY=|008d3ca28f8a771dd6c02dcfc1afd2c1f54b369e01da15443e2a121e6db9d30d\"; username-127-0-0-1-8954=\"2|1:0|10:1590426978|23:username-127-0-0-1-8954|44:YzZhYWI4N2M2YjZjNDdjODlmNzg4OTBmZWM1YWNiZDk=|43a3e4d16ec206956a1e3c204d100b7354f27ee4b99aa227ca09bad1d7600f19\""
+    }
+[E 10:16:18.899 NotebookApp] 500 GET /lab/api/extensions?1590426980712 (::1) 175.37ms referer=http://127.0.0.1:8954/
+[E 10:16:18.899 NotebookApp] Uncaught exception GET /lab/api/extensions?1590426980751 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8954', method='GET', uri='/lab/api/extensions?1590426980751', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 10:16:18.901 NotebookApp] Unhandled error
+[E 10:16:18.902 NotebookApp] {
+      "Host": "127.0.0.1:8954",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218",
+      "Authorization": "token 2a6a9d1ca6dd09e2c0c96f374d60e1aedad1054c005847d8",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8954/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8897=\"2|1:0|10:1588784218|23:username-127-0-0-1-8897|44:M2FmYjg2OTQ1NGFiNGY4OWI0NDU0NTExZGU4YzAzODk=|cc7ae20c917c5a53dff046819ff48c209cacb707e781ce1f00b3113f70cd9215\"; _xsrf=2|d033fda8|c42cf5ec4e21814a856b2d35c6e734c1|1588784218; username-127-0-0-1-8879=\"2|1:0|10:1588784531|23:username-127-0-0-1-8879|44:MDExNTJhOWM3NTIxNDdkOGE3NGYxNDM5NmE2ZWM5NTk=|bc37b5e1604489d50395e95773c59ef12501daabdb39c5b7fb6808a8554d2ff2\"; username-127-0-0-1-8821=\"2|1:0|10:1588977024|23:username-127-0-0-1-8821|44:ODY1NDVjODIzMjYxNDkwZWFlNGVmYjJiODM2Y2VkMzA=|7bdd212135ceb1ccf1ab9b30d08a740df94c56f4601542087edd0a2eb29091a6\"; username-127-0-0-1-8790=\"2|1:0|10:1588984215|23:username-127-0-0-1-8790|44:ZTBmYmY5NzljMzA0NGM3NzkyYzY2MGM4MjVjMjY5YTA=|2db426f3679ee11224483bc416f327ceccbcfbf48f1812f29e84f6f4dff322bb\"; username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1590020950|23:username-127-0-0-1-8878|44:ZTA2ZjEyNmYyODc5NDZmOTlkYjMzM2JiM2E4N2E4ZmM=|c5362af3d5e1be3071992abb07717252993222d0fd691727bd35f34cb19addbc\"; username-127-0-0-1-8803=\"2|1:0|10:1590077567|23:username-127-0-0-1-8803|44:MzdjOTY3ZWY4ODhlNDc2ZGE3NjNjMmU2YjRhYzQwYzM=|c7131c295154dabbac3cc844abd505ee1e3721aa087686918aed0cd8052fa542\"; username-127-0-0-1-8905=\"2|1:0|10:1590173415|23:username-127-0-0-1-8905|44:ZDQ4NGJjMTA5OTY1NDE4Y2EyMDI1M2FlNWJkYzk2OTY=|008d3ca28f8a771dd6c02dcfc1afd2c1f54b369e01da15443e2a121e6db9d30d\"; username-127-0-0-1-8954=\"2|1:0|10:1590426978|23:username-127-0-0-1-8954|44:Njc2MDkwZTgxMGI5NDY4YTlhMzE5ODE4ZGE1ZDM3ZTc=|2d06fa66d581bb549136bbfbfeb4f84775c048e7494bc1c34c51bb3fcb7fee05\""
+    }
+[E 10:16:18.902 NotebookApp] 500 GET /lab/api/extensions?1590426980751 (::1) 146.41ms referer=http://127.0.0.1:8954/
+[I 10:16:38.954 NotebookApp] Kernel started: 807eb8ed-ce95-4864-959a-b4f74b7094ea
+[I 10:18:28.904 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:18:28.904 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[W 10:19:15.795 NotebookApp] Notebook /Repeating_Classifier_Training/repeating_classifier_training_utils.py is not trusted
+[I 10:19:16.108 NotebookApp] Kernel started: ba56fa3d-65ee-47fe-b311-c9a7f01fd6be
+[I 10:20:11.304 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:20:11.305 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:20:15.788 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:20:15.788 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:20:29.094 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:20:29.094 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:21:16.132 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:21:16.132 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:22:29.246 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:22:29.246 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:22:58.755 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:22:58.755 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:24:08.988 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:24:08.988 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:24:30.166 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:24:30.167 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:24:30.683 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:24:30.684 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:26:31.125 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:26:31.126 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:26:31.619 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:26:31.619 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:26:56.837 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:26:56.838 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:27:16.131 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:27:16.131 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:27:18.127 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:27:18.127 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:28:32.238 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:28:32.239 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:29:17.076 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:29:17.077 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:31:46.496 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:31:46.497 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:32:33.137 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:32:33.138 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:33:16.124 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:33:16.124 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:33:21.320 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:33:21.321 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:34:34.276 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:34:34.277 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:35:59.982 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:35:59.983 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:36:09.047 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:36:09.047 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:36:59.818 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:36:59.819 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:37:14.501 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:37:14.502 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:37:22.563 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:37:22.564 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:39:00.263 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:39:00.263 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:39:41.156 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:39:41.157 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:40:22.298 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:40:22.299 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:40:52.625 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:40:52.625 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:41:13.048 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:41:13.048 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:41:16.126 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:41:16.127 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:41:51.346 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:41:51.346 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:42:47.899 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:42:47.900 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:43:03.369 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:43:03.369 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:43:25.836 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:43:25.836 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[W 10:43:40.333 NotebookApp] Notebook /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb is not trusted
+[I 10:43:40.960 NotebookApp] Kernel started: 4c3fe7ab-5d7f-45b0-abdf-11bbe4895c11
+[I 10:45:16.154 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:45:16.155 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:45:24.796 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:45:24.796 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:45:44.376 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:45:44.377 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:46:12.656 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:46:12.656 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:46:54.385 NotebookApp] Starting buffering for 4c3fe7ab-5d7f-45b0-abdf-11bbe4895c11:b44274b6d5af46ae886c30f5e0e90550
+[W 10:46:55.699 NotebookApp] Notebook /Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb is not trusted
+[I 10:47:17.111 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:47:17.112 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:50:57.927 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:50:57.928 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:51:17.086 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:51:17.087 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:51:32.007 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:51:32.008 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:51:51.517 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:51:51.518 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:52:02.177 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:52:02.177 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:53:16.130 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:53:16.130 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:54:07.600 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:54:07.600 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:55:06.448 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:55:06.448 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:55:29.634 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 10:55:29.635 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 10:56:35.984 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:56:35.985 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:58:07.177 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:58:07.178 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:00:07.574 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:00:07.575 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:02:08.155 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:02:08.157 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:02:15.380 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:02:15.381 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:02:19.308 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:02:19.309 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:03:06.607 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:03:06.608 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:03:16.283 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:03:16.283 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:03:19.523 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:03:19.523 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:03:32.555 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:03:32.556 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:04:08.519 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:04:08.520 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:04:27.080 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
+[I 11:04:27.080 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
+[I 11:04:52.646 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:04:52.647 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:06:52.862 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:06:52.876 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:07:16.448 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:07:16.449 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:09:16.623 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:09:16.624 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:10:09.887 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:10:09.888 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:12:10.149 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:12:10.151 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:12:14.346 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:12:14.347 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:13:11.854 NotebookApp] Starting buffering for ba56fa3d-65ee-47fe-b311-c9a7f01fd6be:57ad5a1eb24b4cbd82eac586517bf81c
+[I 11:16:05.773 NotebookApp] Starting buffering for 4c3fe7ab-5d7f-45b0-abdf-11bbe4895c11:45a506a4e14a423f829c275c432cd9e9
+[I 11:16:10.171 NotebookApp] Starting buffering for 807eb8ed-ce95-4864-959a-b4f74b7094ea:cf798fa1-651c-42c1-becc-2e5be4fa3ece
