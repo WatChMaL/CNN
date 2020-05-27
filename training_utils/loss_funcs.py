@@ -83,7 +83,7 @@ def weighted_CELoss_factory(weights):
     Args:
     weights     -- 1d tensor of weights with length equal to number of classes
     """
-    return nn.CrossEntropyLoss(weights=weights)
+    return nn.CrossEntropyLoss(weight=weights)
 
 
 def weighted_CELoss(predictions,labels):

@@ -15,10 +15,13 @@ from math import floor, ceil
 from time import strftime, localtime
 import numpy as np
 import random
-# -
 
+# +
 # Numerical imports
 from numpy import savez
+
+from numba import cuda
+# -
 
 # PyTorch imports
 from torch import cat
@@ -46,7 +49,8 @@ class EngineCL(Engine):
     def __init__(self, model, config):
         super().__init__(model, config)
         if config.loss_weights is not None:
-            self.criterion = weighted_CELoss_factory(tensor(config.loss_weights))
+            loss_weights = tensor(config.loss_weights).to(self.device) if self.device != "cpu" else tensor(config.loss_weights)
+            self.criterion = weighted_CELoss_factory(loss_weights)
         else:
             self.criterion = CELoss
         
@@ -385,3 +389,5 @@ class EngineCL(Engine):
         if not path.exists(np_event_path + "dump.npz"):
             print("Saving the npz dump array :")
             savez(np_event_path + "dump.npz", **save_arr_dict)
+
+

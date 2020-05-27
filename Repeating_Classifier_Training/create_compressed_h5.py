@@ -36,7 +36,7 @@ f = h5py.File(original_data_path, "r")
 #get the data - cannot load event_data directly as it is too large
 hdf5_event_data = (f["event_data"])
 # original_eventdata = np.memmap(original_data_path, mode="r", shape=hdf5_event_data.shape,
-                                    offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype)
+#                                     offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype)
 original_eventids = np.array(f['event_ids'])
 original_energies = np.array(f['energies'])
 original_positions = np.array(f['positions'])
@@ -60,18 +60,18 @@ print('Beginning batch loading of eventdata dataset')
 event_data = compressed_h5['event_data']
 eof = False
 first_idx = 0
-last_idx = 1024
-eof_index = hdf5_event_data.shape[0] - 1
+last_idx = 5000
+eof_index = hdf5_event_data.shape[0]
 
 while not eof:
     minibatch = hdf5_event_data[first_idx:last_idx]
     event_data[first_idx:last_idx] = minibatch
     print("{}/{}".format(last_idx,eof_index))
-    first_idx = first_idx + 1024 + 1
-    if last_idx > eof_index - 1025:
+    first_idx = last_idx
+    if last_idx + 5000 > eof_index:
         eof = True
         last_idx = eof_index
     else:
-        last_idx = last_idx + 1024 + 1
+        last_idx = last_idx + 5000
     sys.stdout.flush()
 compressed_h5.close()
