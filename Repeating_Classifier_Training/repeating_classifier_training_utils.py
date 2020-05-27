@@ -128,7 +128,7 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     plt.show()
 
 # Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, lbound, ubound,png_name='roc_plot',title='ROC Curve'):
+def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, png_name='roc_plot',title='ROC Curve'):
     
     min_energy = 0
     max_energy = 1000
@@ -137,7 +137,6 @@ def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, lbound, ubound,p
     ax.tick_params(axis="both", labelsize=20)
     
     model_colors = [np.random.rand(3,) for i in fprs]
-    model_colors = ["red", "blue"]
     
     for j in np.arange(len(fprs)):
         fpr = fprs[j]
@@ -154,8 +153,8 @@ def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, lbound, ubound,p
 
         # TNR vs TPR plot
 
-        ax.plot(tpr, inv_fpr, color=model_colors[j],
-                 label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j+1),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
+        ax.plot(tpr, inv_fpr,
+                 label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
                  linewidth=1.0, marker=".", markersize=4.0, markerfacecolor=model_colors[j])
 
         # Show coords of individual points near x = 0.2, 0.5, 0.8
@@ -316,10 +315,10 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     """
     plot_confusion_matrix(labels, predictions, class_names)
     
-    Purpose : Plot the confusion matrix for a given energy interval
+    Purpose : Plot the confusion matrix for a series of test outputs.
     
-    Args: labels              ... 1D array of true label value, the length = sample size
-          predictions         ... 1D array of predictions, the length = sample size
+    Args: label_arrays        ... array of 1D arrays of true label value, the length = sample size
+          predictions         ... array of 1D arrays of predictions, the length = sample size
           class_names         ... 1D array of string label for classification targets, the length = number of categories
        
  
@@ -363,6 +362,18 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
 
 
 def load_test_output(location,index_path):
+    """
+    load_test_output(location,index_path)
+    
+    Purpose : Load output of a test run on the full h5 test set, 
+              remove FiTQun flagged/failed events, and return a dict of results.
+    
+    Args: location            ... string, path of the directory containing the test 
+                                  output eg. '/home/cmacdonald/CNN/dumps/20200525_152544'
+          index_path          ... string, path of directory containing indices of FiTQun failed and flagged files
+       
+ 
+    """
     test_dump_np = np.load(location, allow_pickle=True)
     
     res_predictedlabels = np.concatenate(list([batch_array for batch_array in test_dump_np['predicted_labels']]))
@@ -400,3 +411,55 @@ def load_test_output(location,index_path):
             'filtered_eventids':filtered_res_eventids,
             'filtered_angles':filtered_res_angles          
           }
+
+
+def parametrized_ray_point(x,y,z,theta,phi,t):
+    return x + np.sin(theta)*np.cos(phi)*t,y + np.sin(theta)*np.sin(phi)*t, z + np.cos(theta)*t
+
+
+def distance_to_wall(position, angle):
+    """
+    distance_to_wall(position, angle)
+    
+    Purpose : Calculate distance from event origin to IWCD wall along particle trajectory.
+    
+    Args: position            ... array of [x, y, z] co-ordinates of event origin
+          angle               ... array of [theta, phi] angles of departure
+       
+    """
+    x = position[0]
+    y = position[2]
+    z = position[1]
+    theta = angle[0]
+    phi = angle[1]
+    no_radial=False
+    sols = []
+    #Solve for intersections of parametrized path with the cylinder and caps, keep only positive parameter solns
+    try:
+        shared_expression = np.sqrt(-np.sin(theta)**2*(-275282+(x**2 + y**2)
+                                 + (y**2 - x**2)*np.cos(2*phi)-2*x*y*np.sin(2*phi)))/(np.sin(theta)*np.sqrt(2))
+    except:
+        no_radial=True
+    if not no_radial:
+        try:
+            radial_parameter_sol_1 = -1/np.sin(theta)*(x*np.cos(phi)+y*np.sin(phi)
+                                     +shared_expression)
+            if radial_parameter_sol_1 > 0: sols.append(radial_parameter_sol_1)
+        except:
+            pass
+        try:
+            radial_parameter_sol_2 = 1/np.sin(theta)*(-x*np.cos(phi)-y*np.sin(phi)
+                                     +shared_expression)
+            if radial_parameter_sol_2 > 0: sols.append(radial_parameter_sol_2)
+        except:
+            pass
+    try:
+        cap_parameter_sol_top = (521 - z)/np.cos(theta)
+        cap_parameter_sol_bottom = -(521+z)/np.cos(theta)
+        if cap_parameter_sol_top > 0: sols.append(cap_parameter_sol_top)
+        if cap_parameter_sol_bottom > 0: sols.append(cap_parameter_sol_bottom)
+    except:
+        pass
+    sols = np.sort(sols)
+    x_int,y_int,z_int = parametrized_ray_point(x,y,z,theta,phi,sols[0])
+    return np.sqrt((x-x_int)**2+(y-y_int)**2+(z-z_int)**2)

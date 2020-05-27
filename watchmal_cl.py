@@ -10,12 +10,14 @@ from datetime import datetime
 # WatChMaL imports
 from main.watchmal import handle_config, handle_model
 from training_utils.engine_cl import EngineCL
+import os, sys
 
 # Global variables
 _CL_TASKS = ['train', 'valid', 'test']
 
 if __name__ == '__main__':
-    
+    print("PID: {}".format(os.getpid()))
+    sys.stdout.flush()
     # For computing the wall clock time of execution
     start_time = datetime.now()
 

@@ -23,6 +23,7 @@ from numpy import savez
 # PyTorch imports
 from torch import cat
 from torch import argmax
+from torch import tensor
 from torch.nn import Softmax
 from torch.optim import Adam
 from torch.utils.data import DataLoader
@@ -32,7 +33,7 @@ from torchviz import make_dot
 
 # WatChMaL imports
 from training_utils.engine import Engine
-from training_utils.loss_funcs import CELoss
+from training_utils.loss_funcs import CELoss,weighted_CELoss_factory
 from plot_utils.notebook_utils import CSVData
 
 # Global variables
@@ -44,7 +45,10 @@ class EngineCL(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
-        self.criterion = CELoss
+        if config.loss_weights is not None:
+            self.criterion = weighted_CELoss_factory(tensor(config.loss_weights))
+        else:
+            self.criterion = CELoss
         
         if config.train_all:
             self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
