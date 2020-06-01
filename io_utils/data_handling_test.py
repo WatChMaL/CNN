@@ -97,10 +97,16 @@ class WCH5DatasetTest(Dataset):
     No other data is currently loaded
     """
 
-    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42):
+    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42,label_map=None):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
+        if label_map is not None:
+            #make the fxn
+            self.label_map = lambda x : label_map[1] if x==label_map[0] else x
+        else:
+            self.label_map = lambda x : x
+
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
         self.chrg_acc = norm_params["c_acc"]
@@ -347,6 +353,7 @@ class WCH5DatasetTest(Dataset):
         for i in np.arange(len(self.datasets)):
             
             if index < (self.labels[self.datasets[i]].shape[0]):
+                label = self.label_map(self.labels[self.datasets[i]][index]) 
                 if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
 
                     self.a = self.event_data[self.datasets[i]][index, :, :, :19]
@@ -357,7 +364,7 @@ class WCH5DatasetTest(Dataset):
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
 
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
 
                 else:
                     self.a = self.event_data[self.datasets[i]][index,:,:,:19]
@@ -366,7 +373,7 @@ class WCH5DatasetTest(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
         
         assert False, "empty batch"
         raise RuntimeError("empty batch")

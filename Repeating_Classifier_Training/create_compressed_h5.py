@@ -67,9 +67,10 @@ while not eof:
     minibatch = hdf5_event_data[first_idx:last_idx]
     event_data[first_idx:last_idx] = minibatch
     print("{}/{}".format(last_idx,eof_index))
+    if last_idx == eof_index: eof = True
+        
     first_idx = last_idx
     if last_idx + 5000 > eof_index:
-        eof = True
         last_idx = eof_index
     else:
         last_idx = last_idx + 5000

@@ -1,37 +1,40 @@
-[I 16:45:45.015 NotebookApp] The port 8888 is already in use, trying another port.
-[I 16:45:45.015 NotebookApp] The port 8889 is already in use, trying another port.
-[I 16:45:45.015 NotebookApp] The port 8890 is already in use, trying another port.
-[I 16:45:46.325 NotebookApp] jupyter_tensorboard extension loaded.
-[I 16:45:46.385 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 16:45:46.385 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 16:45:46.387 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 16:45:46.387 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 16:45:46.387 NotebookApp] The Jupyter Notebook is running at:
-[I 16:45:46.387 NotebookApp] http://hostname:8888/?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6
-[I 16:45:46.387 NotebookApp]  or http://127.0.0.1:8891/?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6
-[I 16:45:46.387 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 16:45:46.391 NotebookApp] 
+[I 09:57:55.259 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:57:55.260 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:57:55.260 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:57:55.260 NotebookApp] The port 8891 is already in use, trying another port.
+[I 09:57:55.260 NotebookApp] The port 8892 is already in use, trying another port.
+[I 09:57:56.616 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:57:56.684 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:57:56.684 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:57:56.685 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:57:56.685 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:57:56.686 NotebookApp] The Jupyter Notebook is running at:
+[I 09:57:56.686 NotebookApp] http://hostname:8888/?token=8db16f3d6273a6bf0fbd2008f25b33083e9bef019968f11a
+[I 09:57:56.686 NotebookApp]  or http://127.0.0.1:8901/?token=8db16f3d6273a6bf0fbd2008f25b33083e9bef019968f11a
+[I 09:57:56.686 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:57:56.689 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-13083-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-38305-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6
-     or http://127.0.0.1:8891/?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6
-[I 16:46:13.064 NotebookApp] 302 GET /?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6 (::1) 1.50ms
-[W 16:46:59.833 NotebookApp] delete /dumps/20200527_133444
-[W 16:46:59.862 NotebookApp] delete /dumps/20200527_134151
-[W 16:46:59.883 NotebookApp] delete /dumps/20200527_135112
-[W 16:46:59.903 NotebookApp] delete /dumps/20200527_135552
-[W 16:46:59.922 NotebookApp] delete /dumps/20200527_140223
-[W 16:48:32.102 NotebookApp] delete /dumps/20200526_150638
-[I 16:48:47.160 NotebookApp] 302 GET /?token=751f522e705b82f05b0f1391d51d950a8cdd1684526e7ac6 (::1) 0.84ms
-[I 16:50:24.200 NotebookApp] Kernel started: d286194a-9cd3-4810-abad-1335030d7681
-[I 16:51:56.123 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:51:56.124 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:29.412 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:29.412 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:29.414 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:29.424 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:57:52.137 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:57:52.147 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:57:52.330 NotebookApp] Starting buffering for d286194a-9cd3-4810-abad-1335030d7681:143fe192d7dd40e78984f519ec48c709
+        http://hostname:8888/?token=8db16f3d6273a6bf0fbd2008f25b33083e9bef019968f11a
+     or http://127.0.0.1:8901/?token=8db16f3d6273a6bf0fbd2008f25b33083e9bef019968f11a
+[I 09:58:47.718 NotebookApp] 302 GET /?token=8db16f3d6273a6bf0fbd2008f25b33083e9bef019968f11a (::1) 1.11ms
+[I 10:00:53.592 NotebookApp] Kernel started: 6d8127fa-2a01-47e6-b9ad-618125fbdb65
+[I 10:55:15.166 NotebookApp] Starting buffering for 6d8127fa-2a01-47e6-b9ad-618125fbdb65:b0d53c2091cc406f84695c1ee7594a20
+[W 11:17:21.988 NotebookApp] Notebook /training_utils/engine_cl.py is not trusted
+[I 11:17:24.094 NotebookApp] Kernel started: c103ca94-8130-4393-8ab8-6198c6008c76
+[I 11:19:24.167 NotebookApp] Saving file at /training_utils/engine_cl.py
+[I 11:19:24.168 NotebookApp] Saving engine_cl.py in format py:light
+[W 11:21:19.369 NotebookApp] Notebook /training_utils/engine.py is not trusted
+[I 11:21:20.968 NotebookApp] Kernel started: 366ab86f-e34b-4bcb-bc9a-7cd6fae15e0d
+[W 11:23:21.415 NotebookApp] Notebook /io_utils/data_handling_train.py is not trusted
+[I 11:23:21.437 NotebookApp] Saving file at /training_utils/engine.py
+[I 11:23:21.438 NotebookApp] Saving engine.py in format py:light
+[I 11:23:22.697 NotebookApp] Kernel started: 0072e8b4-da78-4ed3-a376-d190688ce3bb
+[I 11:25:23.375 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 11:25:23.375 NotebookApp] Saving data_handling_train.py in format py:light
+[I 11:27:13.133 NotebookApp] Saving file at /config/engine_config/best_resnet_traintest.ini
+[W 11:56:53.651 NotebookApp] Notebook /io_utils/data_handling_train.py is not trusted
+[I 11:58:55.449 NotebookApp] Saving file at /io_utils/data_handling_train.py
+[I 11:58:55.450 NotebookApp] Saving data_handling_train.py in format py:light
