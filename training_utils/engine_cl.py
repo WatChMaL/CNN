@@ -12,10 +12,11 @@ from os import path
 # Python standard imports
 from sys import stdout
 from math import floor, ceil
-from time import strftime, localtime
+from time import strftime, localtime, time
 import numpy as np
 import random
-
+import csv
+import gc
 # +
 # Numerical imports
 from numpy import savez
@@ -141,6 +142,7 @@ class EngineCL(Engine):
                 "accuracy"           : accuracy,
                 "raw_pred_labels"    : predicted_labels}
     
+    @profile
     def train(self):
         """Overrides the train method in Engine.py.
         
@@ -171,10 +173,16 @@ class EngineCL(Engine):
 
             print('Epoch',floor(epoch),
                   'Starting @', strftime("%Y-%m-%d %H:%M:%S", localtime()))
+            times = []
+
+            start_time = time()
+
+            # f = open('/home/cmacdonald/CNN/dumps/timing.csv','w',newline='\r')
+            # writer = csv.writer(f)
 
             # Local training loop for a single epoch
             for data in self.train_loader:
-
+                
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
@@ -210,6 +218,7 @@ class EngineCL(Engine):
                 if iteration == 0 or iteration%report_interval == 0:
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
+                    print("The GC is tracking {} objects".format(len(gc.get_objects())))
 
                 # Save the model computation graph to a file
                 """if iteration == 1:
@@ -288,6 +297,9 @@ class EngineCL(Engine):
                     # Save the latest model
                     self.save_state(mode="latest")
 
+                # times.append(time()-start_time)
+                # writer.writerow([times[-1]])
+                # start_time = time()
                 if epoch >= epochs:
                     break
 

@@ -5,7 +5,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.4
+#       jupytext_version: 1.4.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -466,3 +466,40 @@ def distance_to_wall(position, angle):
     sols = np.sort(sols)
     x_int,y_int,z_int = parametrized_ray_point(x,y,z,theta,phi,sols[0])
     return np.sqrt((x-x_int)**2+(y-y_int)**2+(z-z_int)**2)
+
+
+def plot_compare_dists(dists,dist_idxs_to_compare,dist_idxs_reference,
+                       labels,axes=None,colors=None,bins=20,
+                       title=None, ratio_range=None,xlabel=None,
+                       linestyle=None):
+    ret = False
+    if axes is None:
+        fig, axes = plt.subplots(2,1,figsize=(12,12))
+        ret = True
+    axes = axes.flatten()
+    ax = axes[0]
+    ns, bins, patches = ax.hist(dists, weights=[np.ones(len(dists[i]))*1/len(dists[i]) for i in range(len(dists))], 
+                                label=labels,histtype=u'step',bins=bins,color=colors,alpha=0.8)
+    if linestyle is not None:
+        for i,patch_list in enumerate(patches):
+            for patch in patch_list:
+                patch.set_linestyle(linestyle[i])
+            
+    ax.legend()
+    if title is not None: ax.set_title(title)
+    ax2 = axes[1]
+    for i,idx in enumerate(dist_idxs_to_compare):
+        lines = ax2.plot(bins[:-1],     
+                 ns[idx] / ns[dist_idxs_reference[i]], 
+                 alpha=0.8,label='{} to {}'.format(labels[idx],labels[dist_idxs_reference[i]]))
+        lines[0].set_color(patches[idx][0].get_edgecolor())
+        lines[0].set_drawstyle('steps')
+    if ratio_range is not None: ax2.set_ylim(ratio_range)
+    ax2.legend()
+    ax2.set_title('Ratio of Distributions')
+    lines = ax2.plot(bins[:-1],np.ones(len(bins)-1),color='k',alpha=0.5)
+    lines[0].set_linestyle('-.')
+    if xlabel is not None: 
+        ax.set_xlabel(xlabel)
+        ax2.set_xlabel(xlabel)
+    if ret: return fig
