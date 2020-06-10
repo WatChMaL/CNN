@@ -17,6 +17,8 @@ import numpy as np
 import random
 import csv
 import gc
+import resource
+
 # +
 # Numerical imports
 from numpy import savez
@@ -142,7 +144,6 @@ class EngineCL(Engine):
                 "accuracy"           : accuracy,
                 "raw_pred_labels"    : predicted_labels}
     
-    @profile
     def train(self):
         """Overrides the train method in Engine.py.
         
@@ -218,7 +219,27 @@ class EngineCL(Engine):
                 if iteration == 0 or iteration%report_interval == 0:
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
-                    print("The GC is tracking {} objects".format(len(gc.get_objects())))
+
+                    # print("     The GC is tracking {} objects".format(len(gc.get_objects())))
+                    # print("     Collecting {} Objects".format(gc.collect()))
+                    # gc_count = gc.get_count()
+                    # stats=gc.get_stats()
+                    # print("     1st Gen: {}, 2nd Gen: {}, 3rd Gen: {}".format(gc_count[0],gc_count[1],gc_count[2]))
+                    # print('     Memory usage by parent   : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024.0/1024.0,1))
+                    # print('     Memory usage by children : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss/1024.0/1024.0,1))
+                    # first_gen_stats = stats[0]
+                    # print('     1st Gen Number of Collections:       {}'.format(first_gen_stats['collections']))
+                    # print('     1st Gen Number of Objects Collected: {}'.format(first_gen_stats['collected']))
+                    # print('     1st Gen Number of Uncollectables:    {}'.format(first_gen_stats['uncollectable']))
+                    # second_gen_stats = stats[1]
+                    # print('     2nd Gen Number of Collections:       {}'.format(second_gen_stats['collections']))
+                    # print('     2nd Gen Number of Objects Collected: {}'.format(second_gen_stats['collected']))
+                    # print('     2nd Gen Number of Uncollectables:    {}'.format(second_gen_stats['uncollectable']))
+                    # third_gen_stats = stats[1]
+                    # print('     3rd Gen Number of Collections:       {}'.format(third_gen_stats['collections']))
+                    # print('     3rd Gen Number of Objects Collected: {}'.format(third_gen_stats['collected']))
+                    # print('     3rd Gen Number of Uncollectables:    {}'.format(third_gen_stats['uncollectable']))
+                    # print('     Unreachable but Unfree-able:         {}'.format(len(gc.garbage)))
 
                 # Save the model computation graph to a file
                 """if iteration == 1:

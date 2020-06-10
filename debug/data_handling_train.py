@@ -12,6 +12,8 @@ import numpy as np
 import numpy.ma as ma
 import math
 import random
+import gc
+import resource
 
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
@@ -299,7 +301,16 @@ class WCH5DatasetT(Dataset):
         self.c = self.a
         return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
         '''
-        
+
+        # print("     The GC is tracking {} objects".format(len(gc.get_objects())))
+        # print("     Collecting {} Objects".format(gc.collect()))
+        # gc_count = gc.get_count()
+        # stats=gc.get_stats()
+        # print("     1st Gen: {}, 2nd Gen: {}, 3rd Gen: {}".format(gc_count[0],gc_count[1],gc_count[2]))
+        # print('     Memory usage by parent   : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024.0/1024.0,1))
+        # print('     Memory usage by children : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss/1024.0/1024.0,1))
+        # first_gen_stats = stats[0]
+
         np.random.shuffle(self.datasets)
         for i in np.arange(len(self.datasets)):
 

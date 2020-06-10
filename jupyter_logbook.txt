@@ -1,619 +1,186 @@
-[I 09:37:34.083 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:37:34.083 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:37:36.166 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:37:36.275 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:37:36.275 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:37:36.277 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:37:36.278 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:37:36.278 NotebookApp] The Jupyter Notebook is running at:
-[I 09:37:36.278 NotebookApp] http://hostname:8888/?token=627a1a02a81239278e22d2c33887f9a1a6bfa3073cc39a84
-[I 09:37:36.278 NotebookApp]  or http://127.0.0.1:8890/?token=627a1a02a81239278e22d2c33887f9a1a6bfa3073cc39a84
-[I 09:37:36.278 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:37:36.284 NotebookApp] 
+[I 10:48:52.166 NotebookApp] The port 8888 is already in use, trying another port.
+[I 10:48:52.166 NotebookApp] The port 8889 is already in use, trying another port.
+[I 10:48:52.166 NotebookApp] The port 8890 is already in use, trying another port.
+[I 10:48:52.166 NotebookApp] The port 8891 is already in use, trying another port.
+[I 10:48:52.167 NotebookApp] The port 8892 is already in use, trying another port.
+[I 10:48:53.471 NotebookApp] jupyter_tensorboard extension loaded.
+[I 10:48:53.536 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 10:48:53.536 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 10:48:53.537 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 10:48:53.538 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 10:48:53.538 NotebookApp] The Jupyter Notebook is running at:
+[I 10:48:53.538 NotebookApp] http://hostname:8888/?token=0d13bdc6d1b3f6264f4017b0298abb1b1264ada5b209a259
+[I 10:48:53.538 NotebookApp]  or http://127.0.0.1:8801/?token=0d13bdc6d1b3f6264f4017b0298abb1b1264ada5b209a259
+[I 10:48:53.538 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 10:48:53.541 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-12701-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-39817-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=627a1a02a81239278e22d2c33887f9a1a6bfa3073cc39a84
-     or http://127.0.0.1:8890/?token=627a1a02a81239278e22d2c33887f9a1a6bfa3073cc39a84
-[I 09:38:38.366 NotebookApp] 302 GET /?token=627a1a02a81239278e22d2c33887f9a1a6bfa3073cc39a84 (::1) 1.29ms
-[I 12:10:30.347 NotebookApp] Kernel started: ad1f90c5-c9a1-4764-b919-4f78074ffae3
-[I 12:32:31.122 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:32:31.123 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:43:56.110 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:43:56.110 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:44:20.014 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:44:20.015 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:45:52.989 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:45:52.989 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:04.108 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:04.109 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:51.714 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:51.714 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:53.543 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:53.543 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:48:32.534 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:48:32.534 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:50:21.996 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:50:21.997 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:50:30.896 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:50:30.896 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:51:39.392 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:51:39.393 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:52:28.258 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:52:28.259 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:52:29.839 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:52:29.840 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:54:30.828 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:54:30.828 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:55:50.739 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:55:50.739 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:56:31.576 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:56:31.576 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:58:41.038 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:58:41.038 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:00:30.829 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:00:30.829 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:02:32.394 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:02:32.395 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:03:51.463 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:03:51.463 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:04:31.128 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:04:31.129 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:08:31.159 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:08:31.160 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:10:31.192 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:10:31.192 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:12:31.962 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:12:31.962 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:13:26.327 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:13:26.327 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:14:19.069 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:14:19.070 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:14:30.876 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:14:30.876 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:15:28.263 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:15:28.264 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:15:51.972 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:15:51.972 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:18:30.843 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:18:30.843 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:20:30.815 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:20:30.815 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:21:26.058 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:21:26.059 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:22:36.986 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:22:36.986 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:27:53.178 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:27:53.178 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:23.629 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:23.629 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:37.134 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:37.134 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:46.098 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:29:46.099 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:11.979 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:11.979 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:30.843 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:30.844 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:49.080 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:49.081 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:53.249 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:30:53.249 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:31:25.910 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:31:25.912 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:33:39.809 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:33:39.810 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:34:30.821 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:34:30.822 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:36:30.838 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:36:30.838 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:38:30.844 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:38:30.845 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:40:49.778 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:40:49.778 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:42:31.747 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:42:31.749 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:44:18.237 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:44:18.237 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:47:41.736 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:47:41.737 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:50:50.489 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:50:50.490 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:51:54.455 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:51:54.456 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 13:52:55.250 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 13:52:55.251 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:14:10.908 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:14:10.908 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:22.397 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:22.397 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:25.877 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:25.878 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:40.194 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:40.194 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:57.245 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:15:57.245 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:16:13.783 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:16:13.783 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:16:58.536 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:16:58.537 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:17:30.529 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:17:30.529 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:17:38.721 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:17:38.722 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:18:15.969 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:18:15.970 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:20:51.166 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:20:51.166 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:26:13.055 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:26:13.056 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:26:21.602 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:26:21.602 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:27:30.565 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:27:30.565 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:28:31.830 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:28:31.831 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:28:52.979 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:28:52.980 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:30:46.898 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:30:46.898 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:30:58.853 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:30:58.854 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:31:46.225 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:31:46.225 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:34:10.425 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:34:10.426 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[W 14:39:58.459 NotebookApp] Notebook Repeating_Classifier_Training/repeating_classifier_training_utils.py is not trusted
-[I 14:39:58.848 NotebookApp] Kernel started: d83d09f7-9842-4047-8cc6-d09b349be322
-[I 14:41:58.884 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:41:58.885 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:43:24.516 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:43:24.517 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:43:30.579 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:43:30.580 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:43:58.890 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:43:58.890 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:44:41.545 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:44:41.546 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:45:54.431 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:45:54.431 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:46:11.201 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:46:11.201 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:46:21.376 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:46:21.376 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:47:22.100 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:47:22.101 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:48:20.557 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:48:20.558 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:49:03.514 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:49:03.514 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:49:36.069 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:49:36.070 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:11.654 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:50:11.655 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:27.691 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:50:27.691 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:34.261 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:50:34.261 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:37.686 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:50:37.686 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:47.794 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:50:47.795 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:50:50.525 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:50:50.525 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:50:56.821 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:50:56.822 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:51:08.190 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:51:08.190 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:51:39.482 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:51:39.482 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:51:58.862 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:51:58.862 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:53:26.914 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:53:26.914 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:53:44.774 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:53:44.774 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:54:04.837 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:54:04.837 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:54:10.455 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:54:10.455 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:54:57.759 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:54:57.759 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:55:39.097 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:55:39.097 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:55:47.000 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:55:47.000 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:55:49.903 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:55:49.904 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:55:57.666 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:55:57.667 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:56:08.685 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:56:08.686 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:56:21.033 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:56:21.033 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:56:43.095 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:56:43.096 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:57:14.090 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:57:14.090 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:57:30.403 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:57:30.403 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:58:11.127 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 14:58:11.127 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 14:58:30.027 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:58:30.028 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:58:36.964 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:58:36.965 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:58:52.983 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:58:52.983 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:59:50.111 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:59:50.112 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 14:59:56.777 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 14:59:56.778 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:00:40.131 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:00:40.132 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:01:29.408 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:01:29.409 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:02:34.464 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:02:34.465 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:04:10.881 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:04:10.881 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:06:31.921 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:06:31.922 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:07:03.098 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:07:03.099 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:07:30.410 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:07:30.410 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:10:50.552 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:10:50.552 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:11:58.901 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:11:58.901 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:14:54.929 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:14:54.930 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:15:49.278 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:15:49.278 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:15:56.354 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:15:56.355 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:16:09.641 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:16:09.641 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:16:20.266 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:16:20.267 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:17:30.596 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:17:30.596 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:17:48.854 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:17:48.854 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:17:58.893 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:17:58.893 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:18:33.730 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:18:33.731 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:19:01.405 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:19:01.405 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:19:45.326 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:19:45.327 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:19:57.463 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:19:57.464 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:19:58.924 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:19:58.924 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:20:14.460 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:20:14.461 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:20:50.463 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:20:50.464 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:21:51.207 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:21:51.208 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:22:35.979 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:22:35.979 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:22:40.448 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:22:40.448 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:23:16.073 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:23:16.073 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:23:49.667 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:23:49.668 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:24:10.527 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:24:10.527 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:24:51.610 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:24:51.610 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:27:30.533 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:27:30.534 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:27:47.057 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:27:47.058 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:28:21.570 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:28:21.571 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:28:42.908 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:28:42.908 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:29:35.026 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:29:35.027 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:30:50.613 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:30:50.613 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:30:50.874 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:30:50.875 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:30:53.869 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:30:53.870 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:31:23.858 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:31:23.859 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:31:58.960 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:31:58.960 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:32:03.717 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:32:03.717 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:32:17.560 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:32:17.560 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:32:22.931 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:32:22.932 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:32:56.207 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:32:56.208 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:33:46.121 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:33:46.122 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:33:58.899 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:33:58.899 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:34:13.002 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:34:13.002 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:34:23.578 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:34:23.579 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:34:56.079 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:34:56.079 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:35:52.872 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:35:52.873 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:35:56.949 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:35:56.949 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:36:46.219 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:36:46.219 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:37:29.640 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:37:29.641 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:37:30.602 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:37:30.602 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:40:50.515 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:40:50.516 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:41:59.078 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:41:59.078 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:42:01.183 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:42:01.184 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:43:58.940 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:43:58.940 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:44:06.446 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:44:06.446 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:44:45.818 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:44:45.818 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:46:39.273 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:46:39.273 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:47:03.001 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:47:03.002 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:47:30.470 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:47:30.471 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:05.567 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:05.568 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:14.450 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:14.450 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:38.100 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:48:38.101 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:49:32.491 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:49:32.491 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:49:57.963 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:49:57.964 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:50:50.943 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:50:50.944 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:51:01.444 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:51:01.444 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:51:29.057 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:51:29.058 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:51:31.809 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 15:51:31.809 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 15:52:45.772 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:52:45.772 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:53:40.861 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:53:40.861 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:54:00.131 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:54:00.132 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:54:10.607 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:54:10.608 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:07.276 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:07.276 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:23.025 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:23.026 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:38.360 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:56:38.360 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:57:30.439 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:57:30.440 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 15:58:24.890 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 15:58:24.891 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:00:50.495 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:00:50.496 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:01:33.880 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:01:33.881 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:03:10.466 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 16:03:10.467 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 16:03:35.057 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:03:35.057 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:03:59.787 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:03:59.787 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:05:45.981 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:05:45.982 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:06:03.989 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:06:03.990 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:07:14.143 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:07:14.143 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:07:30.581 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:07:30.581 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:08:33.465 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:08:33.465 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:08:54.774 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:08:54.775 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:10:11.252 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:10:11.252 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:10:50.438 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:10:50.439 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:14:10.623 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:14:10.623 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:15:58.911 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 16:15:58.911 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 16:17:56.855 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 16:17:56.855 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 16:18:35.703 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 16:18:35.703 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 16:18:52.769 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:18:52.769 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:19:03.423 NotebookApp] Saving file at /Repeating_Classifier_Training/repeating_classifier_training_utils.py
-[I 16:19:03.424 NotebookApp] Saving repeating_classifier_training_utils.py in format py:light
-[I 16:20:50.551 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:20:50.551 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:22:39.544 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:22:39.544 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:06.512 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:06.512 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:11.224 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:11.224 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:43.434 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:23:43.435 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:01.334 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:01.335 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:07.354 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:07.354 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:32.402 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:24:32.403 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:03.156 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:03.157 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:28.816 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:28.816 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:43.326 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:25:43.326 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:26:23.273 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:26:23.273 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:02.803 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:02.803 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:30.528 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:30.528 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:54.058 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:27:54.059 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:28:19.741 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:28:19.741 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:28:38.973 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:28:38.973 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:30:50.619 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:30:50.620 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:32:26.455 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:32:26.455 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:32:49.414 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:32:49.414 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:33:08.842 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:33:08.843 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:33:30.564 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:33:30.565 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:34:10.700 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:34:10.700 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:08.150 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:08.150 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:15.836 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:15.836 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:48.505 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:35:48.505 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:20.047 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:20.048 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:36.593 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:36.593 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:47.841 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:36:47.841 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:37:01.617 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:37:01.618 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:37:30.547 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:37:30.548 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:38:23.463 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:38:23.463 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:45:51.406 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:45:51.407 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:46:09.888 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:46:09.888 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:46:52.922 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:46:52.922 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:47:30.470 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:47:30.470 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:47:40.930 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:47:40.931 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:48:21.221 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:48:21.222 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:50:40.117 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:50:40.118 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:50:54.075 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:50:54.075 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:10.035 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:10.035 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:55.076 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:52:55.076 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:10.481 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:10.482 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:11.973 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:54:11.973 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:55:05.639 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:55:05.640 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:55:13.292 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:55:13.292 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:58:32.340 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:58:32.341 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:58:59.216 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:58:59.217 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:59:21.524 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:59:21.525 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 16:59:56.953 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 16:59:56.953 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:10.160 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:10.160 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:38.996 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:38.996 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:50.823 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:00:50.824 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:02.091 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:02.092 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:07.135 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:07.136 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:12.797 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:01:12.797 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:09.602 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:09.602 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:23.035 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:23.036 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:37.996 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:02:37.996 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:04:10.812 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:04:10.813 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:05:19.339 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:05:19.339 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:06:25.126 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:06:25.127 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:06:48.846 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:06:48.846 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:07:26.357 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:07:26.358 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:10:50.835 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:10:50.836 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:11:38.118 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:11:38.119 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:12:03.779 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:12:03.779 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:13:09.074 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:13:09.075 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:13:37.883 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:13:37.883 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:14:06.019 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:14:06.020 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:16:01.108 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:16:01.109 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:17:30.814 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:17:30.815 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:18.464 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:18.465 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:34.674 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:34.674 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:43.743 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:20:43.743 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:21:32.828 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:21:32.828 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:21:37.573 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:21:37.573 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:22:51.445 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:22:51.446 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:23:02.725 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:23:02.725 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:23:14.292 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:23:14.293 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[W 17:23:19.805 NotebookApp] 404 GET /nbconvert/html/Repeating_Classifier_Training/custom.css (::1): No such file or directory: Repeating_Classifier_Training/custom.css
-[W 17:23:19.816 NotebookApp] 404 GET /nbconvert/html/Repeating_Classifier_Training/custom.css (::1) 30.84ms referer=None
-[I 17:25:35.865 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 17:25:35.865 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 17:25:38.248 NotebookApp] Starting buffering for ad1f90c5-c9a1-4764-b919-4f78074ffae3:89b5522c871948ca846bf37143cf4509
+        http://hostname:8888/?token=0d13bdc6d1b3f6264f4017b0298abb1b1264ada5b209a259
+     or http://127.0.0.1:8801/?token=0d13bdc6d1b3f6264f4017b0298abb1b1264ada5b209a259
+[I 10:49:19.606 NotebookApp] 302 GET /?token=0d13bdc6d1b3f6264f4017b0298abb1b1264ada5b209a259 (::1) 1.31ms
+[I 10:49:46.855 NotebookApp] Kernel started: 4468ed8b-bbd0-4624-b302-469c64878950
+[I 10:50:25.044 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:50:25.045 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:50:31.620 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:50:31.621 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:51:48.090 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:51:48.091 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:53:48.466 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:53:48.466 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:05:49.085 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:05:49.085 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:06:35.498 NotebookApp] Starting buffering for 4468ed8b-bbd0-4624-b302-469c64878950:fcf7bc1474b14c76816938b5b0ca68fd
+[I 11:26:38.491 NotebookApp] Creating new notebook in /debug
+[I 11:26:38.493 NotebookApp] Saving Untitled.ipynb
+[I 11:26:39.801 NotebookApp] Kernel started: 45b06b82-f18f-46e1-a63c-41ac4aebfab6
+[I 11:27:19.589 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:27:19.589 NotebookApp] Saving Untitled.ipynb
+[I 11:28:39.823 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:28:39.824 NotebookApp] Saving Untitled.ipynb
+[I 11:28:39.989 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:28:39.989 NotebookApp] Saving Untitled.ipynb
+[I 11:30:39.819 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:30:39.819 NotebookApp] Saving Untitled.ipynb
+[I 11:32:39.841 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:32:39.842 NotebookApp] Saving Untitled.ipynb
+[I 11:33:50.131 NotebookApp] Starting buffering for 45b06b82-f18f-46e1-a63c-41ac4aebfab6:7b26a38f1058405ea31097733851d1d5
+[I 11:33:50.145 NotebookApp] Kernel shutdown: 45b06b82-f18f-46e1-a63c-41ac4aebfab6
+[I 11:34:39.832 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 11:34:39.833 NotebookApp] Saving Untitled.ipynb
+[E 11:43:03.054 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-eb33a406-a5e7-4582-ba72-89ca1dbd0f02.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/Repeating_Classifier_Training', 'start_new_session': True}
+    
+[E 11:43:03.063 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8801', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 11:43:03.076 NotebookApp] Unhandled error
+[E 11:43:03.077 NotebookApp] {
+      "Host": "127.0.0.1:8801",
+      "Connection": "keep-alive",
+      "Content-Length": "178",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|01fb464b|3f5bb4e0e4258a13796bf5dc8d490832|1591383639",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8801",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8801/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1590020950|23:username-127-0-0-1-8878|44:ZTA2ZjEyNmYyODc5NDZmOTlkYjMzM2JiM2E4N2E4ZmM=|c5362af3d5e1be3071992abb07717252993222d0fd691727bd35f34cb19addbc\"; username-127-0-0-1-8803=\"2|1:0|10:1590077567|23:username-127-0-0-1-8803|44:MzdjOTY3ZWY4ODhlNDc2ZGE3NjNjMmU2YjRhYzQwYzM=|c7131c295154dabbac3cc844abd505ee1e3721aa087686918aed0cd8052fa542\"; username-127-0-0-1-8905=\"2|1:0|10:1590173415|23:username-127-0-0-1-8905|44:ZDQ4NGJjMTA5OTY1NDE4Y2EyMDI1M2FlNWJkYzk2OTY=|008d3ca28f8a771dd6c02dcfc1afd2c1f54b369e01da15443e2a121e6db9d30d\"; username-127-0-0-1-8954=\"2|1:0|10:1590435484|23:username-127-0-0-1-8954|44:OTkxM2NjZjk5MjA1NDE0ZmJiNzY3Y2U5YjhkN2E4N2M=|2472939a9084548ceab56637b5233bf1d1b8f03903619cbb80118a97a89aa5ed\"; username-127-0-0-1-8816=\"2|1:0|10:1590441236|23:username-127-0-0-1-8816|44:YTM0NzQ0MGM0MzFiNGQwYzgzZjI0OTM0NjM4NDkzNzE=|dd16579b8f8c310c90e683c6436ba69bfaaa94a8e372f296c803d114bd877f85\"; username-127-0-0-1-8807=\"2|1:0|10:1590505778|23:username-127-0-0-1-8807|44:ZTg4ZGRmZDVhOGJiNDg5ODg3Njk1MmI5N2M0ODVhZTY=|8bfc9b799ed66a6abd7e0482346cc15c570cfd972e9778915e2bbddd9faed90b\"; username-127-0-0-1-8863=\"2|1:0|10:1590524748|23:username-127-0-0-1-8863|44:MmU2ZmIwNmU1YTc1NDg4ZDhlZGNmMGExNGYwMGM4Yzk=|78976498d15d359f18bbbc6f938ad2843bc5ebbb55a80c9f8db48754510113e7\"; username-127-0-0-1-8895=\"2|1:0|10:1590603061|23:username-127-0-0-1-8895|44:YjllNTg5MTg4ZmE0NGQzZGI1YWM0MjViMGEyMDFjMjE=|ca0b529dc3565868e1370b41bc52428a6cf0a7be71dfa38d6b1227823b81568e\"; username-127-0-0-1-8888=\"2|1:0|10:1590611429|23:username-127-0-0-1-8888|44:ZDhjNmMxOTIzZGRjNGFhZWI5M2U2MTMzNWY4MmRiNWE=|a9b0005f41237412605df104beadf7ebe5374609ccd5927d6293838d31af6bcf\"; username-127-0-0-1-8891=\"2|1:0|10:1590623327|23:username-127-0-0-1-8891|44:MTI0MDgyN2Q3NmI2NGQ5MDlmZjRiNmNiMmZmYjY3Mjg=|54151a21f50008aa3f3c3055037bc504d6ad76c65633695f4123ac631c9f330f\"; username-127-0-0-1-8879=\"2|1:0|10:1590686540|23:username-127-0-0-1-8879|44:YzJhOTg0NmFjNWQ0NDk5YzlhNmNjNjhlOTczYmQ3ZGM=|87c36d372e64b0be3d80c3f66d7c6d565b610d9af35935dd3b1009cab6f0cd1d\"; username-127-0-0-1-8829=\"2|1:0|10:1590697237|23:username-127-0-0-1-8829|44:OWQ5NDhlYTBmMmU2NDUxODgzOWQwNzRjYTdjMjY5NjI=|69969a3d9b18951d2e0732d1bcb4f440255df0bbec9e4751676becc858ef3e03\"; username-127-0-0-1-8893=\"2|1:0|10:1590770807|23:username-127-0-0-1-8893|44:YTE4OWY1MTFlZTY2NGM5MjgxODY2YmM1Mzc2ZDI4NDM=|f222c206210481625d79a93964389595973af70725330ae9d802fe2d7867f68b\"; username-127-0-0-1-8901=\"2|1:0|10:1591030727|23:username-127-0-0-1-8901|44:ODllZDkwMGJjYjgyNGUzMDg0ZDA4ZGRkNmI1MjMxNDY=|03cd25782a328a86915fb3959a5888bb1b8013e1a5bcabaed10205541e549534\"; username-127-0-0-1-8889=\"2|1:0|10:1591200494|23:username-127-0-0-1-8889|44:ZmRjMzViMzZmYzZjNDUxZTg2ZjM3NzQ0YTRiZjZiOWY=|d8e7dbf43bf205a59443dcb37fde89e107ff75ae35fe3835cbd0e2661f15dda8\"; username-127-0-0-1-8926=\"2|1:0|10:1591374124|23:username-127-0-0-1-8926|44:YmY3ZGZjZDFjZmRmNDRlOGI4ZDJlNjA5ZTkxYjIyMzA=|7730b67906422de36de68d8386308e8924fba2410b0497e7f983e9337d37acf4\"; _xsrf=2|01fb464b|3f5bb4e0e4258a13796bf5dc8d490832|1591383639; username-127-0-0-1-8961=\"2|1:0|10:1591666187|23:username-127-0-0-1-8961|44:Y2Q3M2FlMmVhZmJiNDcxOGI0OGQyNTcwYzlkOTU3OTM=|87c3f0bd411757d271b98c257ddb64f96005c49e3037540a29475277ce3fd030\"; username-127-0-0-1-8890=\"2|1:0|10:1591719711|23:username-127-0-0-1-8890|44:YWUzYjk4MWY4ZDQ1NGNiYmI5MDExNWY1Njc3ODVkOGU=|f1c6cab7f61fd570c35543a5aff348d1015c453a2d4f8f6333a48d72746d9d8d\"; username-127-0-0-1-8801=\"2|1:0|10:1591811359|23:username-127-0-0-1-8801|44:ZjI2ZmY4NWUyNjM2NDY0MGFhNzQwNDUxNWFhOWZkMmM=|b6847ff41c8b4e1b5dd90886da550a01e7c9c4d393863aa5308e12abb2e9d062\""
+    }
+[E 11:43:03.077 NotebookApp] 500 POST /api/sessions (::1) 831.35ms referer=http://127.0.0.1:8801/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb
+[E 11:44:55.023 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-af70581b-2f00-48e4-9403-284ca4763d82.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/Repeating_Classifier_Training', 'start_new_session': True}
+    
+[E 11:44:55.025 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8801', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 11:44:55.029 NotebookApp] Unhandled error
+[E 11:44:55.030 NotebookApp] {
+      "Host": "127.0.0.1:8801",
+      "Connection": "keep-alive",
+      "Content-Length": "178",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|01fb464b|3f5bb4e0e4258a13796bf5dc8d490832|1591383639",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8801",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8801/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8819=\"2|1:0|10:1589240017|23:username-127-0-0-1-8819|44:MjJlZTNiNTUzYjRiNDVhYjgwMmJhZjQwNTAyMGQ0YjY=|fa993cc11095c1a52fa7ce3e5fdd8e229ed3745c50899477677b3011fac52357\"; username-127-0-0-1-8907=\"2|1:0|10:1589242608|23:username-127-0-0-1-8907|44:ZjA1Y2I1NTY3NjM0NDk1MThiNDc0Y2IwZTZkMGY1MjA=|7f928c89cc014781fe71196b2a839b60b56686592d29ff734449a9724c1f5253\"; username-127-0-0-1-8850=\"2|1:0|10:1589332830|23:username-127-0-0-1-8850|44:ZTNjZDI4Y2RjNTJjNGY2NWI3NWUxM2Y3MDU5MGNmMzI=|e53e71d530210bda11ba94ce6b269933d6ed5b882cf07e08e6b361d9480e67ef\"; username-127-0-0-1-8813=\"2|1:0|10:1589413055|23:username-127-0-0-1-8813|44:NWNiMmZiMThlOTQ2NDI2MDgzMDhlZjlkMDQzMjEyMGY=|334b3a3ae6b64f630d63891e9421123f77fdbc73a2b57c084dc8d9c91d15462d\"; username-127-0-0-1-8921=\"2|1:0|10:1589493486|23:username-127-0-0-1-8921|44:ZDg3Y2RiMzcwOWEyNDFjYmEwMjYzNTFiYWI2ZDQ3Nzg=|3ae467aab8a513ef62b06d90d6d7ebfaaebbc9402ba5271cc56b712c223ce5e3\"; username-127-0-0-1-8823=\"2|1:0|10:1589618154|23:username-127-0-0-1-8823|44:ZWE4ZTQwYjk1Y2Y4NDRjZTk3ZGNmMDEzY2UyOGJkYmU=|f40d2ba9b3599fa261c75d3bd06f0d7224aaada03b8f1e1bac9bba7d5b8bf4e8\"; username-127-0-0-1-8797=\"2|1:0|10:1589931238|23:username-127-0-0-1-8797|44:M2FkM2VlYzU0ODQ3NDk2MWI1MjE1YjhkNTNkZmYxYWQ=|d3fd4dc2b706d7ee6b895b52096fa7ce3868f3b393957643ea4d6dea3356cafa\"; username-127-0-0-1-8878=\"2|1:0|10:1590020950|23:username-127-0-0-1-8878|44:ZTA2ZjEyNmYyODc5NDZmOTlkYjMzM2JiM2E4N2E4ZmM=|c5362af3d5e1be3071992abb07717252993222d0fd691727bd35f34cb19addbc\"; username-127-0-0-1-8803=\"2|1:0|10:1590077567|23:username-127-0-0-1-8803|44:MzdjOTY3ZWY4ODhlNDc2ZGE3NjNjMmU2YjRhYzQwYzM=|c7131c295154dabbac3cc844abd505ee1e3721aa087686918aed0cd8052fa542\"; username-127-0-0-1-8905=\"2|1:0|10:1590173415|23:username-127-0-0-1-8905|44:ZDQ4NGJjMTA5OTY1NDE4Y2EyMDI1M2FlNWJkYzk2OTY=|008d3ca28f8a771dd6c02dcfc1afd2c1f54b369e01da15443e2a121e6db9d30d\"; username-127-0-0-1-8954=\"2|1:0|10:1590435484|23:username-127-0-0-1-8954|44:OTkxM2NjZjk5MjA1NDE0ZmJiNzY3Y2U5YjhkN2E4N2M=|2472939a9084548ceab56637b5233bf1d1b8f03903619cbb80118a97a89aa5ed\"; username-127-0-0-1-8816=\"2|1:0|10:1590441236|23:username-127-0-0-1-8816|44:YTM0NzQ0MGM0MzFiNGQwYzgzZjI0OTM0NjM4NDkzNzE=|dd16579b8f8c310c90e683c6436ba69bfaaa94a8e372f296c803d114bd877f85\"; username-127-0-0-1-8807=\"2|1:0|10:1590505778|23:username-127-0-0-1-8807|44:ZTg4ZGRmZDVhOGJiNDg5ODg3Njk1MmI5N2M0ODVhZTY=|8bfc9b799ed66a6abd7e0482346cc15c570cfd972e9778915e2bbddd9faed90b\"; username-127-0-0-1-8863=\"2|1:0|10:1590524748|23:username-127-0-0-1-8863|44:MmU2ZmIwNmU1YTc1NDg4ZDhlZGNmMGExNGYwMGM4Yzk=|78976498d15d359f18bbbc6f938ad2843bc5ebbb55a80c9f8db48754510113e7\"; username-127-0-0-1-8895=\"2|1:0|10:1590603061|23:username-127-0-0-1-8895|44:YjllNTg5MTg4ZmE0NGQzZGI1YWM0MjViMGEyMDFjMjE=|ca0b529dc3565868e1370b41bc52428a6cf0a7be71dfa38d6b1227823b81568e\"; username-127-0-0-1-8888=\"2|1:0|10:1590611429|23:username-127-0-0-1-8888|44:ZDhjNmMxOTIzZGRjNGFhZWI5M2U2MTMzNWY4MmRiNWE=|a9b0005f41237412605df104beadf7ebe5374609ccd5927d6293838d31af6bcf\"; username-127-0-0-1-8891=\"2|1:0|10:1590623327|23:username-127-0-0-1-8891|44:MTI0MDgyN2Q3NmI2NGQ5MDlmZjRiNmNiMmZmYjY3Mjg=|54151a21f50008aa3f3c3055037bc504d6ad76c65633695f4123ac631c9f330f\"; username-127-0-0-1-8879=\"2|1:0|10:1590686540|23:username-127-0-0-1-8879|44:YzJhOTg0NmFjNWQ0NDk5YzlhNmNjNjhlOTczYmQ3ZGM=|87c36d372e64b0be3d80c3f66d7c6d565b610d9af35935dd3b1009cab6f0cd1d\"; username-127-0-0-1-8829=\"2|1:0|10:1590697237|23:username-127-0-0-1-8829|44:OWQ5NDhlYTBmMmU2NDUxODgzOWQwNzRjYTdjMjY5NjI=|69969a3d9b18951d2e0732d1bcb4f440255df0bbec9e4751676becc858ef3e03\"; username-127-0-0-1-8893=\"2|1:0|10:1590770807|23:username-127-0-0-1-8893|44:YTE4OWY1MTFlZTY2NGM5MjgxODY2YmM1Mzc2ZDI4NDM=|f222c206210481625d79a93964389595973af70725330ae9d802fe2d7867f68b\"; username-127-0-0-1-8901=\"2|1:0|10:1591030727|23:username-127-0-0-1-8901|44:ODllZDkwMGJjYjgyNGUzMDg0ZDA4ZGRkNmI1MjMxNDY=|03cd25782a328a86915fb3959a5888bb1b8013e1a5bcabaed10205541e549534\"; username-127-0-0-1-8889=\"2|1:0|10:1591200494|23:username-127-0-0-1-8889|44:ZmRjMzViMzZmYzZjNDUxZTg2ZjM3NzQ0YTRiZjZiOWY=|d8e7dbf43bf205a59443dcb37fde89e107ff75ae35fe3835cbd0e2661f15dda8\"; username-127-0-0-1-8926=\"2|1:0|10:1591374124|23:username-127-0-0-1-8926|44:YmY3ZGZjZDFjZmRmNDRlOGI4ZDJlNjA5ZTkxYjIyMzA=|7730b67906422de36de68d8386308e8924fba2410b0497e7f983e9337d37acf4\"; _xsrf=2|01fb464b|3f5bb4e0e4258a13796bf5dc8d490832|1591383639; username-127-0-0-1-8961=\"2|1:0|10:1591666187|23:username-127-0-0-1-8961|44:Y2Q3M2FlMmVhZmJiNDcxOGI0OGQyNTcwYzlkOTU3OTM=|87c3f0bd411757d271b98c257ddb64f96005c49e3037540a29475277ce3fd030\"; username-127-0-0-1-8890=\"2|1:0|10:1591719711|23:username-127-0-0-1-8890|44:YWUzYjk4MWY4ZDQ1NGNiYmI5MDExNWY1Njc3ODVkOGU=|f1c6cab7f61fd570c35543a5aff348d1015c453a2d4f8f6333a48d72746d9d8d\"; username-127-0-0-1-8801=\"2|1:0|10:1591811359|23:username-127-0-0-1-8801|44:ZjI2ZmY4NWUyNjM2NDY0MGFhNzQwNDUxNWFhOWZkMmM=|b6847ff41c8b4e1b5dd90886da550a01e7c9c4d393863aa5308e12abb2e9d062\""
+    }
+[E 11:44:55.030 NotebookApp] 500 POST /api/sessions (::1) 28.92ms referer=http://127.0.0.1:8801/notebooks/Repeating_Classifier_Training/0.%20Create%20Index%20.npz%20Files.ipynb
+[W 13:13:02.977 NotebookApp] delete /Repeating_Classifier_Training/Untitled.ipynb

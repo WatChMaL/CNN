@@ -12,14 +12,22 @@
 #     name: python3
 # ---
 
+import os,sys
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import math
-from sklearn.metrics import roc_curve, auc
-import os,sys
-import matplotlib.gridspec as gridspec
+import itertools
+from functools import reduce
 
+from progressbar import *
+
+from sklearn.metrics import roc_curve, auc
+from sklearn.utils.extmath import stable_cumsum
+
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import matplotlib.colors as colors
+from seaborn import heatmap
 
 def moving_average(a, n=3) :
     ret = np.cumsum(a, dtype=float)
@@ -89,8 +97,6 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     Args: labels              ... 1D array of true label value, the length = sample size
           predictions         ... 1D array of predictions, the length = sample size
           class_names         ... 1D array of string label for classification targets, the length = number of categories
-       
- 
     """
     
     fig, ax = plt.subplots(figsize=(12,8),facecolor='w')
@@ -118,7 +124,7 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     ax.set_xlabel('Prediction',fontsize=20)
     ax.set_ylabel('True Label',fontsize=20)
     if title is not None: 
-        ax.set_title(title)
+        ax.set_title(title,fontsize=20)
 
     for i in range(mat.shape[0]):
         for j in range(mat.shape[1]):
@@ -128,17 +134,23 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     plt.show()
 
 # Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, png_name='roc_plot',title='ROC Curve'):
-    
+def plot_multiple_ROC(fprs, tprs, thresholds, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None):
     min_energy = 0
     max_energy = 1000
     
-    fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
-    ax.tick_params(axis="both", labelsize=20)
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
+        ax.tick_params(axis="both", labelsize=20)
     
     model_colors = [np.random.rand(3,) for i in fprs]
     
     for j in np.arange(len(fprs)):
+        if isinstance(pos_neg_labels[0], str):
+            label_0 = pos_neg_labels[0]
+            label_1 = pos_neg_labels[1]
+        else:
+            label_0 = pos_neg_labels[j][0]
+            label_1 = pos_neg_labels[j][1]
         fpr = fprs[j]
         tpr = tprs[j]
         threshold = thresholds[j]
@@ -152,31 +164,42 @@ def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, png_name='roc_pl
         tnr = 1. - fpr
 
         # TNR vs TPR plot
-
-        ax.plot(tpr, inv_fpr,
+        if plot_labels is None:
+            ax.plot(tpr, inv_fpr,
                  label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
                  linewidth=1.0, marker=".", markersize=4.0, markerfacecolor=model_colors[j])
-
+        else:
+            ax.plot(tpr, inv_fpr,
+                 label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
+                 linewidth=1.0, marker=".", markersize=4.0, markerfacecolor=model_colors[j])
         # Show coords of individual points near x = 0.2, 0.5, 0.8
         todo = {0.2: True, 0.5: True, 0.8: True}
-        for xy in zip(tpr, inv_fpr, tnr):
+
+        pbar = ProgressBar(widgets=['Find Critical Points: ', Percentage(), ' ', Bar(marker='0',left='[',right=']'),
+           ' ', ETA()], maxval=len(tpr))
+        pbar.start()
+        for i,xy in enumerate(zip(tpr, inv_fpr, tnr)):
+            pbar.update(i)
             xy = (round(xy[0], 4), round(xy[1], 4), round(xy[2], 4))
             xy_plot = (round(xy[0], 4), round(xy[1], 4))
             for point in todo.keys():
                 if xy[0] >= point and todo[point]:
-                    ax.annotate('(%s, %s, %s)' % xy, xy=xy_plot, textcoords='data', fontsize=18, bbox=dict(boxstyle="square", fc="w"))
+                    if annotate: ax.annotate('(%s, %s, %s)' % xy, xy=xy_plot, textcoords='data', fontsize=18, bbox=dict(boxstyle="square", fc="w"))
                     todo[point] = False
+        pbar.finish()
+        ax.grid(True, which='both', color='grey')
+        # xlabel = r"$\{0}$ signal efficiency".format(label_0) if label_0 is not "e" else r"${0}$ signal efficiency".format(label_0)
+        # ylabel = r"$\{0}$ background rejection".format(label_1) if label_1 is not "e" else r"${0}$ background rejection".format(label_1)
 
-            ax.grid(True, which='both', color='grey')
-            xlabel = r"$\{0}$ signal efficiency".format(label_0) if label_0 is not "e" else r"${0}$ signal efficiency".format(label_0)
-            ylabel = r"$\{0}$ background rejection".format(label_1) if label_1 is not "e" else r"${0}$ background rejection".format(label_1)
+        xlabel = 'Signal Efficiency'
+        ylabel = 'Background Rejection'
 
-            ax.set_xlabel(xlabel, fontsize=20) 
-            ax.set_ylabel(ylabel, fontsize=20)
-            ax.set_title(title)
-            ax.legend(loc="upper right", prop={"size":20})
+        ax.set_xlabel(xlabel, fontsize=20) 
+        ax.set_ylabel(ylabel, fontsize=20)
+        ax.set_title(title, fontsize=20)
+        ax.legend(loc="upper right", prop={"size":20})
 
-            plt.margins(0.1)
+        plt.margins(0.1)
         plt.yscale("log")
         
     plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
@@ -185,16 +208,15 @@ def plot_multiple_ROC(fprs, tprs, thresholds, label_0, label_1, png_name='roc_pl
 
     plt.clf() # Clear the current figure
     plt.close() # Close the opened window
-        
-        
+                
     return fpr, tpr, threshold, roc_auc
 
-def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,threshold=None):
+def prep_roc_data(softmaxes,labels, softmax_index_dict, label_0, label_1, energies=None,threshold=None):
     """
     prep_roc_data(softmaxes,labels, energies,index_dict,threshold=None)
 
     Purpose : Prepare data for plotting the ROC curves. If threshold is not none, filters 
-    out events with energy greater than threshold. Returns true positive rates, positive 
+    out events with energy greater than threshold. Returns true positive rates, false positive 
     rates, and thresholds for plotting the ROC curve.
 
     Args: labels              ... 1D array of true label value, the length = sample size
@@ -203,8 +225,10 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
                                   size
           softmax_index_dict  ... Dictionary pointing to label integer from particle name
           label_0 and label_1 ... Labels indicating which particles to use
+    author: Calum Macdonald
+    May 2020
     """    
-    if threshold is not None:
+    if threshold is not None and energies is not None:
         low_energy_idxs = np.where(energies < threshold)
         rsoftmaxes = softmaxes[low_energy_idxs]
         rlabels = labels[low_energy_idxs]
@@ -213,23 +237,10 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
         rsoftmaxes = softmaxes
         rlabels = labels
         renergies = energies
-        
-    g_test_indices = np.where(rlabels==softmax_index_dict['gamma'])[0]
-    e_test_indices = np.where(rlabels==softmax_index_dict['e'])[0]
-    m_test_indices = np.where(rlabels==softmax_index_dict['mu'])[0]
     
-    g_labels = rlabels[g_test_indices]
-    e_labels = rlabels[e_test_indices]
-    m_labels = rlabels[m_test_indices]
+    (g_softmaxes, e_softmaxes, m_softmaxes), (g_labels, e_labels, m_labels) = separate_particles([rsoftmaxes, rlabels], rlabels, softmax_index_dict, ['gamma', 'e', 'mu'])
 
-    g_softmaxes = rsoftmaxes[g_test_indices]
-    e_softmaxes = rsoftmaxes[e_test_indices]
-    m_softmaxes = rsoftmaxes[m_test_indices]
-
-    g_energies = renergies[g_test_indices]
-    e_energies = renergies[e_test_indices]
-    m_energies = renergies[m_test_indices]
-    
+    #use the labels to select the softmaxes needed for calculating metrics
     e_softmax_0 = e_softmaxes[e_labels==softmax_index_dict[label_0]] 
     mu_softmax_0 = m_softmaxes[m_labels==softmax_index_dict[label_0]]
     gamma_softmax_0 = g_softmaxes[g_labels==softmax_index_dict[label_0]]
@@ -245,17 +256,22 @@ def prep_roc_data(softmaxes,labels, energies,softmax_index_dict,label_0,label_1,
     e_labels_1 = e_labels[e_labels==softmax_index_dict[label_1]] 
     mu_labels_1 = m_labels[m_labels==softmax_index_dict[label_1]]
     gamma_labels_1 = g_labels[g_labels==softmax_index_dict[label_1]]
+
+    #concatenate the selected softmaxes and labels
+    total_softmax = np.concatenate((e_softmax_0, e_softmax_1, mu_softmax_0, mu_softmax_1, gamma_softmax_0, gamma_softmax_1), axis=0)
+    total_labels = np.concatenate((e_labels_0, e_labels_1, mu_labels_0, mu_labels_1, gamma_labels_0, gamma_labels_1), axis=0)
     
-    total_softmax = np.concatenate((e_softmax_0, e_softmax_1, mu_softmax_0, mu_softmax_1), axis=0)
-    total_labels = np.concatenate((e_labels_0, e_labels_1, mu_labels_0, mu_labels_1), axis=0)
-    
+    # print("Positive Labels: {} Negative Labels: {}".format(len(np.where(total_labels==softmax_index_dict[label_0])[0]), 
+                                                        #    len(np.where(total_labels==softmax_index_dict[label_1])[0])))
+    #use the sklearn roc_curve function to find the desired metrics
     return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
 
 
 def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10):
     ncols = len(locations) if len(locations) < 3 else 3
     nrows = math.ceil(len(locations)/3)
-    fig = plt.figure(facecolor='w',figsize=(12,nrows*4))
+    if nrows==1 and ncols==1: fig = plt.figure(facecolor='w',figsize=(12,12))
+    else: fig = plt.figure(facecolor='w',figsize=(12,nrows*4))
     gs = gridspec.GridSpec(nrows,ncols,figure=fig)
     axes = []
     for i,location in enumerate(locations):
@@ -309,23 +325,23 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
     return fig
 
 
-# Function to plot a confusion matrix
+# Function to plot a grid of confusion matrices
 def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,titles=None):
-    fig = plt.figure(facecolor='w',figsize=(16,8))
-    gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
-    axes = []
-    
     """
-    plot_confusion_matrix(labels, predictions, class_names)
-    
+    plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,titles=None)    
     Purpose : Plot the confusion matrix for a series of test outputs.
     
     Args: label_arrays        ... array of 1D arrays of true label value, the length = sample size
           predictions         ... array of 1D arrays of predictions, the length = sample size
-          class_names         ... 1D array of string label for classification targets, the length = number of categories
-       
- 
+          class_names         ... 1D array of string label for classification targets, the length = number of categories      
+    author: Calum Macdonald
+    May 2020
     """
+
+    fig = plt.figure(facecolor='w',figsize=(16,8))
+    gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    axes = []
+
     for i,labels in enumerate(label_arrays):
         predictions = prediction_arrays[i]
         ax=fig.add_subplot(gs[i],facecolor='w')
@@ -374,8 +390,8 @@ def load_test_output(location,index_path):
     Args: location            ... string, path of the directory containing the test 
                                   output eg. '/home/cmacdonald/CNN/dumps/20200525_152544'
           index_path          ... string, path of directory containing indices of FiTQun failed and flagged files
-       
- 
+    author: Calum Macdonald   
+    May 2020
     """
     test_dump_np = np.load(location, allow_pickle=True)
     
@@ -417,6 +433,17 @@ def load_test_output(location,index_path):
 
 
 def parametrized_ray_point(x,y,z,theta,phi,t):
+    '''
+    parametrized_ray_point(x,y,z,theta,phi,t)
+
+    Purpose: Find the point of a line departing (x,y,z) in direction specified by (theta,phi) and parametrized by t at
+    given value of t. 
+    Args: x, y, z           ... origin co-ordinates of line
+          theta, phi        ... polar and azimuthal angles of departure
+          t                 ... parameter giving desired point
+    author: Calum Macdonald
+    May 2020
+    '''
     return x + np.sin(theta)*np.cos(phi)*t,y + np.sin(theta)*np.sin(phi)*t, z + np.cos(theta)*t
 
 
@@ -428,7 +455,8 @@ def distance_to_wall(position, angle):
     
     Args: position            ... array of [x, y, z] co-ordinates of event origin
           angle               ... array of [theta, phi] angles of departure
-       
+    author: Calum Macdonald
+    May 2020
     """
     x = position[0]
     y = position[2]
@@ -503,3 +531,362 @@ def plot_compare_dists(dists,dist_idxs_to_compare,dist_idxs_reference,
         ax.set_xlabel(xlabel)
         ax2.set_xlabel(xlabel)
     if ret: return fig
+
+
+def plot_2d_ratio(dist_1_x,dist_1_y,dist_2_x, dist_2_y,bins=(150,150),fig=None,ax=None,
+                  title=None, xlabel=None, ylabel=None, ratio_range=None):
+    '''
+    Plots the 2d ratio between the 2d histograms of two distributions.
+    Args:
+        dist_1_x:               ... 1d array of x-values of distribution 1 of length n
+        dist_1_y:               ... 1d array of y-values of distribution 1 of length n
+        dist_2_x:               ... 1d array of x-values of distribution 2 of length n
+        dist_2_y:               ... 1d array of y-values of distribution 2 of length n
+        bins:                   ... tuple of integer numbers of bins in x and y 
+    author: Calum Macdonald
+    May 2020
+    '''
+    if ax is None: fig,ax = plt.subplots(1,1,figsize=(8,8))
+    bin_range = [[np.min([np.min(dist_1_x),np.min(dist_2_x)]),np.max([np.max(dist_1_x),np.max(dist_2_x)])],
+             [np.min([np.min(dist_1_y),np.min(dist_2_y)]),np.max([np.max(dist_1_y),np.max(dist_2_y)])]]
+    ns_1, xedges, yedges = np.histogram2d(dist_1_x,dist_1_y,bins=bins,density=True,range=bin_range)
+    ns_2,_,_ = np.histogram2d(dist_2_x,dist_2_y,bins=bins,density=True,range=bin_range)
+    ratio = ns_1/ns_2
+    ratio = np.where((ns_2==0) & (ns_1==0),1,ratio)
+    ratio = np.where((ns_2==0) & (ns_1!=0),10,ratio)
+    pc = ax.pcolormesh(xedges, yedges, np.swapaxes(ratio,0,1),vmin=ratio_range[0],vmax=ratio_range[1],cmap="RdBu_r")
+    fig.colorbar(pc, ax=ax)
+    if title is not None: ax.set_title(title)
+    if xlabel is not None: ax.set_xlabel(xlabel)
+    if ylabel is not None: ax.set_ylabel(ylabel)
+    return fig
+
+
+a = np.ones((100,100))
+
+[i for i in itertools.product(range(3),range(3))]
+
+def _binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
+    '''
+        SOURCE: Scikit.metrics internal usage tool
+    '''
+    """Calculate true and false positives per binary classification threshold.
+    Parameters
+    ----------
+    y_true : array, shape = [n_samples]
+        True targets of binary classification
+    y_score : array, shape = [n_samples]
+        Estimated probabilities or decision function
+    pos_label : int or str, default=None
+        The label of the positive class
+    sample_weight : array-like of shape (n_samples,), default=None
+        Sample weights.
+    Returns
+    -------
+    fps : array, shape = [n_thresholds]
+        A count of false positives, at index i being the number of negative
+        samples assigned a score >= thresholds[i]. The total number of
+        negative samples is equal to fps[-1] (thus true negatives are given by
+        fps[-1] - fps).
+    tps : array, shape = [n_thresholds <= len(np.unique(y_score))]
+        An increasing count of true positives, at index i being the number
+        of positive samples assigned a score >= thresholds[i]. The total
+        number of positive samples is equal to tps[-1] (thus false negatives
+        are given by tps[-1] - tps).
+    thresholds : array, shape = [n_thresholds]
+        Decreasing score values.
+    """
+
+    if sample_weight is not None:
+        sample_weight = column_or_1d(sample_weight)
+
+    # ensure binary classification if pos_label is not specified
+    # classes.dtype.kind in ('O', 'U', 'S') is required to avoid
+    # triggering a FutureWarning by calling np.array_equal(a, b)
+    # when elements in the two arrays are not comparable.
+    classes = np.unique(y_true)
+    if (pos_label is None and (
+            classes.dtype.kind in ('O', 'U', 'S') or
+            not (np.array_equal(classes, [0, 1]) or
+                 np.array_equal(classes, [-1, 1]) or
+                 np.array_equal(classes, [0]) or
+                 np.array_equal(classes, [-1]) or
+                 np.array_equal(classes, [1])))):
+        classes_repr = ", ".join(repr(c) for c in classes)
+        raise ValueError("y_true takes value in {{{classes_repr}}} and "
+                         "pos_label is not specified: either make y_true "
+                         "take value in {{0, 1}} or {{-1, 1}} or "
+                         "pass pos_label explicitly.".format(
+                             classes_repr=classes_repr))
+    elif pos_label is None:
+        pos_label = 1.
+
+    # make y_true a boolean vector
+    y_true = (y_true == pos_label)
+
+    # sort scores and corresponding truth values
+    desc_score_indices = np.argsort(y_score, kind="mergesort")[::-1]
+    y_score = y_score[desc_score_indices]
+    y_true = y_true[desc_score_indices]
+    if sample_weight is not None:
+        weight = sample_weight[desc_score_indices]
+    else:
+        weight = 1.
+
+    # y_score typically has many tied values. Here we extract
+    # the indices associated with the distinct values. We also
+    # concatenate a value for the end of the curve.
+    distinct_value_indices = np.where(np.diff(y_score))[0]
+    threshold_idxs = np.r_[distinct_value_indices, y_true.size - 1]
+
+    # accumulate the true positives with decreasing threshold
+    tps = stable_cumsum(y_true * weight)[threshold_idxs]
+    if sample_weight is not None:
+        # express fps as a cumsum to ensure fps is increasing even in
+        # the presence of floating point errors
+        fps = stable_cumsum((1 - y_true) * weight)[threshold_idxs]
+    else:
+        fps = 1 + threshold_idxs - tps
+    return fps, tps, y_score[threshold_idxs]
+
+
+
+def plot_binned_performance(softmaxes, labels, binning_features, binning_label,efficiency, bins, index_dict, label_0, label_1, metric='purity'):
+    '''
+    Plots the purity as a function of a physical parameter in the dataset, at a fixed signal efficiency (true positive rate).
+    Args:
+        softmaxes                      ... 2d array with first dimension n_samples
+        labels                         ... 1d array of true event labels
+        binning_features               ... 1d array of features for generating bins, eg. energy
+        binning_label                  ... name of binning feature, to be used in title and xlabel
+        efficiency                     ... signal efficiency per bin, to be fixed
+        bins                           ... either an integer (number of evenly spaced bins) or list of n_bins+1 edges
+        index_dict                     ... dictionary of particle string keys and values corresponding to labels in 'labels'
+        label_0                        ... string, positive particle label, must be key of index_dict
+        label_1                        ... string, negative particle label, must be key of index_dict
+    author: Calum Macdonald
+    June 2020
+    '''
+    legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
+    label_size = 14
+
+    #bin by whatever feature
+    if isinstance(bins, int):
+        _,bins = np.histogram(binning_features, bins=bins)
+    bins = bins[0:-1]
+    bin_assignments = np.digitize(binning_features, bins)
+    bin_data = []
+    for bin_idx in range(len(bins)):
+        bin_num = bin_idx + 1 #these are one-indexed for some reason
+        this_bin_idxs = np.where(bin_assignments==bin_num)[0]
+        bin_data.append({'softmaxes':softmaxes[this_bin_idxs], 'labels' : labels[this_bin_idxs], 'n' : this_bin_idxs.shape[0]})
+
+    #compute efficiency, thresholds, purity per bin
+    bin_metrics = []
+    for bin_idx, data in enumerate(bin_data):
+        (softmaxes_0,softmaxes_1),(labels_0,labels_1) = separate_particles([data['softmaxes'],data['labels']],data['labels'],index_dict,desired_labels=[label_0,label_1])
+        fps, tps, thresholds = _binary_clf_curve(np.concatenate((labels_0,labels_1)),np.concatenate((softmaxes_0,softmaxes_1))[:,index_dict[label_0]], 
+                                                pos_label=index_dict[label_0])
+        fns = tps[-1] - tps
+        tns = fps[-1] - fps
+        efficiencies = tps/(tps + fns)
+        operating_point_idx = (np.abs(efficiencies - efficiency)).argmin()
+        if metric == 'purity': performance = tps[operating_point_idx]/(tps[operating_point_idx] + fps[operating_point_idx])
+        else: performance = tns / (tns + fps)
+        bin_metrics.append((efficiencies[operating_point_idx], performance[operating_point_idx], np.sqrt(tns[operating_point_idx])/(tns[operating_point_idx] + fps[operating_point_idx])))
+    bin_metrics = np.array(bin_metrics)
+
+    # plt.bar(bins,bin_metrics[:,1],align='edge',width=(np.max(binning_features)-np.min(binning_features))/len(bins))
+    bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
+    bin_centers.append((np.max(binning_features) - bins[-1])/2 + bins[-1])
+    fig = plt.figure(figsize=(12,6))
+    plt.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt='o',ecolor='k',elinewidth=0.5,capsize=4,capthick=1)
+    plt.ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+    plt.xlabel(binning_label, fontsize=label_size)
+    metric_name = '{}-{} Signal Purity'.format(label_0,label_1) if metric== 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1])
+    plt.title('{} \n vs {} At Bin {} Signal Efficiency {}'.format(metric_name, binning_label, legend_label_dict[label_0], efficiency))
+    return fig
+
+def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None):
+    '''
+    Plots classifier softmax outputs for each particle type.
+    Args:
+        softmaxes                    ... 2d array with first dimension n_samples
+        labels                       ... 1d array of particle labels to use in every output plot, or list of 4 lists of particle names to use in each respectively
+        particle_names               ... list of string names of particle types to plot. All must be keys in 'index_dict' 
+        index_dict                   ... dictionary of particle labels, with string particle name keys and values corresponsing to 
+                                         values taken by 'labels'
+        bins                         ... optional, number of bins for histogram
+        fig, axes                    ... optional, figure and axes on which to do plotting (use to build into bigger grid)
+    author: Calum Macdonald
+    June 2020
+    '''
+    label_size=14
+    legend_size=14
+    legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
+
+    if axes is None:
+        fig,axes = plt.subplots(1,4,figsize=(15,5))
+
+    label_dict = {value:key for key, value in index_dict.items()}
+
+    softmaxes_list = separate_particles([softmaxes], labels, index_dict, [name for name in index_dict.keys()])[0]
+    
+    for i, softmaxes in enumerate(softmaxes_list):
+        p_name = particle_names[i]
+
+    if isinstance(particle_names[0],str):
+        particle_names = [particle_names for _ in range(4)]
+    # print(particle_names)
+    # print([index_dict[particle_name] for particle_name in particle_names[0]])
+    for output_idx,ax in enumerate(axes[:-1]):
+        for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
+            ax.hist(softmaxes_list[i][:,output_idx],
+                    label=legend_label_dict[label_dict[i]],
+                    alpha=0.7,histtype=u'step',bins=bins,density=True,
+                    linestyle=linestyle[i],linewidth=2)            
+        ax.legend(loc=legend_locs[output_idx] if legend_locs is not None else 'best', fontsize=legend_size)
+        ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
+        ax.set_ylabel('Normalized Density', fontsize=label_size)
+        ax.set_yscale('log')
+    ax = axes[-1]
+    for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
+            ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
+                    label=legend_label_dict[particle_names[-1][i]],
+                    alpha=0.7,histtype=u'step',bins=bins,density=True,
+                    linestyle=linestyle[i],linewidth=2)         
+    ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
+    ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
+    ax.set_ylabel('Normalized Density', fontsize=label_size)
+    ax.set_yscale('log')
+
+    plt.tight_layout()
+    return fig
+
+def rms(arr):
+    '''
+    Returns RMS value of the array.
+    Args:
+        arr                         ... 1d array of numbers
+    '''
+    return math.sqrt(reduce(lambda a, x: a + x * x, arr, 0) / len(arr))
+
+def plot_binned_response(softmaxes, labels, binning_features, binning_label,efficiency, bins, p_bins, index_dict,log_scales=[]):
+    legend_label_dict = {0:'\u03B3',1:'e-',2:'\u03BC-'}
+
+    label_size = 18
+    fig, axes = plt.subplots(3,4,figsize=(12*4,12*3))
+
+    log_axes = axes.flatten()[log_scales]
+
+    #bin by whatever feature
+    if isinstance(bins, int):
+        _,bins = np.histogram(binning_features, bins=bins)
+    b_bin_centers = [bins[i] + (bins[i+1]-bins[i])/2 for i in range(bins.shape[0]-1)]
+    binning_edges=bins
+    bins = bins[0:-1]
+    bin_assignments = np.digitize(binning_features, bins)
+    bin_data = []
+    for bin_idx in range(len(bins)):
+        bin_num = bin_idx + 1 #these are one-indexed for some reason
+        this_bin_idxs = np.where(bin_assignments==bin_num)[0]
+        bin_data.append({'softmaxes':softmaxes[this_bin_idxs], 'labels' : labels[this_bin_idxs]})
+    
+    edges = None
+    for output_idx in range(3):
+        for particle_idx in range(3):
+            ax = axes[particle_idx][output_idx]
+            data = np.ones((len(bins), len(p_bins) if not isinstance(p_bins, int) else p_bins))
+            means = []
+            stddevs = []
+            for bin_idx, bin in enumerate(bin_data):
+                relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict)[0][particle_idx]
+
+                if edges is None: ns, edges = np.histogram(relevant_softmaxes[:,output_idx], bins=p_bins,density=True,range=(0.,1.))
+                else: ns, _ = np.histogram(relevant_softmaxes[:,output_idx], bins=edges,density=True)
+
+                data[bin_idx, :] = ns
+                p_bin_centers = [edges[i] + (edges[i+1]-edges[i])/2 for i in range(edges.shape[0]-1)]
+                means.append(np.mean(relevant_softmaxes[:,output_idx]))
+                stddevs.append(np.std(relevant_softmaxes[:,output_idx]))                
+
+            if ax in log_axes:
+                min_value = np.unique(data)[1]
+                data = np.where(data==0, min_value, data)
+            mesh = ax.pcolormesh(binning_edges, edges, np.swapaxes(data,0,1),norm=colors.LogNorm() if ax in log_axes else None)
+            fig.colorbar(mesh,ax=ax)
+            ax.errorbar(b_bin_centers, means, yerr = stddevs, fmt='k+', ecolor='k', elinewidth=0.5, capsize=4, capthick=1.5)
+            ax.set_xlabel(binning_label,fontsize=label_size)
+            ax.set_ylabel('P({})'.format(legend_label_dict[output_idx]),fontsize=label_size)
+            ax.set_ylim([0,1])
+            ax.set_title('P({}) Density For {} Events vs {}'.format(legend_label_dict[output_idx],legend_label_dict[particle_idx],binning_label),fontsize=label_size)
+
+    for particle_idx in range(3):
+            ax = axes[particle_idx][-1]
+            data = np.ones((len(bins), len(p_bins) if not isinstance(p_bins, int) else p_bins))
+            means = []
+            stddevs = []
+            for bin_idx, bin in enumerate(bin_data):
+                relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict)[0][particle_idx]
+                ns, _ = np.histogram(relevant_softmaxes[:,0] + relevant_softmaxes[:,1], bins=edges,density=True)
+                data[bin_idx, :] = ns
+                p_bin_centers = [edges[i] + (edges[i+1]-edges[i])/2 for i in range(edges.shape[0]-1)]
+                means.append(np.mean(relevant_softmaxes[:,0] + relevant_softmaxes[:,1]))
+                stddevs.append(np.std(relevant_softmaxes[:,0] + relevant_softmaxes[:,1]))
+            if ax in log_axes:
+                min_value = np.unique(data)[1]
+                data = np.where(data==0, min_value, data)
+            mesh = ax.pcolormesh(binning_edges,edges, np.swapaxes(data,0,1),norm=colors.LogNorm() if ax in log_axes else None)
+            fig.colorbar(mesh,ax=ax)
+            ax.set_ylim([0,1])
+            ax.errorbar(b_bin_centers, means, yerr = stddevs, fmt='k+', ecolor='k', elinewidth=0.5, capsize=4, capthick=1.5)
+            ax.set_xlabel(binning_label,fontsize=label_size)
+            ax.set_ylabel('P({}) + P({})'.format(legend_label_dict[0], legend_label_dict[1]),fontsize=label_size)
+            ax.set_title('P({}) + P({}) Density For {} Events vs {}'.format(legend_label_dict[0],legend_label_dict[1],legend_label_dict[particle_idx],binning_label),fontsize=label_size)
+
+
+def separate_particles(input_array_list,labels,index_dict,desired_labels=['gamma','e','mu']):
+    '''
+    Separates all arrays in a list by indices where 'labels' takes a certain value, corresponding to a particle type.
+    Assumes that the arrays have the same event order as labels. Returns list of tuples, each tuple contains section of each
+    array corresponsing to a desired label.
+    Args:
+        input_array_list            ... list of arrays to be separated, must have same length and same length as 'labels'
+        labels                      ... list of labels, taking any of the three values in index_dict.values()
+        index_dict                  ... dictionary of particle labels, must have 'gamma','mu','e' keys pointing to values taken by 'labels', 
+                                        unless desired_labels is passed
+        desired_labels              ... optional list specifying which labels are desired and in what order.
+    author: Calum Macdonald
+    June 2020
+    '''
+    idxs_list = [np.where(labels==index_dict[label])[0] for label in desired_labels]
+
+    separated_arrays = []
+    for array in input_array_list:
+        separated_arrays.append(tuple([array[idxs] for idxs in idxs_list]))
+
+    return separated_arrays
+
+def collapse_test_output(softmaxes, labels, index_dict,predictions=None):
+    '''
+    Collapse gamma class into electron class to allow more equal comparison to FiTQun.
+    Args:
+        softmaxes                  ... 2d array of dimension (n,3) corresponding to softmax output
+        labels                     ... 1d array of event labels, of length n, taking values in the set of values of 'index_dict'
+        index_dict                 ... Dictionary with keys 'gamma','e','mu' pointing to the corresponding integer
+                                       label taken by 'labels'
+        predictions                ... 1d array of event type predictions, of lengthn, taking values in the 
+                                       set of values of 'index_dict'                        
+    '''
+    new_labels = np.ones((softmaxes.shape[0]))*index_dict['e']
+    new_softmaxes = np.zeros((labels.shape[0], 3))
+    if predictions is not None:
+        new_predictions = np.ones_like(predictions) * index_dict['e']
+    for idx, label in enumerate(labels):
+            if index_dict["mu"] == label: new_labels[idx] = index_dict["mu"]
+            new_softmaxes[idx,:] = [0,softmaxes[idx][0] + softmaxes[idx][1], softmaxes[idx][2]]
+            if predictions is not None:
+                if predictions[idx]==index_dict['mu']: new_predictions[idx] = index_dict['mu']
+
+    if predictions is not None: return new_softmaxes, new_labels, new_predictions
+    return new_softmaxes, new_labels
