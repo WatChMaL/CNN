@@ -135,6 +135,20 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
 
 # Plot multiple ROC curves on the same figure
 def plot_multiple_ROC(fprs, tprs, thresholds, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None):
+    '''
+    Plot multiple ROC curves of background rejection vs signal efficiency.
+    Args:
+        fprs                ... array of 1d arrays of false positive rates of length n
+        tprs                ... array of 1d arrays of true positive rates of length n
+        thresholds          ... array of 1d array of thresholds of length n
+        pos_neg_labels      ... array of positive and negative string labels for each curve
+        png_name            ... name of saved image
+        title               ... title of plot
+        annotate            ... whether or not to include annotations of critical points for each curve
+        ax                  ... matplotlib.pyplot.axes on which to place plot
+    author: Calum Macdonald
+    June 2020
+    '''
     min_energy = 0
     max_energy = 1000
     
@@ -268,6 +282,18 @@ def prep_roc_data(softmaxes,labels, softmax_index_dict, label_0, label_1, energi
 
 
 def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10):
+    '''
+    Plots a grid of learning histories.
+    Args:
+        locations               ... list of paths to directories of training dumps
+        losslim                 ... limit of loss axis
+        show                    ... bool, whether to show the plot
+        titles                  ... list of titles for each plot in the grid
+        best_only               ... bool, whether to plot only the points where best model was saved
+        leg_font                ... legend font size
+    author: Calum Macdonald
+    June 2020
+    '''
     ncols = len(locations) if len(locations) < 3 else 3
     nrows = math.ceil(len(locations)/3)
     if nrows==1 and ncols==1: fig = plt.figure(facecolor='w',figsize=(12,12))
@@ -500,6 +526,26 @@ def plot_compare_dists(dists,dist_idxs_to_compare,dist_idxs_reference,
                        labels,axes=None,colors=None,bins=20,
                        title=None, ratio_range=None,xlabel=None,
                        linestyle=None):
+    '''
+    Plot distributions and plot their ratio.
+    Args:
+        dists                   ... list of 1d arrays
+        dist_idxs_to_compare    ... list of indices of distributions to use as numerator 
+                                    in the ratio plot
+        dist_idxs_reference     ... list of indices of distributions to use as denominator
+                                    in the ratio plot
+        labels                  ... list of labels for each distribution
+        axes                    ... optional, list of two matplotlib.pyplot.axes on which 
+                                    to place the plots
+        colors                  ... list of colors to use for each distribution
+        bins                    ... number of bins to use in histogram
+        title                   ... plot title
+        ratio_range             ... range of distribution range to plot
+        xlabel                  ... x-axis label
+        linestyle               ... list of linestyles to use for each distribution
+    author: Calum Macdonald
+    June 2020
+    '''
     ret = False
     if axes is None:
         fig, axes = plt.subplots(2,1,figsize=(12,12))
@@ -768,10 +814,27 @@ def rms(arr):
     Returns RMS value of the array.
     Args:
         arr                         ... 1d array of numbers
+    author: Calum Macdonald
+    June 2020
     '''
     return math.sqrt(reduce(lambda a, x: a + x * x, arr, 0) / len(arr))
 
 def plot_binned_response(softmaxes, labels, binning_features, binning_label,efficiency, bins, p_bins, index_dict,log_scales=[]):
+    '''
+    Plot softmax response, binned in a feature of the event.
+    Args:
+        softmaxes                   ... 2d array of softmax output, shape (nsamples, 3)
+        labels                      ... 1d array of labels, length n_samples
+        binning_features            ... 1d array of feature to use in binning, length n_samples
+        binning_label               ... string, name of binning feature to use in title and x-axis label
+        efficiency                  ... bin signal efficiency to fix
+        bins                        ... number of bins to use in feature histogram
+        p_bins                      ... number of bins to use in probability density histogram
+        index_dict                  ... dictionary of particle labels, must have 'gamma','mu','e' keys pointing to values taken by 'labels'
+        log_scales                  ... indices of axes.flatten() to which to apply log color scaling
+    author: Calum Macdonald
+    June 2020
+    '''
     legend_label_dict = {0:'\u03B3',1:'e-',2:'\u03BC-'}
 
     label_size = 18

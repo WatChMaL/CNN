@@ -14,7 +14,7 @@ import math
 import random
 
 # WatChMaL imports
-import normalize_funcs as norm_funcs
+import preprocessing.normalize_funcs as norm_funcs
 
 # Returns the maximum height at which cherenkov radiation will hit the tank
 def find_bounds(pos, ang, label, energy):
@@ -103,7 +103,7 @@ class WCH5DatasetT(Dataset):
     def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
-
+        
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
         self.chrg_acc = norm_params["c_acc"]
@@ -193,18 +193,15 @@ class WCH5DatasetT(Dataset):
             # train indices
             c = ma.masked_where((find_height_center(self.angles[self.train_indices], self.labels[self.train_indices], self.energies[self.train_indices,0]) > 400) | (find_height_center(self.angles[self.train_indices], self.labels[self.train_indices], self.energies[self.train_indices,0]) < -400), self.train_indices)
             self.train_indices = c.compressed()
-
             # validation indices
             c = ma.masked_where((find_height_center(self.angles[self.val_indices], self.labels[self.val_indices], self.energies[self.val_indices,0]) > 400) | (find_height_center(self.angles[self.val_indices], self.labels[self.val_indices], self.energies[self.val_indices,0]) < -400), self.val_indices) 
             self.val_indices = c.compressed()
-
             # For dataset with varying position:
             bound = find_bounds(self.positions[:,0,:], self.angles[:,:], self.labels[:], self.energies[:,0])
             c = ma.masked_where(bound[self.train_indices,2] < 200, self.train_indices)
             c = ma.masked_where(abs(self.positions[self.train_indices,0,1]) > 250, c)
             c = ma.masked_where((self.angles[self.train_indices,0] > bound[self.train_indices,1]) | (self.angles[self.train_indices,0] < bound[self.train_indices,0]), self.train_indices)
             self.train_indices = c.compressed()
-
             c = ma.masked_where(bound[self.val_indices,2] < 200, self.val_indices)
             c = ma.masked_where(abs(self.positions[self.val_indices,0,1]) > 250, c)
             c = ma.masked_where((self.angles[self.val_indices,0] > bound[self.val_indices,1]) | (self.angles[self.val_indices,0] < bound[self.val_indices,0]), self.val_indices)
