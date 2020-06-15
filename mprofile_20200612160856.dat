@@ -1,0 +1,3 @@
+CMDLINE python3 minimal_example.py --num_workers 5
+MEM 1.964844 1592003336.0874
+MEM 10.289062 1592003336.1880

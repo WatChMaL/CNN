@@ -32,7 +32,7 @@ def run_test(args):
         trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval.h5']
     else:
         trainval_path   =     [os.path.join(args.dir,args.h5_name)]
-    train_dset = Test_Dset(trainval_path[0], use_mem_map=args.use_mem_map, use_tables=args.use_tables)
+    train_dset = Test_Dset(trainval_path[0], use_mem_map=args.use_mem_map, use_tables=args.use_tables, reopen_mem_map=args.reopen_mem_map)
 
     if args.no_torch:
         for epoch in range(args.epochs):
@@ -48,6 +48,8 @@ def run_test(args):
                 print("Epoch: {} Batch: {} Object Size: {} Event_data Refs: {} Data: {} File Size: {}".format(epoch+1, 
                                                 i,sys.getsizeof(data),len(gc.get_referrers(train_dset.event_data)), sys.getsizeof(data), sys.getsizeof(train_dset.f)))
                 # pprint_ntuple(psutil.swap_memory())
+                if args.del_data:
+                    del data
     else:
         train_indices = [i for i in range(len(train_dset))]
         train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
@@ -57,6 +59,8 @@ def run_test(args):
                 print("Epoch: {} Batch: {} Object Size: {} Event_data Refs: {} Data: {} File Size: {}".format(epoch+1, 
                                                 i,sys.getsizeof(data),len(gc.get_referrers(train_dset.event_data)), sys.getsizeof(data), sys.getsizeof(train_dset.f)))
                 # pprint_ntuple(psutil.swap_memory())
+                if args.del_data:
+                    del data
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -70,6 +74,10 @@ if __name__ == "__main__":
     parser.add_argument('--use_memmap', action='store_true',default=False,dest='use_mem_map')
     parser.add_argument('--no_torch', action='store_true',default=False,dest='no_torch')
     parser.add_argument('--use_tables', action='store_true',default=False,dest='use_tables')
+    parser.add_argument('--del_data', action='store_true',default=False,dest='del_data')
+    parser.add_argument('--reopen_map', action='store_true',default=False,dest='reopen_mem_map')
+
+
 
     args = parser.parse_args()
     
