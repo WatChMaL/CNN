@@ -1,18 +1,86 @@
-[I 11:37:16.234 NotebookApp] jupyter_tensorboard extension loaded.
-[I 11:37:16.295 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 11:37:16.295 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 11:37:16.297 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 11:37:16.297 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 11:37:16.297 NotebookApp] The Jupyter Notebook is running at:
-[I 11:37:16.297 NotebookApp] http://hostname:8888/?token=639aa1b0d71976de9776b98cf15a4ae336ab48a33d55a979
-[I 11:37:16.297 NotebookApp]  or http://127.0.0.1:8888/?token=639aa1b0d71976de9776b98cf15a4ae336ab48a33d55a979
-[I 11:37:16.297 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 11:37:16.300 NotebookApp] 
+[I 15:04:56.751 NotebookApp] The port 8888 is already in use, trying another port.
+[I 15:04:57.902 NotebookApp] jupyter_tensorboard extension loaded.
+[I 15:04:57.966 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 15:04:57.966 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 15:04:57.968 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 15:04:57.968 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 15:04:57.968 NotebookApp] The Jupyter Notebook is running at:
+[I 15:04:57.968 NotebookApp] http://hostname:8888/?token=568b182c9ab352cd77d24439cdff8726aae2b98c606c5f3b
+[I 15:04:57.968 NotebookApp]  or http://127.0.0.1:8889/?token=568b182c9ab352cd77d24439cdff8726aae2b98c606c5f3b
+[I 15:04:57.968 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 15:04:57.973 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-3485-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-24257-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=639aa1b0d71976de9776b98cf15a4ae336ab48a33d55a979
-     or http://127.0.0.1:8888/?token=639aa1b0d71976de9776b98cf15a4ae336ab48a33d55a979
-[I 11:37:50.330 NotebookApp] 302 GET /?token=639aa1b0d71976de9776b98cf15a4ae336ab48a33d55a979 (::1) 1.21ms
-[W 15:04:02.369 NotebookApp] delete /debug/notorch-h5py-mapc.png
+        http://hostname:8888/?token=568b182c9ab352cd77d24439cdff8726aae2b98c606c5f3b
+     or http://127.0.0.1:8889/?token=568b182c9ab352cd77d24439cdff8726aae2b98c606c5f3b
+[I 15:05:29.099 NotebookApp] 302 GET /?token=568b182c9ab352cd77d24439cdff8726aae2b98c606c5f3b (::1) 1.31ms
+[I 15:05:37.775 NotebookApp] Creating new notebook in /debug
+[I 15:05:37.789 NotebookApp] Saving Untitled.ipynb
+[I 15:05:39.581 NotebookApp] Kernel started: 6e0a2b91-ca24-4f8d-a9e6-c8e650153c4b
+[I 15:07:39.567 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:07:39.569 NotebookApp] Saving Untitled.ipynb
+[I 15:09:39.543 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:09:39.543 NotebookApp] Saving Untitled.ipynb
+[I 15:11:39.547 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:11:39.547 NotebookApp] Saving Untitled.ipynb
+[I 15:13:39.558 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:13:39.558 NotebookApp] Saving Untitled.ipynb
+[I 15:15:39.565 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:15:39.566 NotebookApp] Saving Untitled.ipynb
+[I 15:17:39.558 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:17:39.558 NotebookApp] Saving Untitled.ipynb
+[I 15:19:39.561 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:19:39.561 NotebookApp] Saving Untitled.ipynb
+[I 15:21:39.542 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:21:39.543 NotebookApp] Saving Untitled.ipynb
+[I 15:37:39.583 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:37:39.583 NotebookApp] Saving Untitled.ipynb
+[I 15:39:39.562 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:39:39.562 NotebookApp] Saving Untitled.ipynb
+[I 15:47:40.331 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:47:40.331 NotebookApp] Saving Untitled.ipynb
+[I 15:50:19.466 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:50:19.466 NotebookApp] Saving Untitled.ipynb
+[I 15:51:39.602 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 15:51:39.602 NotebookApp] Saving Untitled.ipynb
+[I 16:01:39.621 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:01:39.621 NotebookApp] Saving Untitled.ipynb
+[I 16:03:39.578 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:03:39.578 NotebookApp] Saving Untitled.ipynb
+[I 16:05:40.321 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:05:40.321 NotebookApp] Saving Untitled.ipynb
+[I 16:07:39.606 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:07:39.607 NotebookApp] Saving Untitled.ipynb
+[I 16:23:31.644 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:23:31.645 NotebookApp] Saving Untitled.ipynb
+[I 16:23:39.593 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:23:39.593 NotebookApp] Saving Untitled.ipynb
+[I 16:29:40.342 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:29:40.343 NotebookApp] Saving Untitled.ipynb
+[I 16:59:40.366 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 16:59:40.366 NotebookApp] Saving Untitled.ipynb
+[I 17:03:40.340 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:03:40.340 NotebookApp] Saving Untitled.ipynb
+[I 17:09:40.441 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:09:40.441 NotebookApp] Saving Untitled.ipynb
+[I 17:19:40.359 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:19:40.360 NotebookApp] Saving Untitled.ipynb
+[I 17:21:17.362 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:21:17.363 NotebookApp] Saving Untitled.ipynb
+[I 17:21:39.611 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:21:39.614 NotebookApp] Saving Untitled.ipynb
+[I 17:21:59.853 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:21:59.854 NotebookApp] Saving Untitled.ipynb
+[I 17:23:39.662 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:23:39.663 NotebookApp] Saving Untitled.ipynb
+[I 17:25:40.402 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:25:40.403 NotebookApp] Saving Untitled.ipynb
+[I 17:29:39.623 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:29:39.623 NotebookApp] Saving Untitled.ipynb
+[I 17:30:31.763 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:30:31.763 NotebookApp] Saving Untitled.ipynb
+[I 17:31:39.597 NotebookApp] Saving file at /debug/Untitled.ipynb
+[I 17:31:39.598 NotebookApp] Saving Untitled.ipynb
+[I 17:38:16.487 NotebookApp] Starting buffering for 6e0a2b91-ca24-4f8d-a9e6-c8e650153c4b:cfeb78cc384b47209f506b2348f33c73

@@ -32,7 +32,8 @@ def run_test(args):
         trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval.h5']
     else:
         trainval_path   =     [os.path.join(args.dir,args.h5_name)]
-    train_dset = Test_Dset(trainval_path[0], use_mem_map=args.use_mem_map, use_tables=args.use_tables, reopen_mem_map=args.reopen_mem_map)
+    train_dset = Test_Dset(trainval_path[0], use_mem_map=args.use_mem_map, use_tables=args.use_tables, 
+                           reopen_mem_map=args.reopen_mem_map, driver=args.driver)
 
     if args.no_torch:
         for epoch in range(args.epochs):
@@ -76,8 +77,7 @@ if __name__ == "__main__":
     parser.add_argument('--use_tables', action='store_true',default=False,dest='use_tables')
     parser.add_argument('--del_data', action='store_true',default=False,dest='del_data')
     parser.add_argument('--reopen_map', action='store_true',default=False,dest='reopen_mem_map')
-
-
+    parser.add_argument('--driver', type=str, dest='driver',default=None, help='Choose from sec2, stdio, core, family, file obj')
 
     args = parser.parse_args()
     
