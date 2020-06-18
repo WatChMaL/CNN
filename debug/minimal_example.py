@@ -10,6 +10,7 @@ import argparse
 from math import floor, ceil
 import os,sys
 
+import time 
 import gc, psutil
 
 def pprint_ntuple(nt):
@@ -33,7 +34,7 @@ def run_test(args):
     else:
         trainval_path   =     [os.path.join(args.dir,args.h5_name)]
     train_dset = Test_Dset(trainval_path[0], use_mem_map=args.use_mem_map, use_tables=args.use_tables, 
-                           reopen_mem_map=args.reopen_mem_map, driver=args.driver)
+                           reopen_mem_map=args.reopen_mem_map, driver=args.driver, fadvise=args.fadvise)
 
     if args.no_torch:
         for epoch in range(args.epochs):
@@ -55,13 +56,16 @@ def run_test(args):
         train_indices = [i for i in range(len(train_dset))]
         train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
                                             pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=args.num_workers)
+        start = time.time()
         for epoch in range(args.epochs):
             for i, data in enumerate(train_loader):
+                print(time.time() - start)
                 print("Epoch: {} Batch: {} Object Size: {} Event_data Refs: {} Data: {} File Size: {}".format(epoch+1, 
                                                 i,sys.getsizeof(data),len(gc.get_referrers(train_dset.event_data)), sys.getsizeof(data), sys.getsizeof(train_dset.f)))
                 # pprint_ntuple(psutil.swap_memory())
                 if args.del_data:
                     del data
+                start = time.time()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -78,7 +82,7 @@ if __name__ == "__main__":
     parser.add_argument('--del_data', action='store_true',default=False,dest='del_data')
     parser.add_argument('--reopen_map', action='store_true',default=False,dest='reopen_mem_map')
     parser.add_argument('--driver', type=str, dest='driver',default=None, help='Choose from sec2, stdio, core, family, file obj')
-
+    parser.add_argument('--fadvise', type=str, dest='fadvise',default='file', help='Choose which part of the h5 to advise kernel to dump. Choose from file, dataset')
     args = parser.parse_args()
     
     run_test(args)

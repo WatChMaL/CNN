@@ -156,6 +156,7 @@ class EngineCL(Engine):
  
         # Set the iterations at which to dump the events and their metrics
         dump_iterations = self.set_dump_iterations(self.train_loader)
+        print(f"Validation Interval: {dump_iterations[0]}")
         
         # Initialize epoch counter
         epoch = 0.
@@ -220,27 +221,6 @@ class EngineCL(Engine):
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
 
-                    # print("     The GC is tracking {} objects".format(len(gc.get_objects())))
-                    # print("     Collecting {} Objects".format(gc.collect()))
-                    # gc_count = gc.get_count()
-                    # stats=gc.get_stats()
-                    # print("     1st Gen: {}, 2nd Gen: {}, 3rd Gen: {}".format(gc_count[0],gc_count[1],gc_count[2]))
-                    # print('     Memory usage by parent   : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024.0/1024.0,1))
-                    # print('     Memory usage by children : % 2.2f MB' % round(resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss/1024.0/1024.0,1))
-                    # first_gen_stats = stats[0]
-                    # print('     1st Gen Number of Collections:       {}'.format(first_gen_stats['collections']))
-                    # print('     1st Gen Number of Objects Collected: {}'.format(first_gen_stats['collected']))
-                    # print('     1st Gen Number of Uncollectables:    {}'.format(first_gen_stats['uncollectable']))
-                    # second_gen_stats = stats[1]
-                    # print('     2nd Gen Number of Collections:       {}'.format(second_gen_stats['collections']))
-                    # print('     2nd Gen Number of Objects Collected: {}'.format(second_gen_stats['collected']))
-                    # print('     2nd Gen Number of Uncollectables:    {}'.format(second_gen_stats['uncollectable']))
-                    # third_gen_stats = stats[1]
-                    # print('     3rd Gen Number of Collections:       {}'.format(third_gen_stats['collections']))
-                    # print('     3rd Gen Number of Objects Collected: {}'.format(third_gen_stats['collected']))
-                    # print('     3rd Gen Number of Uncollectables:    {}'.format(third_gen_stats['uncollectable']))
-                    # print('     Unreachable but Unfree-able:         {}'.format(len(gc.garbage)))
-
                 # Save the model computation graph to a file
                 """if iteration == 1:
                     graph = make_dot(res["raw_pred_labels"], params=dict(list(self.model_accs.named_parameters())))
@@ -249,7 +229,6 @@ class EngineCL(Engine):
 
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
-
                     curr_loss = 0.
                     val_batch = 0
 
@@ -320,7 +299,7 @@ class EngineCL(Engine):
 
                 # times.append(time()-start_time)
                 # writer.writerow([times[-1]])
-                # start_time = time()
+
                 if epoch >= epochs:
                     break
 

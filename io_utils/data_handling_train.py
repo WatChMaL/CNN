@@ -12,6 +12,7 @@ import numpy as np
 import numpy.ma as ma
 import math
 import random
+import os
 
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
@@ -112,6 +113,11 @@ class WCH5DatasetT(Dataset):
         self.chrg_func = getattr(norm_funcs, chrg_norm)
         self.time_func = getattr(norm_funcs, time_norm)
         
+        self.fds = []
+        self.filesizes = []
+        self.offsets = []
+        self.dataset_sizes = []
+
         self.event_data = []
         self.labels = []
         self.energies = []
@@ -123,8 +129,11 @@ class WCH5DatasetT(Dataset):
         
         for i in np.arange(num_datasets):
 
+            fd = open(trainval_dset_path[i], 'rb')
+            self.fds.append(fd)
+            f = h5py.File(fd, "r")
 
-            f = h5py.File(trainval_dset_path[i], "r")
+            self.filesizes.append(f.id.get_filesize())
 
             hdf5_event_data = f["event_data"]
             hdf5_labels = f["labels"]
@@ -135,8 +144,12 @@ class WCH5DatasetT(Dataset):
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
-            self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
-                                        offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+            # self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
+            #                             offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+
+            self.event_data.append(hdf5_event_data)
+            self.offsets.append(hdf5_event_data.id.get_offset())
+            self.dataset_sizes.append(hdf5_event_data.id.get_storage_size())
 
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
@@ -290,7 +303,6 @@ class WCH5DatasetT(Dataset):
         self.c = self.a
         return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
         '''
-        
         np.random.shuffle(self.datasets)
         for i in np.arange(len(self.datasets)):
 
@@ -304,7 +316,9 @@ class WCH5DatasetT(Dataset):
                     self.f = self.e[:,:,0] > prob
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
-
+                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
+                    #                                      os.POSIX_FADV_DONTNEED)
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
                 else:
@@ -314,16 +328,15 @@ class WCH5DatasetT(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    
+                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
+                    #                                      os.POSIX_FADV_DONTNEED)
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
-        
         assert False, "empty batch"
         raise RuntimeError("empty batch")
         
-                
-        
     def __len__(self):
         if self.reduced_size is None:
-            return self.labels.shape[0]
+            return self.labels[0].shape[0]
         else:
             return self.reduced_size
