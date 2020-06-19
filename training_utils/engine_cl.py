@@ -183,8 +183,10 @@ class EngineCL(Engine):
             # writer = csv.writer(f)
 
             # Local training loop for a single epoch
+            print('entering loop')
             for data in self.train_loader:
-                
+                print('in loop')    
+
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()

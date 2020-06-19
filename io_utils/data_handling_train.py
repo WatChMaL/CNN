@@ -294,7 +294,7 @@ class WCH5DatasetT(Dataset):
             
         self.datasets = np.array(np.arange(num_datasets))
 
-
+    @profile
     def __getitem__(self, index):
         '''
         self.a = self.event_data[self.datasets[0]][index,:,:,:19]
@@ -307,9 +307,8 @@ class WCH5DatasetT(Dataset):
         for i in np.arange(len(self.datasets)):
 
             if index < self.labels[self.datasets[i]].shape[0]:
-                if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
-
-                    self.a = self.event_data[self.datasets[i]][index, :, :, :19]
+                self.a = self.event_data[self.datasets[i]][index,:,:,:19]
+                if self.a.shape[0] == 16:
                     self.c = np.concatenate((self.b,self.a,self.b), axis=0)
                     self.e = np.random.rand(192,19,2)
                     prob = random.randrange(1, 7, 1)/100
@@ -322,7 +321,6 @@ class WCH5DatasetT(Dataset):
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
                 else:
-                    self.a = self.event_data[self.datasets[i]][index,:,:,:19]
                     self.b[12:28,:,:] = self.a[12:28, :, :]
                     self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
                     self.c = self.b
@@ -340,3 +338,40 @@ class WCH5DatasetT(Dataset):
             return self.labels[0].shape[0]
         else:
             return self.reduced_size
+
+@profile
+def run_test():
+    train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+    train_indices = [i for i in range(len(train_dset))]
+    
+    for epoch in range(2):
+        indices_left = train_indices
+        i = 0
+        while len(indices_left) > 0:
+            batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
+            assert len(batch_idxs) == 512
+            data = fetch_batch(train_dset,batch_idxs)
+            indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
+            print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
+            i+=1
+@profile
+def fetch_batch(dset, batch_idxs):
+    data = []
+    for idx in batch_idxs:
+        data.append(dset[idx])
+    return data
+
+if __name__ == "__main__":
+    batch_size_train = 512
+    cfg              = None
+    chrg_norm        = 'identity'
+    norm_params_path = '/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_norm_params/IWCDmPMT_4pi_fulltank_9M_trainval_norm_params.npz'
+    shuffle          = 1
+    time_norm        = 'identity'
+    trainval_idxs    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval_idxs.npz']
+    trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval.h5']
+    trainval_subset  = None
+    num_datasets     = 1
+    from torch.utils.data import DataLoader
+    from torch.utils.data.sampler import SubsetRandomSampler
+    run_test()    

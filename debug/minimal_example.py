@@ -20,6 +20,7 @@ def pprint_ntuple(nt):
             value = psutil._common.bytes2human(value)
         print('%-10s : %7s' % (name.capitalize(), value))
 
+# @profile
 def run_test(args):
     if args.generate:
         if args.dir==None:

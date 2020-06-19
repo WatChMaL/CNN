@@ -27,6 +27,7 @@ trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits
 trainval_subset  = None
 num_datasets     = 1
 
+@profile
 def run_test(args):
     train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm,
                                             shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
