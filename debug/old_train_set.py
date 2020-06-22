@@ -12,10 +12,6 @@ import numpy as np
 import numpy.ma as ma
 import math
 import random
-import os
-
-# WatChMaL imports
-import preprocessing.normalize_funcs as norm_funcs
 
 # workaround from having to remove profile decorators when not testing
 try:
@@ -31,6 +27,9 @@ except AttributeError:
     # No line profiler, provide a pass-through version
     def profile(func): return func
     builtins.profile = profile
+
+# WatChMaL imports
+import preprocessing.normalize_funcs as norm_funcs
 
 # Returns the maximum height at which cherenkov radiation will hit the tank
 def find_bounds(pos, ang, label, energy):
@@ -128,11 +127,6 @@ class WCH5DatasetT(Dataset):
         self.chrg_func = getattr(norm_funcs, chrg_norm)
         self.time_func = getattr(norm_funcs, time_norm)
         
-        self.fds = []
-        self.filesizes = []
-        self.offsets = []
-        self.dataset_sizes = []
-
         self.event_data = []
         self.labels = []
         self.energies = []
@@ -141,17 +135,10 @@ class WCH5DatasetT(Dataset):
         
         self.train_indices = []
         self.val_indices = []
-
-        self.to_dump = None
         
         for i in np.arange(num_datasets):
 
-            fd = open(trainval_dset_path[i], 'rb')
-            f = h5py.File(fd, "r")
-            self.fds.append(fd)
-            self.filesizes.append(f.id.get_filesize())
-
-            # f = h5py.File(trainval_dset_path[i],"r")
+            f = h5py.File(trainval_dset_path[i], "r")
 
             hdf5_event_data = f["event_data"]
             hdf5_labels = f["labels"]
@@ -164,10 +151,6 @@ class WCH5DatasetT(Dataset):
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
             self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
                                         offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
-
-            # self.event_data.append(hdf5_event_data)
-            self.offsets.append(hdf5_event_data.id.get_offset())
-            self.dataset_sizes.append(hdf5_event_data.id.get_storage_size())
 
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
@@ -321,49 +304,37 @@ class WCH5DatasetT(Dataset):
         self.c = self.a
         return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
         '''
+        
         np.random.shuffle(self.datasets)
         for i in np.arange(len(self.datasets)):
 
             if index < self.labels[self.datasets[i]].shape[0]:
-                a = self.event_data[self.datasets[i]][index]
-                self.a = a[:,:,:19]
-                del a
-                # self.a = self.event_data[self.datasets[i]][index,:,:,:19]
-                if self.a.shape[0] == 16:
+                if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
+
+                    self.a = self.event_data[self.datasets[i]][index, :, :, :19]
                     self.c = np.concatenate((self.b,self.a,self.b), axis=0)
                     self.e = np.random.rand(192,19,2)
                     prob = random.randrange(1, 7, 1)/100
                     self.f = self.e[:,:,0] > prob
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
-                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
-                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
-                    #                                      os.POSIX_FADV_DONTNEED)
-                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38, 
-                    #                                      os.POSIX_FADV_DONTNEED)
+
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
                 else:
+                    self.a = self.event_data[self.datasets[i]][index,:,:,:19]
                     self.b[12:28,:,:] = self.a[12:28, :, :]
                     self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
-                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
-                    #                                      os.POSIX_FADV_DONTNEED)
-
-                    # if self.to_dump is not None:
-                    #     os.posix_fadvise(self.to_dump[0], self.to_dump[1], self.to_dump[2], 
-                    #                                      os.POSIX_FADV_DONTNEED)
-                    # self.to_dump = [self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38]
-
-                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38, 
-                    #                                      os.POSIX_FADV_DONTNEED)
-
+                    
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+        
         assert False, "empty batch"
         raise RuntimeError("empty batch")
+        
+                
         
     def __len__(self):
         if self.reduced_size is None:

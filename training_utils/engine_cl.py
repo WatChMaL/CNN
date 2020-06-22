@@ -6,7 +6,7 @@ Derived engine class for training a fully supervised classifier
 
 # +
 import pdb
-import os.path
+import os
 from os import path
 
 # Python standard imports
@@ -183,9 +183,7 @@ class EngineCL(Engine):
             # writer = csv.writer(f)
 
             # Local training loop for a single epoch
-            print('entering loop')
             for data in self.train_loader:
-                print('in loop')    
 
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
@@ -222,6 +220,11 @@ class EngineCL(Engine):
                 if iteration == 0 or iteration%report_interval == 0:
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
+
+                if iteration%5==0:
+                    a = time()
+                    os.posix_fadvise(self.train_dset.fds[0].fileno(), 0, self.train_dset.filesizes[0], os.POSIX_FADV_DONTNEED)
+                    print(f"... Iteration {iteration} ... Cache Clearing Time: {time()-a}")
 
                 # Save the model computation graph to a file
                 """if iteration == 1:

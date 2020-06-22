@@ -9,8 +9,6 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-from io_utils.data_handling_train import WCH5DatasetT
-
 import argparse
 import os,sys
 
@@ -27,8 +25,12 @@ trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits
 trainval_subset  = None
 num_datasets     = 1
 
-@profile
+# @profile
 def run_test(args):
+    if args.master_set:
+        from old_train_set import WCH5DatasetT
+    else:
+        from io_utils.data_handling_train import WCH5DatasetT
     train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm,
                                             shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
     train_indices = [i for i in range(len(train_dset))]
@@ -50,6 +52,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_workers', type=int,dest='num_workers',default=1)
     parser.add_argument('--use_memmap', action='store_true',default=False,dest='use_mem_map')
     parser.add_argument('--fadvise', type=str, dest='fadvise',default='file', help='Choose which part of the h5 to advise kernel to dump. Choose from file, dataset')
+    parser.add_argument('--master_set', action='store_true', dest='master_set',default=False )
     args = parser.parse_args()
     
     run_test(args)

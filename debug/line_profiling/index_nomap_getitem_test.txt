@@ -1,0 +1,93 @@
+Timer unit: 1e-06 s
+
+Total time: 54.8335 s
+File: io_utils/data_handling_train.py
+Function: __getitem__ at line 312
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   312                                               @profile
+   313                                               def __getitem__(self, index):
+   314                                                   '''
+   315                                                   self.a = self.event_data[self.datasets[0]][index,:,:,:19]
+   316                                                   #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
+   317                                                   #self.c[12:28,:,:] = self.a[12:28,:,:19]
+   318                                                   self.c = self.a
+   319                                                   return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
+   320                                                   '''
+   321     51409     445329.0      8.7      0.8          np.random.shuffle(self.datasets)
+   322     51409     215934.0      4.2      0.4          for i in np.arange(len(self.datasets)):
+   323                                           
+   324     51409     141209.0      2.7      0.3              if index < self.labels[self.datasets[i]].shape[0]:
+   325     51409   44051171.0    856.9     80.3                  a = self.event_data[self.datasets[i]][index]
+   326     51408     408528.0      7.9      0.7                  self.a = a[:,:,:19]
+   327     51408      82332.0      1.6      0.2                  del a
+   328                                                           # self.a = self.event_data[self.datasets[i]][index,:,:,:19]
+   329     51408     117778.0      2.3      0.2                  if self.a.shape[0] == 16:
+   330                                                               self.c = np.concatenate((self.b,self.a,self.b), axis=0)
+   331                                                               self.e = np.random.rand(192,19,2)
+   332                                                               prob = random.randrange(1, 7, 1)/100
+   333                                                               self.f = self.e[:,:,0] > prob
+   334                                                               self.g = np.where(self.f, 0, self.e[:,:,1])
+   335                                                               self.c[self.d[:,0], self.d[:,1]] = self.g
+   336                                                               os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+   337                                                               # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
+   338                                                               #                                      os.POSIX_FADV_DONTNEED)
+   339                                                               return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+   340                                           
+   341                                                           else:
+   342     51408     835750.0     16.3      1.5                      self.b[12:28,:,:] = self.a[12:28, :, :]
+   343     51408    1603511.0     31.2      2.9                      self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
+   344     51408      90013.0      1.8      0.2                      self.c = self.b
+   345                                                               #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
+   346                                                               #self.c[12:28,:,:] = self.a[12:28,:,:19]
+   347     51408    2353786.0     45.8      4.3                      os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+   348                                                               # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
+   349                                                               #                                      os.POSIX_FADV_DONTNEED)
+   350     51408    4488181.0     87.3      8.2                      return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+   351                                                   assert False, "empty batch"
+   352                                                   raise RuntimeError("empty batch")
+
+Total time: 59.9654 s
+File: io_utils/data_handling_train.py
+Function: run_test at line 364
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   364                                           @profile
+   365                                           def run_test(args):
+   366         1     690400.0 690400.0      1.2      train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+   367         1     564962.0 564962.0      0.9      train_indices = [i for i in range(len(train_dset))]
+   368                                               
+   369         1          5.0      5.0      0.0      if args.loader == 'notorch':
+   370         1          8.0      8.0      0.0          for epoch in range(2):
+   371         1          1.0      1.0      0.0              indices_left = train_indices
+   372         1          1.0      1.0      0.0              i = 0
+   373       101        180.0      1.8      0.0              while len(indices_left) > 0:
+   374       101      19773.0    195.8      0.0                  batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
+   375       101        198.0      2.0      0.0                  assert len(batch_idxs) == 512
+   376       101   56333222.0 557754.7     93.9                  data = fetch_batch(train_dset,batch_idxs)
+   377       100    2353222.0  23532.2      3.9                  indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
+   378       100       3318.0     33.2      0.0                  print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
+   379       100        137.0      1.4      0.0                  i+=1
+   380                                           
+   381                                               else:
+   382                                                   train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
+   383                                                                                   pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=5)
+   384                                                   for epoch in range(2):
+   385                                                       for i, data in enumerate(train_loader):
+   386                                                           print("Epoch: {} Batch: {} ".format(epoch+1,i))
+
+Total time: 56.2192 s
+File: io_utils/data_handling_train.py
+Function: fetch_batch at line 388
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   388                                           @profile
+   389                                           def fetch_batch(dset, batch_idxs):
+   390       101         72.0      0.7      0.0      data = []
+   391     51509      43134.0      0.8      0.1      for idx in batch_idxs:
+   392     51409   56175930.0   1092.7     99.9          data.append(dset[idx])
+   393       100         42.0      0.4      0.0      return data
+

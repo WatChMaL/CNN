@@ -3,7 +3,7 @@ import numpy as np
 import os
 from progressbar import *
 
-def generate_h5_file(n, dir):
+def generate_h5_file(n, dir,chunks=None,name='dummy_dataset.h5'):
 
     BATCH_SIZE=1000
 
@@ -21,9 +21,9 @@ def generate_h5_file(n, dir):
         energies.append(np.squeeze(np.random.rand(1)))
         positions.append(np.random.rand(1,3))
 
-    f = h5py.File(os.path.join(dir, 'dummy_dataset.h5'), 'w')
+    f = h5py.File(os.path.join(dir, name), 'w')
 
-    f.create_dataset('event_data',(n,40,40,38),dtype='float64')
+    f.create_dataset('event_data',(n,40,40,38),dtype='float64',chunks=chunks)
     f.create_dataset('labels',data=labels)
     f.create_dataset('energies',data=energies)
     f.create_dataset('positions',data=positions)
@@ -49,3 +49,16 @@ def generate_indices(n_train,n_val,n, dir):
     train_idxs=a[:n_train]
     val_idxs = np.delete(a, train_idxs)[:n_val]
     np.savez(os.path.join(dir,'dummy_trainval_idxs.npz'), train_idxs=train_idxs, val_idxs=val_idxs)
+
+if __name__ == "__main__":
+    import argparse 
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--n', type=int, dest='n', default=1000)
+    parser.add_argument('--dir', type=str, dest='dir', default='/fast_scratch/WatChMaL/debug')
+    parser.add_argument('--chunks', type=int,nargs='+', dest='chunks', default=None)
+    parser.add_argument('--name', type=str, dest='name', default='dummy_dataset.h5')
+    args = parser.parse_args()
+
+    if args.chunks is not None: args.chunks = tuple(args.chunks)
+    generate_h5_file(args.n, args.dir,chunks=args.chunks, name=args.name)

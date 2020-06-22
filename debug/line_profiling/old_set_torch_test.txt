@@ -1,0 +1,90 @@
+Timer unit: 1e-06 s
+
+Total time: 0 s
+File: debug/old_train_set.py
+Function: __getitem__ at line 284
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   284                                               @profile
+   285                                               def __getitem__(self, index):
+   286                                                   '''
+   287                                                   self.a = self.event_data[self.datasets[0]][index,:,:,:19]
+   288                                                   #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
+   289                                                   #self.c[12:28,:,:] = self.a[12:28,:,:19]
+   290                                                   self.c = self.a
+   291                                                   return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
+   292                                                   '''
+   293                                                   
+   294                                                   np.random.shuffle(self.datasets)
+   295                                                   for i in np.arange(len(self.datasets)):
+   296                                           
+   297                                                       if index < self.labels[self.datasets[i]].shape[0]:
+   298                                                           if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
+   299                                           
+   300                                                               self.a = self.event_data[self.datasets[i]][index, :, :, :19]
+   301                                                               self.c = np.concatenate((self.b,self.a,self.b), axis=0)
+   302                                                               self.e = np.random.rand(192,19,2)
+   303                                                               prob = random.randrange(1, 7, 1)/100
+   304                                                               self.f = self.e[:,:,0] > prob
+   305                                                               self.g = np.where(self.f, 0, self.e[:,:,1])
+   306                                                               self.c[self.d[:,0], self.d[:,1]] = self.g
+   307                                           
+   308                                                               return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+   309                                           
+   310                                                           else:
+   311                                                               self.a = self.event_data[self.datasets[i]][index,:,:,:19]
+   312                                                               self.b[12:28,:,:] = self.a[12:28, :, :]
+   313                                                               self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
+   314                                                               self.c = self.b
+   315                                                               #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
+   316                                                               #self.c[12:28,:,:] = self.a[12:28,:,:19]
+   317                                                               
+   318                                                               return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+   319                                                   
+   320                                                   assert False, "empty batch"
+   321                                                   raise RuntimeError("empty batch")
+
+Total time: 18.5713 s
+File: debug/old_train_set.py
+Function: run_test at line 335
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   335                                           @profile
+   336                                           def run_test(args):
+   337         1     569797.0 569797.0      3.1      train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+   338         1     500304.0 500304.0      2.7      train_indices = [i for i in range(len(train_dset))]
+   339                                               
+   340         1          7.0      7.0      0.0      if args.loader == 'notorch':
+   341                                                   for epoch in range(2):
+   342                                                       indices_left = train_indices
+   343                                                       i = 0
+   344                                                       while len(indices_left) > 0:
+   345                                                           batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
+   346                                                           assert len(batch_idxs) == 512
+   347                                                           data = fetch_batch(train_dset,batch_idxs)
+   348                                                           indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
+   349                                                           print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
+   350                                                           i+=1
+   351                                           
+   352                                               else:
+   353         1          1.0      1.0      0.0          train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
+   354         1        133.0    133.0      0.0                                          pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=5)
+   355         1          5.0      5.0      0.0          for epoch in range(2):
+   356       142   17461840.0 122970.7     94.0              for i, data in enumerate(train_loader):
+   357       141      39201.0    278.0      0.2                  print("Epoch: {} Batch: {} ".format(epoch+1,i))
+
+Total time: 0 s
+File: debug/old_train_set.py
+Function: fetch_batch at line 359
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   359                                           @profile
+   360                                           def fetch_batch(dset, batch_idxs):
+   361                                               data = []
+   362                                               for idx in batch_idxs:
+   363                                                   data.append(dset[idx])
+   364                                               return data
+
