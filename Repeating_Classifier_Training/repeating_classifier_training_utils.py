@@ -134,87 +134,114 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     plt.show()
 
 # Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(fprs, tprs, thresholds, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None):
+def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None):
     '''
     Plot multiple ROC curves of background rejection vs signal efficiency.
     Args:
         fprs                ... array of 1d arrays of false positive rates of length n
         tprs                ... array of 1d arrays of true positive rates of length n
         thresholds          ... array of 1d array of thresholds of length n
+        data                ... tuple of (false positive rates, true positive rates, thresholds) to plot rejection or 
+                                (rejection fractions, true positive rates, false positive rates, thresholds) to plot rejection fraction.
+        metric              ... string, name of metric to plot ('rejection' or 'fraction')
         pos_neg_labels      ... array of positive and negative string labels for each curve
         png_name            ... name of saved image
         title               ... title of plot
         annotate            ... whether or not to include annotations of critical points for each curve
         ax                  ... matplotlib.pyplot.axes on which to place plot
+        leg_loc             ... location for legend
     author: Calum Macdonald
     June 2020
     '''
-    min_energy = 0
-    max_energy = 1000
     
     if ax is None:
         fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
         ax.tick_params(axis="both", labelsize=20)
     
-    model_colors = [np.random.rand(3,) for i in fprs]
+    model_colors = [np.random.rand(3,) for i in data[0]]
     
-    for j in np.arange(len(fprs)):
+    for j in np.arange(len(data[0])):
         if isinstance(pos_neg_labels[0], str):
             label_0 = pos_neg_labels[0]
             label_1 = pos_neg_labels[1]
         else:
             label_0 = pos_neg_labels[j][0]
             label_1 = pos_neg_labels[j][1]
-        fpr = fprs[j]
-        tpr = tprs[j]
-        threshold = thresholds[j]
-     
-        roc_auc = auc(fpr, tpr)
+        if metric=='rejection':
+            fpr = data[0][j]
+            tpr = data[1][j]
+            threshold = data[2][j]
+        
+            roc_auc = auc(fpr, tpr)
 
-        inv_fpr = []
-        for i in fpr:
-            inv_fpr.append(1/i) if i != 0 else inv_fpr.append(1/1e-5)
+            inv_fpr = []
+            for i in fpr:
+                inv_fpr.append(1/i) if i != 0 else inv_fpr.append(1/1e-5)
 
-        tnr = 1. - fpr
-
-        # TNR vs TPR plot
-        if plot_labels is None:
-            ax.plot(tpr, inv_fpr,
-                 label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
-                 linewidth=1.0, marker=".", markersize=4.0, markerfacecolor=model_colors[j])
+            tnr = 1. - fpr
+        elif metric == 'fraction':
+            fraction = data[0][j]
+            tpr = data[1][j]
+            fpr = data[2][j]
+            threshold = data[3][j]
+            roc_auc = auc(fpr, tpr)
+            tnr = 1. - fpr
         else:
-            ax.plot(tpr, inv_fpr,
-                 label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
-                 linewidth=1.0, marker=".", markersize=4.0, markerfacecolor=model_colors[j])
+            print('Error: metric must be either \'rejection\' or \'fraction\'.')
+            return
+        
+
+        if metric == 'rejection':
+            if plot_labels is None:
+                line = ax.plot(tpr, inv_fpr,
+                    label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
+                    linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
+            else:
+                line = ax.plot(tpr, inv_fpr,
+                    label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
+                    linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
+        else:
+            if plot_labels is None:
+                line = ax.plot(tpr, fraction,
+                    label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
+                    linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
+            else:
+                line = ax.plot(tpr, fraction,
+                    label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
+                    linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
+
         # Show coords of individual points near x = 0.2, 0.5, 0.8
         todo = {0.2: True, 0.5: True, 0.8: True}
 
-        pbar = ProgressBar(widgets=['Find Critical Points: ', Percentage(), ' ', Bar(marker='0',left='[',right=']'),
-           ' ', ETA()], maxval=len(tpr))
-        pbar.start()
-        for i,xy in enumerate(zip(tpr, inv_fpr, tnr)):
-            pbar.update(i)
-            xy = (round(xy[0], 4), round(xy[1], 4), round(xy[2], 4))
-            xy_plot = (round(xy[0], 4), round(xy[1], 4))
-            for point in todo.keys():
-                if xy[0] >= point and todo[point]:
-                    if annotate: ax.annotate('(%s, %s, %s)' % xy, xy=xy_plot, textcoords='data', fontsize=18, bbox=dict(boxstyle="square", fc="w"))
-                    todo[point] = False
-        pbar.finish()
+        if annotate: 
+            pbar = ProgressBar(widgets=['Find Critical Points: ', Percentage(), ' ', Bar(marker='0',left='[',right=']'),
+            ' ', ETA()], maxval=len(tpr))
+            pbar.start()
+            for i,xy in enumerate(zip(tpr, inv_fpr if metric=='rejection' else fraction, tnr)):
+                pbar.update(i)
+                xy = (round(xy[0], 4), round(xy[1], 4), round(xy[2], 4))
+                xy_plot = (round(xy[0], 4), round(xy[1], 4))
+                for point in todo.keys():
+                    if xy[0] >= point and todo[point]:
+                        ax.annotate('(%s, %s, %s)' % xy, xy=xy_plot, textcoords='data', fontsize=18, bbox=dict(boxstyle="square", fc="w"))
+                        todo[point] = False
+            pbar.finish()
         ax.grid(True, which='both', color='grey')
         # xlabel = r"$\{0}$ signal efficiency".format(label_0) if label_0 is not "e" else r"${0}$ signal efficiency".format(label_0)
         # ylabel = r"$\{0}$ background rejection".format(label_1) if label_1 is not "e" else r"${0}$ background rejection".format(label_1)
 
         xlabel = 'Signal Efficiency'
-        ylabel = 'Background Rejection'
+        ylabel = 'Background Rejection' if metric == 'rejection' else 'Background Rejection Fraction'
 
         ax.set_xlabel(xlabel, fontsize=20) 
         ax.set_ylabel(ylabel, fontsize=20)
         ax.set_title(title, fontsize=20)
-        ax.legend(loc="upper right", prop={"size":20})
+        ax.legend(loc=leg_loc if leg_loc is not None else "upper right", prop={"size":20})
+        if metric == 'rejection':
+            ax.set_yscale('log')
 
         plt.margins(0.1)
-        plt.yscale("log")
+        # plt.yscale("log")
         
     plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
     
@@ -225,16 +252,19 @@ def plot_multiple_ROC(fprs, tprs, thresholds, pos_neg_labels, plot_labels = None
                 
     return fpr, tpr, threshold, roc_auc
 
-def prep_roc_data(softmaxes,labels, softmax_index_dict, label_0, label_1, energies=None,threshold=None):
+def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_1, energies=None,threshold=None):
     """
     prep_roc_data(softmaxes,labels, energies,index_dict,threshold=None)
 
     Purpose : Prepare data for plotting the ROC curves. If threshold is not none, filters 
     out events with energy greater than threshold. Returns true positive rates, false positive 
-    rates, and thresholds for plotting the ROC curve.
+    rates, and thresholds for plotting the ROC curve, or true positive rates, rejection fraction,
+    and thresholds, switched on 'metric'.
 
-    Args: labels              ... 1D array of true label value, the length = sample size
-          softmaxes           ... array of resnet softmax output, the 0th dim= sample size
+    Args: softmaxes           ... array of resnet softmax output, the 0th dim= sample size
+          labels              ... 1D array of true label value, the length = sample size
+          metric              ... string, name of metrix to use ('rejection' or 'fraction')
+                                  for background rejection or background rejection fraction.
           energies            ... 1D array of true event energies, the length = sample 
                                   size
           softmax_index_dict  ... Dictionary pointing to label integer from particle name
@@ -278,7 +308,17 @@ def prep_roc_data(softmaxes,labels, softmax_index_dict, label_0, label_1, energi
     # print("Positive Labels: {} Negative Labels: {}".format(len(np.where(total_labels==softmax_index_dict[label_0])[0]), 
                                                         #    len(np.where(total_labels==softmax_index_dict[label_1])[0])))
     #use the sklearn roc_curve function to find the desired metrics
-    return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
+    if metric == 'rejection':
+        return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
+    else:
+        fps, tps, thresholds = binary_clf_curve(total_labels,total_softmax[:,softmax_index_dict[label_0]], 
+                                                pos_label=softmax_index_dict[label_0])
+        fns = tps[-1] - tps
+        tns = fps[-1] - fps
+        tprs = tps / (tps + fns)
+        rejection_fraction = tns / (tns + fps)
+        fprs = fps / (fps + tns)
+        return rejection_fraction, tprs, fprs, thresholds
 
 
 def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10):
@@ -612,7 +652,7 @@ a = np.ones((100,100))
 
 [i for i in itertools.product(range(3),range(3))]
 
-def _binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
+def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
     '''
         SOURCE: Scikit.metrics internal usage tool
     '''
@@ -731,7 +771,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
     bin_metrics = []
     for bin_idx, data in enumerate(bin_data):
         (softmaxes_0,softmaxes_1),(labels_0,labels_1) = separate_particles([data['softmaxes'],data['labels']],data['labels'],index_dict,desired_labels=[label_0,label_1])
-        fps, tps, thresholds = _binary_clf_curve(np.concatenate((labels_0,labels_1)),np.concatenate((softmaxes_0,softmaxes_1))[:,index_dict[label_0]], 
+        fps, tps, thresholds = binary_clf_curve(np.concatenate((labels_0,labels_1)),np.concatenate((softmaxes_0,softmaxes_1))[:,index_dict[label_0]], 
                                                 pos_label=index_dict[label_0])
         fns = tps[-1] - tps
         tns = fps[-1] - fps
@@ -930,7 +970,7 @@ def separate_particles(input_array_list,labels,index_dict,desired_labels=['gamma
 
     return separated_arrays
 
-def collapse_test_output(softmaxes, labels, index_dict,predictions=None):
+def collapse_test_output(softmaxes, labels, index_dict,predictions=None,ignore_type=None):
     '''
     Collapse gamma class into electron class to allow more equal comparison to FiTQun.
     Args:
@@ -938,9 +978,16 @@ def collapse_test_output(softmaxes, labels, index_dict,predictions=None):
         labels                     ... 1d array of event labels, of length n, taking values in the set of values of 'index_dict'
         index_dict                 ... Dictionary with keys 'gamma','e','mu' pointing to the corresponding integer
                                        label taken by 'labels'
-        predictions                ... 1d array of event type predictions, of lengthn, taking values in the 
-                                       set of values of 'index_dict'                        
+        predictions                ... 1d array of event type predictions, of length n, taking values in the 
+                                       set of values of 'index_dict'   
+        ignore_type                ... single string, name of event type to exclude                     
     '''
+    if ignore_type is not None:
+        keep_indices = np.where(labels!=index_dict[ignore_type])[0]
+        softmaxes = softmaxes[keep_indices]
+        labels = labels[keep_indices]
+        if predictions is not None: predictions = predictions[keep_indices]
+
     new_labels = np.ones((softmaxes.shape[0]))*index_dict['e']
     new_softmaxes = np.zeros((labels.shape[0], 3))
     if predictions is not None:
