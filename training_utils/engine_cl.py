@@ -89,7 +89,7 @@ class EngineCL(Engine):
         # Initialize the torch dataloaders
   
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=0)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=5)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
@@ -181,10 +181,10 @@ class EngineCL(Engine):
 
             # f = open('/home/cmacdonald/CNN/dumps/timing.csv','w',newline='\r')
             # writer = csv.writer(f)
-
+            last = time()
             # Local training loop for a single epoch
             for data in self.train_loader:
-
+                print(f"Loading time: {time() - last}")
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
                 self.labels   = data[1].long()
@@ -202,6 +202,8 @@ class EngineCL(Engine):
                 # Update the epoch and iteration
                 epoch     += 1./len(self.train_loader)
                 iteration += 1
+
+                print(f"Iteration: {iteration}")
 
                 # Iterate over the _LOG_KEYS and add the vakues to a list
                 keys   = ["iteration", "epoch"]
@@ -221,10 +223,10 @@ class EngineCL(Engine):
                     print("... Iteration %d ... Epoch %1.2f ... Loss %1.3f ... Accuracy %1.3f" %
                           (iteration, epoch, res["loss"], res["accuracy"]))
 
-                if iteration%5==0:
-                    a = time()
-                    os.posix_fadvise(self.train_dset.fds[0].fileno(), 0, self.train_dset.filesizes[0], os.POSIX_FADV_DONTNEED)
-                    print(f"... Iteration {iteration} ... Cache Clearing Time: {time()-a}")
+                # if iteration%5==0:
+                #     a = time()
+                #     os.posix_fadvise(self.train_dset.fds[0].fileno(), 0, self.train_dset.filesizes[0], os.POSIX_FADV_DONTNEED)
+                #     print(f"... Iteration {iteration} ... Cache Clearing Time: {time()-a}")
 
                 # Save the model computation graph to a file
                 """if iteration == 1:
@@ -234,6 +236,7 @@ class EngineCL(Engine):
 
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
+                    print('Validating...')
                     curr_loss = 0.
                     val_batch = 0
 
@@ -304,7 +307,7 @@ class EngineCL(Engine):
 
                 # times.append(time()-start_time)
                 # writer.writerow([times[-1]])
-
+                last = time()
                 if epoch >= epochs:
                     break
 

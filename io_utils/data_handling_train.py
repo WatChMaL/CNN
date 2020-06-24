@@ -162,10 +162,10 @@ class WCH5DatasetT(Dataset):
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
-            self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
-                                        offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+            # self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
+            #                             offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
 
-            # self.event_data.append(hdf5_event_data)
+            self.event_data.append(hdf5_event_data)
             self.offsets.append(hdf5_event_data.id.get_offset())
             self.dataset_sizes.append(hdf5_event_data.id.get_storage_size())
 
@@ -336,7 +336,7 @@ class WCH5DatasetT(Dataset):
                     self.f = self.e[:,:,0] > prob
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
-                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
                     #                                      os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38, 
@@ -349,7 +349,7 @@ class WCH5DatasetT(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
                     #                                      os.POSIX_FADV_DONTNEED)
 
@@ -381,6 +381,7 @@ def run_test(args):
     train_indices = [i for i in range(len(train_dset))]
     
     if args.loader == 'notorch':
+        print('Running torchless-loaded test...')
         for epoch in range(2):
             indices_left = train_indices
             i = 0
@@ -394,6 +395,7 @@ def run_test(args):
                 i+=1
 
     else:
+        print('Running torch-loaded test...')
         train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
                                         pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=5)
         for epoch in range(2):
