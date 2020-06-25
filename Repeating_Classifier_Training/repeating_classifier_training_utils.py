@@ -854,7 +854,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     else:
         for output_idx,ax in enumerate(axes[:-1]):
             for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
-                _,bins,_ = ax.hist(softmaxes_list[i][:,output_idx],
+                ax.hist(softmaxes_list[i][:,output_idx],
                         label=legend_label_dict[label_dict[i]],
                         alpha=0.7,histtype=u'step',bins=bins,density=True,
                         linestyle=linestyle[i],linewidth=2)            
