@@ -737,7 +737,8 @@ def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
 
 
 
-def plot_binned_performance(softmaxes, labels, binning_features, binning_label,efficiency, bins, index_dict, label_0, label_1, metric='purity'):
+def plot_binned_performance(softmaxes, labels, binning_features, binning_label,efficiency, bins, index_dict, 
+                            label_0, label_1, metric='purity',ax=None,marker='o',color='k',title_note=''):
     '''
     Plots the purity as a function of a physical parameter in the dataset, at a fixed signal efficiency (true positive rate).
     Args:
@@ -750,11 +751,17 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         index_dict                     ... dictionary of particle string keys and values corresponding to labels in 'labels'
         label_0                        ... string, positive particle label, must be key of index_dict
         label_1                        ... string, negative particle label, must be key of index_dict
+        metric                         ... string, metric to plot ('purity' for signal purity, else rejection fraction)
+        ax                             ... axis on which to plot
+        color                          ... marker color
+        marker                         ... marker type
     author: Calum Macdonald
     June 2020
     '''
     legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
     label_size = 14
+
+    assert binning_features.shape[0] == softmaxes.shape[0], 'Error: binning_features must have same length as softmaxes'
 
     #bin by whatever feature
     if isinstance(bins, int):
@@ -785,13 +792,21 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
     # plt.bar(bins,bin_metrics[:,1],align='edge',width=(np.max(binning_features)-np.min(binning_features))/len(bins))
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
     bin_centers.append((np.max(binning_features) - bins[-1])/2 + bins[-1])
-    fig = plt.figure(figsize=(12,6))
-    plt.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt='o',ecolor='k',elinewidth=0.5,capsize=4,capthick=1)
-    plt.ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
-    plt.xlabel(binning_label, fontsize=label_size)
+
     metric_name = '{}-{} Signal Purity'.format(label_0,label_1) if metric== 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1])
-    plt.title('{} \n vs {} At Bin {} Signal Efficiency {}'.format(metric_name, binning_label, legend_label_dict[label_0], efficiency))
-    return fig
+    title = '{} \n vs {} At Bin {} Signal Efficiency {}{}'.format(metric_name, binning_label, legend_label_dict[label_0], efficiency,title_note)
+    if ax is None:
+        fig = plt.figure(figsize=(12,6))
+        plt.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        plt.ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        plt.xlabel(binning_label, fontsize=label_size)
+        plt.title(title)
+
+    else:
+        ax.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        ax.set_xlabel(binning_label, fontsize=label_size)
+        ax.set_title(title)
 
 def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None):
     '''
