@@ -808,7 +808,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
 
-def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None):
+def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None):
     '''
     Plots classifier softmax outputs for each particle type.
     Args:
@@ -819,6 +819,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
                                          values taken by 'labels'
         bins                         ... optional, number of bins for histogram
         fig, axes                    ... optional, figure and axes on which to do plotting (use to build into bigger grid)
+        legend_locs                  ... list of 4 strings for positioning the legends
     author: Calum Macdonald
     June 2020
     '''
@@ -827,7 +828,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
 
     if axes is None:
-        fig,axes = plt.subplots(1,4,figsize=(15,5))
+        fig,axes = plt.subplots(1,4,figsize=(15,5)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
 
     label_dict = {value:key for key, value in index_dict.items()}
 
@@ -838,29 +839,39 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
 
     if isinstance(particle_names[0],str):
         particle_names = [particle_names for _ in range(4)]
-    # print(particle_names)
-    # print([index_dict[particle_name] for particle_name in particle_names[0]])
-    for output_idx,ax in enumerate(axes[:-1]):
-        for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
-            ax.hist(softmaxes_list[i][:,output_idx],
-                    label=legend_label_dict[label_dict[i]],
-                    alpha=0.7,histtype=u'step',bins=bins,density=True,
-                    linestyle=linestyle[i],linewidth=2)            
-        ax.legend(loc=legend_locs[output_idx] if legend_locs is not None else 'best', fontsize=legend_size)
-        ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
+    if fitqun:
+        ax = axes
+        density = False
+        for i in [index_dict[particle_name] for particle_name in particle_names[1]]:
+            _,bins,_ = ax.hist(softmaxes_list[i][:,1],
+                        label=legend_label_dict[label_dict[i]],range=xlim,
+                        alpha=0.7,histtype=u'step',bins=bins,density=density,
+                        linestyle=linestyle[i],linewidth=2)    
+            ax.legend(loc=legend_locs[0] if legend_locs is not None else 'best', fontsize=legend_size)
+            ax.set_xlabel('e-muon nLL Difference')
+            ax.set_ylabel('Normalized Density' if density else 'N Events', fontsize=label_size)
+            # ax.set_yscale('log')
+    else:
+        for output_idx,ax in enumerate(axes[:-1]):
+            for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
+                _,bins,_ = ax.hist(softmaxes_list[i][:,output_idx],
+                        label=legend_label_dict[label_dict[i]],
+                        alpha=0.7,histtype=u'step',bins=bins,density=True,
+                        linestyle=linestyle[i],linewidth=2)            
+            ax.legend(loc=legend_locs[output_idx] if legend_locs is not None else 'best', fontsize=legend_size)
+            ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
+            ax.set_ylabel('Normalized Density', fontsize=label_size)
+            ax.set_yscale('log')
+        ax = axes[-1]
+        for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
+                ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
+                        label=legend_label_dict[particle_names[-1][i]],
+                        alpha=0.7,histtype=u'step',bins=bins,density=True,
+                        linestyle=linestyle[i],linewidth=2)         
+        ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
+        ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
         ax.set_ylabel('Normalized Density', fontsize=label_size)
         ax.set_yscale('log')
-    ax = axes[-1]
-    for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
-            ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
-                    label=legend_label_dict[particle_names[-1][i]],
-                    alpha=0.7,histtype=u'step',bins=bins,density=True,
-                    linestyle=linestyle[i],linewidth=2)         
-    ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
-    ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
-    ax.set_ylabel('Normalized Density', fontsize=label_size)
-    ax.set_yscale('log')
-
     plt.tight_layout()
     return fig
 
