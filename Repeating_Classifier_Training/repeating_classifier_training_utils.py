@@ -818,7 +818,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
 
-def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None):
+def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None,label_size=14):
     '''
     Plots classifier softmax outputs for each particle type.
     Args:
@@ -833,8 +833,8 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     author: Calum Macdonald
     June 2020
     '''
-    label_size=14
-    legend_size=14
+    
+    legend_size=label_size
     legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
 
     if axes is None:

@@ -332,3 +332,8 @@
 [I 21:37:54.846 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
 [I 21:45:55.308 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
 [I 21:45:55.308 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 21:47:55.853 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 21:47:55.853 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 21:48:30.250 NotebookApp] Starting buffering for ba048972-acde-4376-919b-022a40f7b459:875d638822424d7882b63a4abe34d3dc
+[I 21:52:09.323 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 21:52:09.324 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
