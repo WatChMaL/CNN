@@ -446,7 +446,7 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     return fig
 
 
-def load_test_output(location,index_path):
+def load_test_output(location,index_path,remove_flagged=True):
     """
     load_test_output(location,index_path)
     
@@ -479,23 +479,33 @@ def load_test_output(location,index_path):
     sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
     sres_eventids = np.delete(res_eventids,failed_idxs)
     sres_angles = np.delete(res_angles,failed_idxs,0)
-    
-    filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
-    filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
-    filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
-    filtered_res_energies = np.delete(sres_energies,flagged_idxs)
-    filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
-    filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
-    filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
-    
-    return{'filtered_predictions':filtered_res_predictedlabels,
-            'filtered_softmaxes':filtered_res_softmaxes,
-            'filtered_labels':filtered_res_labels,
-            'filtered_energies':filtered_res_energies,
-            'filtered_rootfiles':filtered_res_rootfiles,
-            'filtered_eventids':filtered_res_eventids,
-            'filtered_angles':filtered_res_angles          
-          }
+
+    if remove_flagged:    
+        filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
+        filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
+        filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
+        filtered_res_energies = np.delete(sres_energies,flagged_idxs)
+        filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
+        filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
+        filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
+        
+        return{'filtered_predictions':filtered_res_predictedlabels,
+                'filtered_softmaxes':filtered_res_softmaxes,
+                'filtered_labels':filtered_res_labels,
+                'filtered_energies':filtered_res_energies,
+                'filtered_rootfiles':filtered_res_rootfiles,
+                'filtered_eventids':filtered_res_eventids,
+                'filtered_angles':filtered_res_angles          
+            }
+    else:
+        return{'s_predictions':sres_predictedlabels,
+                's_softmaxes':sres_softmaxes,
+                's_labels':sres_labels,
+                's_energies':sres_energies,
+                's_rootfiles':sres_rootfiles,
+                's_eventids':sres_eventids,
+                's_angles':sres_angles          
+            }
 
 
 def parametrized_ray_point(x,y,z,theta,phi,t):
@@ -828,8 +838,8 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
 
     if axes is None:
-        fig,axes = plt.subplots(1,4,figsize=(15,5)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
-
+        fig,axes = plt.subplots(1,1,figsize=(10,10)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
+    axes = [axes,0]
     label_dict = {value:key for key, value in index_dict.items()}
 
     softmaxes_list = separate_particles([softmaxes], labels, index_dict, [name for name in index_dict.keys()])[0]
@@ -855,23 +865,24 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
         for output_idx,ax in enumerate(axes[:-1]):
             for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
                 ax.hist(softmaxes_list[i][:,output_idx],
-                        label=legend_label_dict[label_dict[i]],
+                        label=f"{legend_label_dict[label_dict[i]]} Events",
                         alpha=0.7,histtype=u'step',bins=bins,density=True,
                         linestyle=linestyle[i],linewidth=2)            
             ax.legend(loc=legend_locs[output_idx] if legend_locs is not None else 'best', fontsize=legend_size)
             ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
             ax.set_ylabel('Normalized Density', fontsize=label_size)
             ax.set_yscale('log')
-        ax = axes[-1]
-        for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
-                ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
-                        label=legend_label_dict[particle_names[-1][i]],
-                        alpha=0.7,histtype=u'step',bins=bins,density=True,
-                        linestyle=linestyle[i],linewidth=2)         
-        ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
-        ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
-        ax.set_ylabel('Normalized Density', fontsize=label_size)
-        ax.set_yscale('log')
+            return fig
+        # ax = axes[-1]
+        # for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
+        #         ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
+        #                 label=legend_label_dict[particle_names[-1][i]],
+        #                 alpha=0.7,histtype=u'step',bins=bins,density=True,
+        #                 linestyle=linestyle[i],linewidth=2)         
+        # ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
+        # ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
+        # ax.set_ylabel('Normalized Density', fontsize=label_size)
+        # ax.set_yscale('log')
     plt.tight_layout()
     return fig
 
