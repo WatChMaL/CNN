@@ -321,7 +321,7 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
         return rejection_fraction, tprs, fprs, thresholds
 
 
-def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10):
+def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10,title_font=10):
     '''
     Plots a grid of learning histories.
     Args:
@@ -367,7 +367,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         if losslim is not None:
             ax1.set_ylim(None,losslim)
         if titles is not None:
-            ax1.set_title(titles[i])
+            ax1.set_title(titles[i],size=title_font)
         ax2 = ax1.twinx()
         line21 = ax2.plot(train_log_csv.epoch, train_log_csv.accuracy, linewidth=2, label='Train accuracy', color='r', alpha=0.3)
         line22 = ax2.plot(val_log_csv.epoch, val_log_csv.accuracy, marker='o', markersize=3, linestyle='', label='Validation accuracy', color='red')
@@ -376,7 +376,6 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         ax1.tick_params('x',colors='black',labelsize=18)
         ax1.set_ylabel('Loss', fontsize=24, fontweight='bold',color='b')
         ax1.tick_params('y',colors='b',labelsize=18)
-
 
         ax2.set_ylabel('Accuracy', fontsize=24, fontweight='bold',color='r')
         ax2.tick_params('y',colors='r',labelsize=18)
@@ -838,8 +837,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
 
     if axes is None:
-        fig,axes = plt.subplots(1,1,figsize=(10,10)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
-    axes = [axes,0]
+        fig,axes = plt.subplots(1,4,figsize=(15,5)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
     label_dict = {value:key for key, value in index_dict.items()}
 
     softmaxes_list = separate_particles([softmaxes], labels, index_dict, [name for name in index_dict.keys()])[0]
@@ -872,17 +870,16 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
             ax.set_ylabel('Normalized Density', fontsize=label_size)
             ax.set_yscale('log')
-            return fig
-        # ax = axes[-1]
-        # for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
-        #         ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
-        #                 label=legend_label_dict[particle_names[-1][i]],
-        #                 alpha=0.7,histtype=u'step',bins=bins,density=True,
-        #                 linestyle=linestyle[i],linewidth=2)         
-        # ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
-        # ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
-        # ax.set_ylabel('Normalized Density', fontsize=label_size)
-        # ax.set_yscale('log')
+        ax = axes[-1]
+        for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
+                ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
+                        label=legend_label_dict[particle_names[-1][i]],
+                        alpha=0.7,histtype=u'step',bins=bins,density=True,
+                        linestyle=linestyle[i],linewidth=2)         
+        ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
+        ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
+        ax.set_ylabel('Normalized Density', fontsize=label_size)
+        ax.set_yscale('log')
     plt.tight_layout()
     return fig
 
