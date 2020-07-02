@@ -60,6 +60,7 @@ def run_test(args):
         start = time.time()
         for epoch in range(args.epochs):
             for i, data in enumerate(train_loader):
+                mydata=data
                 print(time.time() - start)
                 print("Epoch: {} Batch: {} Object Size: {} Event_data Refs: {} Data: {} File Size: {}".format(epoch+1, 
                                                 i,sys.getsizeof(data),len(gc.get_referrers(train_dset.event_data)), sys.getsizeof(data), sys.getsizeof(train_dset.f)))

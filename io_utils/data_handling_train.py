@@ -144,7 +144,7 @@ class WCH5DatasetT(Dataset):
 
         self.to_dump = None
         
-        for i in np.arange(num_datasets):
+        for i in np.arange(num_datasets):   
 
             fd = open(trainval_dset_path[i], 'rb')
             f = h5py.File(fd, "r")
@@ -162,13 +162,17 @@ class WCH5DatasetT(Dataset):
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
-            # self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
-            #                             offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+            self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
+                                        offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+            # self.event_data.append(hdf5_event_data)
+            # self.offsets.append(math.floor(float(hdf5_event_data.id.get_offset())/4096.)*4096)
+            # print(f"Offset: {float(hdf5_event_data.id.get_offset())} to {math.floor(float(hdf5_event_data.id.get_offset())/4096.)*4096}")
+            self.offsets.append(math.floor(hdf5_event_data.id.get_offset()/4096.)*4096)
 
-            self.event_data.append(hdf5_event_data)
-            self.offsets.append(hdf5_event_data.id.get_offset())
             self.dataset_sizes.append(hdf5_event_data.id.get_storage_size())
-
+            # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], 262144, 
+            #                                              os.POSIX_FADV_RANDOM)
+            os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_RANDOM)
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
             self.energies.append(np.array(hdf5_energies))
@@ -336,8 +340,10 @@ class WCH5DatasetT(Dataset):
                     self.f = self.e[:,:,0] > prob
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
-                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
+                    #                                      os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], 8388608, 
                     #                                      os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38, 
                     #                                      os.POSIX_FADV_DONTNEED)
@@ -349,15 +355,11 @@ class WCH5DatasetT(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
                     #                                      os.POSIX_FADV_DONTNEED)
-
-                    # if self.to_dump is not None:
-                    #     os.posix_fadvise(self.to_dump[0], self.to_dump[1], self.to_dump[2], 
+                    # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], 8388608, 
                     #                                      os.POSIX_FADV_DONTNEED)
-                    # self.to_dump = [self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38]
-
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i] + index * 4 * 40 * 40 * 38, 4 * 40 * 40 * 38, 
                     #                                      os.POSIX_FADV_DONTNEED)
 
@@ -375,49 +377,49 @@ class WCH5DatasetT(Dataset):
 # Testing functions
 #################################### 
 
-@profile
-def run_test(args):
-    train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
-    train_indices = [i for i in range(len(train_dset))]
-    
-    if args.loader == 'notorch':
-        print('Running torchless-loaded test...')
-        for epoch in range(2):
-            indices_left = train_indices
-            i = 0
-            while len(indices_left) > 0:
-                batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
-                assert len(batch_idxs) == 512
-                data = fetch_batch(train_dset,batch_idxs)
-                assert data[0][0].shape == (19,40,40)
-                indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
-                print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
-                i+=1
-
-    else:
-        print('Running torch-loaded test...')
-        train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
-                                        pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=5)
-        for epoch in range(2):
-            for i, data in enumerate(train_loader):
-                print("Epoch: {} Batch: {} ".format(epoch+1,i))
-
-@profile
-def fetch_batch(dset, batch_idxs):
-    data = []
-    for idx in batch_idxs:
-        data.append(dset[idx])
-    return data
-
 if __name__ == "__main__":
+    @profile
+    def run_test(args):
+        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+        # train_indices = [i for i in range(len(train_dset))]
+        train_indices = train_dset.train_indices[0]
+
+        if args.loader == 'notorch':
+            print('Running torchless-loaded test...')
+            for epoch in range(2):
+                indices_left = train_indices
+                i = 0
+                while len(indices_left) > 0:
+                    batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
+                    assert len(batch_idxs) == 512
+                    data = fetch_batch(train_dset,batch_idxs)
+                    assert data[0][0].shape == (19,40,40)
+                    indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
+                    print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
+                    i+=1
+
+        else:
+            print('Running torch-loaded test...')
+            train_loader = DataLoader(train_dset, batch_size=512, shuffle=False,
+                                            pin_memory=False, sampler=SubsetRandomSampler(train_indices), num_workers=0)
+            for epoch in range(2):
+                for i, data in enumerate(train_loader):
+                    print("Epoch: {} Batch: {} ".format(epoch+1,i))
+                    mydata=data
+
+    @profile
+    def fetch_batch(dset, batch_idxs):
+        data = []
+        for idx in batch_idxs:
+            data.append(dset[idx])
+        return data
+
     batch_size_train = 512
     cfg              = None
     chrg_norm        = 'identity'
     norm_params_path = '/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_norm_params/IWCDmPMT_4pi_fulltank_9M_trainval_norm_params.npz'
     shuffle          = 1
     time_norm        = 'identity'
-    trainval_idxs    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval_idxs.npz']
-    trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval.h5']
     trainval_subset  = None
     num_datasets     = 1
 
@@ -428,6 +430,14 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--loader', type=str, dest='loader', required=True, help='Choose between \'torch\' or \'notorch\' for data loading.')
+    parser.add_argument('--dummy_data', action='store_true', dest='use_dummy_data')
+
     args = parser.parse_args()
 
+    if args.use_dummy_data:
+        trainval_path    = ['/fast_scratch/WatChMaL/debug/dummy_dataset.h5']
+        trainval_idxs    = ['/fast_scratch/WatChMaL/debug/indices.npz']
+    else:
+        trainval_idxs    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval_idxs.npz']
+        trainval_path    = ['/fast_scratch/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M_splits_CNN/IWCDmPMT_4pi_fulltank_9M_trainval.h5']
     run_test(args)    

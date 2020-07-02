@@ -12,7 +12,7 @@ from os import path
 # Python standard imports
 from sys import stdout
 from math import floor, ceil
-from time import strftime, localtime, time
+from time import strftime, localtime, time, sleep
 import numpy as np
 import random
 import csv
@@ -89,7 +89,7 @@ class EngineCL(Engine):
         # Initialize the torch dataloaders
   
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=0)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=5)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
                                            pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=5)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,

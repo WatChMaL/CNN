@@ -51,7 +51,3 @@ class Test_Dset:
 
     def __len__(self):
         return self.n
-
-if __name__ == "__main__":
-    dset = Test_Dset('/fast_scratch/WatChMaL/debug/dummy_dataset.h5')
-    data = dset[np.random.randint(0,high=650000)]
