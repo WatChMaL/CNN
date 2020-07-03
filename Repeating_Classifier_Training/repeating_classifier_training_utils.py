@@ -747,7 +747,7 @@ def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
 
 
 def plot_binned_performance(softmaxes, labels, binning_features, binning_label,efficiency, bins, index_dict, 
-                            label_0, label_1, metric='purity',ax=None,marker='o',color='k',title_note=''):
+                            label_0, label_1, metric='purity',fixed='rejection',ax=None,marker='o',color='k',title_note=''):
     '''
     Plots the purity as a function of a physical parameter in the dataset, at a fixed signal efficiency (true positive rate).
     Args:
@@ -760,7 +760,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         index_dict                     ... dictionary of particle string keys and values corresponding to labels in 'labels'
         label_0                        ... string, positive particle label, must be key of index_dict
         label_1                        ... string, negative particle label, must be key of index_dict
-        metric                         ... string, metric to plot ('purity' for signal purity, else rejection fraction)
+        metric                         ... string, metric to plot ('purity' for signal purity, 'rejection' for rejection fraction, 'efficiency' for signal efficiency)
         ax                             ... axis on which to plot
         color                          ... marker color
         marker                         ... marker type
@@ -816,6 +816,81 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
+
+def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
+                            ax=None,marker='o',color='k',title_note='',metric='efficiency'):
+
+    label_size = 14
+
+    #bin by reconstructed momentum
+    bins = [0. + recons_mom_bin_size * i for i in range(math.ceil(np.max(reconstructed_momentum)/recons_mom_bin_size))]   
+    bins = bins[0:-1]
+    recons_mom_bin_assignments = np.digitize(reconstructed_momentum, bins)
+    recons_mom_bin_idxs_list = [[]]*len(bins)
+    for bin_idx in range(len(bins)):
+        bin_num = bin_idx + 1 #these are one-indexed for some reason
+        recons_mom_bin_idxs_list[bin_idx] = np.where(recons_mom_bin_assignments==bin_num)[0]
+
+    #compute threshold giving fixed fpr per reconstructed energy bin
+    thresholds_per_event = np.ones_like(labels)
+    bin_metrics = []
+    for bin_idx, bin_idxs in enumerate(recons_mom_bin_idxs_list):
+        if bin_idxs.shape[0] > 0:
+            (scores_0,scores_1),(labels_0,labels_1) = separate_particles([scores[bin_idxs],labels[bin_idxs]],labels[bin_idxs],index_dict,desired_labels=['e','mu'])
+            if scores_0.shape[0] > 0 and scores_1.shape[0] > 0:
+                fps, tps, thresholds = binary_clf_curve(np.concatenate((labels_0,labels_1)),np.concatenate((scores_0, scores_1)), 
+                                                        pos_label=index_dict['e'])
+                fns = tps[-1] - tps
+                tns = fps[-1] - fps
+                fprs = fps/(fps + tns)
+                operating_point_idx = (np.abs(fprs - fpr_fixed_point)).argmin()
+                thresholds_per_event[bin_idxs] = thresholds[operating_point_idx]
+            elif scores_0.shape[0] > 0:
+                thresholds_per_event[bin_idxs] = np.min(scores_0) - 1
+            elif scores_1.shape[0] > 0:
+                thresholds_per_event[bin_idxs] = np.max(scores_1) + 1
+            
+    #bin by true momentum
+    _,bins = np.histogram(true_momentum, bins=true_mom_bins, range=(200., np.max(true_momentum)) if metric=='mu fpr' else (0,1000))
+    bins = bins[0:-1]
+    true_mom_bin_assignments = np.digitize(true_momentum, bins)
+    true_mom_bin_idxs_list = [[]]*len(bins)
+    for bin_idx in range(len(bins)):
+        bin_num = bin_idx + 1 #these are one-indexed for some reason
+        true_mom_bin_idxs_list[bin_idx]=np.where(true_mom_bin_assignments==bin_num)[0]
+
+    bin_metrics=[]
+    for bin_idxs in true_mom_bin_idxs_list:
+        pred_pos_idxs = np.where(scores[bin_idxs] - thresholds_per_event[bin_idxs] > 0)[0]
+        pred_neg_idxs = np.where(scores[bin_idxs] - thresholds_per_event[bin_idxs] < 0)[0]
+        fp = np.where(labels[bin_idxs[pred_pos_idxs]] == index_dict['mu'] )[0].shape[0]
+        tp = np.where(labels[bin_idxs[pred_pos_idxs]] == index_dict['e'] )[0].shape[0]
+        fn = np.where(labels[bin_idxs[pred_neg_idxs]] == index_dict['e'] )[0].shape[0]
+        tn = np.where(labels[bin_idxs[pred_neg_idxs]] == index_dict['mu'] )[0].shape[0]
+        if metric=='efficiency':
+            bin_metrics.append(tp/(tp+fn))
+        else:
+            bin_metrics.append(fp/(fp + tn))
+
+    bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
+    bin_centers.append((np.max(true_momentum) - bins[-1])/2 + bins[-1])
+
+    metric_name = 'e- Signal Efficiency' if metric== 'efficiency' else '\u03BC- Mis-ID Rate'
+    title = '{} \n vs True Momentum At Reconstructed Momentum Bin \u03BC- Mis-ID Rate of {}{}'.format(metric_name, fpr_fixed_point, title_note)
+    if ax is None:
+        fig = plt.figure(figsize=(12,6))
+        plt.errorbar(bin_centers,bin_metrics,yerr=np.zeros_like(bin_metrics),fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        plt.ylabel(metric_name)
+        plt.xlabel("True Momentum (MeV/c)", fontsize=label_size)
+        plt.title(title)
+
+    else:
+        ax.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        ax.set_xlabel(binning_label, fontsize=label_size)
+        ax.set_title(title)
+
+
 
 def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None,label_size=14):
     '''
