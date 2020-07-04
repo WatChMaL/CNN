@@ -453,7 +453,7 @@ def load_test_output(location,index_path,remove_flagged=True):
               remove FiTQun flagged/failed events, and return a dict of results.
     
     Args: location            ... string, path of the directory containing the test 
-                                  output eg. '/home/cmacdonald/CNN/dumps/20200525_152544'
+                                  output eg. '/home/cmacdonald/CNN/dumps/20200525_152544/test_validation_iteration_dump.npz'
           index_path          ... string, path of directory containing indices of FiTQun failed and flagged files
     author: Calum Macdonald   
     May 2020
@@ -818,9 +818,16 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_title(title)
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
-                            ax=None,marker='o',color='k',title_note='',metric='efficiency'):
+                            ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None):
 
     label_size = 14
+
+    #remove gamma events
+    scores, labels, true_momentum, reconstructed_momentum = separate_particles([scores, labels, true_momentum, reconstructed_momentum],labels,index_dict,desired_labels=['e','mu'])
+    scores = np.concatenate(scores)
+    labels = np.concatenate(labels)
+    true_momentum = np.concatenate(true_momentum)
+    reconstructed_momentum = np.concatenate(reconstructed_momentum)
 
     #bin by reconstructed momentum
     bins = [0. + recons_mom_bin_size * i for i in range(math.ceil(np.max(reconstructed_momentum)/recons_mom_bin_size))]   
@@ -833,23 +840,16 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
 
     #compute threshold giving fixed fpr per reconstructed energy bin
     thresholds_per_event = np.ones_like(labels)
-    bin_metrics = []
-    for bin_idx, bin_idxs in enumerate(recons_mom_bin_idxs_list):
+    for bin_idx, bin_idxs in enumerate(recons_mom_bin_idxs_list):        
         if bin_idxs.shape[0] > 0:
-            (scores_0,scores_1),(labels_0,labels_1) = separate_particles([scores[bin_idxs],labels[bin_idxs]],labels[bin_idxs],index_dict,desired_labels=['e','mu'])
-            if scores_0.shape[0] > 0 and scores_1.shape[0] > 0:
-                fps, tps, thresholds = binary_clf_curve(np.concatenate((labels_0,labels_1)),np.concatenate((scores_0, scores_1)), 
-                                                        pos_label=index_dict['e'])
-                fns = tps[-1] - tps
-                tns = fps[-1] - fps
-                fprs = fps/(fps + tns)
-                operating_point_idx = (np.abs(fprs - fpr_fixed_point)).argmin()
-                thresholds_per_event[bin_idxs] = thresholds[operating_point_idx]
-            elif scores_0.shape[0] > 0:
-                thresholds_per_event[bin_idxs] = np.min(scores_0) - 1
-            elif scores_1.shape[0] > 0:
-                thresholds_per_event[bin_idxs] = np.max(scores_1) + 1
-            
+            fps, tps, thresholds = binary_clf_curve(labels[bin_idxs],scores[bin_idxs], 
+                                                    pos_label=index_dict['e'])
+            fns = tps[-1] - tps
+            tns = fps[-1] - fps
+            fprs = fps/(fps + tns)
+            operating_point_idx = (np.abs(fprs - fpr_fixed_point)).argmin()
+            thresholds_per_event[bin_idxs] = thresholds[operating_point_idx]
+
     #bin by true momentum
     _,bins = np.histogram(true_momentum, bins=true_mom_bins, range=(200., np.max(true_momentum)) if metric=='mu fpr' else (0,1000))
     bins = bins[0:-1]
@@ -857,8 +857,10 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
     true_mom_bin_idxs_list = [[]]*len(bins)
     for bin_idx in range(len(bins)):
         bin_num = bin_idx + 1 #these are one-indexed for some reason
+        this_bin_idxs = np.where(labels != index_dict['gamma'])
         true_mom_bin_idxs_list[bin_idx]=np.where(true_mom_bin_assignments==bin_num)[0]
 
+    #find metrics for each true momentum bin
     bin_metrics=[]
     for bin_idxs in true_mom_bin_idxs_list:
         pred_pos_idxs = np.where(scores[bin_idxs] - thresholds_per_event[bin_idxs] > 0)[0]
@@ -872,22 +874,25 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
         else:
             bin_metrics.append(fp/(fp + tn))
 
+    #plot metrics
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
     bin_centers.append((np.max(true_momentum) - bins[-1])/2 + bins[-1])
 
     metric_name = 'e- Signal Efficiency' if metric== 'efficiency' else '\u03BC- Mis-ID Rate'
-    title = '{} \n vs True Momentum At Reconstructed Momentum Bin \u03BC- Mis-ID Rate of {}{}'.format(metric_name, fpr_fixed_point, title_note)
+    title = '{} \n vs True Momentum At Reconstructed Momentum Bin \u03BC- Mis-ID Rate of {}%{}'.format(metric_name, fpr_fixed_point*100, title_note)
     if ax is None:
         fig = plt.figure(figsize=(12,6))
         plt.errorbar(bin_centers,bin_metrics,yerr=np.zeros_like(bin_metrics),fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
         plt.ylabel(metric_name)
         plt.xlabel("True Momentum (MeV/c)", fontsize=label_size)
+        if yrange is not None: plt.ylim(yrange)
         plt.title(title)
 
     else:
-        ax.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
-        ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
-        ax.set_xlabel(binning_label, fontsize=label_size)
+        ax.errorbar(bin_centers[:50],bin_metrics[:50],yerr=np.zeros_like(bin_metrics[:50]),fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        ax.set_ylabel(metric_name)
+        ax.set_xlabel("True Momentum (MeV/c)", fontsize=label_size)
+        if yrange is not None: ax.set_ylim(yrange) 
         ax.set_title(title)
 
 
