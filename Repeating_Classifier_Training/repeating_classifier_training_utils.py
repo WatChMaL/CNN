@@ -134,7 +134,7 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     plt.show()
 
 # Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None):
+def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None):
     '''
     Plot multiple ROC curves of background rejection vs signal efficiency.
     Args:
@@ -230,8 +230,8 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         # xlabel = r"$\{0}$ signal efficiency".format(label_0) if label_0 is not "e" else r"${0}$ signal efficiency".format(label_0)
         # ylabel = r"$\{0}$ background rejection".format(label_1) if label_1 is not "e" else r"${0}$ background rejection".format(label_1)
 
-        xlabel = 'Signal Efficiency'
-        ylabel = 'Background Rejection' if metric == 'rejection' else 'Background Rejection Fraction'
+        if xlabel is None: xlabel = 'Signal Efficiency'
+        if ylabel is None: ylabel = 'Background Rejection' if metric == 'rejection' else 'Background Rejection Fraction'
 
         ax.set_xlabel(xlabel, fontsize=20) 
         ax.set_ylabel(ylabel, fontsize=20)
@@ -816,6 +816,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
+    return bin_metrics[:,2]
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
                             ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None):
@@ -839,7 +840,7 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
         recons_mom_bin_idxs_list[bin_idx] = np.where(recons_mom_bin_assignments==bin_num)[0]
 
     #compute threshold giving fixed fpr per reconstructed energy bin
-    thresholds_per_event = np.ones_like(labels)
+    thresholds_per_event = np.ones_like(labels, dtype=float)
     for bin_idx, bin_idxs in enumerate(recons_mom_bin_idxs_list):        
         if bin_idxs.shape[0] > 0:
             fps, tps, thresholds = binary_clf_curve(labels[bin_idxs],scores[bin_idxs], 
@@ -851,7 +852,7 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
             thresholds_per_event[bin_idxs] = thresholds[operating_point_idx]
 
     #bin by true momentum
-    _,bins = np.histogram(true_momentum, bins=true_mom_bins, range=(200., np.max(true_momentum)) if metric=='mu fpr' else (0,1000))
+    ns,bins = np.histogram(true_momentum, bins=true_mom_bins, range=(200., np.max(true_momentum)) if metric=='mu fpr' else (0,1000))
     bins = bins[0:-1]
     true_mom_bin_assignments = np.digitize(true_momentum, bins)
     true_mom_bin_idxs_list = [[]]*len(bins)
@@ -876,8 +877,7 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
 
     #plot metrics
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
-    bin_centers.append((np.max(true_momentum) - bins[-1])/2 + bins[-1])
-
+    bin_centers.append((np.max(true_momentum) - bins[-1])/2 + bins[-1] if metric=='mu fpr' else (1000 - bins[-1])/2 + bins[-1])
     metric_name = 'e- Signal Efficiency' if metric== 'efficiency' else '\u03BC- Mis-ID Rate'
     title = '{} \n vs True Momentum At Reconstructed Momentum Bin \u03BC- Mis-ID Rate of {}%{}'.format(metric_name, fpr_fixed_point*100, title_note)
     if ax is None:
@@ -887,9 +887,10 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
         plt.xlabel("True Momentum (MeV/c)", fontsize=label_size)
         if yrange is not None: plt.ylim(yrange)
         plt.title(title)
-
     else:
         ax.errorbar(bin_centers[:50],bin_metrics[:50],yerr=np.zeros_like(bin_metrics[:50]),fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
+        nax = ax.twinx()
+        nax.bar(bin_centers,ns,fill=False,width=bins[3]-bins[2])
         ax.set_ylabel(metric_name)
         ax.set_xlabel("True Momentum (MeV/c)", fontsize=label_size)
         if yrange is not None: ax.set_ylim(yrange) 

@@ -1,35 +1,123 @@
-[I 12:34:03.571 NotebookApp] The port 8888 is already in use, trying another port.
-[I 12:34:03.571 NotebookApp] The port 8889 is already in use, trying another port.
-[I 12:34:03.571 NotebookApp] The port 8890 is already in use, trying another port.
-[I 12:34:03.571 NotebookApp] The port 8891 is already in use, trying another port.
-[I 12:34:04.845 NotebookApp] jupyter_tensorboard extension loaded.
-[I 12:34:04.905 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 12:34:04.905 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 12:34:04.907 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 12:34:04.907 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 12:34:04.907 NotebookApp] The Jupyter Notebook is running at:
-[I 12:34:04.907 NotebookApp] http://hostname:8888/?token=f7260f3fc10466a65e0897717735672063234f4b05162af4
-[I 12:34:04.907 NotebookApp]  or http://127.0.0.1:8892/?token=f7260f3fc10466a65e0897717735672063234f4b05162af4
-[I 12:34:04.907 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 12:34:04.910 NotebookApp] 
+[I 09:33:34.126 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:33:34.126 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:33:34.126 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:33:34.127 NotebookApp] The port 8891 is already in use, trying another port.
+[I 09:33:34.127 NotebookApp] The port 8892 is already in use, trying another port.
+[I 09:33:35.425 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:33:35.487 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:33:35.487 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:33:35.489 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:33:35.489 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:33:35.489 NotebookApp] The Jupyter Notebook is running at:
+[I 09:33:35.489 NotebookApp] http://hostname:8888/?token=be50db20be773bda5772c1faa9040c81e86ff3c2f60bc612
+[I 09:33:35.489 NotebookApp]  or http://127.0.0.1:8839/?token=be50db20be773bda5772c1faa9040c81e86ff3c2f60bc612
+[I 09:33:35.489 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:33:35.492 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-30849-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-7290-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=f7260f3fc10466a65e0897717735672063234f4b05162af4
-     or http://127.0.0.1:8892/?token=f7260f3fc10466a65e0897717735672063234f4b05162af4
-[I 12:34:55.808 NotebookApp] 302 GET /?token=f7260f3fc10466a65e0897717735672063234f4b05162af4 (::1) 1.06ms
-[I 12:35:07.978 NotebookApp] Kernel started: ec237352-956d-4f76-a044-3f372eba5722
-[I 12:35:22.475 NotebookApp] Kernel started: e066bc7e-80a7-47dd-a4d0-cbce0f5f03e7
-[I 12:37:22.990 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:37:22.991 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:38:54.365 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:38:54.365 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:39:22.962 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:39:22.962 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:51.389 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:46:51.389 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:47:22.853 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:47:22.853 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
-[I 12:49:23.315 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Analyzing and Comparing Datasets.ipynb
-[I 12:49:23.316 NotebookApp] Saving 9. Analyzing and Comparing Datasets.ipynb
+        http://hostname:8888/?token=be50db20be773bda5772c1faa9040c81e86ff3c2f60bc612
+     or http://127.0.0.1:8839/?token=be50db20be773bda5772c1faa9040c81e86ff3c2f60bc612
+[I 09:35:44.600 NotebookApp] 302 GET /?token=be50db20be773bda5772c1faa9040c81e86ff3c2f60bc612 (::1) 1.27ms
+[I 09:46:45.330 NotebookApp] Kernel started: 1c503b08-b67c-4d8d-aba9-f51fa3c9ad71
+[I 09:48:45.421 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:48:45.422 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:50:45.487 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:50:45.488 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:52:45.489 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:52:45.490 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:56:45.503 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:56:45.504 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:58:46.209 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 09:58:46.210 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:06:45.538 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:06:45.538 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:08:45.502 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:08:45.503 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:10:45.575 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:10:45.576 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:20:56.321 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:20:56.322 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:30:46.701 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:30:46.701 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:56:45.817 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:56:45.818 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:58:45.939 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 10:58:45.939 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:00:46.068 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:00:46.069 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:02:45.933 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:02:45.933 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:03:23.915 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:03:23.915 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:04:45.836 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:04:45.836 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:06:45.821 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:06:45.821 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:18:45.730 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:18:45.730 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:20:45.916 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:20:45.917 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:22:45.701 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:22:45.702 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:24:45.997 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:24:45.997 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:26:46.294 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:26:46.294 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:32:45.761 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:32:45.761 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:34:34.729 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:34:34.729 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:35:22.263 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:35:22.264 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:36:47.815 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:36:47.816 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:38:45.627 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:38:45.628 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:40:45.640 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:40:45.641 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:42:45.653 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:42:45.653 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:44:45.783 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:44:45.783 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:46:45.730 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:46:45.731 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:48:45.675 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:48:45.675 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:50:45.818 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:50:45.818 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:54:46.287 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 11:54:46.288 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:12:45.917 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:12:45.918 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:14:45.828 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:14:45.829 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:16:45.825 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:16:45.825 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:18:45.781 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:18:45.781 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:20:46.353 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:20:46.353 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:28:45.739 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:28:45.740 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:32:45.720 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:32:45.721 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:34:45.835 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:34:45.836 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:40:46.397 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:40:46.397 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:41:42.719 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:41:42.720 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:42:44.470 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:42:44.470 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:42:57.005 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:42:57.006 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:44:45.746 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:44:45.747 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:45:19.761 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:45:19.762 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:46:45.760 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:46:45.760 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:48:45.734 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Comparing Additional Training and Testing Runs.ipynb
+[I 13:48:45.734 NotebookApp] Saving 8. Comparing Additional Training and Testing Runs.ipynb

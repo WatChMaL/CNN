@@ -144,10 +144,10 @@ class WCH5DatasetT(Dataset):
             assert hdf5_event_data.shape[0] == hdf5_labels.shape[0]
 
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
-            # self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
-            #                             offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+            self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
+                                        offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
 
-            self.event_data.append(hdf5_event_data)
+            # self.event_data.append(hdf5_event_data)
             self.offsets.append(hdf5_event_data.id.get_offset())
             self.dataset_sizes.append(hdf5_event_data.id.get_storage_size())
 
@@ -294,7 +294,7 @@ class WCH5DatasetT(Dataset):
             
         self.datasets = np.array(np.arange(num_datasets))
 
-    @profile
+    # @profile
     def __getitem__(self, index):
         '''
         self.a = self.event_data[self.datasets[0]][index,:,:,:19]
@@ -315,7 +315,7 @@ class WCH5DatasetT(Dataset):
                     self.f = self.e[:,:,0] > prob
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
-                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
                     #                                      os.POSIX_FADV_DONTNEED)
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
@@ -326,7 +326,7 @@ class WCH5DatasetT(Dataset):
                     self.c = self.b
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
+                    # os.posix_fadvise(self.fds[i].fileno(), 0, self.filesizes[i], os.POSIX_FADV_DONTNEED)
                     # os.posix_fadvise(self.fds[i].fileno(), self.offsets[i], self.dataset_sizes[i], 
                     #                                      os.POSIX_FADV_DONTNEED)
                     return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
@@ -339,29 +339,29 @@ class WCH5DatasetT(Dataset):
         else:
             return self.reduced_size
 
-@profile
-def run_test():
-    train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
-    train_indices = [i for i in range(len(train_dset))]
-    
-    for epoch in range(2):
-        indices_left = train_indices
-        i = 0
-        while len(indices_left) > 0:
-            batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
-            assert len(batch_idxs) == 512
-            data = fetch_batch(train_dset,batch_idxs)
-            indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
-            print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
-            i+=1
-@profile
-def fetch_batch(dset, batch_idxs):
-    data = []
-    for idx in batch_idxs:
-        data.append(dset[idx])
-    return data
-
 if __name__ == "__main__":
+    @profile
+    def run_test():
+        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+        train_indices = [i for i in range(len(train_dset))]
+        
+        for epoch in range(2):
+            indices_left = train_indices
+            i = 0
+            while len(indices_left) > 0:
+                batch_idxs = indices_left[0:512 if len(indices_left) >= 512 else len(indices_left)]
+                assert len(batch_idxs) == 512
+                data = fetch_batch(train_dset,batch_idxs)
+                indices_left = np.delete(indices_left, range(512 if len(indices_left) >= 512 else len(indices_left)))
+                print("Epoch: {} Batch: {} ".format(epoch+1,i+1))
+                i+=1
+    @profile
+    def fetch_batch(dset, batch_idxs):
+        data = []
+        for idx in batch_idxs:
+            data.append(dset[idx])
+        return data
+
     batch_size_train = 512
     cfg              = None
     chrg_norm        = 'identity'

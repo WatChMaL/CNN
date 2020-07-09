@@ -146,6 +146,8 @@ class WCH5DatasetV(Dataset):
             self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
                                         offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
 
+            # self.event_data.append(hdf5_event_data)
+
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
             self.energies.append(np.array(hdf5_energies))

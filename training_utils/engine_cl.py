@@ -51,6 +51,7 @@ class EngineCL(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
+        
         if config.loss_weights is not None:
             loss_weights = tensor(config.loss_weights).to(self.device) if self.device != "cpu" else tensor(config.loss_weights)
             self.criterion = weighted_CELoss_factory(loss_weights)
@@ -179,9 +180,6 @@ class EngineCL(Engine):
 
             start_time = time()
 
-            # f = open('/home/cmacdonald/CNN/dumps/timing.csv','w',newline='\r')
-            # writer = csv.writer(f)
-
             # Local training loop for a single epoch
             print('entering loop')
             for data in self.train_loader:
@@ -298,9 +296,6 @@ class EngineCL(Engine):
 
                     # Save the latest model
                     self.save_state(mode="latest")
-
-                # times.append(time()-start_time)
-                # writer.writerow([times[-1]])
 
                 if epoch >= epochs:
                     break
