@@ -90,11 +90,11 @@ class EngineCL(Engine):
         # Initialize the torch dataloaders
   
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=8)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=8)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=8)
 
         # Define the placeholder attributes
         self.data     = None
@@ -181,9 +181,9 @@ class EngineCL(Engine):
             start_time = time()
 
             # Local training loop for a single epoch
-            print('entering loop')
+            #print('entering loop')
             for data in self.train_loader:
-                print('in loop')    
+                #print('in loop')    
 
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()

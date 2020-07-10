@@ -274,64 +274,7 @@ class WCH5DatasetV(Dataset):
         
         self.datasets = np.array(np.arange(num_datasets))
 
-        # Build mapping from mPMTs to row / column IDs for 'pasted endcaps'
-        self.mpmt_positions = np.zeros((832,2), dtype=np.int16)
-        # bulk barrel mPMTs:
-        self.mpmt_positions[:600, 0] = 26-np.arange(600)//40
-        self.mpmt_positions[:600, 1] = np.arange(600)%40
-        # top row mPMTs:
-        self.mpmt_positions[696:736, 0] = 27
-        self.mpmt_positions[696:736, 1] = np.arange(40)
-        # endcaps mPMTs row by row:
-        self.mpmt_positions[600:602, 0] = 11
-        self.mpmt_positions[602:608, 0] = 10
-        self.mpmt_positions[608:616, 0] = 9
-        self.mpmt_positions[616:626, 0] = 8
-        self.mpmt_positions[626:636, 0] = 7
-        self.mpmt_positions[636:648, 0] = 6
-        self.mpmt_positions[648:660, 0] = 5
-        self.mpmt_positions[660:670, 0] = 4
-        self.mpmt_positions[670:680, 0] = 3
-        self.mpmt_positions[680:688, 0] = 2
-        self.mpmt_positions[688:694, 0] = 1
-        self.mpmt_positions[694:696, 0] = 0
-        self.mpmt_positions[600:602, 1] = np.arange(20, 18, -1)
-        self.mpmt_positions[602:608, 1] = np.arange(22, 16, -1)
-        self.mpmt_positions[608:616, 1] = np.arange(23, 15, -1)
-        self.mpmt_positions[616:626, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[626:636, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[636:648, 1] = np.arange(25, 13, -1)
-        self.mpmt_positions[648:660, 1] = np.arange(25, 13, -1)
-        self.mpmt_positions[660:670, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[670:680, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[680:688, 1] = np.arange(23, 15, -1)
-        self.mpmt_positions[688:694, 1] = np.arange(22, 16, -1)
-        self.mpmt_positions[694:696, 1] = np.arange(20, 18, -1)
-        self.mpmt_positions[736:738, 0] = 28
-        self.mpmt_positions[738:744, 0] = 29
-        self.mpmt_positions[744:752, 0] = 30
-        self.mpmt_positions[752:762, 0] = 31
-        self.mpmt_positions[762:772, 0] = 32
-        self.mpmt_positions[772:784, 0] = 33
-        self.mpmt_positions[784:796, 0] = 34
-        self.mpmt_positions[796:806, 0] = 35
-        self.mpmt_positions[806:816, 0] = 36
-        self.mpmt_positions[816:824, 0] = 37
-        self.mpmt_positions[824:830, 0] = 38
-        self.mpmt_positions[830:832, 0] = 39
-        self.mpmt_positions[736:738, 1] = np.arange(20, 18, -1)
-        self.mpmt_positions[738:744, 1] = np.arange(22, 16, -1)
-        self.mpmt_positions[744:752, 1] = np.arange(23, 15, -1)
-        self.mpmt_positions[752:762, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[762:772, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[772:784, 1] = np.arange(25, 13, -1)
-        self.mpmt_positions[784:796, 1] = np.arange(25, 13, -1)
-        self.mpmt_positions[796:806, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[806:816, 1] = np.arange(24, 14, -1)
-        self.mpmt_positions[816:824, 1] = np.arange(23, 15, -1)
-        self.mpmt_positions[824:830, 1] = np.arange(22, 16, -1)
-        self.mpmt_positions[830:832, 1] = np.arange(20, 18, -1)
-        
+        self.mpmt_positions = np.load("IWCDshort_mPMT_image_positions.npz")['mpmt_image_positions']
 
     def __getitem__(self, index):
         '''
