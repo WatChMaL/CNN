@@ -7,7 +7,7 @@ Main script to execute the training and evaluation of a fully supervised classif
 # Standard python imports
 from datetime import datetime
 
-from torchsummary import summary
+#from torchsummary import summary
 
 # WatChMaL imports
 from main.watchmal import handle_config, handle_model
