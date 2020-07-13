@@ -265,8 +265,8 @@ class WCH5DatasetT(Dataset):
         for i in np.arange(len(self.datasets)):
 
             if index < self.labels[self.datasets[i]].shape[0]:
+                self.a = self.event_data[self.datasets[i]][index,:,:,:19]
                 if self.a.shape[0] == 16:
-                    self.a = self.event_data[self.datasets[i]][index,:,:,:19]
                     self.c = np.concatenate((self.b,self.a,self.b), axis=0)
                     self.e = np.random.rand(192,19,2)
                     prob = random.randrange(1, 7, 1)/100

@@ -181,9 +181,7 @@ class EngineCL(Engine):
             start_time = time()
 
             # Local training loop for a single epoch
-            print('entering loop')
             for data in self.train_loader:
-                print('in loop')    
 
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()

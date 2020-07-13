@@ -858,7 +858,6 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
     true_mom_bin_idxs_list = [[]]*len(bins)
     for bin_idx in range(len(bins)):
         bin_num = bin_idx + 1 #these are one-indexed for some reason
-        this_bin_idxs = np.where(labels != index_dict['gamma'])
         true_mom_bin_idxs_list[bin_idx]=np.where(true_mom_bin_assignments==bin_num)[0]
 
     #find metrics for each true momentum bin
@@ -890,12 +889,13 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
     else:
         ax.errorbar(bin_centers[:50],bin_metrics[:50],yerr=np.zeros_like(bin_metrics[:50]),fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
         nax = ax.twinx()
-        nax.bar(bin_centers,ns,fill=False,width=bins[3]-bins[2])
+        # nax.bar(bin_centers,ns,fill=False,width=bins[3]-bins[2])
         ax.set_ylabel(metric_name)
         ax.set_xlabel("True Momentum (MeV/c)", fontsize=label_size)
         if yrange is not None: ax.set_ylim(yrange) 
         ax.set_title(title)
 
+    return true_momentum, thresholds_per_event
 
 
 def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None,label_size=14):
