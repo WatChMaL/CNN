@@ -15,79 +15,6 @@ import pdb
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
 
-# Returns the maximum height at which cherenkov radiation will hit the tank
-def find_bounds(pos, ang, label, energy):
-    # Arguments:
-    # pos - position of particles
-    # ang - polar and azimuth angles of particle
-    # label - type of particle
-    # energy - particle energy
-    
-    '''
-    #label = np.where(label==0, mass_dict[0], label)
-    #label = np.where(label==1, mass_dict[1], label)
-    #label = np.where(label==2, mass_dict[2], label)
-    #beta = ((energy**2 - label**2)**0.5)/energy
-    #max_ang = abs(np.arccos(1/(1.33*beta)))*1.5
-    '''
-    max_ang = abs(np.arccos(1/(1.33)))*1.05
-    theta = ang[:,1]
-    phi = ang[:,0]
-    
-    # Determine shortest distance emission will travel before it hits the tank
-    # It checks the middle and edges of the emitted ring
-    
-    # radius of barrel
-    r = 400
-    
-    # position of particle in barrel
-    end = np.array([pos[:,0], pos[:,2]]).transpose()
-    
-    # Checks one edge of the ring
-    # a point along the particle direction (plus max Cherenkov angle) located outside of the barrel
-    start = end + 1000*(np.array([np.cos(theta + max_ang), np.sin(theta + max_ang)]).transpose())
-    # finding intersection of particle with barrel
-    a = (end[:,0] - start[:,0])**2 + (end[:,1] - start[:,1])**2
-    b = 2*(end[:,0] - start[:,0])*(start[:,0]) + 2*(end[:,1] - start[:,1])*(start[:,1])
-    c = start[:,0]**2 + start[:,1]**2 - r**2
-    t = (-b - (b**2 - 4*a*c)**0.5)/(2*a)
-    intersection = np.array([(end[:,0]-start[:,0])*t,(end[:,1]-start[:,1])*t]).transpose() + start
-    length = end - intersection
-    length1 = (length[:,0]**2 + length[:,1]**2)**0.5
-    
-    # Checks the middle of the ring
-    # a point along the particle direction located outside of the barrel
-    start = end + 1000*(np.array([np.cos(theta - max_ang), np.sin(theta - max_ang)]).transpose())
-    # finding intersection of particle with barrel
-    a = (end[:,0] - start[:,0])**2 + (end[:,1] - start[:,1])**2
-    b = 2*(end[:,0] - start[:,0])*(start[:,0]) + 2*(end[:,1] - start[:,1])*(start[:,1])
-    c = start[:,0]**2 + start[:,1]**2 - r**2
-    t = (-b - (b**2 - 4*a*c)**0.5)/(2*a)
-    intersection = np.array([(end[:,0]-start[:,0])*t,(end[:,1]-start[:,1])*t]).transpose() + start
-    length = end - intersection
-    length2 = (length[:,0]**2 + length[:,1]**2)**0.5 
-    
-    # Checks the other edge of the ring
-    # a point along the particle direction (minus max Cherenkov angle) located outside of the barrel
-    start = end + 1000*(np.array([np.cos(theta), np.sin(theta)]).transpose())
-    # finding intersection of particle with barrel
-    a = (end[:,0] - start[:,0])**2 + (end[:,1] - start[:,1])**2
-    b = 2*(end[:,0] - start[:,0])*(start[:,0]) + 2*(end[:,1] - start[:,1])*(start[:,1])
-    c = start[:,0]**2 + start[:,1]**2 - r**2
-    t = (-b - (b**2 - 4*a*c)**0.5)/(2*a)
-    intersection = np.array([(end[:,0]-start[:,0])*t,(end[:,1]-start[:,1])*t]).transpose() + start
-    length = end - intersection
-    length3 = (length[:,0]**2 + length[:,1]**2)**0.5 
-    
-    length = np.maximum(np.maximum(length1,length2), length3)
-
-    top_ang = math.pi/2 - np.arctan((520 - pos[:,2])/ length)
-    bot_ang = math.pi/2 + np.arctan(abs(-520 - pos[:,2])/length)
-    lb = top_ang + max_ang
-    ub = bot_ang - max_ang
-    return np.array([lb, ub, np.minimum(np.minimum(length1,length2), length3)]).transpose()
-
-
 class WCH5DatasetTest(Dataset):
     """
     Dataset storing image-like data from Water Cherenkov detector
@@ -139,44 +66,6 @@ class WCH5DatasetTest(Dataset):
         self.test_indices = []
         
         for i in np.arange(num_datasets):
-            '''
-            
-            # Import test events from h5 file
-            filtered_index = "/fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz"
-            filtered_indices = np.load(filtered_index, allow_pickle=True)
-            test_filtered_indices = filtered_indices['test_idxs']
-
-            original_data_path = "/data/WatChMaL/data/IWCDmPMT_4pi_fulltank_9M.h5"
-            f = h5py.File(original_data_path, "r")
-
-            hdf5_event_data = (f["event_data"])
-            self.event_data.append(np.memmap(original_data_path, mode="r", shape=hdf5_event_data.shape,
-                                                offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
-
-            original_eventids = np.array(f['event_ids'])
-            original_rootfiles = np.array(f['root_files'])
-            original_energies = np.array(f['energies'])
-            original_positions = np.array(f['positions'])
-            original_angles = np.array(f['angles'])
-            original_labels = np.array(f['labels'])
-
-            filtered_eventids = original_eventids[test_filtered_indices]
-            filtered_rootfiles = original_rootfiles[test_filtered_indices]
-            filtered_energies = original_energies[test_filtered_indices]
-            filtered_positions = original_positions[test_filtered_indices]
-            filtered_angles = original_angles[test_filtered_indices]
-            filtered_labels = original_labels[test_filtered_indices]
-            
-            self.labels.append(filtered_labels)
-            self.energies.append(filtered_energies)
-            self.positions.append(filtered_positions)
-            self.angles.append(filtered_angles)
-            self.eventids.append(filtered_eventids)
-            self.rootfiles.append(filtered_rootfiles)
-            
-            
-            self.reduced_size = test_subset
-            '''
             f = h5py.File(test_dset_path[i], "r")
 
             hdf5_labels = f["labels"]
@@ -210,21 +99,16 @@ class WCH5DatasetTest(Dataset):
 
             # Running only on events that went through fiTQun
             
-            
-
             # Set the total size of the trainval dataset to use
             self.reduced_size = test_subset                
             
-            
             if test_idx_path[i] is not None:
-
                 test_indices = np.load(test_idx_path[i], allow_pickle=True)
                 self.test_indices.append(test_indices["test_idxs"])
                 self.test_indices[i] = self.test_indices[i][:]
                 print("Loading test indices from: ", test_idx_path[i])
             
             else:
-                
                 test_indices = np.arange(self.labels[i].shape[0])
                 np.random.shuffle(test_indices)
                 #n_test = int(0.9 * test_indices.shape[0])
@@ -247,96 +131,11 @@ class WCH5DatasetTest(Dataset):
                 assert len(self.test_indices[i])>=self.reduced_size
                 self.test_indices[i] = np.random.choice(self.labels[i].shape[0], self.reduced_size)
             
-            # DATA SLICING
-            # For center dataset:
-            '''
-            # find barrel-only events
-            #max_ang = abs(np.arccos(1/(1.33)))
-            #total_ang = np.arctan(400/375)
-            interval = 8
-            #bound = (total_ang-max_ang)
-            bound = 0.17453*interval
-
-            lb = math.pi/2 - bound
-            ub = math.pi/2 + bound
-
-            c = ma.masked_where((self.angles[self.test_indices,0] > ub) | (self.angles[self.test_indices,0] < lb), self.test_indices)
-            self.test_indices = c.compressed()
-            #self.test_indices = self.test_indices[:32343]
-
-
-            # For dataset with varying position:
-            bound = find_bounds(self.positions[:,0,:], self.angles[:,:], self.labels[:], self.energies[:,0])
-
-            c = ma.masked_where(bound[self.test_indices,2] < 200, self.test_indices)
-            c = ma.masked_where(abs(self.positions[self.test_indices,0,1]) > 250, c)
-            c = ma.masked_where((self.angles[self.test_indices,0] > bound[:,1]) | (self.angles[self.test_indices,0] < bound[:,0]), self.test_indices)
-
-            bound = find_bounds(self.positions[self.test_indices,0,:], self.angles[self.test_indices,:], self.labels[self.test_indices], self.energies[self.test_indices,0])
-            c = ma.masked_where((self.positions[self.test_indices,0,0]**2 + self.positions[self.test_indices,0,2]**2 + self.positions[self.test_indices,0,1]**2)**0.5 > 400, self.test_indices)
-            c = ma.masked_where((self.angles[self.test_indices,0] > bound[:,1]) | (self.angles[self.test_indices,0] < bound[:,0]), c)
-            #c = ma.masked_where(bound[self.test_indices,2] < 200, c)
-            #c = ma.masked_where(bound[self.test_indices,2] > 400, c)
-            self.test_indices = c.compressed()
-            '''
-
-        cap_ind = np.array([[0,19],[0,20],
-            [1,17],[1,18],[1,19],[1,20],[1,21],[1,22],
-            [2,16],[2,17],[2,18],[2,19],[2,20],[2,21],[2,22], [2,23],
-            [3,15],[3,16],[3,17],[3,18],[3,19],[3,20],[3,21],[3,22],[3,23],[3,24],
-           [4,15],[4,16],[4,17],[4,18],[4,19],[4,20],[4,21],[4,22],[4,23],[4,24],
-           [5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20],[5,21],[5,22],[5,23],[5,24],[5,25],
-           [6,14],[6,15],[6,16],[6,17],[6,18],[6,19],[6,20],[6,21],[6,22],[6,23],[6,24],[6,25],
-           [7,15],[7,16],[7,17],[7,18],[7,19],[7,20],[7,21],[7,22],[7,23],[7,24],
-            [8,15],[8,16],[8,17],[8,18],[8,19],[8,20],[8,21],[8,22],[8,23],[8,24],
-           [9,16],[9,17],[9,18],[9,19],[9,20],[9,21],[9,22],[9,23],
-           [10,17],[10,18],[10,19],[10,20],[10,21],[10,22],
-           [11,19],[11,20]]);
-        self.cap_ind = np.concatenate((cap_ind,cap_ind), axis=0);
-        self.cap_ind[96:,0] = self.cap_ind[96:,0] + 28;
-        
-        new_cap_ind_top = np.array([[11,0],[11,39],
-                    [11,3],[10,4],[10,3],[10,36],[10,35],[11,36],
-                    [11,4],[10,6],[9,8],[9,7],[9,33],[9,32],[10,33], [11,35],
-                    [11,6],[10,7],[9,10],[8,10],[8,9],[8,30],[8,29],[9,30],[10,32],[11,33],
-                   [10,9],[9,11],[8,12],[7,13],[7,12],[7,27],[7,26],[8,27],[9,29],[10,30],
-                   [11,9],[10,10],[9,13],[8,13],[7,15],[6,18],[6,21],[7,24],[8,26],[9,27],[10,29],[11,30],
-                   [11,10],[10,12],[9,14],[8,15],[7,16],[6,19],[6,20],[7,23],[8,24],[9,26],[10,27],[11,29],
-                   [10,13],[9,16],[8,16],[7,18],[7,19],[7,20],[7,21],[8,23],[9,24],[10,26],
-                    [11,13],[10,15],[9,17],[8,18],[8,19],[8,20],[8,21],[9,23],[10,24],[11,26],
-                   [11,15],[10,16],[9,18],[9,19],[9,20],[9,21],[10,23],[11,24],
-                   [11,16],[10,18],[10,19],[10,20],[10,21],[11,23],
-                   [11,19],[11,20]]);
-        new_cap_ind_bottom = np.array([[11,19],[11,20],
-                    [11,16],[10,18],[10,19],[10,20],[10,21],[11,23],
-                   [11,15],[10,16],[9,18],[9,19],[9,20],[9,21],[10,23],[11,24],
-                    [11,13],[10,15],[9,17],[8,18],[8,19],[8,20],[8,21],[9,23],[10,24],[11,26],
-                   [10,13],[9,16],[8,16],[7,18],[7,19],[7,20],[7,21],[8,23],[9,24],[10,26],
-                   [11,10],[10,12],[9,14],[8,15],[7,16],[6,19],[6,20],[7,23],[8,24],[9,26],[10,27],[11,29],
-                  [11,9],[10,10],[9,13],[8,13],[7,15],[6,18],[6,21],[7,24],[8,26],[9,27],[10,29],[11,30],
-                   [10,9],[9,11],[8,12],[7,13],[7,12],[7,27],[7,26],[8,27],[9,29],[10,30],
-                     [11,6],[10,7],[9,10],[8,10],[8,9],[8,30],[8,29],[9,30],[10,32],[11,33],
-                   [11,4],[10,6],[9,8],[9,7],[9,33],[9,32],[10,33], [11,35],
-                    [11,3],[10,4],[10,3],[10,36],[10,35],[11,36],
-                   [11,0],[11,39]])
-        self.new_cap_ind = np.concatenate((new_cap_ind_top,new_cap_ind_bottom), axis=0);
-        self.new_cap_ind[96:,0] = 39 - self.new_cap_ind[96:,0];
-        self.b = np.zeros((40, 40, 19), dtype=self.charge[0].dtype);
-        
-        
-        self.endcap_mPMT_order = np.array([[0,6],[1,7],[2,8],[3,9],[4,10],[5,11],[6,0],[7,1],[8,2],[9,3],[10,4],[11,5],[12,15],[13,16],[14,17],[15,12],[16,13],[17,14],[18,18]])
         self.datasets = np.array(np.arange(num_datasets))
 
         self.mpmt_positions = np.load("IWCDshort_mPMT_image_positions.npz")['mpmt_image_positions']
 
     def __getitem__(self, index):
-        '''
-        self.a = self.event_data[self.datasets[0]][index,:,:,:19]
-        #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
-        #self.c[12:28,:,:] = self.a[12:28,:,:19]
-        self.c = self.a
-        return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[0]][index], self.energies[self.datasets[0]][index], self.angles[self.datasets[0]][index], index, self.positions[self.datasets[0]][index]
-        '''
         np.random.shuffle(self.datasets)
         for i in np.arange(len(self.datasets)):
             
@@ -351,16 +150,9 @@ class WCH5DatasetTest(Dataset):
                 hit_rows = self.mpmt_positions[hit_mpmts, 0]
                 hit_cols = self.mpmt_positions[hit_mpmts, 1]
                 hit_charges = self.charge[i][start:stop]
-                self.a = np.zeros((40,40,19))
-                self.a[hit_rows, hit_cols, hit_pmt_in_modules] = hit_charges
-
-                self.b[12:28,:,:] = self.a[12:28, :, :]
-                self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
-                self.c = self.b
-                #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
-                #self.c[12:28,:,:] = self.a[12:28,:,:19]
-
-                return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
+                data = np.zeros((19,40,40))
+                data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
+                return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
                 
         assert False, "empty batch"
         raise RuntimeError("empty batch")
