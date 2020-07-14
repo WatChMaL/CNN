@@ -33,7 +33,7 @@ def moving_average(a, n=3) :
     ret = np.cumsum(a, dtype=float)
     ret[n:] = ret[n:] - ret[:-n]
     return ret[n - 1:] / n
-def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val=40,show=True):
+def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val=40,show=True, leg_size=24):
     train_log=location+'/log_train.csv'
     val_log=location+'/log_val.csv'
     
@@ -75,7 +75,7 @@ def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val
 
     labels = [l.get_label() for l in lines]
     
-    leg    = ax2.legend(lines, labels, fontsize=16, loc=5, numpoints=1,prop={'size' : 6})
+    leg    = ax2.legend(lines, labels,  loc=5, numpoints=1,prop={'size' : leg_size})
     leg_frame = leg.get_frame()
     leg_frame.set_facecolor('white')
 
@@ -134,7 +134,7 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
     plt.show()
 
 # Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name='roc_plot',title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None):
+def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name=None,title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None):
     '''
     Plot multiple ROC curves of background rejection vs signal efficiency.
     Args:
@@ -243,7 +243,7 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         plt.margins(0.1)
         # plt.yscale("log")
         
-    plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
+    if png_name is not None: plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
     
     plt.show()
 

@@ -1,17 +1,223 @@
-[I 14:38:20.090 NotebookApp] The port 8888 is already in use, trying another port.
-[I 14:38:20.090 NotebookApp] The port 8889 is already in use, trying another port.
-[I 14:38:20.090 NotebookApp] The port 8890 is already in use, trying another port.
-[I 14:38:20.091 NotebookApp] The port 8891 is already in use, trying another port.
-[I 14:38:20.091 NotebookApp] The port 8892 is already in use, trying another port.
-[I 14:38:20.093 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 14:38:20.093 NotebookApp] The Jupyter Notebook is running at:
-[I 14:38:20.093 NotebookApp] http://localhost:8835/?token=7e7a1413bbdb060942f7a4745d64990db1048959da0f4866
-[I 14:38:20.093 NotebookApp]  or http://127.0.0.1:8835/?token=7e7a1413bbdb060942f7a4745d64990db1048959da0f4866
-[I 14:38:20.093 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 14:38:20.097 NotebookApp] 
+[I 08:34:31.582 NotebookApp] The port 8888 is already in use, trying another port.
+[I 08:34:31.582 NotebookApp] The port 8889 is already in use, trying another port.
+[I 08:34:31.582 NotebookApp] The port 8890 is already in use, trying another port.
+[I 08:34:31.582 NotebookApp] The port 8891 is already in use, trying another port.
+[I 08:34:31.582 NotebookApp] The port 8892 is already in use, trying another port.
+[I 08:34:32.934 NotebookApp] jupyter_tensorboard extension loaded.
+[I 08:34:32.997 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 08:34:32.997 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 08:34:32.999 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 08:34:32.999 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 08:34:32.999 NotebookApp] The Jupyter Notebook is running at:
+[I 08:34:32.999 NotebookApp] http://hostname:8888/?token=30655a3abeb4da3e212c5e9cc9d0b3232c01df942d6cc65e
+[I 08:34:32.999 NotebookApp]  or http://127.0.0.1:8830/?token=30655a3abeb4da3e212c5e9cc9d0b3232c01df942d6cc65e
+[I 08:34:32.999 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 08:34:33.002 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-8477-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-61714-open.html
     Or copy and paste one of these URLs:
-        http://localhost:8835/?token=7e7a1413bbdb060942f7a4745d64990db1048959da0f4866
-     or http://127.0.0.1:8835/?token=7e7a1413bbdb060942f7a4745d64990db1048959da0f4866
+        http://hostname:8888/?token=30655a3abeb4da3e212c5e9cc9d0b3232c01df942d6cc65e
+     or http://127.0.0.1:8830/?token=30655a3abeb4da3e212c5e9cc9d0b3232c01df942d6cc65e
+[I 08:35:12.838 NotebookApp] 302 GET /?token=30655a3abeb4da3e212c5e9cc9d0b3232c01df942d6cc65e (::1) 1.11ms
+[W 08:38:15.217 NotebookApp] delete /Repeating_Classifier_Training/resnet_filtered_output.npz
+[I 09:49:21.329 NotebookApp] Kernel started: 32c94027-d885-417c-a027-c84a7cba666d
+[I 10:04:38.779 NotebookApp] Kernel started: 1d8662ba-8cf0-4f41-be77-94dc59059995
+[I 10:05:08.490 NotebookApp] Kernel started: 1576c17b-6c94-41a2-8aff-922d29965a72
+[I 10:05:46.195 NotebookApp] Starting buffering for 1576c17b-6c94-41a2-8aff-922d29965a72:671f11ea224d4039a86de2dce3d76a4d
+[W 10:05:55.256 NotebookApp] Notebook Repeating_Classifier_Training/3. Mapping Previous Test Results.ipynb is not trusted
+[I 10:05:55.850 NotebookApp] Kernel started: 3e530a98-6282-48b9-8c1d-40c4447c9581
+[I 10:06:55.963 NotebookApp] Starting buffering for 3e530a98-6282-48b9-8c1d-40c4447c9581:c6bc2009e8504ac9819bc26fb4f0637e
+[I 10:07:01.585 NotebookApp] Kernel started: 990db682-b7f6-470a-804b-41f46081281c
+[I 10:07:13.644 NotebookApp] Kernel started: 09215b71-cd5f-4c84-97ad-3036d5ab99a5
+[I 10:07:31.778 NotebookApp] Starting buffering for 09215b71-cd5f-4c84-97ad-3036d5ab99a5:de741c0cc32846fab368205882442f25
+[W 10:07:35.776 NotebookApp] Notebook Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb is not trusted
+[I 10:07:36.286 NotebookApp] Kernel started: 3aa3272e-847d-46d7-b3b6-b8384042e101
+[I 10:07:43.623 NotebookApp] Starting buffering for 3aa3272e-847d-46d7-b3b6-b8384042e101:7571cd5e087a444eb9a0c0a594cd1a9e
+[I 10:07:47.293 NotebookApp] Kernel started: 460c97b3-7620-4f98-b803-ed932e4088e3
+[I 10:11:54.959 NotebookApp] Kernel started: 87652f1a-7bfc-4196-867a-a5782566430f
+[I 10:12:10.694 NotebookApp] Kernel started: 0a1615d8-5f17-40f4-bbdc-8b355ac78950
+[I 10:12:28.647 NotebookApp] Starting buffering for 0a1615d8-5f17-40f4-bbdc-8b355ac78950:b7b4d17ff9f94c068b0d3aa234d15dd7
+[I 10:12:29.362 NotebookApp] Starting buffering for 87652f1a-7bfc-4196-867a-a5782566430f:bbb658d410e44529a69d8bb1f9129897
+[I 10:12:29.943 NotebookApp] Starting buffering for 460c97b3-7620-4f98-b803-ed932e4088e3:2d91ec33a78f435fa62606d3793651d6
+[I 10:12:30.640 NotebookApp] Starting buffering for 990db682-b7f6-470a-804b-41f46081281c:0ac9a043353241598e91c90bf5dc02b2
+[I 10:12:31.357 NotebookApp] Starting buffering for 32c94027-d885-417c-a027-c84a7cba666d:b90f4d9d6333451a8fd0fcff3c24b652
+[I 10:12:32.017 NotebookApp] Starting buffering for 1d8662ba-8cf0-4f41-be77-94dc59059995:70dd9fa5fcee47d9af8f6542119bc5de
+[I 10:12:54.285 NotebookApp] Kernel shutdown: 1d8662ba-8cf0-4f41-be77-94dc59059995
+[I 10:12:54.590 NotebookApp] Kernel shutdown: 0a1615d8-5f17-40f4-bbdc-8b355ac78950
+[I 10:12:54.902 NotebookApp] Kernel shutdown: 3aa3272e-847d-46d7-b3b6-b8384042e101
+[I 10:12:55.206 NotebookApp] Kernel shutdown: 1576c17b-6c94-41a2-8aff-922d29965a72
+[I 10:12:55.511 NotebookApp] Kernel shutdown: 3e530a98-6282-48b9-8c1d-40c4447c9581
+[I 10:12:55.819 NotebookApp] Kernel shutdown: 990db682-b7f6-470a-804b-41f46081281c
+[I 10:12:56.123 NotebookApp] Kernel shutdown: 09215b71-cd5f-4c84-97ad-3036d5ab99a5
+[I 10:12:56.435 NotebookApp] Kernel shutdown: 32c94027-d885-417c-a027-c84a7cba666d
+[I 10:12:56.738 NotebookApp] Kernel shutdown: 87652f1a-7bfc-4196-867a-a5782566430f
+[I 10:12:57.051 NotebookApp] Kernel shutdown: 460c97b3-7620-4f98-b803-ed932e4088e3
+[I 10:19:09.201 NotebookApp] Kernel started: b570a674-3a2c-47e0-9122-dfaecca92437
+[I 10:19:23.744 NotebookApp] Kernel shutdown: b570a674-3a2c-47e0-9122-dfaecca92437
+[W 10:19:24.055 NotebookApp] delete /Repeating_Classifier_Training/2. Analyzing Re-trained Classifier Performance (Del).ipynb
+[I 10:19:28.708 NotebookApp] Kernel started: 8a5b1201-b3b1-4483-8925-c0436412601f
+[I 10:19:32.989 NotebookApp] Starting buffering for 8a5b1201-b3b1-4483-8925-c0436412601f:0e79935af0884c618e25a1385e08d250
+[I 10:19:40.518 NotebookApp] Kernel shutdown: 8a5b1201-b3b1-4483-8925-c0436412601f
+[W 10:19:40.824 NotebookApp] delete /Repeating_Classifier_Training/5. Comparing Initial Training Runs (Del).ipynb
+[W 10:19:49.867 NotebookApp] Notebook Repeating_Classifier_Training/3. Mapping Previous Test Results.ipynb is not trusted
+[I 10:19:50.360 NotebookApp] Kernel started: af456923-bb8c-4355-a2d4-0d49ac4b0121
+[W 10:20:00.931 NotebookApp] Notebook Repeating_Classifier_Training/3. Mapping Previous Test Results.ipynb is not trusted
+[I 10:20:08.371 NotebookApp] Starting buffering for af456923-bb8c-4355-a2d4-0d49ac4b0121:36d8da4e1f5f4ced8fdf3ed360f76c9d
+[I 10:20:14.409 NotebookApp] Kernel started: d5dfad54-7da3-490c-91e6-c07b54bda704
+[I 10:20:26.473 NotebookApp] Starting buffering for d5dfad54-7da3-490c-91e6-c07b54bda704:2852433d68de47719b0cf3be73cacff4
+[W 10:20:38.440 NotebookApp] Notebook Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb is not trusted
+[I 10:20:38.943 NotebookApp] Kernel started: bd976084-30f7-4a3c-89af-1652f308a111
+[W 10:20:51.766 NotebookApp] Notebook Repeating_Classifier_Training/6. Repeating Testing with Best Model Weights.ipynb is not trusted
+[I 10:20:53.660 NotebookApp] Starting buffering for bd976084-30f7-4a3c-89af-1652f308a111:ba850c2efea3463485dd39a43b56c4dd
+[I 10:21:01.776 NotebookApp] Kernel started: 749d6ee2-8f38-4d57-b345-c2dbe9c033d8
+[I 10:21:17.110 NotebookApp] Starting buffering for 749d6ee2-8f38-4d57-b345-c2dbe9c033d8:c5bac1a26f8746a1bad75c4f0c816956
+[I 10:21:26.454 NotebookApp] Kernel started: 5a18ef9b-2dc3-4dfe-9161-91c843da38d8
+[I 10:21:55.464 NotebookApp] Starting buffering for 5a18ef9b-2dc3-4dfe-9161-91c843da38d8:d3e9c99ce5924c268bf59d27abe4f60a
+[I 10:22:01.076 NotebookApp] Kernel started: 320bbc36-027e-4d02-acb1-6200b5f96bee
+[I 10:22:33.956 NotebookApp] Starting buffering for 320bbc36-027e-4d02-acb1-6200b5f96bee:45800bf9d9b1443dae0b895635408e93
+[I 10:22:42.129 NotebookApp] Kernel started: 1258c570-f175-4035-b0ec-c53dffbb019a
+[I 10:22:52.924 NotebookApp] Starting buffering for 1258c570-f175-4035-b0ec-c53dffbb019a:21a561717b5d46898b2750af1396d5ec
+[I 10:22:58.386 NotebookApp] Kernel started: fb825229-b623-4a32-81e1-a82abbb8b149
+[I 10:23:45.438 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 10:23:45.439 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 10:23:50.247 NotebookApp] Starting buffering for fb825229-b623-4a32-81e1-a82abbb8b149:4cef1c82cd53402b8cb9767993bd0fbf
+[I 10:23:59.254 NotebookApp] Saving file at /Repeating_Classifier_Training/8. Training with Weighted Loss.ipynb
+[I 10:23:59.255 NotebookApp] Saving 8. Training with Weighted Loss.ipynb
+[I 10:24:00.493 NotebookApp] Starting buffering for 1258c570-f175-4035-b0ec-c53dffbb019a:7298b270f300496282f1f175871aa262
+[I 10:24:18.971 NotebookApp] Saving file at /Repeating_Classifier_Training/7. Analyzing and Comparing Datasets.ipynb
+[I 10:24:18.972 NotebookApp] Saving 7. Analyzing and Comparing Datasets.ipynb
+[I 10:24:19.321 NotebookApp] Saving file at /Repeating_Classifier_Training/7. Analyzing and Comparing Datasets.ipynb
+[I 10:24:19.321 NotebookApp] Saving 7. Analyzing and Comparing Datasets.ipynb
+[I 10:24:21.076 NotebookApp] Starting buffering for 320bbc36-027e-4d02-acb1-6200b5f96bee:77095768cb7b4342a2b3a78c79a97ab9
+[I 10:25:09.139 NotebookApp] Saving file at /Repeating_Classifier_Training/5. Compressing h5 Dataset For Compute Canada Resources.ipynb
+[I 10:25:09.139 NotebookApp] Saving 5. Compressing h5 Dataset For Compute Canada Resources.ipynb
+[I 10:25:10.751 NotebookApp] Starting buffering for 749d6ee2-8f38-4d57-b345-c2dbe9c033d8:5263d5e2f1eb49ec86b5d1f7e7a90701
+[I 10:25:16.788 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 10:25:16.788 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 10:25:17.379 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 10:25:17.379 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 10:25:17.555 NotebookApp] Starting buffering for 5a18ef9b-2dc3-4dfe-9161-91c843da38d8:225a96000617408d88ef979f713f56e2
+[W 10:25:22.504 NotebookApp] Notebook Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb is not trusted
+[I 10:25:27.405 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb
+[I 10:25:27.405 NotebookApp] Saving 4. Repeating Testing with Previous Best Model Weights.ipynb
+[W 10:25:27.406 NotebookApp] Notebook Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb is not trusted
+[I 10:25:31.218 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb
+[I 10:25:31.218 NotebookApp] Saving 4. Repeating Testing with Previous Best Model Weights.ipynb
+[W 10:25:31.219 NotebookApp] Notebook Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb is not trusted
+[I 10:25:31.490 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb
+[I 10:25:31.491 NotebookApp] Saving 4. Repeating Testing with Previous Best Model Weights.ipynb
+[W 10:25:31.492 NotebookApp] Notebook Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb is not trusted
+[I 10:25:31.652 NotebookApp] Saving file at /Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb
+[I 10:25:31.652 NotebookApp] Saving 4. Repeating Testing with Previous Best Model Weights.ipynb
+[W 10:25:31.653 NotebookApp] Notebook Repeating_Classifier_Training/4. Repeating Testing with Previous Best Model Weights.ipynb is not trusted
+[I 10:25:32.255 NotebookApp] Starting buffering for bd976084-30f7-4a3c-89af-1652f308a111:a423a28157d9429b8f9accf933c2b85c
+[I 10:25:54.081 NotebookApp] Saving file at /Repeating_Classifier_Training/3. Re-creating Previous Test Results.ipynb
+[I 10:25:54.081 NotebookApp] Saving 3. Re-creating Previous Test Results.ipynb
+[I 10:25:55.305 NotebookApp] Starting buffering for d5dfad54-7da3-490c-91e6-c07b54bda704:38977950d9aa486586880ef3ecab60c0
+[W 10:26:00.979 NotebookApp] Notebook Repeating_Classifier_Training/2. Mapping Previous Test Results.ipynb is not trusted
+[I 10:26:11.243 NotebookApp] Saving file at /Repeating_Classifier_Training/2. Mapping Previous Test Results.ipynb
+[I 10:26:11.243 NotebookApp] Saving 2. Mapping Previous Test Results.ipynb
+[W 10:26:11.244 NotebookApp] Notebook Repeating_Classifier_Training/2. Mapping Previous Test Results.ipynb is not trusted
+[I 10:26:12.049 NotebookApp] Starting buffering for af456923-bb8c-4355-a2d4-0d49ac4b0121:ab7e52ac7e144b52bac563ff14db317e
+[I 10:26:25.889 NotebookApp] Kernel shutdown: af456923-bb8c-4355-a2d4-0d49ac4b0121
+[I 10:26:26.202 NotebookApp] Kernel shutdown: d5dfad54-7da3-490c-91e6-c07b54bda704
+[I 10:26:26.506 NotebookApp] Kernel shutdown: bd976084-30f7-4a3c-89af-1652f308a111
+[I 10:26:26.810 NotebookApp] Kernel shutdown: 749d6ee2-8f38-4d57-b345-c2dbe9c033d8
+[I 10:26:27.115 NotebookApp] Kernel shutdown: 320bbc36-027e-4d02-acb1-6200b5f96bee
+[I 10:26:27.419 NotebookApp] Kernel shutdown: 5a18ef9b-2dc3-4dfe-9161-91c843da38d8
+[I 10:26:27.732 NotebookApp] Kernel shutdown: fb825229-b623-4a32-81e1-a82abbb8b149
+[I 10:26:28.041 NotebookApp] Kernel shutdown: 1258c570-f175-4035-b0ec-c53dffbb019a
+[I 11:04:06.897 NotebookApp] Kernel started: 9ad76680-0f0f-425d-aa56-885423f1d27c
+[I 11:05:05.411 NotebookApp] Kernel started: dd39886d-1c87-4a72-aadc-c6e63b3ce3a9
+[I 11:06:07.861 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:06:07.861 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:08:07.884 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:08:07.884 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:08:43.512 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:08:43.513 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:12:06.897 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:12:06.898 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:12:08.814 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:12:08.814 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:14:06.905 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:14:06.905 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:16:06.898 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:16:06.899 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:24:06.919 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:24:06.920 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:26:06.902 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:26:06.903 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:27:43.973 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:27:43.974 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:28:06.902 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:28:06.902 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:28:14.034 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:28:14.035 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:28:24.194 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:28:24.194 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:30:08.152 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:30:08.153 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:30:44.014 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:30:44.014 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:31:06.684 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:31:06.684 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:31:33.466 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:31:33.467 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:31:51.095 NotebookApp] Starting buffering for dd39886d-1c87-4a72-aadc-c6e63b3ce3a9:1941ecac70824e8c841d2cba515196b6
+[I 11:32:04.332 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:32:04.333 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:32:37.402 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:32:37.402 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:32:44.311 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:32:44.312 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:32:51.327 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:32:51.328 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:33:08.230 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:33:08.230 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:34:06.957 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:34:06.958 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:36:06.948 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:36:06.948 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:38:07.889 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:38:07.889 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:42:06.933 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:42:06.933 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:42:15.865 NotebookApp] Kernel interrupted: 9ad76680-0f0f-425d-aa56-885423f1d27c
+[I 11:44:06.905 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:44:06.906 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:46:07.239 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:46:07.239 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:58:07.019 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 11:58:07.020 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 12:13:43.187 NotebookApp] Saving file at /Repeating_Classifier_Training/9. Incorporating OD Veto Data.ipynb
+[I 12:13:43.188 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 12:13:45.113 NotebookApp] Starting buffering for 9ad76680-0f0f-425d-aa56-885423f1d27c:2aa1bd4b7f004eb182aa65e4014ddf7c
+[I 12:14:25.571 NotebookApp] Creating new notebook in /Repeating_Classifier_Training
+[I 12:14:25.572 NotebookApp] Saving Untitled.ipynb
+[I 12:14:26.585 NotebookApp] Kernel started: 774ca4e0-2709-444a-a932-971e1062fece
+[I 12:16:26.588 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:16:26.588 NotebookApp] Saving Untitled.ipynb
+[I 12:18:26.604 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:18:26.604 NotebookApp] Saving Untitled.ipynb
+[I 12:20:20.463 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:20:20.464 NotebookApp] Saving Untitled.ipynb
+[I 12:20:26.600 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:20:26.600 NotebookApp] Saving Untitled.ipynb
+[I 12:22:26.628 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:22:26.629 NotebookApp] Saving Untitled.ipynb
+[I 12:22:53.205 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:22:53.205 NotebookApp] Saving Untitled.ipynb
+[I 12:24:26.632 NotebookApp] Saving file at /Repeating_Classifier_Training/Untitled.ipynb
+[I 12:24:26.633 NotebookApp] Saving Untitled.ipynb
+[I 12:53:00.103 NotebookApp] Starting buffering for 774ca4e0-2709-444a-a932-971e1062fece:4d356d4bf49449eca043dc23c0374b63
+[I 12:53:00.105 NotebookApp] Starting buffering for dd39886d-1c87-4a72-aadc-c6e63b3ce3a9:635ccec113dc4d0fade78799229603e0
+[I 13:05:16.662 NotebookApp] Restoring connection for 774ca4e0-2709-444a-a932-971e1062fece:4d356d4bf49449eca043dc23c0374b63
+[I 13:05:16.872 NotebookApp] Restoring connection for dd39886d-1c87-4a72-aadc-c6e63b3ce3a9:635ccec113dc4d0fade78799229603e0
+[I 13:23:50.828 NotebookApp] Saving file at /Repeating_Classifier_Training/Re-Run Without Unrolling.ipynb
+[I 13:23:50.829 NotebookApp] Saving Re-Run Without Unrolling.ipynb
+[I 13:23:51.936 NotebookApp] Starting buffering for 774ca4e0-2709-444a-a932-971e1062fece:4d356d4bf49449eca043dc23c0374b63
+[I 13:24:03.957 NotebookApp] Starting buffering for dd39886d-1c87-4a72-aadc-c6e63b3ce3a9:635ccec113dc4d0fade78799229603e0
+[I 13:24:10.153 NotebookApp] Kernel shutdown: dd39886d-1c87-4a72-aadc-c6e63b3ce3a9
+[I 13:24:10.461 NotebookApp] Kernel shutdown: 774ca4e0-2709-444a-a932-971e1062fece
+[I 13:24:11.268 NotebookApp] Kernel shutdown: 9ad76680-0f0f-425d-aa56-885423f1d27c
