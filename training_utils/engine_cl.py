@@ -348,6 +348,9 @@ class EngineCL(Engine):
         print("Dump iterations = {0}".format(dump_iterations))
         save_arr_dict = {"events":[], "labels":[], "energies":[], "angles":[], "eventids":[], "rootfiles":[]}
 
+        avg_loss = 0
+        avg_acc = 0
+        count = 0
         for iteration, data in enumerate(data_iter):
             
             stdout.write("Iteration : " + str(iteration) + "\n")
@@ -379,7 +382,11 @@ class EngineCL(Engine):
                 for key in _DUMP_KEYS:
                     if key in res.keys():
                         save_arr_dict[key] = []
-                        
+            
+            avg_acc += res['accuracy']
+            avg_loss += res['loss']
+            count += 1
+
             if iteration < dump_iterations:
                 save_arr_dict["labels"].append(self.labels.cpu().numpy())
                 save_arr_dict["energies"].append(self.energies.cpu().numpy())
@@ -391,12 +398,11 @@ class EngineCL(Engine):
                     if key in res.keys():
                         save_arr_dict[key].append(res[key])
             elif iteration == dump_iterations:
-                print("Saving the npz dump array :")
-                savez(np_event_path + "dump.npz", **save_arr_dict)
                 break
         
-        if not path.exists(np_event_path + "dump.npz"):
-            print("Saving the npz dump array :")
-            savez(np_event_path + "dump.npz", **save_arr_dict)
-
+        print("Saving the npz dump array :")
+        savez(np_event_path + "dump.npz", **save_arr_dict)
+        avg_acc /= count
+        avg_loss /= count
+        stdout.write("Overall acc : {}, Overall loss : {}\n".format(avg_acc, avg_loss))
 
