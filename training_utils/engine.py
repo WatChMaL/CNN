@@ -18,9 +18,9 @@ import numpy as np
 # -
 
 # WatChMaL imports
-from io_utils.data_handling_train import WCH5DatasetT
-from io_utils.data_handling_val import WCH5DatasetV
-from io_utils.data_handling_test import WCH5DatasetTest
+from io_utils.data_handling_hitarray_train import WCH5DatasetT
+from io_utils.data_handling_hitarray_val import WCH5DatasetV
+from io_utils.data_handling_hitarray_test import WCH5DatasetTest
 from io_utils.ioconfig import save_config
 from plot_utils.notebook_utils import CSVData
 

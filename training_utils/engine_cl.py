@@ -90,11 +90,11 @@ class EngineCL(Engine):
         # Initialize the torch dataloaders
   
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=8)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=8)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=5)
+                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=8)
 
         # Define the placeholder attributes
         self.data     = None
@@ -181,7 +181,9 @@ class EngineCL(Engine):
             start_time = time()
 
             # Local training loop for a single epoch
+            #print('entering loop')
             for data in self.train_loader:
+                #print('in loop')    
 
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
@@ -346,6 +348,9 @@ class EngineCL(Engine):
         print("Dump iterations = {0}".format(dump_iterations))
         save_arr_dict = {"events":[], "labels":[], "energies":[], "angles":[], "eventids":[], "rootfiles":[]}
 
+        avg_loss = 0
+        avg_acc = 0
+        count = 0
         for iteration, data in enumerate(data_iter):
             
             stdout.write("Iteration : " + str(iteration) + "\n")
@@ -377,7 +382,11 @@ class EngineCL(Engine):
                 for key in _DUMP_KEYS:
                     if key in res.keys():
                         save_arr_dict[key] = []
-                        
+            
+            avg_acc += res['accuracy']
+            avg_loss += res['loss']
+            count += 1
+
             if iteration < dump_iterations:
                 save_arr_dict["labels"].append(self.labels.cpu().numpy())
                 save_arr_dict["energies"].append(self.energies.cpu().numpy())
@@ -389,12 +398,11 @@ class EngineCL(Engine):
                     if key in res.keys():
                         save_arr_dict[key].append(res[key])
             elif iteration == dump_iterations:
-                print("Saving the npz dump array :")
-                savez(np_event_path + "dump.npz", **save_arr_dict)
                 break
         
-        if not path.exists(np_event_path + "dump.npz"):
-            print("Saving the npz dump array :")
-            savez(np_event_path + "dump.npz", **save_arr_dict)
-
+        print("Saving the npz dump array :")
+        savez(np_event_path + "dump.npz", **save_arr_dict)
+        avg_acc /= count
+        avg_loss /= count
+        stdout.write("Overall acc : {}, Overall loss : {}\n".format(avg_acc, avg_loss))
 
