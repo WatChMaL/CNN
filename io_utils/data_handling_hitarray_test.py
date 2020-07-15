@@ -133,7 +133,7 @@ class WCH5DatasetTest(Dataset):
             
         self.datasets = np.array(np.arange(num_datasets))
 
-        self.mpmt_positions = np.load("IWCDshort_mPMT_image_positions.npz")['mpmt_image_positions']
+        self.mpmt_positions = np.load("/data/WatChMaL/data/IWCD_mPMT_image_positions.npz")['mpmt_image_positions']
 
     def __getitem__(self, index):
         np.random.shuffle(self.datasets)

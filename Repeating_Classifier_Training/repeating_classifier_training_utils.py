@@ -816,7 +816,7 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
-    return bin_metrics[:,2]
+    # return bin_metrics[:,2]
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
                             ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None):
