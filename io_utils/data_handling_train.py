@@ -252,7 +252,6 @@ class WCH5DatasetT(Dataset):
             
         self.datasets = np.array(np.arange(num_datasets))
 
-    # @profile
     def __getitem__(self, index):
         '''
         self.a = self.event_data[self.datasets[0]][index,:,:,:19]

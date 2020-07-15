@@ -221,3 +221,95 @@
 [I 13:24:10.153 NotebookApp] Kernel shutdown: dd39886d-1c87-4a72-aadc-c6e63b3ce3a9
 [I 13:24:10.461 NotebookApp] Kernel shutdown: 774ca4e0-2709-444a-a932-971e1062fece
 [I 13:24:11.268 NotebookApp] Kernel shutdown: 9ad76680-0f0f-425d-aa56-885423f1d27c
+[I 14:03:27.098 NotebookApp] Kernel started: d79fd356-c02c-43be-aef7-bf601538c979
+[I 14:24:50.976 NotebookApp] Saving file at /Repeating_Classifier_Training/Re-Run Without Cap Unrolling.ipynb
+[I 14:24:50.976 NotebookApp] Saving Re-Run Without Cap Unrolling.ipynb
+[I 14:26:26.921 NotebookApp] Kernel started: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 14:28:27.533 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:28:27.534 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:30:28.467 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:30:28.467 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:32:27.491 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:32:27.491 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:32:49.766 NotebookApp] Kernel started: 8627b49c-9670-4e96-bdab-a4f98fb65927
+[I 14:34:28.103 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:34:28.104 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:37:14.250 NotebookApp] Starting buffering for 50587d3e-a6a7-4d53-a5ef-173f28623ccb:9a0d15c8bf7b466584e5b48b12c1381b
+[I 14:37:14.581 NotebookApp] Kernel restarted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 14:37:15.580 NotebookApp] Restoring connection for 50587d3e-a6a7-4d53-a5ef-173f28623ccb:9a0d15c8bf7b466584e5b48b12c1381b
+[I 14:37:15.580 NotebookApp] Replaying 3 buffered messages
+[I 14:38:27.298 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:38:27.299 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:40:27.216 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:40:27.217 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:42:27.613 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:42:27.613 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:44:19.984 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:44:19.985 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:44:28.215 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:44:28.216 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:44:28.821 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:44:28.821 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:46:27.539 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:46:27.540 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:54:27.955 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:54:27.955 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:55:01.432 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:55:01.433 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:56:27.927 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:56:27.927 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:58:27.506 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:58:27.506 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 14:59:21.795 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 14:59:21.796 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:00:27.485 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:00:27.486 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:02:27.504 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:02:27.505 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:04:27.584 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:04:27.584 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:06:27.575 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:06:27.576 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:08:27.752 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:08:27.753 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:10:30.544 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:10:30.544 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:14:29.345 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:14:29.346 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:15:09.342 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:15:09.343 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:16:17.037 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:16:17.037 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:18:27.550 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:18:27.551 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:22:27.851 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:22:27.851 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:23:57.056 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:23:57.056 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:24:27.523 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:24:27.523 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:26:17.633 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:26:17.634 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:26:27.523 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:26:27.524 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:28:26.767 NotebookApp] Kernel interrupted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:28:27.938 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:28:27.938 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:30:27.685 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:30:27.686 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:30:29.695 NotebookApp] Kernel interrupted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:32:27.800 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:32:27.800 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:34:30.000 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:34:30.000 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:34:59.002 NotebookApp] Kernel interrupted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:35:47.559 NotebookApp] Kernel interrupted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:36:13.133 NotebookApp] Kernel interrupted: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:36:15.885 NotebookApp] Saving file at /Repeating_Classifier_Training/6. Detailed Performance Analysis.ipynb
+[I 15:36:15.885 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:48:01.270 NotebookApp] Starting buffering for d79fd356-c02c-43be-aef7-bf601538c979:e79b291130fb4d9d81fe85415c484c0c
+[I 15:48:01.845 NotebookApp] Starting buffering for 50587d3e-a6a7-4d53-a5ef-173f28623ccb:9a0d15c8bf7b466584e5b48b12c1381b
+[I 15:48:02.257 NotebookApp] Starting buffering for 8627b49c-9670-4e96-bdab-a4f98fb65927:fa37105c3a0b48df86f489b15aeb7603
+[I 15:48:09.616 NotebookApp] Kernel shutdown: 50587d3e-a6a7-4d53-a5ef-173f28623ccb
+[I 15:48:13.733 NotebookApp] Kernel shutdown: d79fd356-c02c-43be-aef7-bf601538c979
+[I 15:48:14.039 NotebookApp] Kernel shutdown: 8627b49c-9670-4e96-bdab-a4f98fb65927
