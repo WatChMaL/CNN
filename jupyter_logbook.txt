@@ -1,157 +1,40 @@
-[I 13:39:39.265 NotebookApp] The port 8888 is already in use, trying another port.
-[I 13:39:39.266 NotebookApp] The port 8889 is already in use, trying another port.
-[I 13:39:39.266 NotebookApp] The port 8890 is already in use, trying another port.
-[I 13:39:39.266 NotebookApp] The port 8891 is already in use, trying another port.
-[I 13:39:40.820 NotebookApp] jupyter_tensorboard extension loaded.
-[I 13:39:40.882 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 13:39:40.882 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 13:39:40.883 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 13:39:40.884 NotebookApp] Serving notebooks from local directory: /home/ttuinstr/VAE
-[I 13:39:40.884 NotebookApp] The Jupyter Notebook is running at:
-[I 13:39:40.884 NotebookApp] http://hostname:8888/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
-[I 13:39:40.884 NotebookApp]  or http://127.0.0.1:8892/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
-[I 13:39:40.884 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 13:39:40.888 NotebookApp] 
+[I 12:07:06.405 NotebookApp] The port 8888 is already in use, trying another port.
+[I 12:07:06.406 NotebookApp] The port 8889 is already in use, trying another port.
+[I 12:07:06.406 NotebookApp] The port 8890 is already in use, trying another port.
+[I 12:07:06.406 NotebookApp] The port 8891 is already in use, trying another port.
+[I 12:07:06.406 NotebookApp] The port 8892 is already in use, trying another port.
+[I 12:07:07.717 NotebookApp] jupyter_tensorboard extension loaded.
+[I 12:07:07.784 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 12:07:07.784 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 12:07:07.786 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 12:07:07.786 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 12:07:07.786 NotebookApp] The Jupyter Notebook is running at:
+[I 12:07:07.786 NotebookApp] http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
+[I 12:07:07.786 NotebookApp]  or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
+[I 12:07:07.786 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 12:07:07.789 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/ttuinstr/.local/share/jupyter/runtime/nbserver-22791-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-52354-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
-     or http://127.0.0.1:8892/?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500
-[I 13:39:57.012 NotebookApp] 302 GET /?token=f7e77fff20354b0bcdc2284458a0ad898ab1983439ab5500 (::1) 1.24ms
-[W 13:54:14.640 NotebookApp] Notebook /notebooks/Plotting examples.ipynb is not trusted
-[W 13:54:32.973 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 17.65ms referer=http://127.0.0.1:8892/notebooks/notebooks/Plotting%20examples.ipynb
-[I 13:55:11.415 NotebookApp] Kernel started: a4f6151d-32c9-4e01-a853-3b7986b4a847
-[I 13:55:24.181 NotebookApp] Saving file at /config/engine_config/test.ini
-[I 14:11:08.294 NotebookApp] Saving file at /config/engine_config/test.ini
-[I 14:11:26.101 NotebookApp] Copying config/engine_config/test.ini to /config/engine_config
-[I 14:11:47.926 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:11:50.734 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[W 14:12:16.082 NotebookApp] Notebook /io_utils/data_handling_test.py is not trusted
-[I 14:12:17.551 NotebookApp] Kernel started: 3b1c88f9-7fa0-46e2-b57e-d7cf79f96fc1
-[W 14:12:17.580 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 7.04ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_test.py
-[I 14:14:12.646 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:14:18.117 NotebookApp] Saving file at /io_utils/data_handling_test.py
-[I 14:14:18.117 NotebookApp] Saving data_handling_test.py in format py:light
-[I 14:14:51.429 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:06.981 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:32.078 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:34.230 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:35.453 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:45.613 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:15:55.685 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:17:00.374 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:17:25.053 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[W 14:17:48.063 NotebookApp] Notebook /training_utils/engine.py is not trusted
-[I 14:17:48.816 NotebookApp] Kernel started: 233c052e-b400-47c3-abf1-2a7de2fcf941
-[W 14:17:48.903 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.17ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine.py
-[I 14:19:15.020 NotebookApp] Saving file at /training_utils/engine.py
-[I 14:19:15.021 NotebookApp] Saving engine.py in format py:light
-[I 14:19:38.438 NotebookApp] Saving file at /training_utils/engine.py
-[I 14:19:38.438 NotebookApp] Saving engine.py in format py:light
-[I 14:19:48.917 NotebookApp] Saving file at /training_utils/engine.py
-[I 14:19:48.917 NotebookApp] Saving engine.py in format py:light
-[I 14:19:51.373 NotebookApp] Saving file at /training_utils/engine.py
-[I 14:19:51.373 NotebookApp] Saving engine.py in format py:light
-[W 14:21:13.047 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 3.76ms referer=http://127.0.0.1:8892/notebooks/data_slicing/Varying%20Position%20Dataset.ipynb
-[I 14:21:39.502 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:21:45.082 NotebookApp] Saving file at /config/engine_config/best_resnet.ini
-[I 14:22:03.286 NotebookApp] Saving file at /config/engine_config/test.ini
-[W 14:22:28.168 NotebookApp] Notebook /io_utils/data_handling_train.py is not trusted
-[I 14:22:29.651 NotebookApp] Kernel started: 5aef3692-7ae7-4161-bbfd-ca84bd2f8176
-[W 14:22:29.981 NotebookApp] Notebook /io_utils/data_handling_val.py is not trusted
-[I 14:22:31.160 NotebookApp] Kernel started: 0c1eb72b-ed1b-4c59-bcce-b52f6a29a94c
-[W 14:22:31.263 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 2.68ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_val.py
-[W 14:22:31.984 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.68ms referer=http://127.0.0.1:8892/notebooks/io_utils/data_handling_train.py
-[I 14:22:48.382 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:22:48.382 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:22:56.636 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:22:56.637 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:22:57.725 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:22:57.726 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:23:21.981 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:23:21.982 NotebookApp] Saving data_handling_train.py in format py:light
-[W 14:24:15.184 NotebookApp] Notebook /training_utils/engine_cl.py is not trusted
-[I 14:24:15.865 NotebookApp] Kernel started: f58134a1-67e3-430c-921d-07aff9e9aab8
-[W 14:24:17.095 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 4.28ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine_cl.py
-[I 14:24:40.732 NotebookApp] Saving file at /training_utils/engine.py
-[I 14:24:40.733 NotebookApp] Saving engine.py in format py:light
-[I 14:25:10.725 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:25:10.725 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:26:15.949 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:26:15.950 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:27:02.532 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:27:02.533 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:27:10.109 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:27:10.110 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:28:13.564 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:28:13.565 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:28:21.470 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:28:21.470 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:29:52.397 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:29:52.398 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:30:29.541 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:30:29.541 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:30:29.917 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:30:29.917 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:30:54.460 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:30:54.461 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:31:54.637 NotebookApp] Copying config/engine_config/test.ini to /config/engine_config
-[I 14:32:19.709 NotebookApp] Saving file at /config/engine_config/dcgan.ini
-[I 14:33:01.084 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:33:01.084 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:33:15.517 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:33:15.518 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:33:20.140 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:33:20.141 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:33:31.573 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:33:31.573 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:33:35.140 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:33:35.141 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:33:39.405 NotebookApp] Saving file at /io_utils/data_handling_test.py
-[I 14:33:39.405 NotebookApp] Saving data_handling_test.py in format py:light
-[I 14:34:29.748 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:34:29.749 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:34:39.589 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:34:39.589 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:34:47.077 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:34:47.077 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:35:44.733 NotebookApp] Saving file at /training_utils/engine_cl.py
-[I 14:35:44.734 NotebookApp] Saving engine_cl.py in format py:light
-[I 14:36:22.996 NotebookApp] Saving file at /io_utils/data_handling_val.py
-[I 14:36:22.997 NotebookApp] Saving data_handling_val.py in format py:light
-[I 14:36:29.741 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:36:29.741 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:36:31.645 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:36:31.645 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:37:20.941 NotebookApp] Saving file at /io_utils/data_handling_train.py
-[I 14:37:20.953 NotebookApp] Saving data_handling_train.py in format py:light
-[I 14:37:25.884 NotebookApp] Saving file at /config/engine_config/dcgan.ini
-[W 14:37:35.558 NotebookApp] Notebook /training_utils/engine_gan.py is not trusted
-[I 14:37:36.039 NotebookApp] Kernel started: d630e8d6-2d56-4d2e-8f4d-dcc5b3a4951f
-[W 14:37:36.053 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20200504133938 (::1) 7.64ms referer=http://127.0.0.1:8892/notebooks/training_utils/engine_gan.py
-[I 14:37:53.237 NotebookApp] Saving file at /training_utils/engine_gan.py
-[I 14:37:53.238 NotebookApp] Saving engine_gan.py in format py:light
-[I 14:37:55.067 NotebookApp] Starting buffering for d630e8d6-2d56-4d2e-8f4d-dcc5b3a4951f:30d18a8669394241935878d55e8aac94
-[I 14:38:06.773 NotebookApp] Saving file at /config/engine_config/dcgan.ini
-[I 14:41:12.934 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 14:41:12.935 NotebookApp] Saving Plotting examples.ipynb
-[W 14:41:12.936 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[I 14:41:26.498 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 14:41:26.498 NotebookApp] Saving Plotting examples.ipynb
-[W 14:41:26.499 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[I 14:41:45.540 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 14:41:45.541 NotebookApp] Saving Plotting examples.ipynb
-[W 14:41:45.541 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[I 14:41:46.546 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 14:41:46.547 NotebookApp] Saving Plotting examples.ipynb
-[W 14:41:46.548 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[I 14:41:49.571 NotebookApp] Saving file at /notebooks/Plotting examples.ipynb
-[I 14:41:49.571 NotebookApp] Saving Plotting examples.ipynb
-[W 14:41:49.572 NotebookApp] Notebook notebooks/Plotting examples.ipynb is not trusted
-[I 14:41:50.218 NotebookApp] Starting buffering for a4f6151d-32c9-4e01-a853-3b7986b4a847:b8b96639f3eb48bf9d7b5db8cd9e746f
-[I 14:41:55.634 NotebookApp] Starting buffering for 0c1eb72b-ed1b-4c59-bcce-b52f6a29a94c:b0bcd3445486483c8ed945e5194e2299
-[I 14:41:56.059 NotebookApp] Starting buffering for 5aef3692-7ae7-4161-bbfd-ca84bd2f8176:80aeaae3c3c24baa864f30fcca4f35db
-[I 14:41:56.434 NotebookApp] Starting buffering for 3b1c88f9-7fa0-46e2-b57e-d7cf79f96fc1:cc2b3c888c254cf18a9c80d92b9aec6a
-[I 14:41:56.826 NotebookApp] Starting buffering for 233c052e-b400-47c3-abf1-2a7de2fcf941:b9f7842784bc43cb8e9fa0124cce14a6
-[I 14:41:57.362 NotebookApp] Starting buffering for f58134a1-67e3-430c-921d-07aff9e9aab8:2a4ab796a6d1493081168127fac8311e
+        http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
+     or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
+[I 12:14:20.568 NotebookApp] 302 GET /?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e (::1) 1.28ms
+[I 12:15:22.233 NotebookApp] Kernel started: 45316f46-8617-4852-87e7-542250562e5d
+[I 12:15:38.517 NotebookApp] Copying Repeating_Classifier_Training/Re-Run Without Cap Unrolling.ipynb to /Repeating_Classifier_Training
+[I 12:15:38.562 NotebookApp] Saving Re-Run Without Cap Unrolling-Copy1.ipynb
+[I 12:15:44.618 NotebookApp] Starting buffering for 45316f46-8617-4852-87e7-542250562e5d:9c8fda7b76e345938a9c4782537fe791
+[I 12:15:46.742 NotebookApp] Kernel shutdown: 45316f46-8617-4852-87e7-542250562e5d
+[I 12:15:49.940 NotebookApp] Kernel started: 84aa621e-73ef-4b0d-8226-21ac343a1b22
+[I 12:19:01.339 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:8273ebb31f3840e49c70e37a53033ba3
+[I 12:21:53.523 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
+[I 12:21:53.846 NotebookApp] Kernel restarted: 84aa621e-73ef-4b0d-8226-21ac343a1b22
+[I 12:21:54.877 NotebookApp] Restoring connection for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
+[I 12:21:54.877 NotebookApp] Replaying 3 buffered messages
+[I 12:23:33.575 NotebookApp] Saving file at /Repeating_Classifier_Training/Re-Run After Hit Array Change.ipynb
+[I 12:23:33.576 NotebookApp] Saving Re-Run After Hit Array Change.ipynb
+[I 12:23:49.852 NotebookApp] Kernel started: 9a387864-2aa7-407a-93e9-7c562b32ab7a
+[I 12:24:07.900 NotebookApp] Kernel started: 63b2bfb5-404f-41a1-a9e1-aa9301734d62
+[I 12:30:22.780 NotebookApp] Starting buffering for 9a387864-2aa7-407a-93e9-7c562b32ab7a:c23ddac0a2894e18843e5d041628e4b9
+[I 12:30:23.489 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
+[I 12:30:29.052 NotebookApp] Starting buffering for 63b2bfb5-404f-41a1-a9e1-aa9301734d62:b1c183385de44b0db72e9c543f069e9a

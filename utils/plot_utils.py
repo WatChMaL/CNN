@@ -48,7 +48,7 @@ def get_plot_array(event_data):
         i += 10 + PADDING
         
     return output
-            
+
 def tile(canvas, ul, pmts):
     
     # First, create 10x10 grid representing single mpmt
@@ -60,7 +60,7 @@ def tile(canvas, ul, pmts):
     for row in range(10):
         for col in range(10):
             canvas[row+ul[0]][col+ul[1]] = mpmt[row][col]
-            
+
 
 
 def disp_learn_hist(location,losslim=None,show=True):
@@ -103,7 +103,7 @@ def disp_learn_hist(location,losslim=None,show=True):
         return
     
     return fig
-    
+
 def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val=40,show=True):
     train_log=location+'/log_train.csv'
     val_log=location+'/log_val.csv'

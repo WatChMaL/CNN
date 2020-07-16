@@ -12,26 +12,34 @@ from os import path
 # Python standard imports
 from sys import stdout
 from math import floor, ceil
-from time import strftime, localtime
+from time import strftime, localtime, time
 import numpy as np
 import random
-# -
+import csv
+import gc
+import resource
 
+# +
 # Numerical imports
 from numpy import savez
+
+from numba import cuda
+# -
 
 # PyTorch imports
 from torch import cat
 from torch import argmax
+from torch import tensor
 from torch.nn import Softmax
 from torch.optim import Adam
 from torch.utils.data import DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
+from torch.utils.data.sampler import SubsetRandomSampler
+from io_utils.custom_samplers import SubsetSequenceSampler
 from torchviz import make_dot
 
 # WatChMaL imports
 from training_utils.engine import Engine
-from training_utils.loss_funcs import CELoss
+from training_utils.loss_funcs import CELoss,weighted_CELoss_factory
 from plot_utils.notebook_utils import CSVData
 
 # Global variables
@@ -43,7 +51,12 @@ class EngineCL(Engine):
     
     def __init__(self, model, config):
         super().__init__(model, config)
-        self.criterion = CELoss
+        
+        if config.loss_weights is not None:
+            loss_weights = tensor(config.loss_weights).to(self.device) if self.device != "cpu" else tensor(config.loss_weights)
+            self.criterion = weighted_CELoss_factory(loss_weights)
+        else:
+            self.criterion = CELoss
         
         if config.train_all:
             self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
@@ -77,11 +90,11 @@ class EngineCL(Engine):
         # Initialize the torch dataloaders
   
         self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=8)
         self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=8)
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.test_indices), num_workers=10)
+                                           pin_memory=False, sampler=SubsetSequenceSampler(self.test_indices), num_workers=8)
 
         # Define the placeholder attributes
         self.data     = None
@@ -144,6 +157,7 @@ class EngineCL(Engine):
  
         # Set the iterations at which to dump the events and their metrics
         dump_iterations = self.set_dump_iterations(self.train_loader)
+        print(f"Validation Interval: {dump_iterations[0]}")
         
         # Initialize epoch counter
         epoch = 0.
@@ -162,9 +176,14 @@ class EngineCL(Engine):
 
             print('Epoch',floor(epoch),
                   'Starting @', strftime("%Y-%m-%d %H:%M:%S", localtime()))
+            times = []
+
+            start_time = time()
 
             # Local training loop for a single epoch
+            #print('entering loop')
             for data in self.train_loader:
+                #print('in loop')    
 
                 # Using only the charge data
                 self.data     = data[0][:,:,:,:].float()
@@ -210,7 +229,6 @@ class EngineCL(Engine):
 
                 # Run validation on given intervals
                 if iteration%dump_iterations[0] == 0:
-
                     curr_loss = 0.
                     val_batch = 0
 
@@ -330,6 +348,9 @@ class EngineCL(Engine):
         print("Dump iterations = {0}".format(dump_iterations))
         save_arr_dict = {"events":[], "labels":[], "energies":[], "angles":[], "eventids":[], "rootfiles":[]}
 
+        avg_loss = 0
+        avg_acc = 0
+        count = 0
         for iteration, data in enumerate(data_iter):
             
             stdout.write("Iteration : " + str(iteration) + "\n")
@@ -361,7 +382,11 @@ class EngineCL(Engine):
                 for key in _DUMP_KEYS:
                     if key in res.keys():
                         save_arr_dict[key] = []
-                        
+            
+            avg_acc += res['accuracy']
+            avg_loss += res['loss']
+            count += 1
+
             if iteration < dump_iterations:
                 save_arr_dict["labels"].append(self.labels.cpu().numpy())
                 save_arr_dict["energies"].append(self.energies.cpu().numpy())
@@ -373,10 +398,11 @@ class EngineCL(Engine):
                     if key in res.keys():
                         save_arr_dict[key].append(res[key])
             elif iteration == dump_iterations:
-                print("Saving the npz dump array :")
-                savez(np_event_path + "dump.npz", **save_arr_dict)
                 break
         
-        if not path.exists(np_event_path + "dump.npz"):
-            print("Saving the npz dump array :")
-            savez(np_event_path + "dump.npz", **save_arr_dict)
+        print("Saving the npz dump array :")
+        savez(np_event_path + "dump.npz", **save_arr_dict)
+        avg_acc /= count
+        avg_loss /= count
+        stdout.write("Overall acc : {}, Overall loss : {}\n".format(avg_acc, avg_loss))
+

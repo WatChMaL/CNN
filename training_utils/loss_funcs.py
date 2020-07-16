@@ -77,6 +77,25 @@ def CELoss(predictions, labels):
     """
     return _CE_LOSS(predictions, labels)
 
+def weighted_CELoss_factory(weights):
+    """Return the cross-entropy loss function.
+    
+    Args:
+    weights     -- 1d tensor of weights with length equal to number of classes
+    """
+    return nn.CrossEntropyLoss(weight=weights)
+
+
+def weighted_CELoss(predictions,labels):
+    """Return the cross-entropy loss.
+    
+    Args:
+    predictions -- raw, unnormalized output from the classifier
+    labels      -- integer labels for each events in the mini-batch
+    """
+    return _WEIGHTED_CE_LOSS(predictions,labels)
+
+
 def VAECLRGLoss(recon, data, mu, log_var, predicted_label, label, predicted_energy, energy):
     
     # Divergence Loss for Gaussian posterior

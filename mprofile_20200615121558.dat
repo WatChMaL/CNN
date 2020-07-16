@@ -1,0 +1,2 @@
+CMDLINE python3 minimal_example.py --no_torch --use_memmap
+MEM 1.820312 1592248558.3289

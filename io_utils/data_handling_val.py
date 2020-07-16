@@ -100,10 +100,16 @@ class WCH5DatasetV(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42, label_map=None):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
+        if label_map is not None:
+            #make the fxn
+            self.label_map = lambda x : label_map[1] if x==label_map[0] else x
+        else:
+            self.label_map = lambda x : x
+
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
         self.chrg_acc = norm_params["c_acc"]
@@ -139,6 +145,8 @@ class WCH5DatasetV(Dataset):
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
             self.event_data.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_event_data.shape,
                                         offset=hdf5_event_data.id.get_offset(), dtype=hdf5_event_data.dtype))
+
+            # self.event_data.append(hdf5_event_data)
 
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
@@ -238,50 +246,7 @@ class WCH5DatasetV(Dataset):
                 self.f = None
                 self.g = None
         
-        
-        cap_ind = np.array([[0,19],[0,20],
-            [1,17],[1,18],[1,19],[1,20],[1,21],[1,22],
-            [2,16],[2,17],[2,18],[2,19],[2,20],[2,21],[2,22], [2,23],
-            [3,15],[3,16],[3,17],[3,18],[3,19],[3,20],[3,21],[3,22],[3,23],[3,24],
-           [4,15],[4,16],[4,17],[4,18],[4,19],[4,20],[4,21],[4,22],[4,23],[4,24],
-           [5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20],[5,21],[5,22],[5,23],[5,24],[5,25],
-           [6,14],[6,15],[6,16],[6,17],[6,18],[6,19],[6,20],[6,21],[6,22],[6,23],[6,24],[6,25],
-           [7,15],[7,16],[7,17],[7,18],[7,19],[7,20],[7,21],[7,22],[7,23],[7,24],
-            [8,15],[8,16],[8,17],[8,18],[8,19],[8,20],[8,21],[8,22],[8,23],[8,24],
-           [9,16],[9,17],[9,18],[9,19],[9,20],[9,21],[9,22],[9,23],
-           [10,17],[10,18],[10,19],[10,20],[10,21],[10,22],
-           [11,19],[11,20]]);
-        self.cap_ind = np.concatenate((cap_ind,cap_ind), axis=0);
-        self.cap_ind[96:,0] = self.cap_ind[96:,0] + 28;
-        
-        new_cap_ind_top = np.array([[11,0],[11,39],
-                    [11,3],[10,4],[10,3],[10,36],[10,35],[11,36],
-                    [11,4],[10,6],[9,8],[9,7],[9,33],[9,32],[10,33], [11,35],
-                    [11,6],[10,7],[9,10],[8,10],[8,9],[8,30],[8,29],[9,30],[10,32],[11,33],
-                   [10,9],[9,11],[8,12],[7,13],[7,12],[7,27],[7,26],[8,27],[9,29],[10,30],
-                   [11,9],[10,10],[9,13],[8,13],[7,15],[6,18],[6,21],[7,24],[8,26],[9,27],[10,29],[11,30],
-                   [11,10],[10,12],[9,14],[8,15],[7,16],[6,19],[6,20],[7,23],[8,24],[9,26],[10,27],[11,29],
-                   [10,13],[9,16],[8,16],[7,18],[7,19],[7,20],[7,21],[8,23],[9,24],[10,26],
-                    [11,13],[10,15],[9,17],[8,18],[8,19],[8,20],[8,21],[9,23],[10,24],[11,26],
-                   [11,15],[10,16],[9,18],[9,19],[9,20],[9,21],[10,23],[11,24],
-                   [11,16],[10,18],[10,19],[10,20],[10,21],[11,23],
-                   [11,19],[11,20]]);
-        new_cap_ind_bottom = np.array([[11,19],[11,20],
-                    [11,16],[10,18],[10,19],[10,20],[10,21],[11,23],
-                   [11,15],[10,16],[9,18],[9,19],[9,20],[9,21],[10,23],[11,24],
-                    [11,13],[10,15],[9,17],[8,18],[8,19],[8,20],[8,21],[9,23],[10,24],[11,26],
-                   [10,13],[9,16],[8,16],[7,18],[7,19],[7,20],[7,21],[8,23],[9,24],[10,26],
-                   [11,10],[10,12],[9,14],[8,15],[7,16],[6,19],[6,20],[7,23],[8,24],[9,26],[10,27],[11,29],
-                  [11,9],[10,10],[9,13],[8,13],[7,15],[6,18],[6,21],[7,24],[8,26],[9,27],[10,29],[11,30],
-                   [10,9],[9,11],[8,12],[7,13],[7,12],[7,27],[7,26],[8,27],[9,29],[10,30],
-                     [11,6],[10,7],[9,10],[8,10],[8,9],[8,30],[8,29],[9,30],[10,32],[11,33],
-                   [11,4],[10,6],[9,8],[9,7],[9,33],[9,32],[10,33], [11,35],
-                    [11,3],[10,4],[10,3],[10,36],[10,35],[11,36],
-                   [11,0],[11,39]])
-        self.new_cap_ind = np.concatenate((new_cap_ind_top,new_cap_ind_bottom), axis=0);
-        self.new_cap_ind[96:,0] = 39 - self.new_cap_ind[96:,0];
         self.b = np.zeros((40, 40, 19), dtype=self.event_data[0].dtype);
-        
         
         self.endcap_mPMT_order = np.array([[0,6],[1,7],[2,8],[3,9],[4,10],[5,11],[6,0],[7,1],[8,2],[9,3],[10,4],[11,5],[12,15],[13,16],[14,17],[15,12],[16,13],[17,14],[18,18]])
         
@@ -300,7 +265,7 @@ class WCH5DatasetV(Dataset):
         for i in np.arange(len(self.datasets)):
 
             if index < self.labels[self.datasets[i]].shape[0]:
-
+                label = self.label_map(self.labels[self.datasets[i]][index])
                 if self.event_data[self.datasets[i]][index, :, :, :19].shape[0] == 16:
 
                     self.a = self.event_data[self.datasets[i]][index, :, :, :19]
@@ -311,16 +276,13 @@ class WCH5DatasetV(Dataset):
                     self.g = np.where(self.f, 0, self.e[:,:,1])
                     self.c[self.d[:,0], self.d[:,1]] = self.g
 
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])),axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
                 else:
-                    self.a = self.event_data[self.datasets[i]][index,:,:,:19]
-                    self.b[12:28,:,:] = self.a[12:28, :, :]
-                    self.b[self.new_cap_ind[:,0], self.new_cap_ind[:,1],:] = self.a[self.cap_ind[:,0], self.cap_ind[:,1]]
-                    self.c = self.b
+                    data = self.event_data[self.datasets[i]][index,:,:,:19]
                     #self.c = self.a[:,:,self.endcap_mPMT_order[:,1]]
                     #self.c[12:28,:,:] = self.a[12:28,:,:19]
-                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(self.c,[2,0,1])), axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(np.ascontiguousarray(np.transpose(data,[2,0,1])), axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
         s
         assert False, "empty batch"
         raise RuntimeError("empty batch")

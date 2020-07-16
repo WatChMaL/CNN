@@ -323,4 +323,4 @@ class Engine:
             # load iteration count
             self.iteration = checkpoint['global_step']
         print('Restoration complete.')
-            
+

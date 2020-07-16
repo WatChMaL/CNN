@@ -7,15 +7,19 @@ Main script to execute the training and evaluation of a fully supervised classif
 # Standard python imports
 from datetime import datetime
 
+#from torchsummary import summary
+
 # WatChMaL imports
 from main.watchmal import handle_config, handle_model
 from training_utils.engine_cl import EngineCL
+import os, sys
 
 # Global variables
 _CL_TASKS = ['train', 'valid', 'test']
 
 if __name__ == '__main__':
-    
+    print("PID: {}".format(os.getpid()))
+    sys.stdout.flush()
     # For computing the wall clock time of execution
     start_time = datetime.now()
 
@@ -28,10 +32,13 @@ if __name__ == '__main__':
         
     # Construct the model
     model = handle_model(config.model, config.model_params)
+    # print(str(summary(model, (19,40,40), batch_size=512,device='cpu')))
+    # print(model)
     
     # Initialize the training engine
     engine = EngineCL(model, config)
-    
+
+
     # Restore the model state if path given
     if config.restore_state is not None:
         engine.load_state(config.restore_state)
