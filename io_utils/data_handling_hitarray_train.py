@@ -29,7 +29,7 @@ class WCH5DatasetT(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42, collapse_e_gamma=False):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
@@ -87,6 +87,10 @@ class WCH5DatasetT(Dataset):
             self.positions.append(np.array(hdf5_positions))
             self.angles.append(np.array(hdf5_angles))
             self.event_hits_index.append(np.append(hdf5_event_hits_index, self.hit_pmt[i].shape[0]).astype(np.int64))
+
+            if collapse_e_gamma:
+                self.labels[-1][np.where(self.labels==1)[0]]=0
+                self.labels[-1][np.where(self.labels==2)[0]]=1
 
             # Set the total size of the trainval dataset to use
             self.reduced_size = trainval_subset

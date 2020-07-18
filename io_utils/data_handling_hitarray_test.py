@@ -24,15 +24,9 @@ class WCH5DatasetTest(Dataset):
     No other data is currently loaded
     """
 
-    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42,label_map=None):
+    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42,collapse_e_gamma=False):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
-        
-        if label_map is not None:
-            #make the fxn
-            self.label_map = lambda x : label_map[1] if x==label_map[0] else x
-        else:
-            self.label_map = lambda x : x
 
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
@@ -97,6 +91,10 @@ class WCH5DatasetTest(Dataset):
             self.rootfiles.append(np.array(hdf5_rootfiles))
             self.event_hits_index.append(np.append(hdf5_event_hits_index, self.hit_pmt[i].shape[0]).astype(np.int64))
 
+            if collapse_e_gamma:
+                self.labels[-1][np.where(self.labels==1)[0]]=0
+                self.labels[-1][np.where(self.labels==2)[0]]=1
+
             # Running only on events that went through fiTQun
             
             # Set the total size of the trainval dataset to use
@@ -140,8 +138,7 @@ class WCH5DatasetTest(Dataset):
         for i in np.arange(len(self.datasets)):
             
             if index < (self.labels[self.datasets[i]].shape[0]):
-                label = self.label_map(self.labels[self.datasets[i]][index]) 
-
+                label = self.labels[self.datasets[i]][index]
                 start = self.event_hits_index[i][index]
                 stop = self.event_hits_index[i][index+1]
                 hit_pmts = self.hit_pmt[i][start:stop].astype(np.int16)

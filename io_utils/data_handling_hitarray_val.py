@@ -28,15 +28,9 @@ class WCH5DatasetV(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42, label_map=None):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42, collapse_e_gamma=False):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
-        
-        if label_map is not None:
-            #make the fxn
-            self.label_map = lambda x : label_map[1] if x==label_map[0] else x
-        else:
-            self.label_map = lambda x : x
 
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
@@ -87,6 +81,10 @@ class WCH5DatasetV(Dataset):
             self.positions.append(np.array(hdf5_positions))
             self.angles.append(np.array(hdf5_angles))
             self.event_hits_index.append(np.append(hdf5_event_hits_index, self.hit_pmt[i].shape[0]).astype(np.int64))
+
+            if collapse_e_gamma:
+                self.labels[-1][np.where(self.labels==1)[0]]=0
+                self.labels[-1][np.where(self.labels==2)[0]]=1
 
             # Set the total size of the trainval dataset to use
             self.reduced_size = trainval_subset
@@ -151,7 +149,7 @@ class WCH5DatasetV(Dataset):
                 hit_charges = self.charge[i][start:stop]
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
-                label = self.label_map(self.labels[self.datasets[i]][index])
+                label = self.labels[self.datasets[i]][index]
                 return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"

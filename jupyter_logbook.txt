@@ -1,40 +1,406 @@
-[I 12:07:06.405 NotebookApp] The port 8888 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8889 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8890 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8891 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8892 is already in use, trying another port.
-[I 12:07:07.717 NotebookApp] jupyter_tensorboard extension loaded.
-[I 12:07:07.784 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 12:07:07.784 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 12:07:07.786 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 12:07:07.786 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 12:07:07.786 NotebookApp] The Jupyter Notebook is running at:
-[I 12:07:07.786 NotebookApp] http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:07:07.786 NotebookApp]  or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:07:07.786 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 12:07:07.789 NotebookApp] 
+[I 10:21:24.210 NotebookApp] The port 8888 is already in use, trying another port.
+[I 10:21:24.211 NotebookApp] The port 8889 is already in use, trying another port.
+[I 10:21:24.211 NotebookApp] The port 8890 is already in use, trying another port.
+[I 10:21:24.211 NotebookApp] The port 8891 is already in use, trying another port.
+[I 10:21:25.433 NotebookApp] jupyter_tensorboard extension loaded.
+[I 10:21:25.492 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 10:21:25.492 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 10:21:25.494 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 10:21:25.494 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 10:21:25.494 NotebookApp] The Jupyter Notebook is running at:
+[I 10:21:25.494 NotebookApp] http://hostname:8888/?token=75bd9c68a3eb9c03b83b7c70f7d2b29ef27bbf6610cc68f8
+[I 10:21:25.494 NotebookApp]  or http://127.0.0.1:8892/?token=75bd9c68a3eb9c03b83b7c70f7d2b29ef27bbf6610cc68f8
+[I 10:21:25.494 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 10:21:25.497 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-52354-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-14110-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-     or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:14:20.568 NotebookApp] 302 GET /?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e (::1) 1.28ms
-[I 12:15:22.233 NotebookApp] Kernel started: 45316f46-8617-4852-87e7-542250562e5d
-[I 12:15:38.517 NotebookApp] Copying Repeating_Classifier_Training/Re-Run Without Cap Unrolling.ipynb to /Repeating_Classifier_Training
-[I 12:15:38.562 NotebookApp] Saving Re-Run Without Cap Unrolling-Copy1.ipynb
-[I 12:15:44.618 NotebookApp] Starting buffering for 45316f46-8617-4852-87e7-542250562e5d:9c8fda7b76e345938a9c4782537fe791
-[I 12:15:46.742 NotebookApp] Kernel shutdown: 45316f46-8617-4852-87e7-542250562e5d
-[I 12:15:49.940 NotebookApp] Kernel started: 84aa621e-73ef-4b0d-8226-21ac343a1b22
-[I 12:19:01.339 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:8273ebb31f3840e49c70e37a53033ba3
-[I 12:21:53.523 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:21:53.846 NotebookApp] Kernel restarted: 84aa621e-73ef-4b0d-8226-21ac343a1b22
-[I 12:21:54.877 NotebookApp] Restoring connection for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:21:54.877 NotebookApp] Replaying 3 buffered messages
-[I 12:23:33.575 NotebookApp] Saving file at /Repeating_Classifier_Training/Re-Run After Hit Array Change.ipynb
-[I 12:23:33.576 NotebookApp] Saving Re-Run After Hit Array Change.ipynb
-[I 12:23:49.852 NotebookApp] Kernel started: 9a387864-2aa7-407a-93e9-7c562b32ab7a
-[I 12:24:07.900 NotebookApp] Kernel started: 63b2bfb5-404f-41a1-a9e1-aa9301734d62
-[I 12:30:22.780 NotebookApp] Starting buffering for 9a387864-2aa7-407a-93e9-7c562b32ab7a:c23ddac0a2894e18843e5d041628e4b9
-[I 12:30:23.489 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:30:29.052 NotebookApp] Starting buffering for 63b2bfb5-404f-41a1-a9e1-aa9301734d62:b1c183385de44b0db72e9c543f069e9a
+        http://hostname:8888/?token=75bd9c68a3eb9c03b83b7c70f7d2b29ef27bbf6610cc68f8
+     or http://127.0.0.1:8892/?token=75bd9c68a3eb9c03b83b7c70f7d2b29ef27bbf6610cc68f8
+[I 10:22:00.245 NotebookApp] 302 GET /?token=75bd9c68a3eb9c03b83b7c70f7d2b29ef27bbf6610cc68f8 (::1) 1.30ms
+[I 10:31:13.585 NotebookApp] Copying ResNet_Analysis/Re-Run After Hit Array Change.ipynb to /ResNet_Analysis
+[I 10:31:13.692 NotebookApp] Saving Re-Run After Hit Array Change-Copy1.ipynb
+[I 10:32:24.022 NotebookApp] Kernel started: 67075895-850e-4ada-b7c0-0437793cb41f
+[W 10:37:01.131 NotebookApp] delete /dumps/20200716_173221
+[I 10:38:24.023 NotebookApp] Saving file at /ResNet_Analysis/Vetoed Events Removed.ipynb
+[I 10:38:24.024 NotebookApp] Saving Vetoed Events Removed.ipynb
+[I 10:38:26.638 NotebookApp] Starting buffering for 67075895-850e-4ada-b7c0-0437793cb41f:098dbe216e9e44a68694a35c40b7da74
+[I 10:38:26.960 NotebookApp] Kernel restarted: 67075895-850e-4ada-b7c0-0437793cb41f
+[I 10:38:27.933 NotebookApp] Restoring connection for 67075895-850e-4ada-b7c0-0437793cb41f:098dbe216e9e44a68694a35c40b7da74
+[I 10:38:27.933 NotebookApp] Replaying 3 buffered messages
+[I 10:38:40.192 NotebookApp] Kernel started: 4d692a8e-ca9a-4df7-beed-c657f4724a6d
+[I 10:38:44.169 NotebookApp] Starting buffering for 4d692a8e-ca9a-4df7-beed-c657f4724a6d:4261142b44ee4758b0d8ba1690609306
+[I 10:38:54.208 NotebookApp] Kernel started: 96b778ec-4cbe-423d-b474-cf9f448d639e
+[I 10:38:56.292 NotebookApp] Starting buffering for 67075895-850e-4ada-b7c0-0437793cb41f:098dbe216e9e44a68694a35c40b7da74
+[I 10:39:05.038 NotebookApp] Kernel shutdown: 67075895-850e-4ada-b7c0-0437793cb41f
+[W 10:39:05.746 NotebookApp] delete /ResNet_Analysis/Vetoed Events Removed.ipynb
+[I 10:39:13.839 NotebookApp] Copying ResNet_Analysis/10. Detailed Performance Analysis on First HitArray Run.ipynb to /ResNet_Analysis
+[I 10:39:14.039 NotebookApp] Saving 10. Detailed Performance Analysis on First HitArray Run-Copy1.ipynb
+[I 10:40:37.525 NotebookApp] Kernel started: b7a988fe-1dc9-4bda-aac3-84dddb84c1c8
+[I 10:41:13.012 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 10:41:13.013 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 10:41:16.548 NotebookApp] Starting buffering for b7a988fe-1dc9-4bda-aac3-84dddb84c1c8:5945edff6c75467c809eb60b238711fc
+[I 10:41:16.873 NotebookApp] Kernel restarted: b7a988fe-1dc9-4bda-aac3-84dddb84c1c8
+[I 10:41:17.864 NotebookApp] Restoring connection for b7a988fe-1dc9-4bda-aac3-84dddb84c1c8:5945edff6c75467c809eb60b238711fc
+[I 10:41:17.864 NotebookApp] Replaying 6 buffered messages
+[I 10:42:38.794 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 10:42:38.795 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 10:44:38.511 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 10:44:38.511 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 11:06:01.344 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 11:06:01.344 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 11:08:16.871 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 11:08:16.872 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 11:34:53.834 NotebookApp] Kernel started: 6ab701b4-6ca0-4a0c-a2d9-5d52e9c6ed39
+[I 11:36:53.864 NotebookApp] Saving file at /ResNet_Analysis/9. Incorporating OD Veto Data.ipynb
+[I 11:36:53.864 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 11:41:26.507 NotebookApp] Starting buffering for 6ab701b4-6ca0-4a0c-a2d9-5d52e9c6ed39:c592365bae084db883e051e227c4dd43
+[I 11:41:30.992 NotebookApp] Kernel started: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 11:43:31.011 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:43:31.011 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:51:31.027 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:51:31.028 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:51:42.801 NotebookApp] Kernel interrupted: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 11:52:25.883 NotebookApp] Kernel interrupted: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 11:52:44.250 NotebookApp] Starting buffering for c63e007b-b9e7-43c9-b18f-a4a29fd234eb:c6996734fa9c4e2a88a62ef35c814c83
+[I 11:52:49.632 NotebookApp] Kernel restarted: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 11:52:50.681 NotebookApp] Restoring connection for c63e007b-b9e7-43c9-b18f-a4a29fd234eb:c6996734fa9c4e2a88a62ef35c814c83
+[I 11:52:50.681 NotebookApp] Replaying 145 buffered messages
+[I 11:53:31.629 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:53:31.631 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:55:31.491 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:55:31.492 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:57:31.485 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:57:31.486 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:59:31.456 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 11:59:31.457 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:01:31.524 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:01:31.525 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:03:31.508 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:03:31.508 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:05:29.662 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:05:29.663 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:05:31.025 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:05:31.025 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:07:31.028 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:07:31.029 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:09:31.467 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:09:31.468 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:11:31.034 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:11:31.034 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:13:31.018 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:13:31.019 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:15:31.038 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:15:31.039 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:17:31.055 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:17:31.055 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:19:31.023 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:19:31.024 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:21:22.291 NotebookApp] Kernel interrupted: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 12:21:31.044 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:21:31.044 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:23:31.041 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:23:31.042 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:25:31.036 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:25:31.037 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 12:29:24.027 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:29:24.028 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:30:37.686 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:30:37.687 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:32:37.731 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:32:37.731 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:44:37.777 NotebookApp] Saving file at /ResNet_Analysis/12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 12:44:37.778 NotebookApp] Saving 12. Detailed Performance Analysis on First Veto Run.ipynb
+[I 13:35:31.096 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:35:31.097 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:36:35.268 NotebookApp] Starting buffering for 96b778ec-4cbe-423d-b474-cf9f448d639e:c3935305e1404b36ba48d289dde07fa8
+[I 13:36:36.855 NotebookApp] Starting buffering for b7a988fe-1dc9-4bda-aac3-84dddb84c1c8:5945edff6c75467c809eb60b238711fc
+[I 13:36:51.338 NotebookApp] Kernel started: 63decac7-8290-4337-a7cd-68c09aa0a346
+[I 13:37:31.517 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:37:31.518 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:41:31.091 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:41:31.092 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:45:31.059 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:45:31.059 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:51:31.130 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:51:31.131 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:51:50.595 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:51:50.596 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:52:24.104 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:52:24.105 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:53:19.075 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 13:53:19.075 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:56:08.230 NotebookApp] Saving file at /ResNet_Analysis/9. Incorporating OD Veto Data.ipynb
+[I 14:56:08.232 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 14:57:31.114 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:57:31.115 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:58:05.739 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:58:05.740 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:59:04.006 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 14:59:04.007 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 15:03:31.115 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 15:03:31.116 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 15:05:31.138 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 15:05:31.139 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 15:06:41.253 NotebookApp] Starting buffering for c63e007b-b9e7-43c9-b18f-a4a29fd234eb:c6996734fa9c4e2a88a62ef35c814c83
+[I 15:06:42.794 NotebookApp] Starting buffering for 6ab701b4-6ca0-4a0c-a2d9-5d52e9c6ed39:ec2be7e3d28d461890252d041e89935e
+[I 15:06:44.361 NotebookApp] Starting buffering for 63decac7-8290-4337-a7cd-68c09aa0a346:1f7141f62f124ea8825ec3d345ddfcf8
+[I 15:07:27.409 NotebookApp] Copying ResNet_Analysis/10. Detailed Performance Analysis on First HitArray Run.ipynb to /ResNet_Analysis
+[I 15:07:27.607 NotebookApp] Saving 10. Detailed Performance Analysis on First HitArray Run-Copy1.ipynb
+[I 15:07:52.723 NotebookApp] Starting buffering for 96b778ec-4cbe-423d-b474-cf9f448d639e:ed7c9275280c4a6ab39ea7e39d84735e
+[I 15:08:03.670 NotebookApp] Kernel shutdown: 96b778ec-4cbe-423d-b474-cf9f448d639e
+[I 15:08:03.984 NotebookApp] Kernel shutdown: b7a988fe-1dc9-4bda-aac3-84dddb84c1c8
+[I 15:08:08.498 NotebookApp] Kernel shutdown: 63decac7-8290-4337-a7cd-68c09aa0a346
+[I 15:08:08.802 NotebookApp] Kernel shutdown: 6ab701b4-6ca0-4a0c-a2d9-5d52e9c6ed39
+[I 15:08:09.107 NotebookApp] Kernel shutdown: 4d692a8e-ca9a-4df7-beed-c657f4724a6d
+[I 15:08:09.419 NotebookApp] Kernel shutdown: c63e007b-b9e7-43c9-b18f-a4a29fd234eb
+[I 15:09:18.218 NotebookApp] Kernel started: d3c2ccab-691a-41e5-90a3-26cf03cd4270
+[I 15:09:51.726 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:09:51.727 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:10:42.864 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:10:42.864 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:11:18.956 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:11:18.956 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:13:19.060 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:13:19.061 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:14:17.340 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:14:17.340 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:15:08.293 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:15:08.294 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:15:48.381 NotebookApp] Kernel started: 77ff92f3-714f-4d0e-9286-cba5188a7479
+[I 15:17:01.309 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:17:01.310 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:18:43.304 NotebookApp] Kernel started: 2affcd7b-7643-4202-9871-323829c5ab17
+[I 15:19:11.603 NotebookApp] Starting buffering for 2affcd7b-7643-4202-9871-323829c5ab17:4384cd56852a4b9795056833b919062e
+[I 15:19:12.029 NotebookApp] Kernel restarted: 2affcd7b-7643-4202-9871-323829c5ab17
+[I 15:19:13.616 NotebookApp] Restoring connection for 2affcd7b-7643-4202-9871-323829c5ab17:4384cd56852a4b9795056833b919062e
+[I 15:19:13.617 NotebookApp] Replaying 6 buffered messages
+[I 15:19:19.586 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:19:19.587 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:20:44.271 NotebookApp] Saving file at /ResNet_Analysis/7. Analyzing and Comparing Datasets.ipynb
+[I 15:20:44.271 NotebookApp] Saving 7. Analyzing and Comparing Datasets.ipynb
+[I 15:21:19.115 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:21:19.115 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:22:44.386 NotebookApp] Saving file at /ResNet_Analysis/7. Analyzing and Comparing Datasets.ipynb
+[I 15:22:44.386 NotebookApp] Saving 7. Analyzing and Comparing Datasets.ipynb
+[I 15:23:19.055 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:23:19.055 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:25:19.389 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:25:19.389 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:26:29.202 NotebookApp] Kernel started: 96959542-eac5-43df-a019-b1536185b925
+[I 15:26:44.321 NotebookApp] Saving file at /ResNet_Analysis/7. Analyzing and Comparing Datasets.ipynb
+[I 15:26:44.322 NotebookApp] Saving 7. Analyzing and Comparing Datasets.ipynb
+[I 15:27:02.255 NotebookApp] Kernel started: 8b330897-a590-4ffb-8d01-6c6e25e672e2
+[I 15:28:15.972 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:93b4f8ae6b9f41008bbbc9847d2c4622
+[I 15:28:29.580 NotebookApp] Saving file at /ResNet_Analysis/9. Incorporating OD Veto Data.ipynb
+[I 15:28:29.580 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 15:29:19.199 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:29:19.199 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:30:29.339 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:30:29.339 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:31:19.028 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:31:19.029 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:33:19.120 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:33:19.121 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:35:52.463 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:35:52.463 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:36:04.498 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:36:04.499 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:36:40.155 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:36:40.155 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:36:57.576 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:36:57.576 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:37:17.538 NotebookApp] Starting buffering for 96959542-eac5-43df-a019-b1536185b925:357969ff1aac49e9a1c082f7971ebc31
+[I 15:37:19.264 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:37:19.264 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:39:18.844 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:39:18.845 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:39:49.396 NotebookApp] Saving file at /ResNet_Analysis/6. Detailed Performance Analysis.ipynb
+[I 15:39:49.397 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:40:01.453 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:40:01.453 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:43:19.178 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:43:19.178 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:43:24.535 NotebookApp] Saving file at /ResNet_Analysis/6. Detailed Performance Analysis.ipynb
+[I 15:43:24.535 NotebookApp] Saving 6. Detailed Performance Analysis.ipynb
+[I 15:45:19.103 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:45:19.103 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:45:35.173 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:45:35.174 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:47:14.268 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:47:14.268 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:47:19.083 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:47:19.083 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:49:18.896 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:49:18.896 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:49:42.630 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:49:42.630 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:51:18.815 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:51:18.816 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:51:41.210 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:51:41.211 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:53:18.852 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:53:18.852 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:01:39.412 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:01:39.413 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:03:39.412 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:03:39.413 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:05:39.439 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:05:39.440 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:13.556 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:55e712f85d104db6990b4d9a15ff2456
+[I 16:06:33.806 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:33.806 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:34.332 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:34.332 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:36.950 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:36.950 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 16:06:37.857 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:22716cceb066425c8ecc66d2102bb32f
+[I 16:09:06.874 NotebookApp] Saving file at /ResNet_Analysis/9. Incorporating OD Veto Data.ipynb
+[I 16:09:06.874 NotebookApp] Saving 9. Incorporating OD Veto Data.ipynb
+[I 16:09:19.138 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:09:19.138 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:10:16.831 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:10:16.832 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:11:14.008 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:11:14.008 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:11:18.729 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:11:18.729 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:11:33.580 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:11:33.580 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:12:47.695 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:12:47.695 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:13:18.810 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:13:18.810 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:13:19.898 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:13:19.899 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:14:20.992 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:14:20.993 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:14:24.237 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:14:24.238 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:15:18.933 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:15:18.933 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:17:19.276 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:17:19.277 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:19:19.155 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:19:19.156 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:21:18.912 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:21:18.912 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:23:18.923 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:23:18.923 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:23:30.277 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:23:30.277 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:24:04.284 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:24:04.284 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:25:18.809 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:25:18.809 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:25:22.437 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:25:22.437 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:25:31.137 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:25:31.137 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:25:39.699 NotebookApp] Starting buffering for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 16:25:42.931 NotebookApp] Kernel restarted: d3c2ccab-691a-41e5-90a3-26cf03cd4270
+[I 16:25:43.938 NotebookApp] Restoring connection for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 16:25:43.938 NotebookApp] Replaying 3 buffered messages
+[I 16:27:18.367 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:27:18.368 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:29:18.536 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:29:18.537 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:35:18.412 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:35:18.412 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:37:18.416 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:37:18.416 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:37:45.613 NotebookApp] Starting buffering for 2affcd7b-7643-4202-9871-323829c5ab17:4384cd56852a4b9795056833b919062e
+[I 16:38:22.139 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:38:22.139 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:39:18.431 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:39:18.432 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:41:18.396 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:41:18.396 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:43:18.405 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:43:18.406 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:44:11.514 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:44:11.515 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:45:18.420 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:45:18.420 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:47:18.416 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:47:18.417 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:49:18.452 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:49:18.453 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:49:42.542 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:49:42.542 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:51:18.386 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:51:18.387 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:53:31.237 NotebookApp] Starting buffering for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 16:53:35.480 NotebookApp] Kernel restarted: d3c2ccab-691a-41e5-90a3-26cf03cd4270
+[I 16:53:36.505 NotebookApp] Restoring connection for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 16:53:36.505 NotebookApp] Replaying 6 buffered messages
+[I 16:55:18.439 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:55:18.440 NotebookApp] Saving Run Analysis Template.ipynb
+[I 16:57:18.367 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 16:57:18.367 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:03:52.151 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:03:52.151 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:05:52.111 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:05:52.112 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:07:18.413 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:07:18.414 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:07:52.628 NotebookApp] Saving file at /ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:07:52.628 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed.ipynb
+[I 17:08:56.338 NotebookApp] Starting buffering for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 17:08:59.671 NotebookApp] Kernel restarted: d3c2ccab-691a-41e5-90a3-26cf03cd4270
+[I 17:09:00.765 NotebookApp] Restoring connection for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 17:09:00.765 NotebookApp] Replaying 6 buffered messages
+[I 17:09:18.640 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:09:18.641 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:11:18.995 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:11:18.996 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:15:18.465 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:15:18.465 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:17:18.537 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:17:18.537 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:25:18.665 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:25:18.665 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:27:18.675 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:27:18.675 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:29:18.662 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:29:18.662 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:31:11.358 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 17:31:11.359 NotebookApp] Saving Run Analysis Template.ipynb
+[I 17:31:16.466 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:b44490aae4454fa48c02cad18554e7c6
+[I 17:31:17.214 NotebookApp] Starting buffering for 96959542-eac5-43df-a019-b1536185b925:59c92579a87f4109811be975c1fb201f
+[I 17:31:18.000 NotebookApp] Starting buffering for d3c2ccab-691a-41e5-90a3-26cf03cd4270:602872cdc6d84a13bd43b71bc2c55c95
+[I 17:31:21.170 NotebookApp] Starting buffering for 77ff92f3-714f-4d0e-9286-cba5188a7479:e89e162cc0324f4480b1f8d8cda8ecc3
+[I 17:31:30.116 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:1fce755cb6ed45de840a2ce8d3f34906
+[I 17:31:35.103 NotebookApp] Kernel started: 6e4b4c09-33e8-47c3-b3ef-cff061adb7ea
+[I 17:36:21.648 NotebookApp] Starting buffering for 6e4b4c09-33e8-47c3-b3ef-cff061adb7ea:843771461ca947dfae8acdb3362dd81b
+[I 17:43:56.806 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:8b4e65d505764dceb1f89f4c8f2d8195
+[I 17:48:44.583 NotebookApp] Starting buffering for 6e4b4c09-33e8-47c3-b3ef-cff061adb7ea:f2bc559106ee494788afb50e670b31fb
+[I 17:49:12.378 NotebookApp] KernelRestarter: restarting kernel (1/5), keep random ports
+[I 18:11:30.886 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:785946e4939a4e14b504e227f02e67b9
+[W 18:14:17.086 NotebookApp] delete /dumps/20200717_180939
+[W 18:14:17.092 NotebookApp] delete /dumps/20200717_181131
+[I 18:17:07.768 NotebookApp] Starting buffering for 8b330897-a590-4ffb-8d01-6c6e25e672e2:3e60b5dbbda64e098553285797b13e07
+[I 18:17:13.986 NotebookApp] Copying ResNet_Analysis/11. Preparing Index Set with Vetoed Events Removed.ipynb to /ResNet_Analysis
+[I 18:17:14.039 NotebookApp] Saving 11. Preparing Index Set with Vetoed Events Removed-Copy1.ipynb
+[I 18:17:36.397 NotebookApp] Kernel started: 84513da1-5826-4100-af01-7059c7887938
+[I 18:19:36.420 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:19:36.420 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:21:36.664 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:21:36.665 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:23:22.317 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:23:22.318 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:23:36.408 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:23:36.408 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:25:36.419 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:25:36.419 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:25:57.845 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:25:57.846 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:27:36.042 NotebookApp] Starting buffering for 84513da1-5826-4100-af01-7059c7887938:634c710f8e8c4bdaa492f753e84c8e83
+[I 18:27:36.563 NotebookApp] Kernel restarted: 84513da1-5826-4100-af01-7059c7887938
+[I 18:27:36.610 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:27:36.611 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
+[I 18:27:37.493 NotebookApp] Restoring connection for 84513da1-5826-4100-af01-7059c7887938:634c710f8e8c4bdaa492f753e84c8e83
+[I 18:27:37.493 NotebookApp] Replaying 6 buffered messages
+[I 18:29:36.456 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
+[I 18:29:36.457 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb

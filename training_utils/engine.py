@@ -104,12 +104,12 @@ class Engine(ABC):
 
         # Create the dataset object for the trainval and test samples
         self.train_dset = WCH5DatasetT(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
+                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset,collapse_e_gamma=config.collapse_e_gamma)
         self.val_dset = WCH5DatasetV(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset,label_map=config.label_map)
+                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset,collapse_e_gamma=config.collapse_e_gamma)
         
         self.test_dset = WCH5DatasetTest(config.test_path, config.test_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                       shuffle=config.shuffle, num_datasets=config.num_datasets, test_subset=config.test_subset,label_map=config.label_map)
+                                       shuffle=config.shuffle, num_datasets=config.num_datasets, test_subset=config.test_subset,collapse_e_gamma=config.collapse_e_gamma)
         
         
         # Define the variant dependent attributes

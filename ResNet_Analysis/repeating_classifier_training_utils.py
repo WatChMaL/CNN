@@ -403,8 +403,12 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     May 2020
     """
 
-    fig = plt.figure(facecolor='w',figsize=(16,8))
-    gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    if len(label_arrays) >= 3:
+        fig = plt.figure(facecolor='w',figsize=(16,8))
+        gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    else:
+        fig = plt.figure(facecolor='w',figsize=(10*len(label_arrays),8))
+        gs = gridspec.GridSpec(1,len(label_arrays),figure=fig)
     axes = []
 
     for i,labels in enumerate(label_arrays):
@@ -445,7 +449,7 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     return fig
 
 
-def load_test_output(location,index_path,remove_flagged=True):
+def load_test_output(location,index_path,remove_flagged=True, dset='noveto'):
     """
     load_test_output(location,index_path)
     
@@ -468,44 +472,62 @@ def load_test_output(location,index_path,remove_flagged=True):
     res_eventids = np.concatenate(list([batch_array for batch_array in test_dump_np['eventids']]))
     res_angles = np.concatenate(list([batch_array for batch_array in test_dump_np['angles']]))
     
-    failed_idxs = np.load(os.path.join(index_path, 'fq_failed_idxs.npz'),allow_pickle=True)['failed_indices_pointing_to_h5_test_set'].astype(int)
-    flagged_idxs = np.load(os.path.join(index_path, 'fq_flagged_idxs.npz'),allow_pickle=True)['arr_0'].astype(int)
-    
-    sres_predictedlabels = np.delete(res_predictedlabels,failed_idxs)
-    sres_softmaxes  = np.delete(res_softmaxes,failed_idxs,0)
-    sres_labels  = np.delete(res_labels,failed_idxs)
-    sres_energies = np.delete(res_energies,failed_idxs)
-    sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
-    sres_eventids = np.delete(res_eventids,failed_idxs)
-    sres_angles = np.delete(res_angles,failed_idxs,0)
+    if dset=='noveto':
+        failed_idxs = np.load(os.path.join(index_path, 'fq_failed_idxs.npz'),allow_pickle=True)['failed_indices_pointing_to_h5_test_set'].astype(int)
+        flagged_idxs = np.load(os.path.join(index_path, 'fq_flagged_idxs.npz'),allow_pickle=True)['arr_0'].astype(int)
+        sres_predictedlabels = np.delete(res_predictedlabels,failed_idxs)
+        sres_softmaxes  = np.delete(res_softmaxes,failed_idxs,0)
+        sres_labels  = np.delete(res_labels,failed_idxs)
+        sres_energies = np.delete(res_energies,failed_idxs)
+        sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
+        sres_eventids = np.delete(res_eventids,failed_idxs)
+        sres_angles = np.delete(res_angles,failed_idxs,0)
 
-    if remove_flagged:    
-        filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
-        filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
-        filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
-        filtered_res_energies = np.delete(sres_energies,flagged_idxs)
-        filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
-        filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
-        filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
-        
-        return{'filtered_predictions':filtered_res_predictedlabels,
-                'filtered_softmaxes':filtered_res_softmaxes,
-                'filtered_labels':filtered_res_labels,
-                'filtered_energies':filtered_res_energies,
-                'filtered_rootfiles':filtered_res_rootfiles,
-                'filtered_eventids':filtered_res_eventids,
-                'filtered_angles':filtered_res_angles          
-            }
-    else:
-        return{'s_predictions':sres_predictedlabels,
-                's_softmaxes':sres_softmaxes,
-                's_labels':sres_labels,
-                's_energies':sres_energies,
-                's_rootfiles':sres_rootfiles,
-                's_eventids':sres_eventids,
-                's_angles':sres_angles          
-            }
+        if remove_flagged:    
+            filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
+            filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
+            filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
+            filtered_res_energies = np.delete(sres_energies,flagged_idxs)
+            filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
+            filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
+            filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
+            
+            return{'filtered_predictions':filtered_res_predictedlabels,
+                    'filtered_softmaxes':filtered_res_softmaxes,
+                    'filtered_labels':filtered_res_labels,
+                    'filtered_energies':filtered_res_energies,
+                    'filtered_rootfiles':filtered_res_rootfiles,
+                    'filtered_eventids':filtered_res_eventids,
+                    'filtered_angles':filtered_res_angles          
+                }
+        else:
+            return{'s_predictions':sres_predictedlabels,
+                    's_softmaxes':sres_softmaxes,
+                    's_labels':sres_labels,
+                    's_energies':sres_energies,
+                    's_rootfiles':sres_rootfiles,
+                    's_eventids':sres_eventids,
+                    's_angles':sres_angles          
+                }
+    elif dset=='vetoed':
+            fq_cut_idxs = np.load(os.path.join(index_path, 'fq_cut_idxs_for_vetoed_set.npz'),allow_pickle=True)['fq_cut_idxs_for_vetoed_set'].astype(int)
 
+            filtered_res_predictedlabels = np.delete(res_predictedlabels,fq_cut_idxs)
+            filtered_res_softmaxes  = np.delete(res_softmaxes,fq_cut_idxs,0)
+            filtered_res_labels  = np.delete(res_labels,fq_cut_idxs)
+            filtered_res_energies = np.delete(res_energies,fq_cut_idxs)
+            filtered_res_rootfiles = np.delete(res_rootfiles,fq_cut_idxs)
+            filtered_res_eventids = np.delete(res_eventids,fq_cut_idxs)
+            filtered_res_angles = np.delete(res_angles,fq_cut_idxs,0)
+            
+            return{'filtered_predictions':filtered_res_predictedlabels,
+                    'filtered_softmaxes':filtered_res_softmaxes,
+                    'filtered_labels':filtered_res_labels,
+                    'filtered_energies':filtered_res_energies,
+                    'filtered_rootfiles':filtered_res_rootfiles,
+                    'filtered_eventids':filtered_res_eventids,
+                    'filtered_angles':filtered_res_angles          
+                }
 
 def parametrized_ray_point(x,y,z,theta,phi,t):
     '''

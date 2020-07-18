@@ -1,0 +1,20 @@
+nohup: ignoring input
+PID: 47073
+Requested load from: best_resnet_traintest_hitarray_egammaonly.ini
+Config files found: ['debug.ini', 'test_enfnet.ini', 'dcgan.ini', 'test_resnet.ini', 'best_resnet_traintest_hitarray_collapse.ini', 'best_resnet_traintest_hitarray.ini', 'best_resnet_traintest_hitarray_egammaonly.ini', 'test.ini', 'test_convnet.ini', 'best_resnet_long_test.ini', 'test_kazunet.ini', 'best_resnet_traintest_hitarray_postveto.ini', 'best_resnet_traintest.ini', 'best_resnet.ini']
+Loading from best_resnet_traintest_hitarray_egammaonly.ini
+best_resnet_traintest_hitarray_egammaonly.ini loaded!
+Params OK: {'num_input_channels': 19, 'num_latent_dims': 128, 'arch_key': 1, 'arch_depth': 18, 'num_classes': 2, 'train_all': 1}
+Requesting GPUs. GPU list : [0, 1]
+Main GPU : cuda:0
+Using DataParallel on these devices: ['cuda:0', 'cuda:1']
+CUDA is available
+Loading training indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs_no_muons.npz
+Loading validation indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs_no_muons.npz
+Loading test indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs_no_muons.npz
+Creating a directory for run dump at : dumps/20200717_183009/
+Saving config file as dumps/20200717_183009/config_file.ini
+Config file saved at dumps/20200717_183009/config_file.ini
+Entire model parameters passed to the optimizer
+Validation Interval: 10
+Epoch 0 Starting @ 2020-07-17 18:30:10
