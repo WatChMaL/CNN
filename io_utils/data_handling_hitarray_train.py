@@ -89,8 +89,8 @@ class WCH5DatasetT(Dataset):
             self.event_hits_index.append(np.append(hdf5_event_hits_index, self.hit_pmt[i].shape[0]).astype(np.int64))
 
             if collapse_e_gamma:
-                self.labels[-1][np.where(self.labels==1)[0]]=0
-                self.labels[-1][np.where(self.labels==2)[0]]=1
+                self.labels[-1][np.where(self.labels[-1]==1)[0]]=0
+                self.labels[-1][np.where(self.labels[-1]==2)[0]]=1
 
             # Set the total size of the trainval dataset to use
             self.reduced_size = trainval_subset

@@ -528,6 +528,15 @@ def load_test_output(location,index_path,remove_flagged=True, dset='noveto'):
                     'filtered_eventids':filtered_res_eventids,
                     'filtered_angles':filtered_res_angles          
                 }
+    else:
+        return{'filtered_predictions':res_predictedlabels,
+                    'filtered_softmaxes':res_softmaxes,
+                    'filtered_labels':res_labels,
+                    'filtered_energies':res_energies,
+                    'filtered_rootfiles':res_rootfiles,
+                    'filtered_eventids':res_eventids,
+                    'filtered_angles':res_angles          
+                }
 
 def parametrized_ray_point(x,y,z,theta,phi,t):
     '''

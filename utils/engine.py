@@ -61,23 +61,20 @@ class Engine:
                                    batch_size=config.batch_size_train,
                                    shuffle=False,
                                    sampler=SubsetRandomSampler(self.dset.train_indices),
-                                   num_workers=config.num_workers_train,
-                                   label_map=self.config.label_map)
+                                   num_workers=config.num_workers_train)
         
         self.val_dldr=DataLoader(self.dset,
                                  batch_size=config.batch_size_val,
                                  shuffle=False,
                                  sampler=SubsetRandomSampler(self.dset.val_indices),
-                                 num_workers=config.num_workers_val,
-                                 label_map=self.config.label_map)
+                                 num_workers=config.num_workers_val)
         self.val_iter=iter(self.val_dldr)
         
         self.test_dldr=DataLoader(self.dset,
                                   batch_size=config.batch_size_test,
                                   shuffle=False,
                                   sampler=SubsetRandomSampler(self.dset.test_indices),
-                                  num_workers=config.num_workers_test,
-                                  label_map=self.config.label_map)
+                                  num_workers=config.num_workers_test)
 
         self.dirpath=config.dump_path + "/"+time.strftime("%Y%m%d_%H%M%S") + "/"
 
