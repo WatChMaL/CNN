@@ -448,6 +448,28 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     gs.tight_layout(fig)
     return fig
 
+def load_test_output_pn(location, cut_path, test_idxs, cut_list):
+
+    test_dump_np = np.load(location, allow_pickle=True)
+    cut_file = np.load(cut_path, allow_pickle=True) 
+
+    cut_arrays = []
+    for cut in cut_list:
+        assert cut in cut_file.keys(), f"Error, {cut} has no associated cut file"
+        cut_arrays.append(cut_file[cut][test_idxs])
+
+    combined_cut_array=np.array(list(map(lambda x : 1 if 1 in x else 0,  list(zip(*cut_arrays)))))
+    cut_idxs = np.where(combined_cut_array==1)[0]
+
+    info_dict={}
+    arr_names=['predicted_labels', 'softmax', 'labels', 'energies', 'rootfiles', 'eventids', 'angles']
+    for arr_name in arr_names:
+        info_dict[arr_name] = np.concatenate(list([batch_array for batch_array in test_dump_np[arr_name]]))
+
+    for key in info_dict.keys():
+        info_dict[key] = np.delete(info_dict[key], cut_idxs, 0)
+
+    return info_dict
 
 def load_test_output(location,index_path,remove_flagged=True, dset='noveto'):
     """

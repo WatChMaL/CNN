@@ -1,95 +1,697 @@
-[I 09:04:59.093 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:04:59.093 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:04:59.105 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:04:59.106 NotebookApp] The port 8891 is already in use, trying another port.
-[I 09:05:00.658 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:05:00.719 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:05:00.719 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:05:00.720 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:05:00.720 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:05:00.720 NotebookApp] The Jupyter Notebook is running at:
-[I 09:05:00.720 NotebookApp] http://hostname:8888/?token=c00eae6f61bca9fcd5d8b59f7ce7a70696d9726545f61997
-[I 09:05:00.720 NotebookApp]  or http://127.0.0.1:8892/?token=c00eae6f61bca9fcd5d8b59f7ce7a70696d9726545f61997
-[I 09:05:00.720 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:05:00.724 NotebookApp] 
+[I 09:28:55.724 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:28:55.724 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:28:55.725 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:28:55.725 NotebookApp] The port 8891 is already in use, trying another port.
+[I 09:28:57.406 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:28:57.510 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:28:57.511 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:28:57.513 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:28:57.513 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:28:57.513 NotebookApp] The Jupyter Notebook is running at:
+[I 09:28:57.513 NotebookApp] http://hostname:8888/?token=a0f98b86c71882f57a546983cc4802df969442cf2ce4f323
+[I 09:28:57.513 NotebookApp]  or http://127.0.0.1:8892/?token=a0f98b86c71882f57a546983cc4802df969442cf2ce4f323
+[I 09:28:57.513 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:28:57.519 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-10657-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-53104-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=c00eae6f61bca9fcd5d8b59f7ce7a70696d9726545f61997
-     or http://127.0.0.1:8892/?token=c00eae6f61bca9fcd5d8b59f7ce7a70696d9726545f61997
-[I 09:06:06.012 NotebookApp] 302 GET /?token=c00eae6f61bca9fcd5d8b59f7ce7a70696d9726545f61997 (::1) 1.35ms
-[I 09:06:31.688 NotebookApp] Kernel started: 7da4b67a-edda-46cf-8fd3-ca257ccab7c1
-[I 09:10:18.290 NotebookApp] Kernel started: f5b6b535-d5fd-4be3-9aa2-d36710d9512a
-[I 09:12:18.338 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
-[I 09:12:18.339 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
-[I 09:14:18.298 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
-[I 09:14:18.299 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
-[I 09:21:02.321 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
-[I 09:21:02.321 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
-[I 09:30:18.406 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
-[I 09:30:18.406 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
-[I 09:32:18.568 NotebookApp] Saving file at /ResNet_Analysis/13. Preparing Index Set without Muons.ipynb
-[I 09:32:18.569 NotebookApp] Saving 13. Preparing Index Set without Muons.ipynb
-[I 09:33:09.923 NotebookApp] Kernel started: fe719215-59f2-4e2c-b5d7-41a3150e1350
-[I 09:33:57.531 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:33:57.532 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:34:07.034 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:34:07.035 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:34:31.809 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:34:31.811 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:34:58.394 NotebookApp] Starting buffering for f5b6b535-d5fd-4be3-9aa2-d36710d9512a:9ddc9eb15d4641e79d8765b0214415db
-[I 09:35:04.637 NotebookApp] Kernel shutdown: f5b6b535-d5fd-4be3-9aa2-d36710d9512a
-[I 09:36:31.768 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:36:31.768 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:44:31.767 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:44:31.768 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:46:31.743 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:46:31.744 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:48:31.763 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:48:31.764 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:52:31.771 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:52:31.772 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 09:54:31.876 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 09:54:31.876 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 10:04:18.754 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 10:04:18.754 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 10:04:31.731 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 10:04:31.732 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 10:06:32.870 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
-[I 10:06:32.871 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
-[I 10:31:05.778 NotebookApp] Starting buffering for fe719215-59f2-4e2c-b5d7-41a3150e1350:64142f2ce5854c2c86decde21596419e
-[I 10:38:31.848 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:38:31.849 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:39:49.557 NotebookApp] Kernel started: 45e34f0e-83ce-4027-8390-08fab41103cc
-[I 10:40:32.699 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:40:32.700 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:17:23.024 NotebookApp] Starting buffering for fe719215-59f2-4e2c-b5d7-41a3150e1350:45cfc904785f42328440f8d2a265adca
-[I 11:17:26.914 NotebookApp] Starting buffering for 45e34f0e-83ce-4027-8390-08fab41103cc:de23c0d30cd44d3283ffda0ed06da49f
-[I 11:42:23.196 NotebookApp] Kernel started: 21f5bd92-5ba8-4918-b8b3-55ae476a96a9
-[I 11:42:29.615 NotebookApp] Kernel started: e1767dcf-70ce-42d7-b72e-2ac04dd143d0
-[I 11:44:16.865 NotebookApp] Starting buffering for e1767dcf-70ce-42d7-b72e-2ac04dd143d0:93585c864b8d49628d8c42bbb3843f49
-[I 12:14:04.846 NotebookApp] Creating new notebook in 
-[I 12:14:04.848 NotebookApp] Saving Untitled.ipynb
-[I 12:14:06.109 NotebookApp] Kernel started: 2cef16c0-8c14-4192-9bca-740fabf6fc2d
-[I 12:15:32.530 NotebookApp] Saving file at /Untitled.ipynb
-[I 12:15:32.532 NotebookApp] Saving Untitled.ipynb
-[I 12:15:33.504 NotebookApp] Starting buffering for 2cef16c0-8c14-4192-9bca-740fabf6fc2d:ea45484d5cf6476d877827a9f863890b
-[I 12:15:59.698 NotebookApp] Kernel shutdown: 2cef16c0-8c14-4192-9bca-740fabf6fc2d
-[I 12:16:18.041 NotebookApp] Kernel started: e43829f5-6f08-45b8-ac1a-e21ff35ae451
-[I 12:16:27.805 NotebookApp] Saving file at /ResNet_Analysis/Untitled.ipynb
-[I 12:16:27.805 NotebookApp] Saving Untitled.ipynb
-[I 12:18:18.170 NotebookApp] Saving file at /ResNet_Analysis/Untitled.ipynb
-[I 12:18:18.171 NotebookApp] Saving Untitled.ipynb
-[I 12:20:18.056 NotebookApp] Saving file at /ResNet_Analysis/Untitled.ipynb
-[I 12:20:18.057 NotebookApp] Saving Untitled.ipynb
-[I 12:22:31.848 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 12:22:31.848 NotebookApp] Saving E-Gamma Only.ipynb
-[I 12:28:31.904 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 12:28:31.905 NotebookApp] Saving E-Gamma Only.ipynb
-[I 12:29:21.166 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 12:29:21.166 NotebookApp] Saving E-Gamma Only.ipynb
-[I 12:33:52.515 NotebookApp] Starting buffering for fe719215-59f2-4e2c-b5d7-41a3150e1350:611d0dccec604955859c3e004e66a650
-[I 12:54:44.477 NotebookApp] Starting buffering for e43829f5-6f08-45b8-ac1a-e21ff35ae451:392d4217b52e4fbf9d48ed0ca5b2d34a
-[I 12:54:51.896 NotebookApp] Kernel shutdown: e43829f5-6f08-45b8-ac1a-e21ff35ae451
-[W 12:54:52.403 NotebookApp] delete /ResNet_Analysis/Untitled.ipynb
+        http://hostname:8888/?token=a0f98b86c71882f57a546983cc4802df969442cf2ce4f323
+     or http://127.0.0.1:8892/?token=a0f98b86c71882f57a546983cc4802df969442cf2ce4f323
+[I 09:30:55.262 NotebookApp] 302 GET /?token=a0f98b86c71882f57a546983cc4802df969442cf2ce (::1) 1.29ms
+[I 09:33:46.347 NotebookApp] Kernel started: 59b2ccf9-e83f-48de-8bae-99d55d5aa994
+[I 09:35:46.368 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:35:46.369 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[W 09:35:56.680 NotebookApp] delete /dumps/20200720_095624
+[W 09:35:56.685 NotebookApp] delete /dumps/20200720_113229
+[W 09:35:56.689 NotebookApp] delete /dumps/20200720_113323
+[I 09:43:46.368 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:43:46.368 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 09:45:46.350 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:45:46.350 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 09:46:53.056 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:46:53.056 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 09:47:46.336 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:47:46.337 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 09:49:46.342 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 09:49:46.342 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 09:51:29.079 NotebookApp] Copying ResNet_Analysis/Run Analysis Template.ipynb to /ResNet_Analysis
+[I 09:51:29.330 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 09:51:37.790 NotebookApp] Kernel started: e71cac94-b06e-438a-ace3-75a64c1d2486
+[I 09:53:38.272 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
+[I 09:53:38.338 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 10:09:38.272 NotebookApp] Saving file at /ResNet_Analysis/15. Muons vs E-Gamma.ipynb
+[I 10:09:38.273 NotebookApp] Saving 15. Muons vs E-Gamma.ipynb
+[I 10:31:25.361 NotebookApp] Starting buffering for e71cac94-b06e-438a-ace3-75a64c1d2486:39d9dab1aac6494db4833f10bfe48461
+[I 10:31:25.951 NotebookApp] Starting buffering for 59b2ccf9-e83f-48de-8bae-99d55d5aa994:4af21f1503904be08895677b08f92ba1
+[I 10:40:58.489 NotebookApp] Creating new directory in /ResNet_Analysis
+[I 10:42:52.632 NotebookApp] Creating new notebook in /ResNet_Analysis/PointNet_Cut_Indices
+[I 10:42:52.632 NotebookApp] Saving Untitled.ipynb
+[I 10:42:54.015 NotebookApp] Kernel started: 1483d844-8e8f-4024-9919-a968a1628b17
+[I 10:44:53.987 NotebookApp] Saving file at /ResNet_Analysis/PointNet_Cut_Indices/Untitled.ipynb
+[I 10:44:53.987 NotebookApp] Saving Untitled.ipynb
+[E 10:45:53.907 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-4d0b12e7-f82b-4007-a5ba-9743f706df3f.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/ResNet_Analysis', 'start_new_session': True}
+    
+[E 10:45:53.908 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8892', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 10:45:53.914 NotebookApp] Unhandled error
+[E 10:45:53.915 NotebookApp] {
+      "Host": "127.0.0.1:8892",
+      "Connection": "keep-alive",
+      "Content-Length": "164",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8892",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8892/notebooks/ResNet_Analysis/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8876=\"2|1:0|10:1592849232|23:username-127-0-0-1-8876|44:NjkwZWZmNjM0OTdiNDAyZWFjZjM0NjVhZDgzOWI0OGI=|c13bb7225723108d7057f7d9d79118fc37674b852f00e52cf9147ca07604986d\"; username-127-0-0-1-8986=\"2|1:0|10:1592928200|23:username-127-0-0-1-8986|44:YTIwYzQ5ZDVjM2FmNGY2YWFjZGIzNzllMzBhMjk4MzY=|1c7b48edb002e06ab3a940d37ed1fad247a74cb9c43619478e55cf11ff634778\"; username-127-0-0-1-8954=\"2|1:0|10:1593015636|23:username-127-0-0-1-8954|44:ZDQxN2IyZWI0NjFhNDNkOTkwMjJkNWQ4NTYxMWQ4OWQ=|0ab1c4f0e7b4d6eab38dc3e73bc74efbd212085eaeb35e05c21a9306e859bc3a\"; username-127-0-0-1-8890=\"2|1:0|10:1593461653|23:username-127-0-0-1-8890|44:ZWY4Yzg0YjY3OTZhNDYxMjk3Njk1MzdkY2ZmZDcxMjk=|6793de18b6b3bbe7871767aba803a07cc83c6d4ecd8f87112355a103ed07c7c2\"; username-127-0-0-1-8988=\"2|1:0|10:1593708384|23:username-127-0-0-1-8988|44:YzY4YTA0ZTBlNjY2NGMxMmE3OTM1NjIzMTJiMjQ3ZDA=|3cd370da01816bad6d9884be8ba2823c947eada1d577bb851fd21944848224e3\"; _xsrf=2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361; username-127-0-0-1-8904=\"2|1:0|10:1594162759|23:username-127-0-0-1-8904|44:YTg5NThkZjg1ZTMwNDRlOGIxYWI5YWYyOTI1OTJkMWY=|bb92a7979feb240bc3107db00db7060b10c8099cfd02d30af68e929721e1c89c\"; username-127-0-0-1-8862=\"2|1:0|10:1594227659|23:username-127-0-0-1-8862|44:NmQyOWJhMTY0ZGVkNGU1ZTgzODEyZWI2YzA3ZjExZTA=|5044293a9b71808a70c838cf332d7a7acde0381f24d7436f60bcf37ad2b86171\"; username-127-0-0-1-8839=\"2|1:0|10:1594312544|23:username-127-0-0-1-8839|44:ZDBkMjYyNzU2OGI0NGYxNjk1M2ZiYzJhYTlhMjY2YTU=|6bd2b0d625246929efd9f12caafea5d65eb80155cd6dc58a016e9739f6d49e3b\"; username-127-0-0-1-8830=\"2|1:0|10:1594740912|23:username-127-0-0-1-8830|44:YzkwMWExNzViODgzNDUzZWI5NmY3MGFhNTQ0MzZhNmU=|6a22aa59d6235b89e8e87e1afc74bac8a94f516165261c3dd7222a51e2343ca0\"; username-127-0-0-1-8945=\"2|1:0|10:1594833636|23:username-127-0-0-1-8945|44:ZGM2MmE2NDlmZDYyNDUyY2I3ZjliNWFmOTNmMjE4MTU=|72755243ab56a681856378856a6968f1cdd444ddc98194eeeb9012f7e44987c4\"; username-127-0-0-1-8788=\"2|1:0|10:1594940411|23:username-127-0-0-1-8788|44:NjdjOWJkOGE5ZDFmNDI4N2EyYmJhYWY0OGZjZTc2ZWM=|676e5ca793855a482bc257638c98e5599ea3722d3c2024fa2e3bfbf7afdce0b2\"; username-127-0-0-1-8941=\"2|1:0|10:1595216492|23:username-127-0-0-1-8941|44:MjlhY2IwNWYxZDkzNGJkNDlhNTAyZGNkYmVkZGQ4Y2I=|add186611da8f8231f70d54c2c14de8a99c92289b693da51c778980d1aa36e0f\"; username-127-0-0-1-8892=\"2|1:0|10:1595261166|23:username-127-0-0-1-8892|44:ZWQxYjNiYjNkNGI5NDkwYWI1Y2Q0MDIyMzc1ZDA1ZmY=|7698304aacf9a081436b440c5a8692b03a860481bad5a317be67b360f893975f\"; username-127-0-0-1-8847=\"2|1:0|10:1595284239|23:username-127-0-0-1-8847|44:OWFiZjI3ZDkyNjhjNDA0OTliMjJhYThhNTU1Yzk0NjM=|1f858ed1d16730c08b0ca0e42129ecf3d6c20429974a461a13b6e57920f47ffb\""
+    }
+[E 10:45:53.915 NotebookApp] 500 POST /api/sessions (::1) 23.34ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/0.%20Create%20Index%20.npz%20Files.ipynb
+[I 10:46:53.982 NotebookApp] Saving file at /ResNet_Analysis/PointNet_Cut_Indices/Preparing Cut Indices.ipynb
+[I 10:46:53.982 NotebookApp] Saving Preparing Cut Indices.ipynb
+[I 11:04:49.499 NotebookApp] Starting buffering for 1483d844-8e8f-4024-9919-a968a1628b17:4b6d7bdeb67542129f85023ae872e3dd
+[W 11:05:05.497 NotebookApp] delete /ResNet_Analysis/PointNet_Cut_Indices
+[I 11:22:56.518 NotebookApp] Creating new directory in /ResNet_Analysis
+[I 11:23:03.365 NotebookApp] Creating new notebook in /ResNet_Analysis/Untitled Folder
+[I 11:23:03.366 NotebookApp] Saving Untitled.ipynb
+[I 11:23:05.166 NotebookApp] Kernel started: bf60346a-b0ab-404a-8aca-226f97f1bde9
+[E 11:23:26.206 NotebookApp] Failed to run command:
+    ['/usr/bin/python3', '-m', 'ipykernel_launcher', '-f', '/home/cmacdonald/.local/share/jupyter/runtime/kernel-02ee1092-4031-43df-8454-1ebc43583537.json']
+        PATH='/opt/conda/bin:/opt/cmake-3.14.6-Linux-x86_64/bin/:/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tensorrt/bin:/home/cmacdonald/.local/bin:/home/cmacdonald/bin'
+        with kwargs:
+    {'stdin': -1, 'stdout': None, 'stderr': None, 'cwd': '/home/cmacdonald/CNN/ResNet_Analysis', 'start_new_session': True}
+    
+[E 11:23:26.207 NotebookApp] Uncaught exception POST /api/sessions (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8892', method='POST', uri='/api/sessions', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/handlers.py", line 72, in post
+        type=mtype))
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 88, in create_session
+        kernel_id = yield self.start_kernel_for_session(session_id, path, name, type, kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/sessions/sessionmanager.py", line 101, in start_kernel_for_session
+        self.kernel_manager.start_kernel(path=kernel_path, kernel_name=kernel_name)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
+        yielded = next(result)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 168, in start_kernel
+        super(MappingKernelManager, self).start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/multikernelmanager.py", line 158, in start_kernel
+        km.start_kernel(**kwargs)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 305, in start_kernel
+        self.kernel = self._launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/manager.py", line 212, in _launch_kernel
+        return launch_kernel(kernel_cmd, **kw)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/jupyter_client/launcher.py", line 135, in launch_kernel
+        proc = Popen(cmd, **kwargs)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 729, in __init__
+        restore_signals, start_new_session)
+      File "/opt/conda/lib/python3.6/subprocess.py", line 1364, in _execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/python3': '/usr/bin/python3'
+[W 11:23:26.210 NotebookApp] Unhandled error
+[E 11:23:26.211 NotebookApp] {
+      "Host": "127.0.0.1:8892",
+      "Connection": "keep-alive",
+      "Content-Length": "164",
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Dnt": "1",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-Xsrftoken": "2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "http://127.0.0.1:8892",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8892/notebooks/ResNet_Analysis/0.%20Create%20Index%20.npz%20Files.ipynb",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8876=\"2|1:0|10:1592849232|23:username-127-0-0-1-8876|44:NjkwZWZmNjM0OTdiNDAyZWFjZjM0NjVhZDgzOWI0OGI=|c13bb7225723108d7057f7d9d79118fc37674b852f00e52cf9147ca07604986d\"; username-127-0-0-1-8986=\"2|1:0|10:1592928200|23:username-127-0-0-1-8986|44:YTIwYzQ5ZDVjM2FmNGY2YWFjZGIzNzllMzBhMjk4MzY=|1c7b48edb002e06ab3a940d37ed1fad247a74cb9c43619478e55cf11ff634778\"; username-127-0-0-1-8954=\"2|1:0|10:1593015636|23:username-127-0-0-1-8954|44:ZDQxN2IyZWI0NjFhNDNkOTkwMjJkNWQ4NTYxMWQ4OWQ=|0ab1c4f0e7b4d6eab38dc3e73bc74efbd212085eaeb35e05c21a9306e859bc3a\"; username-127-0-0-1-8890=\"2|1:0|10:1593461653|23:username-127-0-0-1-8890|44:ZWY4Yzg0YjY3OTZhNDYxMjk3Njk1MzdkY2ZmZDcxMjk=|6793de18b6b3bbe7871767aba803a07cc83c6d4ecd8f87112355a103ed07c7c2\"; username-127-0-0-1-8988=\"2|1:0|10:1593708384|23:username-127-0-0-1-8988|44:YzY4YTA0ZTBlNjY2NGMxMmE3OTM1NjIzMTJiMjQ3ZDA=|3cd370da01816bad6d9884be8ba2823c947eada1d577bb851fd21944848224e3\"; _xsrf=2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361; username-127-0-0-1-8904=\"2|1:0|10:1594162759|23:username-127-0-0-1-8904|44:YTg5NThkZjg1ZTMwNDRlOGIxYWI5YWYyOTI1OTJkMWY=|bb92a7979feb240bc3107db00db7060b10c8099cfd02d30af68e929721e1c89c\"; username-127-0-0-1-8862=\"2|1:0|10:1594227659|23:username-127-0-0-1-8862|44:NmQyOWJhMTY0ZGVkNGU1ZTgzODEyZWI2YzA3ZjExZTA=|5044293a9b71808a70c838cf332d7a7acde0381f24d7436f60bcf37ad2b86171\"; username-127-0-0-1-8839=\"2|1:0|10:1594312544|23:username-127-0-0-1-8839|44:ZDBkMjYyNzU2OGI0NGYxNjk1M2ZiYzJhYTlhMjY2YTU=|6bd2b0d625246929efd9f12caafea5d65eb80155cd6dc58a016e9739f6d49e3b\"; username-127-0-0-1-8830=\"2|1:0|10:1594740912|23:username-127-0-0-1-8830|44:YzkwMWExNzViODgzNDUzZWI5NmY3MGFhNTQ0MzZhNmU=|6a22aa59d6235b89e8e87e1afc74bac8a94f516165261c3dd7222a51e2343ca0\"; username-127-0-0-1-8945=\"2|1:0|10:1594833636|23:username-127-0-0-1-8945|44:ZGM2MmE2NDlmZDYyNDUyY2I3ZjliNWFmOTNmMjE4MTU=|72755243ab56a681856378856a6968f1cdd444ddc98194eeeb9012f7e44987c4\"; username-127-0-0-1-8788=\"2|1:0|10:1594940411|23:username-127-0-0-1-8788|44:NjdjOWJkOGE5ZDFmNDI4N2EyYmJhYWY0OGZjZTc2ZWM=|676e5ca793855a482bc257638c98e5599ea3722d3c2024fa2e3bfbf7afdce0b2\"; username-127-0-0-1-8941=\"2|1:0|10:1595216492|23:username-127-0-0-1-8941|44:MjlhY2IwNWYxZDkzNGJkNDlhNTAyZGNkYmVkZGQ4Y2I=|add186611da8f8231f70d54c2c14de8a99c92289b693da51c778980d1aa36e0f\"; username-127-0-0-1-8892=\"2|1:0|10:1595261166|23:username-127-0-0-1-8892|44:ZWQxYjNiYjNkNGI5NDkwYWI1Y2Q0MDIyMzc1ZDA1ZmY=|7698304aacf9a081436b440c5a8692b03a860481bad5a317be67b360f893975f\"; username-127-0-0-1-8847=\"2|1:0|10:1595284239|23:username-127-0-0-1-8847|44:OWFiZjI3ZDkyNjhjNDA0OTliMjJhYThhNTU1Yzk0NjM=|1f858ed1d16730c08b0ca0e42129ecf3d6c20429974a461a13b6e57920f47ffb\""
+    }
+[E 11:23:26.212 NotebookApp] 500 POST /api/sessions (::1) 23.95ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/0.%20Create%20Index%20.npz%20Files.ipynb
+[I 11:25:05.161 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:25:05.161 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:27:05.165 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:27:05.165 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[W 11:28:19.288 NotebookApp] Notebook ResNet_Analysis/13. Preparing Index Set without Muons.ipynb is not trusted
+[I 11:28:20.206 NotebookApp] Kernel started: 471eaf76-e6fe-401a-89f8-0cfea68e56db
+[I 11:29:05.161 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:29:05.162 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:31:05.156 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:31:05.156 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:33:05.158 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:33:05.159 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:35:05.157 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:35:05.157 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:35:13.656 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:35:13.657 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:37:05.161 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:37:05.161 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:37:23.766 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:37:23.766 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:38:11.839 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:38:11.839 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:38:19.848 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:38:19.848 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:38:21.463 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:38:21.463 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:39:05.155 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:39:05.155 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:41:05.159 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:41:05.160 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:43:05.161 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:43:05.161 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:44:26.756 NotebookApp] Kernel started: 77f39c26-2bf0-4ead-8fc1-a350fc18e23c
+[I 11:45:05.173 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:45:05.174 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:53:45.286 NotebookApp] Starting buffering for 471eaf76-e6fe-401a-89f8-0cfea68e56db:2c07c68e3f034c1b8dcf206c71b2806e
+[I 11:55:05.341 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:55:05.341 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:56:35.466 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:56:35.466 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:56:51.183 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:56:51.183 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:57:05.167 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:57:05.167 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:59:05.193 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 11:59:05.194 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 11:59:05.417 NotebookApp] Kernel interrupted: bf60346a-b0ab-404a-8aca-226f97f1bde9
+[I 12:01:05.213 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:01:05.214 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:03:12.760 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:03:12.760 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:05:05.182 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:05:05.183 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:07:05.201 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:07:05.202 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:09:05.170 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:09:05.170 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:11:06.141 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:11:06.141 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:13:00.183 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:13:00.183 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:13:05.401 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:13:05.401 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:15:05.227 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:15:05.227 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:55:05.206 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:55:05.207 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 12:59:05.193 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 12:59:05.194 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:01:05.196 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:01:05.197 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:03:05.277 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:03:05.278 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:05:05.228 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:05:05.228 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:07:05.219 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:07:05.219 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:09:05.295 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:09:05.295 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:13:07.828 NotebookApp] Starting buffering for 77f39c26-2bf0-4ead-8fc1-a350fc18e23c:4245f91520ec46fe895c66283fe7421e
+[I 13:13:31.309 NotebookApp] Kernel started: 426d3139-eb00-4c17-8283-3cd72c1cd53d
+[I 13:15:05.214 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:15:05.215 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:16:22.304 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:16:22.306 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:16:37.257 NotebookApp] Starting buffering for 426d3139-eb00-4c17-8283-3cd72c1cd53d:e2136a61dd8d4f679b1f05bf6be9734c
+[I 13:17:05.213 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:17:05.213 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:19:05.237 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:19:05.238 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:21:05.218 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:21:05.219 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:21:05.624 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:21:05.625 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:21:39.769 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:21:39.770 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:23:05.267 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:23:05.267 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:24:06.589 NotebookApp] Starting buffering for bf60346a-b0ab-404a-8aca-226f97f1bde9:b4f93d939dcb483382d2b27ad9f25ca5
+[I 13:24:47.577 NotebookApp] Saving file at /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:24:47.578 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:24:51.091 NotebookApp] Starting buffering for bf60346a-b0ab-404a-8aca-226f97f1bde9:f12248dc8a744ecf8fc841b28fe5c22b
+[I 13:24:56.806 NotebookApp] Kernel restarted: bf60346a-b0ab-404a-8aca-226f97f1bde9
+[I 13:24:57.951 NotebookApp] Restoring connection for bf60346a-b0ab-404a-8aca-226f97f1bde9:f12248dc8a744ecf8fc841b28fe5c22b
+[I 13:24:57.951 NotebookApp] Replaying 6 buffered messages
+[W 13:26:23.932 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061892 (::1): No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:26:23.933 NotebookApp] No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:26:23.934 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061892 (::1) 5.64ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[I 13:26:23.962 NotebookApp] Uploading file to /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:26:23.963 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[E 13:26:23.980 NotebookApp] Error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/filemanager.py", line 467, in save
+        self._save_notebook(os_path, nb)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 290, in _save_notebook
+        with self.atomic_writing(os_path, encoding='utf-8') as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 210, in atomic_writing
+        with atomic_writing(os_path, *args, log=self.log, **kwargs) as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 105, in atomic_writing
+        fileobj = io.open(path, 'w', encoding=encoding, **kwargs)
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+[W 13:26:23.982 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1): HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:26:23.982 NotebookApp] HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:26:23.983 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1) 23.34ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[W 13:28:23.954 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061893 (::1): No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:28:23.955 NotebookApp] No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:28:23.956 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061893 (::1) 6.10ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[I 13:28:24.044 NotebookApp] Uploading file to /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:28:24.045 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[E 13:28:24.053 NotebookApp] Error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/filemanager.py", line 467, in save
+        self._save_notebook(os_path, nb)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 290, in _save_notebook
+        with self.atomic_writing(os_path, encoding='utf-8') as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 210, in atomic_writing
+        with atomic_writing(os_path, *args, log=self.log, **kwargs) as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 105, in atomic_writing
+        fileobj = io.open(path, 'w', encoding=encoding, **kwargs)
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+[W 13:28:24.055 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1): HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:28:24.055 NotebookApp] HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:28:24.056 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1) 12.92ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[W 13:30:12.799 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061894 (::1): No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:30:12.800 NotebookApp] No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:30:12.800 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061894 (::1) 2.03ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[I 13:30:12.832 NotebookApp] Uploading file to /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:30:12.832 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[E 13:30:12.842 NotebookApp] Error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/filemanager.py", line 467, in save
+        self._save_notebook(os_path, nb)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 290, in _save_notebook
+        with self.atomic_writing(os_path, encoding='utf-8') as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 210, in atomic_writing
+        with atomic_writing(os_path, *args, log=self.log, **kwargs) as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 105, in atomic_writing
+        fileobj = io.open(path, 'w', encoding=encoding, **kwargs)
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+[W 13:30:12.843 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1): HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:30:12.843 NotebookApp] HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:30:12.844 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1) 14.73ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[W 13:30:13.401 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061895 (::1): No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:30:13.401 NotebookApp] No such file or directory: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[W 13:30:13.401 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb?content=0&_=1595363061895 (::1) 1.99ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[I 13:30:13.424 NotebookApp] Uploading file to /ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb
+[I 13:30:13.425 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[E 13:30:13.433 NotebookApp] Error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/filemanager.py", line 467, in save
+        self._save_notebook(os_path, nb)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 290, in _save_notebook
+        with self.atomic_writing(os_path, encoding='utf-8') as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 210, in atomic_writing
+        with atomic_writing(os_path, *args, log=self.log, **kwargs) as f:
+      File "/opt/conda/lib/python3.6/contextlib.py", line 81, in __enter__
+        return next(self.gen)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/contents/fileio.py", line 105, in atomic_writing
+        fileobj = io.open(path, 'w', encoding=encoding, **kwargs)
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb'
+[W 13:30:13.434 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1): HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:30:13.434 NotebookApp] HTTP 500: Internal Server Error (Unexpected error while saving file: ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb [Errno 2] No such file or directory: '/home/cmacdonald/CNN/ResNet_Analysis/Untitled Folder/Preparing Pointnet Cut Indices.ipynb')
+[W 13:30:13.434 NotebookApp] 400 PUT /api/contents/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb (::1) 11.31ms referer=http://127.0.0.1:8892/notebooks/ResNet_Analysis/Untitled%20Folder/Preparing%20Pointnet%20Cut%20Indices.ipynb
+[I 13:30:16.991 NotebookApp] Starting buffering for bf60346a-b0ab-404a-8aca-226f97f1bde9:f12248dc8a744ecf8fc841b28fe5c22b
+[I 13:30:26.168 NotebookApp] Kernel started: 93bada6c-77ba-4800-860c-7a7c2c1dc5f4
+[I 13:30:29.551 NotebookApp] Starting buffering for 93bada6c-77ba-4800-860c-7a7c2c1dc5f4:3785038fbbc94d678966f0e41a746dd0
+[I 13:30:29.875 NotebookApp] Kernel restarted: 93bada6c-77ba-4800-860c-7a7c2c1dc5f4
+[I 13:30:30.868 NotebookApp] Restoring connection for 93bada6c-77ba-4800-860c-7a7c2c1dc5f4:3785038fbbc94d678966f0e41a746dd0
+[I 13:30:30.868 NotebookApp] Replaying 6 buffered messages
+[I 13:32:26.612 NotebookApp] Saving file at /ResNet_Analysis/Pointnet_Cut_Indices/Preparing Pointnet Cut Indices.ipynb
+[I 13:32:26.613 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:34:26.159 NotebookApp] Saving file at /ResNet_Analysis/Pointnet_Cut_Indices/Preparing Pointnet Cut Indices.ipynb
+[I 13:34:26.159 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:50:26.205 NotebookApp] Saving file at /ResNet_Analysis/Pointnet_Cut_Indices/Preparing Pointnet Cut Indices.ipynb
+[I 13:50:26.205 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:52:26.175 NotebookApp] Saving file at /ResNet_Analysis/Pointnet_Cut_Indices/Preparing Pointnet Cut Indices.ipynb
+[I 13:52:26.187 NotebookApp] Saving Preparing Pointnet Cut Indices.ipynb
+[I 13:57:21.448 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 13:57:21.449 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 13:58:31.203 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 13:58:31.203 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:13:21.476 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:13:21.477 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:15:21.491 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:15:21.491 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:17:21.519 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:17:21.520 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:21:18.154 NotebookApp] Starting buffering for 93bada6c-77ba-4800-860c-7a7c2c1dc5f4:3785038fbbc94d678966f0e41a746dd0
+[I 14:21:21.434 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:21:21.435 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:23:21.478 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:23:21.479 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:23:45.787 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:23:45.788 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:25:08.216 NotebookApp] Copying ResNet_Analysis/Run Analysis Template.ipynb to /ResNet_Analysis
+[I 14:25:08.353 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 14:25:18.184 NotebookApp] Kernel started: ed8527c7-47ff-4b2e-a60a-432a425c804b
+[I 14:25:21.437 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:25:21.437 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:27:06.917 NotebookApp] Starting buffering for ed8527c7-47ff-4b2e-a60a-432a425c804b:03a51675621743c1887a215d85404f38
+[I 14:27:07.226 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
+[I 14:27:07.226 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 14:27:15.963 NotebookApp] Kernel shutdown: ed8527c7-47ff-4b2e-a60a-432a425c804b
+[W 14:27:16.569 NotebookApp] delete /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
+[I 14:27:22.788 NotebookApp] Kernel started: 663604f3-f913-492d-bf79-3bb67f37b9f6
+[I 14:27:59.658 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:27:59.659 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:28:43.674 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:28:43.674 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:28:58.275 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:28:58.275 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:29:14.710 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:29:14.711 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:29:23.306 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:29:23.306 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:29:28.756 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:29:28.756 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:29:35.166 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:29:35.166 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:29:39.686 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:29:39.687 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:29:52.527 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:29:52.527 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:30:39.453 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:30:39.453 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:30:44.219 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:30:44.219 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:30:54.209 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:30:54.210 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:31:11.704 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:31:11.704 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:32:04.977 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:32:04.978 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:32:09.047 NotebookApp] Starting buffering for 663604f3-f913-492d-bf79-3bb67f37b9f6:5870c7dc74f24036851335c05fac1e83
+[I 14:32:14.007 NotebookApp] Kernel shutdown: 663604f3-f913-492d-bf79-3bb67f37b9f6
+[I 14:41:21.477 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 14:41:21.478 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 14:44:26.948 NotebookApp] Starting buffering for 59b2ccf9-e83f-48de-8bae-99d55d5aa994:c710d066a2ef40438321e651c2d40bf4
+[W 14:45:17.961 NotebookApp] Could not determine jupyterlab build status without nodejs
+[W 14:45:18.333 NotebookApp] 404 GET /api/contents/Repeating_Classifier_Training/create_compressed_h5.py?content=0&1595367918055 (::1): No such file or directory: Repeating_Classifier_Training/create_compressed_h5.py
+[W 14:45:18.333 NotebookApp] No such file or directory: Repeating_Classifier_Training/create_compressed_h5.py
+[W 14:45:18.334 NotebookApp] 404 GET /api/contents/Repeating_Classifier_Training/create_compressed_h5.py?content=0&1595367918055 (::1) 3.03ms referer=http://127.0.0.1:8892/
+[W 14:45:18.351 NotebookApp] 404 GET /api/contents/debug/line_profiling/map_getitem_test.txt?content=0&1595367918057 (::1): No such file or directory: debug/line_profiling/map_getitem_test.txt
+[W 14:45:18.352 NotebookApp] No such file or directory: debug/line_profiling/map_getitem_test.txt
+[W 14:45:18.352 NotebookApp] 404 GET /api/contents/debug/line_profiling/map_getitem_test.txt?content=0&1595367918057 (::1) 2.44ms referer=http://127.0.0.1:8892/
+[W 14:45:18.362 NotebookApp] 404 GET /api/contents/debug/line_profiling/nomap_getitem_test.txt?content=0&1595367918064 (::1): No such file or directory: debug/line_profiling/nomap_getitem_test.txt
+[W 14:45:18.362 NotebookApp] No such file or directory: debug/line_profiling/nomap_getitem_test.txt
+[W 14:45:18.363 NotebookApp] 404 GET /api/contents/debug/line_profiling/nomap_getitem_test.txt?content=0&1595367918064 (::1) 2.12ms referer=http://127.0.0.1:8892/
+[E 14:45:18.495 NotebookApp] Uncaught exception GET /lab/api/extensions?1595367917905 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8892', method='GET', uri='/lab/api/extensions?1595367917905', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 14:45:18.504 NotebookApp] Unhandled error
+[E 14:45:18.504 NotebookApp] {
+      "Host": "127.0.0.1:8892",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361",
+      "Authorization": "token a0f98b86c71882f57a546983cc4802df969442cf2ce4f323",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8892/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8876=\"2|1:0|10:1592849232|23:username-127-0-0-1-8876|44:NjkwZWZmNjM0OTdiNDAyZWFjZjM0NjVhZDgzOWI0OGI=|c13bb7225723108d7057f7d9d79118fc37674b852f00e52cf9147ca07604986d\"; username-127-0-0-1-8986=\"2|1:0|10:1592928200|23:username-127-0-0-1-8986|44:YTIwYzQ5ZDVjM2FmNGY2YWFjZGIzNzllMzBhMjk4MzY=|1c7b48edb002e06ab3a940d37ed1fad247a74cb9c43619478e55cf11ff634778\"; username-127-0-0-1-8954=\"2|1:0|10:1593015636|23:username-127-0-0-1-8954|44:ZDQxN2IyZWI0NjFhNDNkOTkwMjJkNWQ4NTYxMWQ4OWQ=|0ab1c4f0e7b4d6eab38dc3e73bc74efbd212085eaeb35e05c21a9306e859bc3a\"; username-127-0-0-1-8890=\"2|1:0|10:1593461653|23:username-127-0-0-1-8890|44:ZWY4Yzg0YjY3OTZhNDYxMjk3Njk1MzdkY2ZmZDcxMjk=|6793de18b6b3bbe7871767aba803a07cc83c6d4ecd8f87112355a103ed07c7c2\"; username-127-0-0-1-8988=\"2|1:0|10:1593708384|23:username-127-0-0-1-8988|44:YzY4YTA0ZTBlNjY2NGMxMmE3OTM1NjIzMTJiMjQ3ZDA=|3cd370da01816bad6d9884be8ba2823c947eada1d577bb851fd21944848224e3\"; _xsrf=2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361; username-127-0-0-1-8904=\"2|1:0|10:1594162759|23:username-127-0-0-1-8904|44:YTg5NThkZjg1ZTMwNDRlOGIxYWI5YWYyOTI1OTJkMWY=|bb92a7979feb240bc3107db00db7060b10c8099cfd02d30af68e929721e1c89c\"; username-127-0-0-1-8862=\"2|1:0|10:1594227659|23:username-127-0-0-1-8862|44:NmQyOWJhMTY0ZGVkNGU1ZTgzODEyZWI2YzA3ZjExZTA=|5044293a9b71808a70c838cf332d7a7acde0381f24d7436f60bcf37ad2b86171\"; username-127-0-0-1-8839=\"2|1:0|10:1594312544|23:username-127-0-0-1-8839|44:ZDBkMjYyNzU2OGI0NGYxNjk1M2ZiYzJhYTlhMjY2YTU=|6bd2b0d625246929efd9f12caafea5d65eb80155cd6dc58a016e9739f6d49e3b\"; username-127-0-0-1-8830=\"2|1:0|10:1594740912|23:username-127-0-0-1-8830|44:YzkwMWExNzViODgzNDUzZWI5NmY3MGFhNTQ0MzZhNmU=|6a22aa59d6235b89e8e87e1afc74bac8a94f516165261c3dd7222a51e2343ca0\"; username-127-0-0-1-8945=\"2|1:0|10:1594833636|23:username-127-0-0-1-8945|44:ZGM2MmE2NDlmZDYyNDUyY2I3ZjliNWFmOTNmMjE4MTU=|72755243ab56a681856378856a6968f1cdd444ddc98194eeeb9012f7e44987c4\"; username-127-0-0-1-8788=\"2|1:0|10:1594940411|23:username-127-0-0-1-8788|44:NjdjOWJkOGE5ZDFmNDI4N2EyYmJhYWY0OGZjZTc2ZWM=|676e5ca793855a482bc257638c98e5599ea3722d3c2024fa2e3bfbf7afdce0b2\"; username-127-0-0-1-8941=\"2|1:0|10:1595216492|23:username-127-0-0-1-8941|44:MjlhY2IwNWYxZDkzNGJkNDlhNTAyZGNkYmVkZGQ4Y2I=|add186611da8f8231f70d54c2c14de8a99c92289b693da51c778980d1aa36e0f\"; username-127-0-0-1-8847=\"2|1:0|10:1595284239|23:username-127-0-0-1-8847|44:OWFiZjI3ZDkyNjhjNDA0OTliMjJhYThhNTU1Yzk0NjM=|1f858ed1d16730c08b0ca0e42129ecf3d6c20429974a461a13b6e57920f47ffb\"; username-127-0-0-1-8892=\"2|1:0|10:1595367918|23:username-127-0-0-1-8892|44:MDhkNTViMmVhNjBhNDkxN2FkMjI0Y2Y1NTVlYzhlMDE=|f29a4ed9ff3fe5b37dd167425a8db2fd8393568f1f4884a7f201a9d3bfb825d1\""
+    }
+[E 14:45:18.505 NotebookApp] 500 GET /lab/api/extensions?1595367917905 (::1) 343.23ms referer=http://127.0.0.1:8892/
+[E 14:45:18.505 NotebookApp] Uncaught exception GET /lab/api/extensions?1595367917943 (::1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8892', method='GET', uri='/lab/api/extensions?1595367917943', version='HTTP/1.1', remote_ip='::1')
+    Traceback (most recent call last):
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/web.py", line 1703, in _execute
+        result = await result
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 216, in get
+        extensions = yield self.manager.list_extensions()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 86, in list_extensions
+        pkg_info = yield self._get_pkg_info(name, data)
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 154, in _get_pkg_info
+        outdated = yield self._get_outdated()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 742, in run
+        yielded = self.gen.throw(*exc_info)  # type: ignore
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/handlers/extension_manager_handler.py", line 189, in _load_outdated
+        logger=self.log,
+      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
+        value = future.result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+        return self.__get_result()
+      File "/opt/conda/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+        raise self._exception
+      File "/opt/conda/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+        result = self.fn(*self.args, **self.kwargs)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 456, in get_latest_compatible_package_versions
+        return handler.latest_compatible_package_versions(names)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab/commands.py", line 1540, in latest_compatible_package_versions
+        ret = self._run([which('npm'), 'pack'] + keys, cwd=tempdir)
+      File "/opt/conda/lib/python3.6/site-packages/jupyterlab_server/process.py", line 59, in which
+        raise ValueError(msg)
+    ValueError: Please install nodejs 5+ and npm before continuing installation. nodejs may be installed using conda or directly from the nodejs website.
+[W 14:45:18.506 NotebookApp] Unhandled error
+[E 14:45:18.507 NotebookApp] {
+      "Host": "127.0.0.1:8892",
+      "Connection": "keep-alive",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      "Dnt": "1",
+      "X-Xsrftoken": "2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361",
+      "Authorization": "token a0f98b86c71882f57a546983cc4802df969442cf2ce4f323",
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "http://127.0.0.1:8892/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+      "Cookie": "username-127-0-0-1-8876=\"2|1:0|10:1592849232|23:username-127-0-0-1-8876|44:NjkwZWZmNjM0OTdiNDAyZWFjZjM0NjVhZDgzOWI0OGI=|c13bb7225723108d7057f7d9d79118fc37674b852f00e52cf9147ca07604986d\"; username-127-0-0-1-8986=\"2|1:0|10:1592928200|23:username-127-0-0-1-8986|44:YTIwYzQ5ZDVjM2FmNGY2YWFjZGIzNzllMzBhMjk4MzY=|1c7b48edb002e06ab3a940d37ed1fad247a74cb9c43619478e55cf11ff634778\"; username-127-0-0-1-8954=\"2|1:0|10:1593015636|23:username-127-0-0-1-8954|44:ZDQxN2IyZWI0NjFhNDNkOTkwMjJkNWQ4NTYxMWQ4OWQ=|0ab1c4f0e7b4d6eab38dc3e73bc74efbd212085eaeb35e05c21a9306e859bc3a\"; username-127-0-0-1-8890=\"2|1:0|10:1593461653|23:username-127-0-0-1-8890|44:ZWY4Yzg0YjY3OTZhNDYxMjk3Njk1MzdkY2ZmZDcxMjk=|6793de18b6b3bbe7871767aba803a07cc83c6d4ecd8f87112355a103ed07c7c2\"; username-127-0-0-1-8988=\"2|1:0|10:1593708384|23:username-127-0-0-1-8988|44:YzY4YTA0ZTBlNjY2NGMxMmE3OTM1NjIzMTJiMjQ3ZDA=|3cd370da01816bad6d9884be8ba2823c947eada1d577bb851fd21944848224e3\"; _xsrf=2|bbc567fd|28b72fc64ff3a76be363a73ef97bc80e|1594053361; username-127-0-0-1-8904=\"2|1:0|10:1594162759|23:username-127-0-0-1-8904|44:YTg5NThkZjg1ZTMwNDRlOGIxYWI5YWYyOTI1OTJkMWY=|bb92a7979feb240bc3107db00db7060b10c8099cfd02d30af68e929721e1c89c\"; username-127-0-0-1-8862=\"2|1:0|10:1594227659|23:username-127-0-0-1-8862|44:NmQyOWJhMTY0ZGVkNGU1ZTgzODEyZWI2YzA3ZjExZTA=|5044293a9b71808a70c838cf332d7a7acde0381f24d7436f60bcf37ad2b86171\"; username-127-0-0-1-8839=\"2|1:0|10:1594312544|23:username-127-0-0-1-8839|44:ZDBkMjYyNzU2OGI0NGYxNjk1M2ZiYzJhYTlhMjY2YTU=|6bd2b0d625246929efd9f12caafea5d65eb80155cd6dc58a016e9739f6d49e3b\"; username-127-0-0-1-8830=\"2|1:0|10:1594740912|23:username-127-0-0-1-8830|44:YzkwMWExNzViODgzNDUzZWI5NmY3MGFhNTQ0MzZhNmU=|6a22aa59d6235b89e8e87e1afc74bac8a94f516165261c3dd7222a51e2343ca0\"; username-127-0-0-1-8945=\"2|1:0|10:1594833636|23:username-127-0-0-1-8945|44:ZGM2MmE2NDlmZDYyNDUyY2I3ZjliNWFmOTNmMjE4MTU=|72755243ab56a681856378856a6968f1cdd444ddc98194eeeb9012f7e44987c4\"; username-127-0-0-1-8788=\"2|1:0|10:1594940411|23:username-127-0-0-1-8788|44:NjdjOWJkOGE5ZDFmNDI4N2EyYmJhYWY0OGZjZTc2ZWM=|676e5ca793855a482bc257638c98e5599ea3722d3c2024fa2e3bfbf7afdce0b2\"; username-127-0-0-1-8941=\"2|1:0|10:1595216492|23:username-127-0-0-1-8941|44:MjlhY2IwNWYxZDkzNGJkNDlhNTAyZGNkYmVkZGQ4Y2I=|add186611da8f8231f70d54c2c14de8a99c92289b693da51c778980d1aa36e0f\"; username-127-0-0-1-8847=\"2|1:0|10:1595284239|23:username-127-0-0-1-8847|44:OWFiZjI3ZDkyNjhjNDA0OTliMjJhYThhNTU1Yzk0NjM=|1f858ed1d16730c08b0ca0e42129ecf3d6c20429974a461a13b6e57920f47ffb\"; username-127-0-0-1-8892=\"2|1:0|10:1595367918|23:username-127-0-0-1-8892|44:OGFkNzAzYzdlNmFmNGQxZTg4OTU5MDJlNDBkY2ZhOTc=|a6a6a0f6988aa08a20b1cc992b5d2686b661d2f8ad5580d041a5645a735dd99c\""
+    }
+[E 14:45:18.507 NotebookApp] 500 GET /lab/api/extensions?1595367917943 (::1) 302.68ms referer=http://127.0.0.1:8892/
+[I 14:48:51.658 NotebookApp] Kernel started: f86a6d7c-a708-4e93-a95d-e2a63cae10aa
+[I 14:50:51.397 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:50:51.397 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:51:15.599 NotebookApp] Kernel restarted: f86a6d7c-a708-4e93-a95d-e2a63cae10aa
+[I 14:52:51.927 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:52:51.927 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:55:36.255 NotebookApp] 302 GET / (::1) 1.00ms
+[I 14:56:52.955 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:56:52.956 NotebookApp] Saving Run Analysis Template.ipynb
+[I 14:58:53.936 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 14:58:53.937 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:02:54.995 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:02:54.996 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:04:55.967 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:04:55.967 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:06:56.183 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:06:56.184 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:08:56.423 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:08:56.423 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:18:57.244 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:18:57.245 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:22:57.636 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:22:57.637 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:26:57.904 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:26:57.905 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:28:59.270 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:28:59.271 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:30:59.706 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:30:59.707 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:32:20.438 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:32:20.439 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:36:06.747 NotebookApp] Copying ResNet_Analysis/Run Analysis Template.ipynb to /ResNet_Analysis
+[I 15:36:06.861 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 15:36:11.601 NotebookApp] Starting buffering for f86a6d7c-a708-4e93-a95d-e2a63cae10aa:5d59d90e-d5af-4fac-89f3-4d6c488f240a
+[I 15:36:11.819 NotebookApp] Kernel started: 0ed1ae25-5267-4b5a-99f0-cdc9c35bb44d
+[I 15:37:15.771 NotebookApp] Starting buffering for 0ed1ae25-5267-4b5a-99f0-cdc9c35bb44d:26a49209-e752-4ae2-b78a-324658e71ccb
+[I 15:37:25.675 NotebookApp] Kernel shutdown: 0ed1ae25-5267-4b5a-99f0-cdc9c35bb44d
+[W 15:37:26.263 NotebookApp] delete /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
+[I 15:37:39.034 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template.ipynb
+[I 15:37:39.034 NotebookApp] Saving Run Analysis Template.ipynb
+[I 15:38:04.053 NotebookApp] Copying ResNet_Analysis/Run Analysis Template.ipynb to /ResNet_Analysis
+[I 15:38:04.170 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 15:38:08.084 NotebookApp] Kernel started: 6c410a04-633b-4701-b575-9348e63cebaa
+[I 15:40:00.025 NotebookApp] Starting buffering for 59b2ccf9-e83f-48de-8bae-99d55d5aa994:1adf146f-5c3f-41b7-8582-05e3640441ba
+[I 15:40:05.887 NotebookApp] Kernel shutdown: 59b2ccf9-e83f-48de-8bae-99d55d5aa994
+[W 15:40:06.714 NotebookApp] delete /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:40:07.889 NotebookApp] Saving file at /ResNet_Analysis/Run Analysis Template-Copy1.ipynb
+[I 15:40:07.889 NotebookApp] Saving Run Analysis Template-Copy1.ipynb
+[I 15:40:58.319 NotebookApp] Kernel restarted: 6c410a04-633b-4701-b575-9348e63cebaa
+[I 15:42:08.126 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:42:08.126 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 15:43:17.321 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:43:17.323 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 15:44:11.714 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:44:11.714 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 15:46:12.054 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:46:12.055 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 15:47:46.062 NotebookApp] Saving file at /ResNet_Analysis/14. E-Gamma Only.ipynb
+[I 15:47:46.063 NotebookApp] Saving 14. E-Gamma Only.ipynb
+[I 15:47:47.670 NotebookApp] Starting buffering for f86a6d7c-a708-4e93-a95d-e2a63cae10aa:4987c021-fa90-425b-a5b9-2f84594b3f92
+[I 15:47:47.670 NotebookApp] Starting buffering for 6c410a04-633b-4701-b575-9348e63cebaa:fe5e7a86-8740-4b89-bff0-3d690bdcb6c1
