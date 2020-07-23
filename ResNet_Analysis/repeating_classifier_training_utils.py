@@ -245,10 +245,7 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         
     if png_name is not None: plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
     
-    plt.show()
-
-    plt.clf() # Clear the current figure
-    plt.close() # Close the opened window
+    # plt.show()
                 
     return fpr, tpr, threshold, roc_auc
 
@@ -846,8 +843,9 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         tns = fps[-1] - fps
         efficiencies = tps/(tps + fns)
         operating_point_idx = (np.abs(efficiencies - efficiency)).argmin()
-        if metric == 'purity': performance = tps[operating_point_idx]/(tps[operating_point_idx] + fps[operating_point_idx])
-        else: performance = tns / (tns + fps)
+        if metric == 'purity': performance = tps/(tps + fps)
+        elif metric == 'rejection': performance = tns / (tns + fps)
+        elif metric == 'inverse fpr': performance = np.where(fps != 0, (fps +tns) / fps, fps+tns)
         bin_metrics.append((efficiencies[operating_point_idx], performance[operating_point_idx], np.sqrt(tns[operating_point_idx])/(tns[operating_point_idx] + fps[operating_point_idx])))
     bin_metrics = np.array(bin_metrics)
 
@@ -855,20 +853,24 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
     bin_centers.append((np.max(binning_features) - bins[-1])/2 + bins[-1])
 
-    metric_name = '{}-{} Signal Purity'.format(label_0,label_1) if metric== 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1])
+    if metric == 'purity':
+        metric_name = '{}-{} Signal Purity'.format(label_0,label_1) 
+    elif metric=='rejection': metric_name =  '{} Rejection Fraction'.format(legend_label_dict[label_1]) 
+    else: metric_name = '{} Rejection'.format(legend_label_dict[label_1]) 
     title = '{} \n vs {} At Bin {} Signal Efficiency {}{}'.format(metric_name, binning_label, legend_label_dict[label_0], efficiency,title_note)
     if ax is None:
         fig = plt.figure(figsize=(12,6))
         plt.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
-        plt.ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        plt.ylabel(metric_name, fontsize=label_size)
         plt.xlabel(binning_label, fontsize=label_size)
         plt.title(title)
 
     else:
         ax.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
-        ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        ax.set_ylabel(metric_name, fontsize=label_size)
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
+        if metric=='inverse fpr': ax.set_yscale('log')
     # return bin_metrics[:,2]
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
