@@ -24,7 +24,7 @@ from numpy import savez
 
 # +
 # PyTorch imports
-from torch import cat, Tensor, from_numpy, randn, manual_seed, full
+from torch import cat, Tensor, from_numpy, randn, manual_seed, full, FloatTensor
 from torch import argmax
 from torch.nn import Softmax, BCEWithLogitsLoss, BCELoss
 from torch.optim import Adam
@@ -140,6 +140,7 @@ class EngineGAN(Engine):
         b_size = self.data.size(0)
         label = full((b_size,), self.real_label, device=self.device)
         # Forward pass real batch through D
+        self.data = self.data.type(FloatTensor)
         output = self.model.discriminator(self.data).view(-1)
         # Calculate loss on all-real batch
         errD_real = self.criterion(output, label)
@@ -248,9 +249,6 @@ class EngineGAN(Engine):
                 
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
-
-                # Do a backward pass using loss = self.loss
-                #self.backward(iteration, epoch)
                 
                 # Update the epoch and iteration
                 epoch     += 1./len(self.train_loader)
