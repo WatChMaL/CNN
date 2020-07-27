@@ -245,10 +245,7 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         
     if png_name is not None: plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
     
-    plt.show()
-
-    plt.clf() # Clear the current figure
-    plt.close() # Close the opened window
+    # plt.show()
                 
     return fpr, tpr, threshold, roc_auc
 
@@ -403,8 +400,12 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     May 2020
     """
 
-    fig = plt.figure(facecolor='w',figsize=(16,8))
-    gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    if len(label_arrays) >= 3:
+        fig = plt.figure(facecolor='w',figsize=(16,8))
+        gs = gridspec.GridSpec(math.ceil(len(label_arrays)/3),3,figure=fig)
+    else:
+        fig = plt.figure(facecolor='w',figsize=(10*len(label_arrays),8))
+        gs = gridspec.GridSpec(1,len(label_arrays),figure=fig)
     axes = []
 
     for i,labels in enumerate(label_arrays):
@@ -444,8 +445,30 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
     gs.tight_layout(fig)
     return fig
 
+def load_test_output_pn(location, cut_path, test_idxs, cut_list):
 
-def load_test_output(location,index_path,remove_flagged=True):
+    test_dump_np = np.load(location, allow_pickle=True)
+    cut_file = np.load(cut_path, allow_pickle=True) 
+
+    cut_arrays = []
+    for cut in cut_list:
+        assert cut in cut_file.keys(), f"Error, {cut} has no associated cut file"
+        cut_arrays.append(cut_file[cut][test_idxs])
+
+    combined_cut_array=np.array(list(map(lambda x : 1 if 1 in x else 0,  list(zip(*cut_arrays)))))
+    cut_idxs = np.where(combined_cut_array==1)[0]
+
+    info_dict={}
+    arr_names=['predicted_labels', 'softmax', 'labels', 'energies', 'rootfiles', 'eventids', 'angles']
+    for arr_name in arr_names:
+        info_dict[arr_name] = np.concatenate(list([batch_array for batch_array in test_dump_np[arr_name]]))
+
+    for key in info_dict.keys():
+        info_dict[key] = np.delete(info_dict[key], cut_idxs, 0)
+
+    return info_dict
+
+def load_test_output(location,index_path,remove_flagged=True, dset='noveto'):
     """
     load_test_output(location,index_path)
     
@@ -468,44 +491,71 @@ def load_test_output(location,index_path,remove_flagged=True):
     res_eventids = np.concatenate(list([batch_array for batch_array in test_dump_np['eventids']]))
     res_angles = np.concatenate(list([batch_array for batch_array in test_dump_np['angles']]))
     
-    failed_idxs = np.load(os.path.join(index_path, 'fq_failed_idxs.npz'),allow_pickle=True)['failed_indices_pointing_to_h5_test_set'].astype(int)
-    flagged_idxs = np.load(os.path.join(index_path, 'fq_flagged_idxs.npz'),allow_pickle=True)['arr_0'].astype(int)
-    
-    sres_predictedlabels = np.delete(res_predictedlabels,failed_idxs)
-    sres_softmaxes  = np.delete(res_softmaxes,failed_idxs,0)
-    sres_labels  = np.delete(res_labels,failed_idxs)
-    sres_energies = np.delete(res_energies,failed_idxs)
-    sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
-    sres_eventids = np.delete(res_eventids,failed_idxs)
-    sres_angles = np.delete(res_angles,failed_idxs,0)
+    if dset=='noveto':
+        failed_idxs = np.load(os.path.join(index_path, 'fq_failed_idxs.npz'),allow_pickle=True)['failed_indices_pointing_to_h5_test_set'].astype(int)
+        flagged_idxs = np.load(os.path.join(index_path, 'fq_flagged_idxs.npz'),allow_pickle=True)['arr_0'].astype(int)
+        sres_predictedlabels = np.delete(res_predictedlabels,failed_idxs)
+        sres_softmaxes  = np.delete(res_softmaxes,failed_idxs,0)
+        sres_labels  = np.delete(res_labels,failed_idxs)
+        sres_energies = np.delete(res_energies,failed_idxs)
+        sres_rootfiles = np.delete(res_rootfiles,failed_idxs)
+        sres_eventids = np.delete(res_eventids,failed_idxs)
+        sres_angles = np.delete(res_angles,failed_idxs,0)
 
-    if remove_flagged:    
-        filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
-        filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
-        filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
-        filtered_res_energies = np.delete(sres_energies,flagged_idxs)
-        filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
-        filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
-        filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
-        
-        return{'filtered_predictions':filtered_res_predictedlabels,
-                'filtered_softmaxes':filtered_res_softmaxes,
-                'filtered_labels':filtered_res_labels,
-                'filtered_energies':filtered_res_energies,
-                'filtered_rootfiles':filtered_res_rootfiles,
-                'filtered_eventids':filtered_res_eventids,
-                'filtered_angles':filtered_res_angles          
-            }
+        if remove_flagged:    
+            filtered_res_predictedlabels = np.delete(sres_predictedlabels,flagged_idxs)
+            filtered_res_softmaxes  = np.delete(sres_softmaxes,flagged_idxs,0)
+            filtered_res_labels  = np.delete(sres_labels,flagged_idxs)
+            filtered_res_energies = np.delete(sres_energies,flagged_idxs)
+            filtered_res_rootfiles = np.delete(sres_rootfiles,flagged_idxs)
+            filtered_res_eventids = np.delete(sres_eventids,flagged_idxs)
+            filtered_res_angles = np.delete(sres_angles,flagged_idxs,0)
+            
+            return{'filtered_predictions':filtered_res_predictedlabels,
+                    'filtered_softmaxes':filtered_res_softmaxes,
+                    'filtered_labels':filtered_res_labels,
+                    'filtered_energies':filtered_res_energies,
+                    'filtered_rootfiles':filtered_res_rootfiles,
+                    'filtered_eventids':filtered_res_eventids,
+                    'filtered_angles':filtered_res_angles          
+                }
+        else:
+            return{'s_predictions':sres_predictedlabels,
+                    's_softmaxes':sres_softmaxes,
+                    's_labels':sres_labels,
+                    's_energies':sres_energies,
+                    's_rootfiles':sres_rootfiles,
+                    's_eventids':sres_eventids,
+                    's_angles':sres_angles          
+                }
+    elif dset=='vetoed':
+            fq_cut_idxs = np.load(os.path.join(index_path, 'fq_cut_idxs_for_vetoed_set.npz'),allow_pickle=True)['fq_cut_idxs_for_vetoed_set'].astype(int)
+
+            filtered_res_predictedlabels = np.delete(res_predictedlabels,fq_cut_idxs)
+            filtered_res_softmaxes  = np.delete(res_softmaxes,fq_cut_idxs,0)
+            filtered_res_labels  = np.delete(res_labels,fq_cut_idxs)
+            filtered_res_energies = np.delete(res_energies,fq_cut_idxs)
+            filtered_res_rootfiles = np.delete(res_rootfiles,fq_cut_idxs)
+            filtered_res_eventids = np.delete(res_eventids,fq_cut_idxs)
+            filtered_res_angles = np.delete(res_angles,fq_cut_idxs,0)
+            
+            return{'filtered_predictions':filtered_res_predictedlabels,
+                    'filtered_softmaxes':filtered_res_softmaxes,
+                    'filtered_labels':filtered_res_labels,
+                    'filtered_energies':filtered_res_energies,
+                    'filtered_rootfiles':filtered_res_rootfiles,
+                    'filtered_eventids':filtered_res_eventids,
+                    'filtered_angles':filtered_res_angles          
+                }
     else:
-        return{'s_predictions':sres_predictedlabels,
-                's_softmaxes':sres_softmaxes,
-                's_labels':sres_labels,
-                's_energies':sres_energies,
-                's_rootfiles':sres_rootfiles,
-                's_eventids':sres_eventids,
-                's_angles':sres_angles          
-            }
-
+        return{'filtered_predictions':res_predictedlabels,
+                    'filtered_softmaxes':res_softmaxes,
+                    'filtered_labels':res_labels,
+                    'filtered_energies':res_energies,
+                    'filtered_rootfiles':res_rootfiles,
+                    'filtered_eventids':res_eventids,
+                    'filtered_angles':res_angles          
+                }
 
 def parametrized_ray_point(x,y,z,theta,phi,t):
     '''
@@ -793,8 +843,9 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         tns = fps[-1] - fps
         efficiencies = tps/(tps + fns)
         operating_point_idx = (np.abs(efficiencies - efficiency)).argmin()
-        if metric == 'purity': performance = tps[operating_point_idx]/(tps[operating_point_idx] + fps[operating_point_idx])
-        else: performance = tns / (tns + fps)
+        if metric == 'purity': performance = tps/(tps + fps)
+        elif metric == 'rejection': performance = tns / (tns + fps)
+        elif metric == 'inverse fpr': performance = np.where(fps != 0, (fps +tns) / fps, fps+tns)
         bin_metrics.append((efficiencies[operating_point_idx], performance[operating_point_idx], np.sqrt(tns[operating_point_idx])/(tns[operating_point_idx] + fps[operating_point_idx])))
     bin_metrics = np.array(bin_metrics)
 
@@ -802,20 +853,24 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
     bin_centers.append((np.max(binning_features) - bins[-1])/2 + bins[-1])
 
-    metric_name = '{}-{} Signal Purity'.format(label_0,label_1) if metric== 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1])
+    if metric == 'purity':
+        metric_name = '{}-{} Signal Purity'.format(label_0,label_1) 
+    elif metric=='rejection': metric_name =  '{} Rejection Fraction'.format(legend_label_dict[label_1]) 
+    else: metric_name = '{} Rejection'.format(legend_label_dict[label_1]) 
     title = '{} \n vs {} At Bin {} Signal Efficiency {}{}'.format(metric_name, binning_label, legend_label_dict[label_0], efficiency,title_note)
     if ax is None:
         fig = plt.figure(figsize=(12,6))
         plt.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
-        plt.ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        plt.ylabel(metric_name, fontsize=label_size)
         plt.xlabel(binning_label, fontsize=label_size)
         plt.title(title)
 
     else:
         ax.errorbar(bin_centers,bin_metrics[:,1],yerr=bin_metrics[:,2],fmt=marker,color=color,ecolor='k',elinewidth=0.5,capsize=4,capthick=1,alpha=0.5, linewidth=2)
-        ax.set_ylabel('{} Signal Purity'.format(legend_label_dict[label_0]) if metric == 'purity' else '{} Rejection Fraction'.format(legend_label_dict[label_1]), fontsize=label_size)
+        ax.set_ylabel(metric_name, fontsize=label_size)
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
+        if metric=='inverse fpr': ax.set_yscale('log')
     # return bin_metrics[:,2]
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
