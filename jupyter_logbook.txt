@@ -305,3 +305,55 @@
 [I 15:14:22.104 NotebookApp] Replaying 6 buffered messages
 [I 15:14:52.801 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
 [I 15:14:52.802 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:57:27.645 NotebookApp] Kernel started: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 15:57:31.441 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 15:57:31.762 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 15:57:32.799 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 15:57:32.799 NotebookApp] Replaying 3 buffered messages
+[W 15:59:15.191 NotebookApp] Notebook utils/plot_utils.py is not trusted
+[I 15:59:27.724 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 15:59:27.724 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:01:15.574 NotebookApp] Saving file at /utils/plot_utils.py
+[I 16:01:15.574 NotebookApp] Saving plot_utils.py in format py:light
+[I 16:01:27.727 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:01:27.727 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:03:27.740 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:03:27.740 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:05:02.368 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:05:02.369 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:05:27.741 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:05:27.741 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:08:10.794 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:08:11.216 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 16:08:12.218 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:08:12.218 NotebookApp] Replaying 6 buffered messages
+[I 16:08:37.085 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:08:37.508 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 16:08:38.458 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:08:38.459 NotebookApp] Replaying 6 buffered messages
+[I 16:09:01.064 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:09:01.064 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:09:27.721 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:09:27.721 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:09:32.185 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:09:32.708 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 16:09:33.672 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:09:33.672 NotebookApp] Replaying 6 buffered messages
+[I 16:09:51.797 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:09:51.797 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:11:27.723 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:11:27.723 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:11:37.946 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:11:38.368 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 16:11:39.373 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:11:39.373 NotebookApp] Replaying 6 buffered messages
+[I 16:13:27.788 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:13:27.789 NotebookApp] Saving Testing Tranforms.ipynb
+[I 16:13:28.045 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 16:13:28.046 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 16:16:58.646 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:16:59.074 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
+[I 16:17:00.145 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
+[I 16:17:00.145 NotebookApp] Replaying 6 buffered messages
+[I 16:17:27.779 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
+[I 16:17:27.780 NotebookApp] Saving Testing Tranforms.ipynb

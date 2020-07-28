@@ -6,6 +6,8 @@ import pdb
 
 # PyTorch imports
 from torch.utils.data import Dataset
+from torch import from_numpy
+
 import h5py
 
 import numpy as np
@@ -18,6 +20,8 @@ import os
 import preprocessing.normalize_funcs as norm_funcs
 from io_utils import transformations 
 
+horizontal_map_array_idxs=[0,11,10,9,8,7,6,5,4,3,2,1,12,17,16,15,14,13,18]
+vertical_map_array_idxs=[6,5,4,3,2,1,0,11,10,9,8,7,15,14,13,12,17,16,18]
 
 class WCH5DatasetT(Dataset):
     """
@@ -158,12 +162,20 @@ class WCH5DatasetT(Dataset):
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
 
+                #fix barrel array indexing to match endcaps in xyz ordering
+                barrel = data[:,12:28,:]
+                barrel = barrel[horizontal_map_array_idxs,:,:]
+                barrel = barrel[vertical_map_array_idxs,:,:]
+                data[:,12:28,:] = barrel
+
+                processed_data=from_numpy(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)))
+                
                 if self.transforms is not None:
                     selection = np.random.randint(0,high=2,size=self.n_transforms)
-                    for i, transform_func in enumerate(self.transforms):
-                        if selection[i]: data = transform_func(data)
+                    for t_idx, transform_func in enumerate(self.transforms):
+                        if selection[t_idx]: processed_data = transform_func(processed_data)
 
-                return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                return processed_data, self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"
         raise RuntimeError("empty batch")
