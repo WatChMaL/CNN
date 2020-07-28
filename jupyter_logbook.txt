@@ -250,3 +250,58 @@
 [I 13:18:47.671 NotebookApp] Kernel shutdown: 581a7489-acb6-4d06-866a-ffbe65e95cb5
 [I 13:18:48.181 NotebookApp] Kernel shutdown: f91143d2-1d4c-4f03-b380-44799d3a7674
 [I 13:18:48.587 NotebookApp] Kernel shutdown: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
+[I 14:22:52.651 NotebookApp] Kernel started: b52a042f-3309-4144-91ec-13b00bbe418e
+[I 14:24:52.821 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:24:52.822 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:26:44.791 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:26:44.791 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:26:52.911 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:26:52.912 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:27:05.478 NotebookApp] Starting buffering for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
+[I 14:27:05.802 NotebookApp] Kernel restarted: b52a042f-3309-4144-91ec-13b00bbe418e
+[I 14:27:06.737 NotebookApp] Restoring connection for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
+[I 14:27:06.737 NotebookApp] Replaying 6 buffered messages
+[I 14:28:52.909 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:28:52.910 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:38:52.928 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:38:52.928 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:40:52.917 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:40:52.917 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:42:53.054 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:42:53.055 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:44:52.896 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:44:52.897 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:48:52.951 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:48:52.951 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:52:53.765 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:52:53.766 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:53:09.938 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:53:09.940 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:54:53.047 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:54:53.047 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:57:40.051 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:57:40.052 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:58:53.009 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:58:53.009 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 14:59:43.007 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 14:59:43.007 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:00:52.935 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:00:52.935 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:02:53.020 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:02:53.021 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:04:52.871 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:04:52.872 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:06:52.874 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:06:52.875 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:08:52.867 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:08:52.868 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:10:52.983 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:10:52.984 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:12:52.927 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:12:52.927 NotebookApp] Saving Checking Event Display Positions.ipynb
+[I 15:14:20.674 NotebookApp] Starting buffering for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
+[I 15:14:21.096 NotebookApp] Kernel restarted: b52a042f-3309-4144-91ec-13b00bbe418e
+[I 15:14:22.104 NotebookApp] Restoring connection for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
+[I 15:14:22.104 NotebookApp] Replaying 6 buffered messages
+[I 15:14:52.801 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
+[I 15:14:52.802 NotebookApp] Saving Checking Event Display Positions.ipynb
