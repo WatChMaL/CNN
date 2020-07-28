@@ -73,7 +73,6 @@ def make_mpmt(pmt_array):
 def tile(canvas, ul, pmts):
     # First, create 10x10 grid representing single mPMT
     mpmt = make_mpmt(pmts)
-        
     # Then, place grid on appropriate position on canvas
     for row in range(10):
         for col in range(10):
