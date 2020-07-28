@@ -64,30 +64,30 @@ class EngineGAN(Engine):
         self.optimizerD = Adam(self.model.discriminator.parameters(), lr=config.lr, betas=(0.5, 0.999))
         
         
-        for i in np.arange(config.num_datasets):
-            # Split the dataset into labelled and unlabelled subsets
-            # Note : Only the labelled subset will be used for classifier training
-            n_cl_train = int(len(self.train_dset.train_indices[i]) * config.cl_ratio)
-            n_cl_val = int(len(self.val_dset.val_indices[i]) * config.cl_ratio)
+        # for i in np.arange(config.num_datasets):
+        #     # Split the dataset into labelled and unlabelled subsets
+        #     # Note : Only the labelled subset will be used for classifier training
+        #     n_cl_train = int(len(self.train_dset.train_indices[i]) * config.cl_ratio)
+        #     n_cl_val = int(len(self.val_dset.val_indices[i]) * config.cl_ratio)
 
-            if i == 0:
-                self.train_indices = np.array(self.train_dset.train_indices[i][:n_cl_train])
-                self.val_indices = np.array(self.val_dset.val_indices[i][:n_cl_val])
-                self.test_indices = np.array(self.test_dset.test_indices[i])
-            else:
-                self.train_indices = np.concatenate((self.train_indices,self.train_dset.train_indices[i]),axis=0)
-                self.train_indices = np.concatenate((self.val_indices,self.val_dset.val_indices[i]),axis=0)
-                self.test_indices = np.concatenate((self.test_indices, self.test_dset.test_indices[i]),axis=0)
+        #     if i == 0:
+        #         self.train_indices = np.array(self.train_dset.train_indices[i][:n_cl_train])
+        #         self.val_indices = np.array(self.val_dset.val_indices[i][:n_cl_val])
+        #         self.test_indices = np.array(self.test_dset.test_indices[i])
+        #     else:
+        #         self.train_indices = np.concatenate((self.train_indices,self.train_dset.train_indices[i]),axis=0)
+        #         self.train_indices = np.concatenate((self.val_indices,self.val_dset.val_indices[i]),axis=0)
+        #         self.test_indices = np.concatenate((self.test_indices, self.test_dset.test_indices[i]),axis=0)
         
         
         # Initialize the torch dataloaders
 
-        self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.train_indices), num_workers=2)
-        self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val, shuffle=False,
-                                           pin_memory=False, sampler=SubsetRandomSampler(self.val_indices), num_workers=2)
-        self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
-                                           pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=2)
+        self.train_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_train,
+                                         shuffle=True, num_workers=2)
+        self.val_loader = DataLoader(self.val_dset, batch_size=self.config.batch_size_val,
+                                         shuffle=True, num_workers=2)
+        self.test_loader = DataLoader(self.train_dset, batch_size=self.config.batch_size_test,
+                                         shuffle=True, num_workers=2)
         
 
         # Define the placeholder attributes
@@ -118,10 +118,9 @@ class EngineGAN(Engine):
         mode -- One of 'train', 'validation' to set the correct grad_mode
         """
 
-        if self.data is not None and len(self.data.size()) == 4:
-            self.data = self.data.to(self.device)
+        # if self.data is not None and len(self.data.size()) == 4:
             #self.data = self.data.permute(0,3,1,2)
-
+        self.data = self.data.to(self.device)
         # Set the correct grad_mode given the mode
         if mode == "train":
             grad_mode = True
@@ -140,7 +139,6 @@ class EngineGAN(Engine):
         b_size = self.data.size(0)
         label = full((b_size,), self.real_label, device=self.device)
         # Forward pass real batch through D
-        self.data = self.data.type(FloatTensor)
         output = self.model.discriminator(self.data).view(-1)
         # Calculate loss on all-real batch
         errD_real = self.criterion(output, label)
@@ -244,8 +242,6 @@ class EngineGAN(Engine):
 
                 # Using only the charge data
                 self.data     = data[0]
-                self.labels   = data[1].long()
-                self.energies = data[2]
                 
                 # Do a forward pass using data = self.data
                 res = self.forward(mode="train")
@@ -300,7 +296,6 @@ class EngineGAN(Engine):
                         # Extract the event data from the input data tuple
                         self.data     = val_data[0]
                         self.labels   = val_data[1].long()
-                        self.energies = val_data[2].float()
                         
                         res = self.forward(mode="validation")
 
@@ -336,7 +331,7 @@ class EngineGAN(Engine):
 
                     if iteration in dump_iterations:
                         save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
+                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy()]
                         for key in _DUMP_KEYS:
                             if key in res.keys():
                                 save_arr_keys.append(key)
@@ -355,7 +350,7 @@ class EngineGAN(Engine):
                 if epoch >= epochs:
                     break
 
-            print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f" %
+                print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f" %
                   (iteration, epoch, res['g_loss'], res['d_loss']))
 
             

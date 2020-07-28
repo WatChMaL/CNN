@@ -102,15 +102,35 @@ class Engine(ABC):
 
         # We can use an image folder dataset the way we have it setup.
 
+        # Root directory for dataset
+        dataroot = "~/celeba"
+        
+        # Spatial size of training images. All images will be resized to this
+        #   size using a transformer.
+        image_size = 64
+
         # Create the dataset object for the trainval and test samples
-        self.train_dset = WCH5DatasetT(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset)
-        self.val_dset = WCH5DatasetV(config.trainval_path, config.trainval_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                         shuffle=config.shuffle, num_datasets=config.num_datasets, trainval_subset=config.trainval_subset,label_map=config.label_map)
-        
-        self.test_dset = WCH5DatasetTest(config.test_path, config.test_idxs, config.norm_params_path, config.chrg_norm, config.time_norm,
-                                       shuffle=config.shuffle, num_datasets=config.num_datasets, test_subset=config.test_subset,label_map=config.label_map)
-        
+        self.train_dset = dataset = dset.ImageFolder(root=dataroot,
+                           transform=transforms.Compose([
+                               transforms.Resize(image_size),
+                               transforms.CenterCrop(image_size),
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                           ]))
+        self.val_dset = dataset = dset.ImageFolder(root=dataroot,
+                           transform=transforms.Compose([
+                               transforms.Resize(image_size),
+                               transforms.CenterCrop(image_size),
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                           ]))
+        self.test_dset = dataset = dset.ImageFolder(root=dataroot,
+                           transform=transforms.Compose([
+                               transforms.Resize(image_size),
+                               transforms.CenterCrop(image_size),
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                           ]))
         
         # Define the variant dependent attributes
         self.criterion=None

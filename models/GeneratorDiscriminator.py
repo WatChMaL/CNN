@@ -98,12 +98,12 @@ class Generator(Module):
         '''
          
         ngf = 64
-        nc = 19
+        nc = 3
         
-        self.conv1 = ConvTranspose2d(128, ngf * 8, 4, 2, 0, bias=False)
+        self.conv1 = ConvTranspose2d(128, ngf * 8, 4, 1, 0, bias=False)
         self.bn1 = BatchNorm2d(ngf * 8)
         
-        self.conv2 = ConvTranspose2d(ngf * 8, ngf * 4, 3, 3, 1, bias=False)
+        self.conv2 = ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False)
         self.bn2 = BatchNorm2d(ngf * 4)
         
         self.conv3 = ConvTranspose2d( ngf * 4, ngf * 2, 4, 2, 1, bias=False)
@@ -112,7 +112,7 @@ class Generator(Module):
         self.conv4 = ConvTranspose2d( ngf * 2, ngf, 4, 2, 1, bias=False)
         self.bn4 = BatchNorm2d(ngf)
         
-        self.conv5 = ConvTranspose2d( ngf, nc, 3, 1, 1, bias=False)
+        self.conv5 = ConvTranspose2d( ngf, nc, 4, 2, 1, bias=False)
         
         ''' 
         
@@ -263,7 +263,7 @@ class Generator(Module):
 
         x = self.conv5(x)
         #x = _RELU(x)
-        #x = _Tanh(x)
+        x = _Tanh(x)
 
         return x
 
@@ -275,6 +275,7 @@ class Discriminator(Module):
     def __init__(self, block1, block2, layers, num_input_channels, num_latent_dims, zero_init_residual=False):
         
         super().__init__()
+        self.ngpu=2
         '''
         self.inplanes = 64
         
@@ -305,7 +306,7 @@ class Discriminator(Module):
         self.cl_fc4 = Linear(int(num_latent_dims/8), 1)
         '''
         
-        nc = 19
+        nc = 3
         ndf = 64
         
         #self.conv1 = Conv2d(nc, ndf, kernel_size=4, stride=2, padding=1, bias=False)
@@ -316,7 +317,7 @@ class Discriminator(Module):
         #self.conv4 = Conv2d(ndf*4, ndf*8, kernel_size=4, stride=2, padding=1, bias = False)
         #self.bn4 = BatchNorm2d(ndf*8)
         #self.conv5 = Conv2d(ndf*8, 1, kernel_size=2, stride=1, padding=0, bias=False)
-        
+
         self.main = Sequential(
             # input is (nc) x 64 x 64
             Conv2d(nc, ndf, 4, 2, 1, bias=False),
@@ -334,7 +335,7 @@ class Discriminator(Module):
             BatchNorm2d(ndf * 8),
             LeakyReLU(0.2, inplace=True),
             # state size. (ndf*8) x 4 x 4
-            Conv2d(ndf * 8, 1, 2, 1, 0, bias=False),
+            Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),
             Sigmoid()
         )
         
@@ -467,7 +468,6 @@ class Discriminator(Module):
         '''
         #x = x.view(x.size(0), -1)
         x = self.main(X)
-        
         return x
 
 
