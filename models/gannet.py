@@ -32,12 +32,12 @@ class GanNet(Module, BaseModel):
         Module.__init__(self)
         
         #self.classifier = LatentClassifier(num_latent_dims, num_classes)
-        #self.discriminator.apply(weights_init)
-        #self.generator.apply(weights_init)
         self.generator = getattr(GeneratorDiscriminator, "genresnet" + str(arch_depth))(num_input_channels=num_input_channels,
                                                                                num_latent_dims=num_latent_dims)
         self.discriminator = getattr(GeneratorDiscriminator, "disresnet" + str(arch_depth))(num_input_channels=num_input_channels,
                                                                                  num_latent_dims=num_latent_dims)
+        self.discriminator.apply(weights_init)
+        self.generator.apply(weights_init)
         if not train_all:
             for param in self.encoder.parameters():
                 param.requires_grad = False
