@@ -252,7 +252,7 @@ class EngineGAN(Engine):
                           (iteration, epoch, res["g_loss"], res["d_loss"], res["D_x"], res["D_G_z1"], res["D_G_z2"]))
 
                 #Save example images
-                if iteration % 5 ==0:
+                if iteration % 500 ==0:
                     res = self.forward(mode='validation')
                     save_arr_keys=["gen_imgs"]
                     save_arr_values=[res["gen_imgs"]]
