@@ -20,8 +20,7 @@ import os
 import preprocessing.normalize_funcs as norm_funcs
 from io_utils import transformations 
 
-horizontal_map_array_idxs=[0,11,10,9,8,7,6,5,4,3,2,1,12,17,16,15,14,13,18]
-vertical_map_array_idxs=[6,5,4,3,2,1,0,11,10,9,8,7,15,14,13,12,17,16,18]
+barrel_map_array_idxs=[6,7,8,9,10,11,0,1,2,3,4,5,15,16,17,12,13,14,18]
 
 class WCH5DatasetT(Dataset):
     """
@@ -164,8 +163,7 @@ class WCH5DatasetT(Dataset):
 
                 #fix barrel array indexing to match endcaps in xyz ordering
                 barrel = data[:,12:28,:]
-                barrel = barrel[horizontal_map_array_idxs,:,:]
-                barrel = barrel[vertical_map_array_idxs,:,:]
+                barrel = barrel[barrel_map_array_idxs,:,:]
                 data[:,12:28,:] = barrel
 
                 processed_data=from_numpy(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)))
