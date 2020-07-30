@@ -151,7 +151,7 @@ class WCH5DatasetV(Dataset):
 
                 if self.collapse_arrays:
                     data = np.expand_dims(np.sum(data, 0),0)
-                return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"
         raise RuntimeError("empty batch")

@@ -383,5 +383,3 @@ class EngineGAN(Engine):
         #if not path.exists(np_event_path + "dump.npz"):
         #    print("Saving the npz dump array :")
         #    savez(np_event_path + "dump.npz", **save_arr_dict)
-
-

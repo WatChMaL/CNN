@@ -1,40 +1,132 @@
-[I 12:07:06.405 NotebookApp] The port 8888 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8889 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8890 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8891 is already in use, trying another port.
-[I 12:07:06.406 NotebookApp] The port 8892 is already in use, trying another port.
-[I 12:07:07.717 NotebookApp] jupyter_tensorboard extension loaded.
-[I 12:07:07.784 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 12:07:07.784 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 12:07:07.786 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 12:07:07.786 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 12:07:07.786 NotebookApp] The Jupyter Notebook is running at:
-[I 12:07:07.786 NotebookApp] http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:07:07.786 NotebookApp]  or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:07:07.786 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 12:07:07.789 NotebookApp] 
+[I 08:56:04.161 NotebookApp] The port 8888 is already in use, trying another port.
+[I 08:56:04.161 NotebookApp] The port 8889 is already in use, trying another port.
+[I 08:56:04.161 NotebookApp] The port 8890 is already in use, trying another port.
+[I 08:56:04.161 NotebookApp] The port 8891 is already in use, trying another port.
+[I 08:56:05.425 NotebookApp] jupyter_tensorboard extension loaded.
+[I 08:56:05.490 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 08:56:05.490 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 08:56:05.491 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 08:56:05.492 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 08:56:05.492 NotebookApp] The Jupyter Notebook is running at:
+[I 08:56:05.492 NotebookApp] http://hostname:8888/?token=68180e5842f47ebffa00d4586e1e84a089af1becdef4690b
+[I 08:56:05.492 NotebookApp]  or http://127.0.0.1:8892/?token=68180e5842f47ebffa00d4586e1e84a089af1becdef4690b
+[I 08:56:05.492 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 08:56:05.495 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-52354-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-14424-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-     or http://127.0.0.1:8788/?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e
-[I 12:14:20.568 NotebookApp] 302 GET /?token=6f80fa20592ca98d1c45bf63f0510b437550413664e7819e (::1) 1.28ms
-[I 12:15:22.233 NotebookApp] Kernel started: 45316f46-8617-4852-87e7-542250562e5d
-[I 12:15:38.517 NotebookApp] Copying Repeating_Classifier_Training/Re-Run Without Cap Unrolling.ipynb to /Repeating_Classifier_Training
-[I 12:15:38.562 NotebookApp] Saving Re-Run Without Cap Unrolling-Copy1.ipynb
-[I 12:15:44.618 NotebookApp] Starting buffering for 45316f46-8617-4852-87e7-542250562e5d:9c8fda7b76e345938a9c4782537fe791
-[I 12:15:46.742 NotebookApp] Kernel shutdown: 45316f46-8617-4852-87e7-542250562e5d
-[I 12:15:49.940 NotebookApp] Kernel started: 84aa621e-73ef-4b0d-8226-21ac343a1b22
-[I 12:19:01.339 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:8273ebb31f3840e49c70e37a53033ba3
-[I 12:21:53.523 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:21:53.846 NotebookApp] Kernel restarted: 84aa621e-73ef-4b0d-8226-21ac343a1b22
-[I 12:21:54.877 NotebookApp] Restoring connection for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:21:54.877 NotebookApp] Replaying 3 buffered messages
-[I 12:23:33.575 NotebookApp] Saving file at /Repeating_Classifier_Training/Re-Run After Hit Array Change.ipynb
-[I 12:23:33.576 NotebookApp] Saving Re-Run After Hit Array Change.ipynb
-[I 12:23:49.852 NotebookApp] Kernel started: 9a387864-2aa7-407a-93e9-7c562b32ab7a
-[I 12:24:07.900 NotebookApp] Kernel started: 63b2bfb5-404f-41a1-a9e1-aa9301734d62
-[I 12:30:22.780 NotebookApp] Starting buffering for 9a387864-2aa7-407a-93e9-7c562b32ab7a:c23ddac0a2894e18843e5d041628e4b9
-[I 12:30:23.489 NotebookApp] Starting buffering for 84aa621e-73ef-4b0d-8226-21ac343a1b22:bcacdd8e6631435d8f989f65713f5697
-[I 12:30:29.052 NotebookApp] Starting buffering for 63b2bfb5-404f-41a1-a9e1-aa9301734d62:b1c183385de44b0db72e9c543f069e9a
+        http://hostname:8888/?token=68180e5842f47ebffa00d4586e1e84a089af1becdef4690b
+     or http://127.0.0.1:8892/?token=68180e5842f47ebffa00d4586e1e84a089af1becdef4690b
+[I 09:00:29.949 NotebookApp] 302 GET /?token=68180e5842f47ebffa00d4586e1e84a089af1becdef4690b (::1) 1.12ms
+[I 09:00:41.583 NotebookApp] Copying GAN Notebooks/Run 1.ipynb to /GAN Notebooks
+[I 09:00:41.714 NotebookApp] Saving Run 1-Copy1.ipynb
+[I 09:00:46.895 NotebookApp] Kernel started: 1eaae17a-b9d6-4baa-854b-2d8f9f4db2e8
+[I 09:02:47.286 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:02:47.287 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:06:47.237 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:06:47.237 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:07:01.170 NotebookApp] Starting buffering for 1eaae17a-b9d6-4baa-854b-2d8f9f4db2e8:5ba0074f46d346bbb31b5b104c41ee88
+[I 09:10:07.275 NotebookApp] Restoring connection for 1eaae17a-b9d6-4baa-854b-2d8f9f4db2e8:5ba0074f46d346bbb31b5b104c41ee88
+[I 09:10:38.272 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:10:38.272 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:18:12.319 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:18:12.319 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:18:38.277 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:18:38.277 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:19:10.836 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:19:10.836 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:20:38.362 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:20:38.362 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:24:38.293 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:24:38.294 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:25:06.555 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:25:06.555 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:25:55.907 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:25:55.907 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:26:38.277 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:26:38.277 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:28:41.348 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:28:41.348 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:34:10.174 NotebookApp] Kernel started: 171d6269-01a3-4106-8211-9532cd92ab9e
+[I 09:34:41.277 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:34:41.277 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:36:17.551 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:36:17.552 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:36:38.400 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:36:38.400 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:36:44.938 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:36:44.938 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:38:38.403 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:38:38.403 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:40:38.499 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:40:38.499 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:41:22.843 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:41:22.844 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:42:38.084 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:42:38.084 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 09:43:09.891 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 09:43:09.891 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:04:38.178 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:04:38.178 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:06:38.150 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:06:38.150 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:08:38.160 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:08:38.160 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:10:38.103 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:10:38.104 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:12:38.188 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:12:38.189 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:12:58.374 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:12:58.374 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:14:38.114 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:14:38.114 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:16:38.165 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:16:38.165 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:18:38.089 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:18:38.090 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:18:53.863 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:18:53.864 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:20:38.156 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:20:38.157 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:24:38.266 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:24:38.266 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:26:38.173 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:26:38.173 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:28:38.170 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:28:38.171 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:30:38.164 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:30:38.165 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:32:41.720 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:32:41.721 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:34:41.347 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:34:41.348 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:36:41.635 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:36:41.636 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:38:39.139 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:38:39.139 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:40:38.761 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:40:38.762 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:42:38.512 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:42:38.512 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:44:38.309 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:44:38.310 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:46:18.977 NotebookApp] Starting buffering for 171d6269-01a3-4106-8211-9532cd92ab9e:50469ce525d345768d472908d02b7c8b
+[I 10:46:38.291 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:46:38.292 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:48:43.396 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:48:43.397 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:50:41.711 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:50:41.711 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:52:10.042 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:52:10.042 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:52:19.029 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:52:19.029 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:52:42.636 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:52:42.637 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:54:44.441 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:54:44.442 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:56:38.464 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:56:38.464 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
+[I 10:58:41.297 NotebookApp] Saving file at /GAN Notebooks/Run 2 - Collapsed Arrays.ipynb
+[I 10:58:41.297 NotebookApp] Saving Run 2 - Collapsed Arrays.ipynb
