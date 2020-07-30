@@ -29,10 +29,12 @@ class WCH5DatasetT(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, collapse_arrays=False,trainval_subset=None, num_datasets = 1, seed=42):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
+        self.collapse_arrays=collapse_arrays
+
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
         self.chrg_acc = norm_params["c_acc"]
@@ -149,7 +151,10 @@ class WCH5DatasetT(Dataset):
                 hit_charges = self.charge[i][start:stop]
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
-                return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+
+                if self.collapse_arrays:
+                    data = np.expand_dims(np.sum(data, 0),0)
+                    return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"
         raise RuntimeError("empty batch")
@@ -163,7 +168,7 @@ class WCH5DatasetT(Dataset):
 if __name__ == "__main__":
     @profile
     def run_test():
-        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset, collapse_arrays=False)
         train_indices = [i for i in range(len(train_dset))]
         
         for epoch in range(2):

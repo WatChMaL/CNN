@@ -63,6 +63,8 @@ class EngineGAN(Engine):
         self.optimizerG = Adam(self.model.generator.parameters(), lr=config.lr, betas=(0.5, 0.999))
         self.optimizerD = Adam(self.model.discriminator.parameters(), lr=config.lr, betas=(0.5, 0.999))
         
+        # Interval at which to save sample generated images (from fixed noise batch)
+        self.img_interval = 500
         
         for i in np.arange(config.num_datasets):
             # Split the dataset into labelled and unlabelled subsets
@@ -185,8 +187,7 @@ class EngineGAN(Engine):
 
         if mode == "validation":
             genimgs = self.model.generator(self.fixed_noise).cpu().detach().numpy()
-            #genimgs = (genimgs + abs(genimgs.min()))*(self.scale/2)
-            #genimgs = (model_results['genimgs'][:50].cpu().detach().numpy() + data_range/2)*(self.scale/2)
+
         else:
             genimgs = None
         
@@ -233,6 +234,8 @@ class EngineGAN(Engine):
         # Initialize the iterator over the validation subset
         val_iter = iter(self.val_loader)
 
+        os.mkdir(os.path.join(self.dirpath, 'imgs'))
+
         # Global training loop for multiple epochs
         while (floor(epoch) < epochs):
 
@@ -272,85 +275,17 @@ class EngineGAN(Engine):
                     print("... Iteration %d ... Epoch %1.2f ... G Loss %1.3f ... D Loss %1.3f ... D_x %1.3f ... D_G_z1 %1.3f ... D_G_z2 %1.3f" %
                           (iteration, epoch, res["g_loss"], res["d_loss"], res["D_x"], res["D_G_z1"], res["D_G_z2"]))
 
-                # Save the model computation graph to a file
-                """if iteration == 1:
-                    graph = make_dot(res["raw_pred_labels"], params=dict(list(self.model_accs.named_parameters())))
-                    graph.render(self.dirpath + "/model", view=False)
-                    break"""
+                #Save example images
+                if iteration % self.img_interval ==0:
+                    res = self.forward(mode='validation')
+                    save_arr_keys=["gen_imgs"]
+                    save_arr_values=[res["gen_imgs"]]
+                    # Save the actual and reconstructed event to the disk
+                    savez(os.path.join(self.dirpath, 'imgs') + "/iteration_" + str(iteration) + ".npz",
+                        **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
 
-                # Run validation on given intervals
-                if iteration%dump_iterations[0] == 0:
-
-                    curr_g_loss = 0.
-                    curr_d_loss = 0.
-                    val_batch = 0
-
-                    keys = ['iteration','epoch']
-                    values = [iteration, epoch]
-
-                    local_values = []
-
-                    for val_batch in range(num_val_batches):
-
-                        try:
-                            val_data = next(val_iter)
-                        except StopIteration:
-                            val_iter = iter(self.val_loader)
-
-                        # Extract the event data from the input data tuple
-                        self.data     = val_data[0]
-                        self.labels   = val_data[1].long()
-                        self.energies = val_data[2].float()
-                        
-                        res = self.forward(mode="validation")
-
-                        if val_batch == 0:
-                            for key in _LOG_KEYS:
-                                if key in res.keys():
-                                    keys.append(key)
-                                    local_values.append(res[key])
-                        else:
-                            log_index = 0
-                            for key in _LOG_KEYS:
-                                if key in res.keys():
-                                    local_values[log_index] += res[key]
-                                    log_index += 1
-
-                        curr_g_loss += res["g_loss"]
-                        curr_d_loss += res["d_loss"]
-
-                    for local_value in local_values:
-                        values.append(local_value/num_val_batches)
-
-                    # Record the validation stats to the csv
-                    self.val_log.record(keys, values)
-
-                    # Average the loss over the validation batch
-                    curr_g_loss = curr_g_loss / num_val_batches
-                    curr_d_loss = curr_d_loss / num_val_batches
-
-                    # Save the best model
-                    if curr_g_loss < best_g_loss:
-                        self.save_state(mode="best")
-                        curr_g_loss = best_g_loss
-
-                    if iteration in dump_iterations:
-                        save_arr_keys = ["events", "labels", "energies"]
-                        save_arr_values = [self.data.cpu().numpy(), self.labels.cpu().numpy(), self.energies.cpu().numpy()]
-                        for key in _DUMP_KEYS:
-                            if key in res.keys():
-                                save_arr_keys.append(key)
-                                save_arr_values.append(res[key])
-                        save_arr_keys.append("gen_imgs")
-                        save_arr_values.append(res["gen_imgs"])
-                        # Save the actual and reconstructed event to the disk
-                        savez(self.dirpath + "/iteration_" + str(iteration) + ".npz",
-                              **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
-
-                    self.val_log.write()
-
-                    # Save the latest model
-                    self.save_state(mode="latest")
+                # # Save the latest model   
+                self.save_state(mode="latest")
 
                 if epoch >= epochs:
                     break
