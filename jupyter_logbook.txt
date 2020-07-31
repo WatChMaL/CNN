@@ -1,359 +1,67 @@
-[I 09:27:23.494 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:27:23.494 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:27:23.494 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:27:23.494 NotebookApp] The port 8891 is already in use, trying another port.
-[I 09:27:23.495 NotebookApp] The port 8892 is already in use, trying another port.
-[I 09:27:24.806 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:27:24.873 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:27:24.873 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:27:24.874 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:27:24.874 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:27:24.875 NotebookApp] The Jupyter Notebook is running at:
-[I 09:27:24.875 NotebookApp] http://hostname:8888/?token=68f8894f55cae8bd47c5b8425768a89a982b6dd5c70ca4e7
-[I 09:27:24.875 NotebookApp]  or http://127.0.0.1:8859/?token=68f8894f55cae8bd47c5b8425768a89a982b6dd5c70ca4e7
-[I 09:27:24.875 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:27:24.878 NotebookApp] 
+[I 09:54:44.597 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:54:44.597 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:54:44.598 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:54:45.899 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:54:46.007 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:54:46.007 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:54:46.009 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:54:46.010 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:54:46.010 NotebookApp] The Jupyter Notebook is running at:
+[I 09:54:46.010 NotebookApp] http://hostname:8888/?token=63d11beb957e58614a246fb519601b383a6974f32c41fcf6
+[I 09:54:46.010 NotebookApp]  or http://127.0.0.1:8891/?token=63d11beb957e58614a246fb519601b383a6974f32c41fcf6
+[I 09:54:46.010 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:54:46.015 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-40814-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-63915-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=68f8894f55cae8bd47c5b8425768a89a982b6dd5c70ca4e7
-     or http://127.0.0.1:8859/?token=68f8894f55cae8bd47c5b8425768a89a982b6dd5c70ca4e7
-[I 09:29:59.843 NotebookApp] 302 GET /?token=68f8894f55cae8bd47c5b8425768a89a982b6dd5c70ca4e7 (::1) 1.16ms
-[I 09:33:45.444 NotebookApp] Kernel started: bd6ccef4-fae3-4b9d-a1de-1430048409a9
-[I 09:39:29.042 NotebookApp] Starting buffering for bd6ccef4-fae3-4b9d-a1de-1430048409a9:00a83198d3244ffcaa23785c4490164a
-[I 09:39:29.421 NotebookApp] Kernel restarted: bd6ccef4-fae3-4b9d-a1de-1430048409a9
-[I 09:39:30.349 NotebookApp] Restoring connection for bd6ccef4-fae3-4b9d-a1de-1430048409a9:00a83198d3244ffcaa23785c4490164a
-[I 09:39:30.349 NotebookApp] Replaying 5 buffered messages
-[I 09:39:45.425 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 09:39:45.426 NotebookApp] Saving Developing Transforms.ipynb
-[I 09:41:45.594 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 09:41:45.595 NotebookApp] Saving Developing Transforms.ipynb
-[I 09:43:45.623 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 09:43:45.624 NotebookApp] Saving Developing Transforms.ipynb
-[I 09:45:44.742 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 09:45:44.743 NotebookApp] Saving Developing Transforms.ipynb
-[I 09:47:45.667 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 09:47:45.668 NotebookApp] Saving Developing Transforms.ipynb
-[I 09:48:53.582 NotebookApp] Starting buffering for bd6ccef4-fae3-4b9d-a1de-1430048409a9:00a83198d3244ffcaa23785c4490164a
-[I 09:48:56.859 NotebookApp] Kernel shutdown: bd6ccef4-fae3-4b9d-a1de-1430048409a9
-[I 10:29:51.398 NotebookApp] Creating new notebook in /Data Transforms
-[I 10:29:51.399 NotebookApp] Saving Untitled.ipynb
-[I 10:29:52.474 NotebookApp] Kernel started: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 10:29:58.718 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:12d2deb1c07c4c3f8b91a8416aac760a
-[I 10:30:13.588 NotebookApp] Kernel started: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
-[I 10:32:02.747 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:32:02.748 NotebookApp] Saving Untitled.ipynb
-[I 10:34:02.734 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:34:02.734 NotebookApp] Saving Untitled.ipynb
-[I 10:34:33.586 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:34:33.586 NotebookApp] Saving Untitled.ipynb
-[I 10:35:39.565 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:35:39.565 NotebookApp] Saving Untitled.ipynb
-[I 10:36:02.735 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:36:02.736 NotebookApp] Saving Untitled.ipynb
-[I 10:38:02.736 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:38:02.737 NotebookApp] Saving Untitled.ipynb
-[I 10:39:55.237 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 10:39:55.959 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 10:39:56.906 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 10:39:56.906 NotebookApp] Replaying 6 buffered messages
-[I 10:40:02.757 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:40:02.758 NotebookApp] Saving Untitled.ipynb
-[I 10:42:02.736 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:42:02.737 NotebookApp] Saving Untitled.ipynb
-[I 10:44:02.766 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:44:02.767 NotebookApp] Saving Untitled.ipynb
-[I 10:46:02.775 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:46:02.776 NotebookApp] Saving Untitled.ipynb
-[I 10:47:29.049 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 10:47:29.472 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 10:47:30.578 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 10:47:30.578 NotebookApp] Replaying 3 buffered messages
-[I 10:48:02.764 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:48:02.764 NotebookApp] Saving Untitled.ipynb
-[I 10:50:02.744 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:50:02.744 NotebookApp] Saving Untitled.ipynb
-[I 10:54:02.746 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:54:02.747 NotebookApp] Saving Untitled.ipynb
-[I 10:56:02.769 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:56:02.769 NotebookApp] Saving Untitled.ipynb
-[I 10:58:02.760 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 10:58:02.760 NotebookApp] Saving Untitled.ipynb
-[I 11:00:02.766 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:00:02.767 NotebookApp] Saving Untitled.ipynb
-[I 11:02:02.749 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:02:02.749 NotebookApp] Saving Untitled.ipynb
-[I 11:04:02.759 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:04:02.760 NotebookApp] Saving Untitled.ipynb
-[I 11:06:02.751 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:06:02.751 NotebookApp] Saving Untitled.ipynb
-[I 11:06:16.554 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:06:16.975 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:06:17.920 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:06:17.921 NotebookApp] Replaying 3 buffered messages
-[I 11:06:47.894 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:06:47.895 NotebookApp] Saving Untitled.ipynb
-[I 11:07:01.182 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:07:01.602 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:07:02.613 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:07:02.614 NotebookApp] Replaying 6 buffered messages
-[I 11:08:02.752 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:08:02.753 NotebookApp] Saving Untitled.ipynb
-[I 11:09:02.205 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:09:02.627 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:09:03.675 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:09:03.675 NotebookApp] Replaying 5 buffered messages
-[I 11:10:02.759 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:10:02.760 NotebookApp] Saving Untitled.ipynb
-[I 11:12:02.768 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:12:02.769 NotebookApp] Saving Untitled.ipynb
-[I 11:14:02.748 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:14:02.749 NotebookApp] Saving Untitled.ipynb
-[I 11:14:54.286 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:14:54.287 NotebookApp] Saving Untitled.ipynb
-[I 11:15:01.840 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:15:02.366 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:15:03.387 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:15:03.387 NotebookApp] Replaying 6 buffered messages
-[I 11:16:02.764 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:16:02.765 NotebookApp] Saving Untitled.ipynb
-[I 11:17:50.427 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:17:50.949 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:17:51.916 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:17:51.916 NotebookApp] Replaying 6 buffered messages
-[I 11:18:02.796 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:18:02.796 NotebookApp] Saving Untitled.ipynb
-[I 11:20:02.785 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:20:02.786 NotebookApp] Saving Untitled.ipynb
-[I 11:20:18.897 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:20:19.318 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:20:20.371 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:20:20.371 NotebookApp] Replaying 6 buffered messages
-[I 11:22:02.778 NotebookApp] Saving file at /Data Transforms/Untitled.ipynb
-[I 11:22:02.779 NotebookApp] Saving Untitled.ipynb
-[I 11:23:45.375 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:23:45.828 NotebookApp] Kernel restarted: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 11:23:46.760 NotebookApp] Restoring connection for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 11:23:46.760 NotebookApp] Replaying 6 buffered messages
-[I 11:24:02.786 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 11:24:02.787 NotebookApp] Saving Testing Tranforms.ipynb
-[I 11:26:02.783 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 11:26:02.784 NotebookApp] Saving Testing Tranforms.ipynb
-[I 11:26:04.934 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 11:26:04.934 NotebookApp] Saving Testing Tranforms.ipynb
-[I 11:28:02.778 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 11:28:02.778 NotebookApp] Saving Testing Tranforms.ipynb
-[I 11:29:09.966 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 11:29:09.967 NotebookApp] Saving Testing Tranforms.ipynb
-[I 11:29:12.296 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:afb58f4b78d5497f80e898b061abc87e
-[I 12:05:59.035 NotebookApp] Starting buffering for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:c018ad6ba6bf49ab9b0c1596de2800b1
-[I 12:06:14.425 NotebookApp] Starting buffering for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:06:14.752 NotebookApp] Kernel restarted: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
-[I 12:06:15.643 NotebookApp] Restoring connection for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:06:15.644 NotebookApp] Replaying 3 buffered messages
-[I 12:08:00.588 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:08:00.589 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:18:00.633 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:18:00.635 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:22:00.617 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:22:00.617 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:22:19.766 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:22:19.766 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:24:00.649 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:24:00.650 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:25:13.905 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:25:13.906 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:26:00.597 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:26:00.598 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:28:00.597 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:28:00.598 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:30:00.595 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:30:00.596 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:32:00.617 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:32:00.617 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:34:01.128 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:34:01.129 NotebookApp] Saving Developing Transforms.ipynb
-[W 12:35:17.534 NotebookApp] Notebook utils/plot_utils.py is not trusted
-[I 12:35:17.864 NotebookApp] Kernel started: 370fe8d1-aa5c-4d41-8202-c668900d3d13
-[I 12:35:42.981 NotebookApp] Saving file at /utils/plot_utils.py
-[I 12:35:42.982 NotebookApp] Saving plot_utils.py in format py:light
-[I 12:35:47.809 NotebookApp] Starting buffering for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:35:51.440 NotebookApp] Kernel restarted: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
-[I 12:35:52.526 NotebookApp] Restoring connection for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:35:52.526 NotebookApp] Replaying 6 buffered messages
-[I 12:36:00.532 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:36:00.532 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:37:10.591 NotebookApp] Saving file at /utils/plot_utils.py
-[I 12:37:10.591 NotebookApp] Saving plot_utils.py in format py:light
-[I 12:37:24.457 NotebookApp] Starting buffering for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:37:25.481 NotebookApp] Kernel restarted: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
-[I 12:37:26.429 NotebookApp] Restoring connection for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 12:37:26.429 NotebookApp] Replaying 6 buffered messages
-[I 12:38:00.611 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:38:00.611 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:40:00.637 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:40:00.637 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:42:00.665 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:42:00.669 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:42:10.731 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:42:10.732 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:42:38.474 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:42:38.475 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:44:02.620 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:44:02.620 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:46:00.792 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:46:00.792 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:48:00.760 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:48:00.760 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:50:00.756 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:50:00.756 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:52:00.779 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:52:00.779 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:54:00.904 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:54:00.904 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:56:00.845 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:56:00.846 NotebookApp] Saving Developing Transforms.ipynb
-[I 12:58:00.737 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 12:58:00.738 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:00:00.725 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:00:00.725 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:02:01.479 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:02:01.480 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:04:00.694 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:04:00.694 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:06:00.742 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:06:00.742 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:10:00.765 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:10:00.765 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:12:00.704 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:12:00.705 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:14:00.798 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:14:00.799 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:14:42.281 NotebookApp] Starting buffering for 370fe8d1-aa5c-4d41-8202-c668900d3d13:029d1618b60e4fdea06a29096925a1b9
-[I 13:14:50.500 NotebookApp] Creating new notebook in /Data Transforms
-[I 13:14:50.501 NotebookApp] Saving Untitled.ipynb
-[I 13:14:51.474 NotebookApp] Kernel started: 581a7489-acb6-4d06-866a-ffbe65e95cb5
-[I 13:16:51.497 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 13:16:51.497 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 13:17:36.686 NotebookApp] Starting buffering for 581a7489-acb6-4d06-866a-ffbe65e95cb5:a468121df1ae4ada84d0b09c804b4efc
-[I 13:17:37.012 NotebookApp] Kernel restarted: 581a7489-acb6-4d06-866a-ffbe65e95cb5
-[I 13:17:38.044 NotebookApp] Restoring connection for 581a7489-acb6-4d06-866a-ffbe65e95cb5:a468121df1ae4ada84d0b09c804b4efc
-[I 13:17:38.045 NotebookApp] Replaying 6 buffered messages
-[I 13:18:00.624 NotebookApp] Saving file at /Data Transforms/Developing Transforms.ipynb
-[I 13:18:00.624 NotebookApp] Saving Developing Transforms.ipynb
-[I 13:18:31.257 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 13:18:31.258 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 13:18:32.783 NotebookApp] Starting buffering for 581a7489-acb6-4d06-866a-ffbe65e95cb5:a468121df1ae4ada84d0b09c804b4efc
-[I 13:18:34.710 NotebookApp] Starting buffering for fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6:8df810262fe644078cdf5d6d586fcf23
-[I 13:18:36.522 NotebookApp] Starting buffering for f91143d2-1d4c-4f03-b380-44799d3a7674:895b7e44a4db4167907edfe8bf3a7761
-[I 13:18:47.671 NotebookApp] Kernel shutdown: 581a7489-acb6-4d06-866a-ffbe65e95cb5
-[I 13:18:48.181 NotebookApp] Kernel shutdown: f91143d2-1d4c-4f03-b380-44799d3a7674
-[I 13:18:48.587 NotebookApp] Kernel shutdown: fb54e59a-ca8b-4c96-afd7-eeaf4e8460c6
-[I 14:22:52.651 NotebookApp] Kernel started: b52a042f-3309-4144-91ec-13b00bbe418e
-[I 14:24:52.821 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:24:52.822 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:26:44.791 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:26:44.791 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:26:52.911 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:26:52.912 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:27:05.478 NotebookApp] Starting buffering for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
-[I 14:27:05.802 NotebookApp] Kernel restarted: b52a042f-3309-4144-91ec-13b00bbe418e
-[I 14:27:06.737 NotebookApp] Restoring connection for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
-[I 14:27:06.737 NotebookApp] Replaying 6 buffered messages
-[I 14:28:52.909 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:28:52.910 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:38:52.928 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:38:52.928 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:40:52.917 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:40:52.917 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:42:53.054 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:42:53.055 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:44:52.896 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:44:52.897 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:48:52.951 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:48:52.951 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:52:53.765 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:52:53.766 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:53:09.938 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:53:09.940 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:54:53.047 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:54:53.047 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:57:40.051 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:57:40.052 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:58:53.009 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:58:53.009 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 14:59:43.007 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 14:59:43.007 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:00:52.935 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:00:52.935 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:02:53.020 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:02:53.021 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:04:52.871 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:04:52.872 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:06:52.874 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:06:52.875 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:08:52.867 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:08:52.868 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:10:52.983 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:10:52.984 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:12:52.927 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:12:52.927 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:14:20.674 NotebookApp] Starting buffering for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
-[I 15:14:21.096 NotebookApp] Kernel restarted: b52a042f-3309-4144-91ec-13b00bbe418e
-[I 15:14:22.104 NotebookApp] Restoring connection for b52a042f-3309-4144-91ec-13b00bbe418e:072a55da57a04586be57b91c57a194c0
-[I 15:14:22.104 NotebookApp] Replaying 6 buffered messages
-[I 15:14:52.801 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 15:14:52.802 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 15:57:27.645 NotebookApp] Kernel started: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 15:57:31.441 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 15:57:31.762 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 15:57:32.799 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 15:57:32.799 NotebookApp] Replaying 3 buffered messages
-[W 15:59:15.191 NotebookApp] Notebook utils/plot_utils.py is not trusted
-[I 15:59:27.724 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 15:59:27.724 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:01:15.574 NotebookApp] Saving file at /utils/plot_utils.py
-[I 16:01:15.574 NotebookApp] Saving plot_utils.py in format py:light
-[I 16:01:27.727 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:01:27.727 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:03:27.740 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:03:27.740 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:05:02.368 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:05:02.369 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:05:27.741 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:05:27.741 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:08:10.794 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:08:11.216 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 16:08:12.218 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:08:12.218 NotebookApp] Replaying 6 buffered messages
-[I 16:08:37.085 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:08:37.508 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 16:08:38.458 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:08:38.459 NotebookApp] Replaying 6 buffered messages
-[I 16:09:01.064 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:09:01.064 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:09:27.721 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:09:27.721 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:09:32.185 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:09:32.708 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 16:09:33.672 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:09:33.672 NotebookApp] Replaying 6 buffered messages
-[I 16:09:51.797 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:09:51.797 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:11:27.723 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:11:27.723 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:11:37.946 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:11:38.368 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 16:11:39.373 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:11:39.373 NotebookApp] Replaying 6 buffered messages
-[I 16:13:27.788 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:13:27.789 NotebookApp] Saving Testing Tranforms.ipynb
-[I 16:13:28.045 NotebookApp] Saving file at /Data Transforms/Checking Event Display Positions.ipynb
-[I 16:13:28.046 NotebookApp] Saving Checking Event Display Positions.ipynb
-[I 16:16:58.646 NotebookApp] Starting buffering for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:16:59.074 NotebookApp] Kernel restarted: 1678dfae-1e48-4aaf-8972-d89814507bf0
-[I 16:17:00.145 NotebookApp] Restoring connection for 1678dfae-1e48-4aaf-8972-d89814507bf0:6bf3b997e827450b9156bf33dac78a73
-[I 16:17:00.145 NotebookApp] Replaying 6 buffered messages
-[I 16:17:27.779 NotebookApp] Saving file at /Data Transforms/Testing Tranforms.ipynb
-[I 16:17:27.780 NotebookApp] Saving Testing Tranforms.ipynb
+        http://hostname:8888/?token=63d11beb957e58614a246fb519601b383a6974f32c41fcf6
+     or http://127.0.0.1:8891/?token=63d11beb957e58614a246fb519601b383a6974f32c41fcf6
+[I 09:55:47.338 NotebookApp] 302 GET /?token=63d11beb957e58614a246fb519601b383a6974f32c41fcf6 (::1) 1.19ms
+[I 10:02:22.606 NotebookApp] Copying ResNet_Analysis/Second Transform Run.ipynb to /ResNet_Analysis
+[I 10:02:22.822 NotebookApp] Saving Second Transform Run-Copy1.ipynb
+[I 10:02:29.938 NotebookApp] Kernel started: 92f3cadd-fa90-4033-9301-4b3def7ab34a
+[I 10:04:31.393 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:04:31.393 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[W 10:07:00.634 NotebookApp] delete /dumps/20200730_182243
+[W 10:07:00.644 NotebookApp] delete /dumps/20200730_182330
+[W 10:07:00.646 NotebookApp] delete /dumps/20200730_182403
+[W 10:07:00.647 NotebookApp] delete /dumps/20200730_182500
+[I 10:08:31.032 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:08:31.032 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:09:44.708 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:09:44.709 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:10:31.388 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:10:31.389 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:12:31.351 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:12:31.351 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:21:08.115 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:21:08.115 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:22:30.841 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:22:30.841 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:24:31.272 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:24:31.272 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:26:31.036 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:26:31.036 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:28:31.428 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:28:31.428 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:30:31.521 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:30:31.521 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:32:31.449 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:32:31.449 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:42:32.270 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:42:32.270 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:56:31.364 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:56:31.364 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:58:31.655 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 10:58:31.655 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:00:31.540 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:00:31.540 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:08:30.688 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:08:30.688 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:09:27.999 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:09:28.000 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:10:28.717 NotebookApp] Saving file at /ResNet_Analysis/Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:10:28.718 NotebookApp] Saving Comparing Previous, Barrel Fix, and Fix+Tranforms.ipynb
+[I 11:10:35.151 NotebookApp] Starting buffering for 92f3cadd-fa90-4033-9301-4b3def7ab34a:ee183a5d863042928c945ee4d7b666f2
+[I 11:10:39.600 NotebookApp] Kernel shutdown: 92f3cadd-fa90-4033-9301-4b3def7ab34a
