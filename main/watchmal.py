@@ -69,7 +69,8 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
                 help='Used for modular and pre-trained models. Set to 1 to train the entire model and 0 to train subset of the models'),
        Argument('num_datasets', int, '-sets', default=1, help='Number of datasets to use.'),
        Argument('loss_weights', list,list_dtype=float,flag='--lweights',default=None,help='Weights to apply to cross entropy loss, see https://pytorch.org/docs/master/generated/torch.nn.CrossEntropyLoss.html'),
-       Argument('collapse_arrays', bool, flag='--collapse_arrs', default=False, help='Specify whether to collapse each 19-channel array into a one-channel sum')
+       Argument('collapse_arrays', bool, flag='--collapse_arrs', default=False, help='Specify whether to collapse each 19-channel array into a one-channel sum'),
+       Argument('num_image_dumps', int, flag='--n_img_dumps',default=10, help='Number of times to save GAN generator output for fixed noise batch.')
       ]
 
 _ATTR_DICT={arg.name: ConfigAttr(arg.name, arg.dtype, list_dtype=arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in _ARGS}

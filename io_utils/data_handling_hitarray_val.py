@@ -72,10 +72,10 @@ class WCH5DatasetV(Dataset):
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
             self.hit_pmt.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
                                         offset=hdf5_hit_pmt.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
-            self.time.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
-                                        offset=hdf5_hit_time.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
-            self.charge.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
-                                        offset=hdf5_hit_charge.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
+            self.time.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_time.shape,
+                                        offset=hdf5_hit_time.id.get_offset(), dtype=hdf5_hit_time.dtype))
+            self.charge.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_charge.shape,
+                                        offset=hdf5_hit_charge.id.get_offset(), dtype=hdf5_hit_charge.dtype))
 
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
@@ -151,7 +151,9 @@ class WCH5DatasetV(Dataset):
 
                 if self.collapse_arrays:
                     data = np.expand_dims(np.sum(data, 0),0)
-                return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                else:
+                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"
         raise RuntimeError("empty batch")

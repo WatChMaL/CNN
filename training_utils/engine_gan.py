@@ -63,9 +63,6 @@ class EngineGAN(Engine):
         self.optimizerG = Adam(self.model.generator.parameters(), lr=config.lr, betas=(0.5, 0.999))
         self.optimizerD = Adam(self.model.discriminator.parameters(), lr=config.lr, betas=(0.5, 0.999))
         
-        # Interval at which to save sample generated images (from fixed noise batch)
-        self.img_interval = 500
-        
         for i in np.arange(config.num_datasets):
             # Split the dataset into labelled and unlabelled subsets
             # Note : Only the labelled subset will be used for classifier training
@@ -91,6 +88,8 @@ class EngineGAN(Engine):
         self.test_loader = DataLoader(self.test_dset, batch_size=self.config.batch_size_test, shuffle=False,
                                            pin_memory=False, sampler=SequentialSampler(self.test_indices), num_workers=2)
         
+        # Interval at which to save sample generated images (from fixed noise batch)
+        self.img_interval = max(1, floor(ceil(self.config.epochs * len(self.train_loader)) / self.config.num_image_dumps))
 
         # Define the placeholder attributes
         self.data     = None
@@ -227,10 +226,6 @@ class EngineGAN(Engine):
         # Initialize iteration counter
         iteration = 0
         
-        # Parameter to upadte when saving the best model
-        best_g_loss = 1000000.
-        best_d_loss = 1000000.
-        
         # Initialize the iterator over the validation subset
         val_iter = iter(self.val_loader)
 
@@ -284,7 +279,7 @@ class EngineGAN(Engine):
                     savez(os.path.join(self.dirpath, 'imgs') + "/iteration_" + str(iteration) + ".npz",
                         **{key:value for key,value in zip(save_arr_keys,save_arr_values)})
 
-                # # Save the latest model   
+                # Save the latest model   
                 self.save_state(mode="latest")
 
                 if epoch >= epochs:

@@ -1,7 +1,7 @@
 nohup: ignoring input
 Random Seed:  999
 Requested load from: dcgan.ini
-Config files found: ['debug.ini', 'test_enfnet.ini', 'dcgan.ini', 'test_resnet.ini', 'best_resnet_traintest_hitarray.ini', 'test.ini', 'test_convnet.ini', 'best_resnet_long_test.ini', 'test_kazunet.ini', 'best_resnet_traintest_hitarray_postveto.ini', 'best_resnet_traintest.ini', 'best_resnet.ini']
+Config files found: ['debug.ini', 'test_enfnet.ini', 'dcgan.ini', 'test_resnet.ini', 'best_resnet_traintest_hitarray.ini', 'test.ini', 'test_convnet.ini', 'best_resnet_long_test.ini', 'test_kazunet.ini', 'best_resnet_traintest_hitarray_postveto.ini', 'dcgan_collapse.ini', 'best_resnet_traintest.ini', 'best_resnet.ini']
 Loading from dcgan.ini
 dcgan.ini loaded!
 Params OK: {'num_input_channels': 19, 'num_latent_dims': 128, 'arch_key': 3, 'arch_depth': 18, 'num_classes': 3, 'train_all': 1}
@@ -12,13 +12,942 @@ CUDA is available
 Loading training indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz
 Loading validation indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz
 Loading test indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_pe_idxs.npz
-Creating a directory for run dump at : dumps/20200723_122054/
-Saving config file as dumps/20200723_122054/config_file.ini
-Config file saved at dumps/20200723_122054/config_file.ini
-Epoch 0 Starting @ 2020-07-23 12:20:54
-... Iteration 100 ... Epoch 0.01 ... G Loss 5.187 ... D Loss 0.026 ... D_x 0.986 ... D_G_z1 0.011 ... D_G_z2 0.009
-... Iteration 200 ... Epoch 0.02 ... G Loss 7.860 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.002
-... Iteration 300 ... Epoch 0.04 ... G Loss 9.854 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
-... Iteration 400 ... Epoch 0.05 ... G Loss 4.750 ... D Loss 0.096 ... D_x 0.998 ... D_G_z1 0.082 ... D_G_z2 0.039
-... Iteration 500 ... Epoch 0.06 ... G Loss 6.624 ... D Loss 0.075 ... D_x 0.950 ... D_G_z1 0.004 ... D_G_z2 0.004
-... Iteration 600 ... Epoch 0.07 ... G Loss 3.676 ... D Loss 0.171 ... D_x 1.000 ... D_G_z1 0.140 ... D_G_z2 0.064
+Creating a directory for run dump at : dumps/20200730_182609/
+Saving config file as dumps/20200730_182609/config_file.ini
+Config file saved at dumps/20200730_182609/config_file.ini
+Epoch 0 Starting @ 2020-07-30 18:26:09
+... Iteration 100 ... Epoch 0.01 ... G Loss 7.015 ... D Loss 0.444 ... D_x 0.688 ... D_G_z1 0.002 ... D_G_z2 0.003
+... Iteration 200 ... Epoch 0.02 ... G Loss 5.650 ... D Loss 0.101 ... D_x 0.954 ... D_G_z1 0.051 ... D_G_z2 0.006
+... Iteration 300 ... Epoch 0.04 ... G Loss 5.062 ... D Loss 0.018 ... D_x 0.989 ... D_G_z1 0.006 ... D_G_z2 0.041
+... Iteration 400 ... Epoch 0.05 ... G Loss 5.541 ... D Loss 0.025 ... D_x 0.990 ... D_G_z1 0.014 ... D_G_z2 0.006
+... Iteration 500 ... Epoch 0.06 ... G Loss 6.480 ... D Loss 0.023 ... D_x 0.983 ... D_G_z1 0.006 ... D_G_z2 0.002
+... Iteration 600 ... Epoch 0.07 ... G Loss 6.674 ... D Loss 0.021 ... D_x 0.994 ... D_G_z1 0.015 ... D_G_z2 0.002
+... Iteration 700 ... Epoch 0.09 ... G Loss 8.369 ... D Loss 0.126 ... D_x 0.959 ... D_G_z1 0.074 ... D_G_z2 0.000
+... Iteration 800 ... Epoch 0.10 ... G Loss 6.177 ... D Loss 0.018 ... D_x 0.998 ... D_G_z1 0.016 ... D_G_z2 0.003
+... Iteration 900 ... Epoch 0.11 ... G Loss 8.454 ... D Loss 0.009 ... D_x 0.991 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 1000 ... Epoch 0.12 ... G Loss 7.039 ... D Loss 0.012 ... D_x 0.998 ... D_G_z1 0.010 ... D_G_z2 0.001
+... Iteration 1100 ... Epoch 0.13 ... G Loss 5.930 ... D Loss 0.021 ... D_x 0.996 ... D_G_z1 0.017 ... D_G_z2 0.004
+... Iteration 1200 ... Epoch 0.15 ... G Loss 6.220 ... D Loss 0.012 ... D_x 0.995 ... D_G_z1 0.006 ... D_G_z2 0.003
+... Iteration 1300 ... Epoch 0.16 ... G Loss 8.384 ... D Loss 0.005 ... D_x 0.995 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 1400 ... Epoch 0.17 ... G Loss 11.662 ... D Loss 0.326 ... D_x 0.955 ... D_G_z1 0.123 ... D_G_z2 0.001
+... Iteration 1500 ... Epoch 0.18 ... G Loss 6.642 ... D Loss 0.236 ... D_x 0.938 ... D_G_z1 0.094 ... D_G_z2 0.023
+... Iteration 1600 ... Epoch 0.20 ... G Loss 11.415 ... D Loss 0.163 ... D_x 0.964 ... D_G_z1 0.102 ... D_G_z2 0.000
+... Iteration 1700 ... Epoch 0.21 ... G Loss 5.803 ... D Loss 0.021 ... D_x 0.992 ... D_G_z1 0.012 ... D_G_z2 0.006
+... Iteration 1800 ... Epoch 0.22 ... G Loss 6.398 ... D Loss 0.012 ... D_x 0.998 ... D_G_z1 0.009 ... D_G_z2 0.003
+... Iteration 1900 ... Epoch 0.23 ... G Loss 6.667 ... D Loss 0.034 ... D_x 0.987 ... D_G_z1 0.020 ... D_G_z2 0.002
+... Iteration 2000 ... Epoch 0.24 ... G Loss 7.036 ... D Loss 0.097 ... D_x 0.977 ... D_G_z1 0.016 ... D_G_z2 0.006
+... Iteration 2100 ... Epoch 0.26 ... G Loss 13.541 ... D Loss 0.159 ... D_x 0.954 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 2200 ... Epoch 0.27 ... G Loss 10.103 ... D Loss 0.060 ... D_x 0.988 ... D_G_z1 0.019 ... D_G_z2 0.002
+... Iteration 2300 ... Epoch 0.28 ... G Loss 6.715 ... D Loss 0.030 ... D_x 0.994 ... D_G_z1 0.024 ... D_G_z2 0.002
+... Iteration 2400 ... Epoch 0.29 ... G Loss 6.603 ... D Loss 0.019 ... D_x 0.986 ... D_G_z1 0.005 ... D_G_z2 0.002
+... Iteration 2500 ... Epoch 0.31 ... G Loss 6.359 ... D Loss 0.016 ... D_x 0.987 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 2600 ... Epoch 0.32 ... G Loss 10.223 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 2700 ... Epoch 0.33 ... G Loss 6.691 ... D Loss 0.045 ... D_x 0.995 ... D_G_z1 0.010 ... D_G_z2 0.003
+... Iteration 2800 ... Epoch 0.34 ... G Loss 8.049 ... D Loss 0.032 ... D_x 0.998 ... D_G_z1 0.027 ... D_G_z2 0.001
+... Iteration 2900 ... Epoch 0.35 ... G Loss 6.187 ... D Loss 0.032 ... D_x 0.978 ... D_G_z1 0.009 ... D_G_z2 0.004
+... Iteration 3000 ... Epoch 0.37 ... G Loss 9.738 ... D Loss 0.075 ... D_x 0.989 ... D_G_z1 0.029 ... D_G_z2 0.000
+... Iteration 3100 ... Epoch 0.38 ... G Loss 6.833 ... D Loss 0.007 ... D_x 0.996 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 3200 ... Epoch 0.39 ... G Loss 6.817 ... D Loss 0.008 ... D_x 0.996 ... D_G_z1 0.004 ... D_G_z2 0.002
+... Iteration 3300 ... Epoch 0.40 ... G Loss 7.412 ... D Loss 0.043 ... D_x 0.962 ... D_G_z1 0.002 ... D_G_z2 0.003
+... Iteration 3400 ... Epoch 0.42 ... G Loss 7.820 ... D Loss 0.017 ... D_x 0.991 ... D_G_z1 0.007 ... D_G_z2 0.003
+... Iteration 3500 ... Epoch 0.43 ... G Loss 6.207 ... D Loss 0.019 ... D_x 0.997 ... D_G_z1 0.015 ... D_G_z2 0.003
+... Iteration 3600 ... Epoch 0.44 ... G Loss 6.053 ... D Loss 0.039 ... D_x 0.966 ... D_G_z1 0.001 ... D_G_z2 0.003
+... Iteration 3700 ... Epoch 0.45 ... G Loss 8.142 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 3800 ... Epoch 0.46 ... G Loss 6.126 ... D Loss 0.012 ... D_x 0.996 ... D_G_z1 0.007 ... D_G_z2 0.003
+... Iteration 3900 ... Epoch 0.48 ... G Loss 6.962 ... D Loss 0.020 ... D_x 0.993 ... D_G_z1 0.013 ... D_G_z2 0.003
+... Iteration 4000 ... Epoch 0.49 ... G Loss 6.165 ... D Loss 0.012 ... D_x 0.997 ... D_G_z1 0.009 ... D_G_z2 0.003
+... Iteration 4100 ... Epoch 0.50 ... G Loss 7.908 ... D Loss 0.019 ... D_x 1.000 ... D_G_z1 0.017 ... D_G_z2 0.003
+... Iteration 4200 ... Epoch 0.51 ... G Loss 5.788 ... D Loss 0.012 ... D_x 0.998 ... D_G_z1 0.010 ... D_G_z2 0.005
+... Iteration 4300 ... Epoch 0.53 ... G Loss 6.748 ... D Loss 0.006 ... D_x 0.998 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 4400 ... Epoch 0.54 ... G Loss 8.522 ... D Loss 0.036 ... D_x 0.998 ... D_G_z1 0.033 ... D_G_z2 0.000
+... Iteration 4500 ... Epoch 0.55 ... G Loss 7.423 ... D Loss 0.008 ... D_x 0.999 ... D_G_z1 0.006 ... D_G_z2 0.002
+... Iteration 4600 ... Epoch 0.56 ... G Loss 7.262 ... D Loss 0.009 ... D_x 0.995 ... D_G_z1 0.004 ... D_G_z2 0.001
+... Iteration 4700 ... Epoch 0.57 ... G Loss 7.502 ... D Loss 0.016 ... D_x 0.993 ... D_G_z1 0.008 ... D_G_z2 0.002
+... Iteration 4800 ... Epoch 0.59 ... G Loss 6.936 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 4900 ... Epoch 0.60 ... G Loss 7.280 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 5000 ... Epoch 0.61 ... G Loss 8.217 ... D Loss 0.016 ... D_x 0.996 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 5100 ... Epoch 0.62 ... G Loss 7.381 ... D Loss 0.037 ... D_x 0.968 ... D_G_z1 0.000 ... D_G_z2 0.003
+... Iteration 5200 ... Epoch 0.64 ... G Loss 8.936 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 5300 ... Epoch 0.65 ... G Loss 7.720 ... D Loss 0.022 ... D_x 0.992 ... D_G_z1 0.004 ... D_G_z2 0.002
+... Iteration 5400 ... Epoch 0.66 ... G Loss 6.998 ... D Loss 0.014 ... D_x 0.992 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 5500 ... Epoch 0.67 ... G Loss 8.794 ... D Loss 0.005 ... D_x 0.996 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 5600 ... Epoch 0.68 ... G Loss 8.780 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 5700 ... Epoch 0.70 ... G Loss 10.744 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 5800 ... Epoch 0.71 ... G Loss 18.128 ... D Loss 0.124 ... D_x 0.994 ... D_G_z1 0.002 ... D_G_z2 0.100
+... Iteration 5900 ... Epoch 0.72 ... G Loss 9.373 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 6000 ... Epoch 0.73 ... G Loss 9.118 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 6100 ... Epoch 0.75 ... G Loss 8.894 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 6200 ... Epoch 0.76 ... G Loss 10.163 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 6300 ... Epoch 0.77 ... G Loss 7.960 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 6400 ... Epoch 0.78 ... G Loss 8.144 ... D Loss 0.011 ... D_x 1.000 ... D_G_z1 0.009 ... D_G_z2 0.001
+... Iteration 6500 ... Epoch 0.79 ... G Loss 33.393 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 6600 ... Epoch 0.81 ... G Loss 6.639 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.002
+... Iteration 6700 ... Epoch 0.82 ... G Loss 7.741 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 6800 ... Epoch 0.83 ... G Loss 7.344 ... D Loss 0.013 ... D_x 0.997 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 6900 ... Epoch 0.84 ... G Loss 8.277 ... D Loss 0.004 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 7000 ... Epoch 0.86 ... G Loss 9.217 ... D Loss 0.006 ... D_x 0.994 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 7100 ... Epoch 0.87 ... G Loss 7.881 ... D Loss 0.006 ... D_x 0.999 ... D_G_z1 0.004 ... D_G_z2 0.001
+... Iteration 7200 ... Epoch 0.88 ... G Loss 7.992 ... D Loss 0.004 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 7300 ... Epoch 0.89 ... G Loss 8.609 ... D Loss 0.003 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 7400 ... Epoch 0.90 ... G Loss 7.917 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 7500 ... Epoch 0.92 ... G Loss 8.810 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 7600 ... Epoch 0.93 ... G Loss 8.506 ... D Loss 0.007 ... D_x 1.000 ... D_G_z1 0.007 ... D_G_z2 0.001
+... Iteration 7700 ... Epoch 0.94 ... G Loss 8.508 ... D Loss 0.029 ... D_x 0.995 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 7800 ... Epoch 0.95 ... G Loss 9.395 ... D Loss 0.007 ... D_x 0.998 ... D_G_z1 0.005 ... D_G_z2 0.003
+... Iteration 7900 ... Epoch 0.97 ... G Loss 8.193 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 8000 ... Epoch 0.98 ... G Loss 10.421 ... D Loss 0.015 ... D_x 1.000 ... D_G_z1 0.014 ... D_G_z2 0.000
+... Iteration 8100 ... Epoch 0.99 ... G Loss 8.023 ... D Loss 0.017 ... D_x 0.995 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 8182 ... Epoch 1.00 ... G Loss 0.000 ... D Loss 1.776
+Epoch 0 Starting @ 2020-07-30 19:02:55
+... Iteration 8200 ... Epoch 1.00 ... G Loss 9.130 ... D Loss 0.080 ... D_x 0.989 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 8300 ... Epoch 1.01 ... G Loss 8.266 ... D Loss 0.011 ... D_x 0.998 ... D_G_z1 0.009 ... D_G_z2 0.001
+... Iteration 8400 ... Epoch 1.03 ... G Loss 8.113 ... D Loss 0.006 ... D_x 0.998 ... D_G_z1 0.004 ... D_G_z2 0.001
+... Iteration 8500 ... Epoch 1.04 ... G Loss 7.015 ... D Loss 0.007 ... D_x 0.998 ... D_G_z1 0.005 ... D_G_z2 0.003
+... Iteration 8600 ... Epoch 1.05 ... G Loss 6.782 ... D Loss 0.007 ... D_x 0.997 ... D_G_z1 0.003 ... D_G_z2 0.003
+... Iteration 8700 ... Epoch 1.06 ... G Loss 10.354 ... D Loss 0.014 ... D_x 0.989 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 8800 ... Epoch 1.08 ... G Loss 9.584 ... D Loss 0.012 ... D_x 0.989 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 8900 ... Epoch 1.09 ... G Loss 7.771 ... D Loss 0.006 ... D_x 0.997 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 9000 ... Epoch 1.10 ... G Loss 8.509 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 9100 ... Epoch 1.11 ... G Loss 8.494 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 9200 ... Epoch 1.12 ... G Loss 4.577 ... D Loss 0.249 ... D_x 0.862 ... D_G_z1 0.021 ... D_G_z2 0.019
+... Iteration 9300 ... Epoch 1.14 ... G Loss 3.514 ... D Loss 0.071 ... D_x 0.997 ... D_G_z1 0.065 ... D_G_z2 0.040
+... Iteration 9400 ... Epoch 1.15 ... G Loss 7.565 ... D Loss 0.012 ... D_x 0.994 ... D_G_z1 0.006 ... D_G_z2 0.002
+... Iteration 9500 ... Epoch 1.16 ... G Loss 7.066 ... D Loss 0.056 ... D_x 0.998 ... D_G_z1 0.039 ... D_G_z2 0.007
+... Iteration 9600 ... Epoch 1.17 ... G Loss 12.301 ... D Loss 0.033 ... D_x 0.974 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 9700 ... Epoch 1.19 ... G Loss 7.038 ... D Loss 0.028 ... D_x 0.977 ... D_G_z1 0.004 ... D_G_z2 0.002
+... Iteration 9800 ... Epoch 1.20 ... G Loss 9.451 ... D Loss 0.023 ... D_x 0.992 ... D_G_z1 0.013 ... D_G_z2 0.000
+... Iteration 9900 ... Epoch 1.21 ... G Loss 11.248 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 10000 ... Epoch 1.22 ... G Loss 6.230 ... D Loss 0.013 ... D_x 0.994 ... D_G_z1 0.007 ... D_G_z2 0.004
+... Iteration 10100 ... Epoch 1.23 ... G Loss 6.979 ... D Loss 0.008 ... D_x 0.994 ... D_G_z1 0.002 ... D_G_z2 0.002
+... Iteration 10200 ... Epoch 1.25 ... G Loss 7.244 ... D Loss 0.010 ... D_x 0.991 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 10300 ... Epoch 1.26 ... G Loss 6.700 ... D Loss 0.008 ... D_x 0.997 ... D_G_z1 0.005 ... D_G_z2 0.002
+... Iteration 10400 ... Epoch 1.27 ... G Loss 8.595 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 10500 ... Epoch 1.28 ... G Loss 8.881 ... D Loss 0.003 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 10600 ... Epoch 1.30 ... G Loss 10.156 ... D Loss 0.012 ... D_x 0.998 ... D_G_z1 0.009 ... D_G_z2 0.000
+... Iteration 10700 ... Epoch 1.31 ... G Loss 7.102 ... D Loss 0.005 ... D_x 0.999 ... D_G_z1 0.003 ... D_G_z2 0.002
+... Iteration 10800 ... Epoch 1.32 ... G Loss 7.599 ... D Loss 0.006 ... D_x 0.996 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 10900 ... Epoch 1.33 ... G Loss 26.382 ... D Loss 0.080 ... D_x 0.952 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11000 ... Epoch 1.34 ... G Loss 10.224 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11100 ... Epoch 1.36 ... G Loss 13.588 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11200 ... Epoch 1.37 ... G Loss 7.776 ... D Loss 0.004 ... D_x 0.999 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 11300 ... Epoch 1.38 ... G Loss 8.529 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 11400 ... Epoch 1.39 ... G Loss 8.705 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 11500 ... Epoch 1.41 ... G Loss 7.850 ... D Loss 0.004 ... D_x 1.000 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 11600 ... Epoch 1.42 ... G Loss 11.160 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11700 ... Epoch 1.43 ... G Loss 9.814 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11800 ... Epoch 1.44 ... G Loss 27.326 ... D Loss 0.006 ... D_x 0.994 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 11900 ... Epoch 1.45 ... G Loss 9.099 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 12000 ... Epoch 1.47 ... G Loss 10.481 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 12100 ... Epoch 1.48 ... G Loss 7.680 ... D Loss 0.003 ... D_x 1.000 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 12200 ... Epoch 1.49 ... G Loss 45.290 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 12300 ... Epoch 1.50 ... G Loss 14.387 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 12400 ... Epoch 1.52 ... G Loss 12.412 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 12500 ... Epoch 1.53 ... G Loss 8.989 ... D Loss 0.016 ... D_x 0.991 ... D_G_z1 0.006 ... D_G_z2 0.001
+... Iteration 12600 ... Epoch 1.54 ... G Loss 10.801 ... D Loss 0.009 ... D_x 0.992 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 12700 ... Epoch 1.55 ... G Loss 7.843 ... D Loss 0.005 ... D_x 0.998 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 12800 ... Epoch 1.56 ... G Loss 7.848 ... D Loss 0.010 ... D_x 0.998 ... D_G_z1 0.008 ... D_G_z2 0.001
+... Iteration 12900 ... Epoch 1.58 ... G Loss 7.339 ... D Loss 0.004 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 13000 ... Epoch 1.59 ... G Loss 7.048 ... D Loss 0.004 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 13100 ... Epoch 1.60 ... G Loss 7.978 ... D Loss 0.006 ... D_x 0.996 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 13200 ... Epoch 1.61 ... G Loss 7.969 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 13300 ... Epoch 1.63 ... G Loss 7.449 ... D Loss 0.005 ... D_x 0.998 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 13400 ... Epoch 1.64 ... G Loss 8.653 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 13500 ... Epoch 1.65 ... G Loss 8.344 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 13600 ... Epoch 1.66 ... G Loss 8.310 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 13700 ... Epoch 1.67 ... G Loss 9.567 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 13800 ... Epoch 1.69 ... G Loss 7.784 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 13900 ... Epoch 1.70 ... G Loss 8.628 ... D Loss 0.004 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 14000 ... Epoch 1.71 ... G Loss 8.484 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 14100 ... Epoch 1.72 ... G Loss 9.302 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 14200 ... Epoch 1.74 ... G Loss 11.056 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 14300 ... Epoch 1.75 ... G Loss 8.417 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 14400 ... Epoch 1.76 ... G Loss 8.625 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 14500 ... Epoch 1.77 ... G Loss 8.742 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 14600 ... Epoch 1.78 ... G Loss 12.260 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 14700 ... Epoch 1.80 ... G Loss 15.228 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 14800 ... Epoch 1.81 ... G Loss 10.623 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 14900 ... Epoch 1.82 ... G Loss 10.382 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15000 ... Epoch 1.83 ... G Loss 9.710 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15100 ... Epoch 1.85 ... G Loss 14.946 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15200 ... Epoch 1.86 ... G Loss 10.754 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15300 ... Epoch 1.87 ... G Loss 9.966 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15400 ... Epoch 1.88 ... G Loss 11.816 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15500 ... Epoch 1.89 ... G Loss 9.210 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15600 ... Epoch 1.91 ... G Loss 10.634 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15700 ... Epoch 1.92 ... G Loss 9.837 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15800 ... Epoch 1.93 ... G Loss 11.895 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 15900 ... Epoch 1.94 ... G Loss 9.579 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16000 ... Epoch 1.96 ... G Loss 12.087 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16100 ... Epoch 1.97 ... G Loss 10.109 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16200 ... Epoch 1.98 ... G Loss 9.989 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16300 ... Epoch 1.99 ... G Loss 10.071 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16364 ... Epoch 2.00 ... G Loss 0.000 ... D Loss 0.718
+Epoch 1 Starting @ 2020-07-30 19:39:25
+... Iteration 16400 ... Epoch 2.00 ... G Loss 9.904 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 16500 ... Epoch 2.02 ... G Loss 15.741 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16600 ... Epoch 2.03 ... G Loss 10.225 ... D Loss 0.011 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.000
+... Iteration 16700 ... Epoch 2.04 ... G Loss 9.987 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 16800 ... Epoch 2.05 ... G Loss 9.768 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 16900 ... Epoch 2.07 ... G Loss 41.151 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 17000 ... Epoch 2.08 ... G Loss 12.022 ... D Loss 0.007 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 17100 ... Epoch 2.09 ... G Loss 17.332 ... D Loss 0.022 ... D_x 0.998 ... D_G_z1 0.017 ... D_G_z2 0.000
+... Iteration 17200 ... Epoch 2.10 ... G Loss 19.991 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 17300 ... Epoch 2.11 ... G Loss 8.315 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 17400 ... Epoch 2.13 ... G Loss 8.340 ... D Loss 0.005 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 17500 ... Epoch 2.14 ... G Loss 10.260 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 17600 ... Epoch 2.15 ... G Loss 6.493 ... D Loss 0.017 ... D_x 0.988 ... D_G_z1 0.002 ... D_G_z2 0.010
+... Iteration 17700 ... Epoch 2.16 ... G Loss 9.535 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 17800 ... Epoch 2.18 ... G Loss 11.583 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 17900 ... Epoch 2.19 ... G Loss 8.438 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 18000 ... Epoch 2.20 ... G Loss 12.123 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18100 ... Epoch 2.21 ... G Loss 11.666 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18200 ... Epoch 2.22 ... G Loss 9.915 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 18300 ... Epoch 2.24 ... G Loss 28.381 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18400 ... Epoch 2.25 ... G Loss 9.626 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18500 ... Epoch 2.26 ... G Loss 13.671 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18600 ... Epoch 2.27 ... G Loss 9.622 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18700 ... Epoch 2.29 ... G Loss 8.923 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 18800 ... Epoch 2.30 ... G Loss 10.573 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 18900 ... Epoch 2.31 ... G Loss 9.315 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19000 ... Epoch 2.32 ... G Loss 9.441 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19100 ... Epoch 2.33 ... G Loss 11.221 ... D Loss 0.391 ... D_x 1.000 ... D_G_z1 0.004 ... D_G_z2 0.004
+... Iteration 19200 ... Epoch 2.35 ... G Loss 9.718 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19300 ... Epoch 2.36 ... G Loss 42.491 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19400 ... Epoch 2.37 ... G Loss 34.881 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19500 ... Epoch 2.38 ... G Loss 33.168 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19600 ... Epoch 2.40 ... G Loss 29.735 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 19700 ... Epoch 2.41 ... G Loss 7.284 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 19800 ... Epoch 2.42 ... G Loss 9.046 ... D Loss 0.011 ... D_x 0.997 ... D_G_z1 0.004 ... D_G_z2 0.001
+... Iteration 19900 ... Epoch 2.43 ... G Loss 9.048 ... D Loss 0.003 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 20000 ... Epoch 2.44 ... G Loss 9.531 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 20100 ... Epoch 2.46 ... G Loss 8.045 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 20200 ... Epoch 2.47 ... G Loss 10.087 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 20300 ... Epoch 2.48 ... G Loss 12.710 ... D Loss 0.006 ... D_x 0.996 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 20400 ... Epoch 2.49 ... G Loss 8.674 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 20500 ... Epoch 2.51 ... G Loss 12.842 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 20600 ... Epoch 2.52 ... G Loss 8.361 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 20700 ... Epoch 2.53 ... G Loss 16.721 ... D Loss 0.004 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 20800 ... Epoch 2.54 ... G Loss 9.327 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 20900 ... Epoch 2.55 ... G Loss 9.597 ... D Loss 0.004 ... D_x 1.000 ... D_G_z1 0.004 ... D_G_z2 0.000
+... Iteration 21000 ... Epoch 2.57 ... G Loss 18.139 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21100 ... Epoch 2.58 ... G Loss 9.641 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21200 ... Epoch 2.59 ... G Loss 9.223 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21300 ... Epoch 2.60 ... G Loss 9.164 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21400 ... Epoch 2.62 ... G Loss 9.567 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21500 ... Epoch 2.63 ... G Loss 10.397 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21600 ... Epoch 2.64 ... G Loss 11.772 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21700 ... Epoch 2.65 ... G Loss 9.171 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 21800 ... Epoch 2.66 ... G Loss 7.747 ... D Loss 0.004 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 21900 ... Epoch 2.68 ... G Loss 8.674 ... D Loss 0.003 ... D_x 0.999 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 22000 ... Epoch 2.69 ... G Loss 8.895 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22100 ... Epoch 2.70 ... G Loss 9.399 ... D Loss 0.006 ... D_x 0.994 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22200 ... Epoch 2.71 ... G Loss 9.016 ... D Loss 0.003 ... D_x 1.000 ... D_G_z1 0.003 ... D_G_z2 0.000
+... Iteration 22300 ... Epoch 2.73 ... G Loss 12.636 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22400 ... Epoch 2.74 ... G Loss 10.552 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22500 ... Epoch 2.75 ... G Loss 10.997 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22600 ... Epoch 2.76 ... G Loss 47.342 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22700 ... Epoch 2.77 ... G Loss 48.019 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22800 ... Epoch 2.79 ... G Loss 48.317 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 22900 ... Epoch 2.80 ... G Loss 47.414 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23000 ... Epoch 2.81 ... G Loss 47.726 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23100 ... Epoch 2.82 ... G Loss 47.450 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23200 ... Epoch 2.84 ... G Loss 47.844 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23300 ... Epoch 2.85 ... G Loss 47.323 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23400 ... Epoch 2.86 ... G Loss 47.513 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23500 ... Epoch 2.87 ... G Loss 46.843 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23600 ... Epoch 2.88 ... G Loss 45.930 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23700 ... Epoch 2.90 ... G Loss 46.261 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23800 ... Epoch 2.91 ... G Loss 45.003 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 23900 ... Epoch 2.92 ... G Loss 45.015 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24000 ... Epoch 2.93 ... G Loss 44.373 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24100 ... Epoch 2.95 ... G Loss 43.980 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24200 ... Epoch 2.96 ... G Loss 30.647 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24300 ... Epoch 2.97 ... G Loss 8.325 ... D Loss 0.013 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.002
+... Iteration 24400 ... Epoch 2.98 ... G Loss 15.818 ... D Loss 0.006 ... D_x 0.995 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24500 ... Epoch 2.99 ... G Loss 8.661 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 24546 ... Epoch 3.00 ... G Loss 20.216 ... D Loss 2.279
+Epoch 3 Starting @ 2020-07-30 20:15:59
+... Iteration 24600 ... Epoch 3.01 ... G Loss 41.008 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24700 ... Epoch 3.02 ... G Loss 15.073 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 24800 ... Epoch 3.03 ... G Loss 7.799 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 24900 ... Epoch 3.04 ... G Loss 9.434 ... D Loss 0.011 ... D_x 0.993 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 25000 ... Epoch 3.06 ... G Loss 8.758 ... D Loss 0.005 ... D_x 0.997 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 25100 ... Epoch 3.07 ... G Loss 8.540 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 25200 ... Epoch 3.08 ... G Loss 7.276 ... D Loss 0.006 ... D_x 0.998 ... D_G_z1 0.004 ... D_G_z2 0.002
+... Iteration 25300 ... Epoch 3.09 ... G Loss 7.462 ... D Loss 0.005 ... D_x 0.997 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 25400 ... Epoch 3.10 ... G Loss 9.048 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 25500 ... Epoch 3.12 ... G Loss 8.255 ... D Loss 0.006 ... D_x 0.998 ... D_G_z1 0.004 ... D_G_z2 0.002
+... Iteration 25600 ... Epoch 3.13 ... G Loss 7.928 ... D Loss 0.003 ... D_x 0.998 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 25700 ... Epoch 3.14 ... G Loss 7.879 ... D Loss 0.003 ... D_x 0.997 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 25800 ... Epoch 3.15 ... G Loss 8.518 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 25900 ... Epoch 3.17 ... G Loss 9.122 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26000 ... Epoch 3.18 ... G Loss 7.930 ... D Loss 0.002 ... D_x 0.999 ... D_G_z1 0.001 ... D_G_z2 0.001
+... Iteration 26100 ... Epoch 3.19 ... G Loss 11.731 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26200 ... Epoch 3.20 ... G Loss 8.616 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26300 ... Epoch 3.21 ... G Loss 8.918 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26400 ... Epoch 3.23 ... G Loss 8.040 ... D Loss 0.003 ... D_x 1.000 ... D_G_z1 0.003 ... D_G_z2 0.001
+... Iteration 26500 ... Epoch 3.24 ... G Loss 10.992 ... D Loss 0.002 ... D_x 0.998 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26600 ... Epoch 3.25 ... G Loss 10.761 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26700 ... Epoch 3.26 ... G Loss 42.261 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26800 ... Epoch 3.28 ... G Loss 41.317 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 26900 ... Epoch 3.29 ... G Loss 41.826 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27000 ... Epoch 3.30 ... G Loss 41.653 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27100 ... Epoch 3.31 ... G Loss 40.996 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27200 ... Epoch 3.32 ... G Loss 41.195 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27300 ... Epoch 3.34 ... G Loss 41.496 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27400 ... Epoch 3.35 ... G Loss 41.241 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27500 ... Epoch 3.36 ... G Loss 42.036 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27600 ... Epoch 3.37 ... G Loss 41.041 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27700 ... Epoch 3.39 ... G Loss 40.650 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27800 ... Epoch 3.40 ... G Loss 41.504 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 27900 ... Epoch 3.41 ... G Loss 41.056 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28000 ... Epoch 3.42 ... G Loss 41.009 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28100 ... Epoch 3.43 ... G Loss 40.360 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28200 ... Epoch 3.45 ... G Loss 40.617 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28300 ... Epoch 3.46 ... G Loss 12.515 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28400 ... Epoch 3.47 ... G Loss 19.048 ... D Loss 0.015 ... D_x 0.997 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28500 ... Epoch 3.48 ... G Loss 8.795 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 28600 ... Epoch 3.50 ... G Loss 10.079 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28700 ... Epoch 3.51 ... G Loss 9.438 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28800 ... Epoch 3.52 ... G Loss 9.301 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 28900 ... Epoch 3.53 ... G Loss 9.278 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29000 ... Epoch 3.54 ... G Loss 11.732 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29100 ... Epoch 3.56 ... G Loss 11.588 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29200 ... Epoch 3.57 ... G Loss 15.289 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29300 ... Epoch 3.58 ... G Loss 12.093 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29400 ... Epoch 3.59 ... G Loss 14.269 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29500 ... Epoch 3.61 ... G Loss 12.535 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29600 ... Epoch 3.62 ... G Loss 9.560 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29700 ... Epoch 3.63 ... G Loss 10.505 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29800 ... Epoch 3.64 ... G Loss 12.457 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 29900 ... Epoch 3.65 ... G Loss 12.635 ... D Loss 0.001 ... D_x 0.999 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30000 ... Epoch 3.67 ... G Loss 11.269 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30100 ... Epoch 3.68 ... G Loss 11.694 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30200 ... Epoch 3.69 ... G Loss 11.100 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30300 ... Epoch 3.70 ... G Loss 11.736 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30400 ... Epoch 3.72 ... G Loss 10.778 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30500 ... Epoch 3.73 ... G Loss 11.505 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30600 ... Epoch 3.74 ... G Loss 11.887 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30700 ... Epoch 3.75 ... G Loss 11.631 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30800 ... Epoch 3.76 ... G Loss 12.369 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 30900 ... Epoch 3.78 ... G Loss 11.690 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31000 ... Epoch 3.79 ... G Loss 12.153 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31100 ... Epoch 3.80 ... G Loss 12.079 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31200 ... Epoch 3.81 ... G Loss 14.092 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31300 ... Epoch 3.83 ... G Loss 14.509 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31400 ... Epoch 3.84 ... G Loss 13.450 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31500 ... Epoch 3.85 ... G Loss 38.742 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31600 ... Epoch 3.86 ... G Loss 10.713 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31700 ... Epoch 3.87 ... G Loss 14.011 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31800 ... Epoch 3.89 ... G Loss 12.095 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 31900 ... Epoch 3.90 ... G Loss 13.738 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32000 ... Epoch 3.91 ... G Loss 11.370 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32100 ... Epoch 3.92 ... G Loss 14.822 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32200 ... Epoch 3.94 ... G Loss 12.927 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32300 ... Epoch 3.95 ... G Loss 13.943 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32400 ... Epoch 3.96 ... G Loss 15.532 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32500 ... Epoch 3.97 ... G Loss 14.959 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32600 ... Epoch 3.98 ... G Loss 13.779 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32700 ... Epoch 4.00 ... G Loss 37.441 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32728 ... Epoch 4.00 ... G Loss 1.937 ... D Loss 4.286
+Epoch 4 Starting @ 2020-07-30 20:52:35
+... Iteration 32800 ... Epoch 4.01 ... G Loss 8.419 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 32900 ... Epoch 4.02 ... G Loss 9.247 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33000 ... Epoch 4.03 ... G Loss 9.505 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33100 ... Epoch 4.05 ... G Loss 9.871 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33200 ... Epoch 4.06 ... G Loss 9.125 ... D Loss 0.001 ... D_x 1.000 ... D_G_z1 0.001 ... D_G_z2 0.000
+... Iteration 33300 ... Epoch 4.07 ... G Loss 10.506 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33400 ... Epoch 4.08 ... G Loss 14.670 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33500 ... Epoch 4.09 ... G Loss 14.451 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33600 ... Epoch 4.11 ... G Loss 11.247 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33700 ... Epoch 4.12 ... G Loss 11.533 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33800 ... Epoch 4.13 ... G Loss 10.086 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 33900 ... Epoch 4.14 ... G Loss 10.159 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34000 ... Epoch 4.16 ... G Loss 36.964 ... D Loss 0.028 ... D_x 0.987 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34100 ... Epoch 4.17 ... G Loss 13.559 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34200 ... Epoch 4.18 ... G Loss 13.056 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34300 ... Epoch 4.19 ... G Loss 11.981 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34400 ... Epoch 4.20 ... G Loss 14.841 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34500 ... Epoch 4.22 ... G Loss 13.004 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34600 ... Epoch 4.23 ... G Loss 14.796 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34700 ... Epoch 4.24 ... G Loss 12.876 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34800 ... Epoch 4.25 ... G Loss 11.851 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 34900 ... Epoch 4.27 ... G Loss 10.952 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35000 ... Epoch 4.28 ... G Loss 13.617 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35100 ... Epoch 4.29 ... G Loss 12.916 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35200 ... Epoch 4.30 ... G Loss 17.386 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35300 ... Epoch 4.31 ... G Loss 13.045 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35400 ... Epoch 4.33 ... G Loss 11.529 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35500 ... Epoch 4.34 ... G Loss 11.568 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35600 ... Epoch 4.35 ... G Loss 11.443 ... D Loss 0.006 ... D_x 1.000 ... D_G_z1 0.006 ... D_G_z2 0.000
+... Iteration 35700 ... Epoch 4.36 ... G Loss 48.774 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35800 ... Epoch 4.38 ... G Loss 47.678 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 35900 ... Epoch 4.39 ... G Loss 48.960 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36000 ... Epoch 4.40 ... G Loss 49.522 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36100 ... Epoch 4.41 ... G Loss 13.210 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36200 ... Epoch 4.42 ... G Loss 9.162 ... D Loss 0.002 ... D_x 1.000 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 36300 ... Epoch 4.44 ... G Loss 10.846 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36400 ... Epoch 4.45 ... G Loss 52.662 ... D Loss 0.016 ... D_x 0.987 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36500 ... Epoch 4.46 ... G Loss 51.022 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36600 ... Epoch 4.47 ... G Loss 52.553 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36700 ... Epoch 4.49 ... G Loss 51.701 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36800 ... Epoch 4.50 ... G Loss 51.587 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 36900 ... Epoch 4.51 ... G Loss 14.548 ... D Loss 0.005 ... D_x 1.000 ... D_G_z1 0.005 ... D_G_z2 0.001
+... Iteration 37000 ... Epoch 4.52 ... G Loss 11.412 ... D Loss 0.010 ... D_x 0.998 ... D_G_z1 0.007 ... D_G_z2 0.000
+... Iteration 37100 ... Epoch 4.53 ... G Loss 9.648 ... D Loss 0.004 ... D_x 0.997 ... D_G_z1 0.002 ... D_G_z2 0.000
+... Iteration 37200 ... Epoch 4.55 ... G Loss 7.615 ... D Loss 0.004 ... D_x 0.998 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 37300 ... Epoch 4.56 ... G Loss 7.344 ... D Loss 0.005 ... D_x 0.997 ... D_G_z1 0.002 ... D_G_z2 0.001
+... Iteration 37400 ... Epoch 4.57 ... G Loss 39.437 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 37500 ... Epoch 4.58 ... G Loss 38.534 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 37600 ... Epoch 4.60 ... G Loss 44.792 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 37700 ... Epoch 4.61 ... G Loss 44.029 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 37800 ... Epoch 4.62 ... G Loss 44.009 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 37900 ... Epoch 4.63 ... G Loss 43.932 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38000 ... Epoch 4.64 ... G Loss 44.085 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38100 ... Epoch 4.66 ... G Loss 43.993 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38200 ... Epoch 4.67 ... G Loss 43.938 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38300 ... Epoch 4.68 ... G Loss 43.522 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38400 ... Epoch 4.69 ... G Loss 43.655 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38500 ... Epoch 4.71 ... G Loss 44.024 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38600 ... Epoch 4.72 ... G Loss 43.964 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38700 ... Epoch 4.73 ... G Loss 43.960 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38800 ... Epoch 4.74 ... G Loss 43.971 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 38900 ... Epoch 4.75 ... G Loss 43.789 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39000 ... Epoch 4.77 ... G Loss 43.343 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39100 ... Epoch 4.78 ... G Loss 43.621 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39200 ... Epoch 4.79 ... G Loss 43.374 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39300 ... Epoch 4.80 ... G Loss 42.828 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39400 ... Epoch 4.82 ... G Loss 43.087 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39500 ... Epoch 4.83 ... G Loss 43.592 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39600 ... Epoch 4.84 ... G Loss 42.972 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39700 ... Epoch 4.85 ... G Loss 43.072 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39800 ... Epoch 4.86 ... G Loss 42.935 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 39900 ... Epoch 4.88 ... G Loss 43.469 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40000 ... Epoch 4.89 ... G Loss 42.778 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40100 ... Epoch 4.90 ... G Loss 43.172 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40200 ... Epoch 4.91 ... G Loss 43.113 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40300 ... Epoch 4.93 ... G Loss 43.389 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40400 ... Epoch 4.94 ... G Loss 43.272 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40500 ... Epoch 4.95 ... G Loss 42.521 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40600 ... Epoch 4.96 ... G Loss 42.535 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40700 ... Epoch 4.97 ... G Loss 42.134 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40800 ... Epoch 4.99 ... G Loss 42.770 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40900 ... Epoch 5.00 ... G Loss 42.361 ... D Loss 0.000 ... D_x 1.000 ... D_G_z1 0.000 ... D_G_z2 0.000
+... Iteration 40910 ... Epoch 5.00 ... G Loss 0.886 ... D Loss 11.097
+Validating model on the test set
+Dump iterations = 512
+Iteration : 0
+Iteration : 1
+Iteration : 2
+Iteration : 3
+Iteration : 4
+Iteration : 5
+Iteration : 6
+Iteration : 7
+Iteration : 8
+Iteration : 9
+Iteration : 10
+Iteration : 11
+Iteration : 12
+Iteration : 13
+Iteration : 14
+Iteration : 15
+Iteration : 16
+Iteration : 17
+Iteration : 18
+Iteration : 19
+Iteration : 20
+Iteration : 21
+Iteration : 22
+Iteration : 23
+Iteration : 24
+Iteration : 25
+Iteration : 26
+Iteration : 27
+Iteration : 28
+Iteration : 29
+Iteration : 30
+Iteration : 31
+Iteration : 32
+Iteration : 33
+Iteration : 34
+Iteration : 35
+Iteration : 36
+Iteration : 37
+Iteration : 38
+Iteration : 39
+Iteration : 40
+Iteration : 41
+Iteration : 42
+Iteration : 43
+Iteration : 44
+Iteration : 45
+Iteration : 46
+Iteration : 47
+Iteration : 48
+Iteration : 49
+Iteration : 50
+Iteration : 51
+Iteration : 52
+Iteration : 53
+Iteration : 54
+Iteration : 55
+Iteration : 56
+Iteration : 57
+Iteration : 58
+Iteration : 59
+Iteration : 60
+Iteration : 61
+Iteration : 62
+Iteration : 63
+Iteration : 64
+Iteration : 65
+Iteration : 66
+Iteration : 67
+Iteration : 68
+Iteration : 69
+Iteration : 70
+Iteration : 71
+Iteration : 72
+Iteration : 73
+Iteration : 74
+Iteration : 75
+Iteration : 76
+Iteration : 77
+Iteration : 78
+Iteration : 79
+Iteration : 80
+Iteration : 81
+Iteration : 82
+Iteration : 83
+Iteration : 84
+Iteration : 85
+Iteration : 86
+Iteration : 87
+Iteration : 88
+Iteration : 89
+Iteration : 90
+Iteration : 91
+Iteration : 92
+Iteration : 93
+Iteration : 94
+Iteration : 95
+Iteration : 96
+Iteration : 97
+Iteration : 98
+Iteration : 99
+Iteration : 100
+Iteration : 101
+Iteration : 102
+Iteration : 103
+Iteration : 104
+Iteration : 105
+Iteration : 106
+Iteration : 107
+Iteration : 108
+Iteration : 109
+Iteration : 110
+Iteration : 111
+Iteration : 112
+Iteration : 113
+Iteration : 114
+Iteration : 115
+Iteration : 116
+Iteration : 117
+Iteration : 118
+Iteration : 119
+Iteration : 120
+Iteration : 121
+Iteration : 122
+Iteration : 123
+Iteration : 124
+Iteration : 125
+Iteration : 126
+Iteration : 127
+Iteration : 128
+Iteration : 129
+Iteration : 130
+Iteration : 131
+Iteration : 132
+Iteration : 133
+Iteration : 134
+Iteration : 135
+Iteration : 136
+Iteration : 137
+Iteration : 138
+Iteration : 139
+Iteration : 140
+Iteration : 141
+Iteration : 142
+Iteration : 143
+Iteration : 144
+Iteration : 145
+Iteration : 146
+Iteration : 147
+Iteration : 148
+Iteration : 149
+Iteration : 150
+Iteration : 151
+Iteration : 152
+Iteration : 153
+Iteration : 154
+Iteration : 155
+Iteration : 156
+Iteration : 157
+Iteration : 158
+Iteration : 159
+Iteration : 160
+Iteration : 161
+Iteration : 162
+Iteration : 163
+Iteration : 164
+Iteration : 165
+Iteration : 166
+Iteration : 167
+Iteration : 168
+Iteration : 169
+Iteration : 170
+Iteration : 171
+Iteration : 172
+Iteration : 173
+Iteration : 174
+Iteration : 175
+Iteration : 176
+Iteration : 177
+Iteration : 178
+Iteration : 179
+Iteration : 180
+Iteration : 181
+Iteration : 182
+Iteration : 183
+Iteration : 184
+Iteration : 185
+Iteration : 186
+Iteration : 187
+Iteration : 188
+Iteration : 189
+Iteration : 190
+Iteration : 191
+Iteration : 192
+Iteration : 193
+Iteration : 194
+Iteration : 195
+Iteration : 196
+Iteration : 197
+Iteration : 198
+Iteration : 199
+Iteration : 200
+Iteration : 201
+Iteration : 202
+Iteration : 203
+Iteration : 204
+Iteration : 205
+Iteration : 206
+Iteration : 207
+Iteration : 208
+Iteration : 209
+Iteration : 210
+Iteration : 211
+Iteration : 212
+Iteration : 213
+Iteration : 214
+Iteration : 215
+Iteration : 216
+Iteration : 217
+Iteration : 218
+Iteration : 219
+Iteration : 220
+Iteration : 221
+Iteration : 222
+Iteration : 223
+Iteration : 224
+Iteration : 225
+Iteration : 226
+Iteration : 227
+Iteration : 228
+Iteration : 229
+Iteration : 230
+Iteration : 231
+Iteration : 232
+Iteration : 233
+Iteration : 234
+Iteration : 235
+Iteration : 236
+Iteration : 237
+Iteration : 238
+Iteration : 239
+Iteration : 240
+Iteration : 241
+Iteration : 242
+Iteration : 243
+Iteration : 244
+Iteration : 245
+Iteration : 246
+Iteration : 247
+Iteration : 248
+Iteration : 249
+Iteration : 250
+Iteration : 251
+Iteration : 252
+Iteration : 253
+Iteration : 254
+Iteration : 255
+Iteration : 256
+Iteration : 257
+Iteration : 258
+Iteration : 259
+Iteration : 260
+Iteration : 261
+Iteration : 262
+Iteration : 263
+Iteration : 264
+Iteration : 265
+Iteration : 266
+Iteration : 267
+Iteration : 268
+Iteration : 269
+Iteration : 270
+Iteration : 271
+Iteration : 272
+Iteration : 273
+Iteration : 274
+Iteration : 275
+Iteration : 276
+Iteration : 277
+Iteration : 278
+Iteration : 279
+Iteration : 280
+Iteration : 281
+Iteration : 282
+Iteration : 283
+Iteration : 284
+Iteration : 285
+Iteration : 286
+Iteration : 287
+Iteration : 288
+Iteration : 289
+Iteration : 290
+Iteration : 291
+Iteration : 292
+Iteration : 293
+Iteration : 294
+Iteration : 295
+Iteration : 296
+Iteration : 297
+Iteration : 298
+Iteration : 299
+Iteration : 300
+Iteration : 301
+Iteration : 302
+Iteration : 303
+Iteration : 304
+Iteration : 305
+Iteration : 306
+Iteration : 307
+Iteration : 308
+Iteration : 309
+Iteration : 310
+Iteration : 311
+Iteration : 312
+Iteration : 313
+Iteration : 314
+Iteration : 315
+Iteration : 316
+Iteration : 317
+Iteration : 318
+Iteration : 319
+Iteration : 320
+Iteration : 321
+Iteration : 322
+Iteration : 323
+Iteration : 324
+Iteration : 325
+Iteration : 326
+Iteration : 327
+Iteration : 328
+Iteration : 329
+Iteration : 330
+Iteration : 331
+Iteration : 332
+Iteration : 333
+Iteration : 334
+Iteration : 335
+Iteration : 336
+Iteration : 337
+Iteration : 338
+Iteration : 339
+Iteration : 340
+Iteration : 341
+Iteration : 342
+Iteration : 343
+Iteration : 344
+Iteration : 345
+Iteration : 346
+Iteration : 347
+Iteration : 348
+Iteration : 349
+Iteration : 350
+Iteration : 351
+Iteration : 352
+Iteration : 353
+Iteration : 354
+Iteration : 355
+Iteration : 356
+Iteration : 357
+Iteration : 358
+Iteration : 359
+Iteration : 360
+Iteration : 361
+Iteration : 362
+Iteration : 363
+Iteration : 364
+Iteration : 365
+Iteration : 366
+Iteration : 367
+Iteration : 368
+Iteration : 369
+Iteration : 370
+Iteration : 371
+Iteration : 372
+Iteration : 373
+Iteration : 374
+Iteration : 375
+Iteration : 376
+Iteration : 377
+Iteration : 378
+Iteration : 379
+Iteration : 380
+Iteration : 381
+Iteration : 382
+Iteration : 383
+Iteration : 384
+Iteration : 385
+Iteration : 386
+Iteration : 387
+Iteration : 388
+Iteration : 389
+Iteration : 390
+Iteration : 391
+Iteration : 392
+Iteration : 393
+Iteration : 394
+Iteration : 395
+Iteration : 396
+Iteration : 397
+Iteration : 398
+Iteration : 399
+Iteration : 400
+Iteration : 401
+Iteration : 402
+Iteration : 403
+Iteration : 404
+Iteration : 405
+Iteration : 406
+Iteration : 407
+Iteration : 408
+Iteration : 409
+Iteration : 410
+Iteration : 411
+Iteration : 412
+Iteration : 413
+Iteration : 414
+Iteration : 415
+Iteration : 416
+Iteration : 417
+Iteration : 418
+Iteration : 419
+Iteration : 420
+Iteration : 421
+Iteration : 422
+Iteration : 423
+Iteration : 424
+Iteration : 425
+Iteration : 426
+Iteration : 427
+Iteration : 428
+Iteration : 429
+Iteration : 430
+Iteration : 431
+Iteration : 432
+Iteration : 433
+Iteration : 434
+Iteration : 435
+Iteration : 436
+Iteration : 437
+Iteration : 438
+Iteration : 439
+Iteration : 440
+Iteration : 441
+Iteration : 442
+Iteration : 443
+Iteration : 444
+Iteration : 445
+Iteration : 446
+Iteration : 447
+Iteration : 448
+Iteration : 449
+Iteration : 450
+Iteration : 451
+Iteration : 452
+Iteration : 453
+Iteration : 454
+Iteration : 455
+Iteration : 456
+Iteration : 457
+Iteration : 458
+Iteration : 459
+Iteration : 460
+Iteration : 461
+Iteration : 462
+Iteration : 463
+Iteration : 464
+Iteration : 465
+Iteration : 466
+Iteration : 467
+Iteration : 468
+Iteration : 469
+Iteration : 470
+Iteration : 471
+Iteration : 472
+Iteration : 473
+Iteration : 474
+Iteration : 475
+Iteration : 476
+Iteration : 477
+Iteration : 478
+Iteration : 479
+Iteration : 480
+Iteration : 481
+Iteration : 482
+Iteration : 483
+Iteration : 484
+Iteration : 485
+Iteration : 486
+Iteration : 487
+Iteration : 488
+Iteration : 489
+Iteration : 490
+Iteration : 491
+Iteration : 492
+Iteration : 493
+Iteration : 494
+Iteration : 495
+Iteration : 496
+Iteration : 497
+Iteration : 498
+Iteration : 499
+Iteration : 500
+Iteration : 501
+Iteration : 502
+Iteration : 503
+Iteration : 504
+Iteration : 505
+Iteration : 506
+Iteration : 507
+Iteration : 508
+Iteration : 509
+Iteration : 510
+Iteration : 511
+Iteration : 512
+Saving the npz dump array :
+Time taken to execute the script : 3:05:35.213078
