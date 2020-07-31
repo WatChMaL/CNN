@@ -15,6 +15,8 @@ import pdb
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
 
+barrel_map_array_idxs=[6,7,8,9,10,11,0,1,2,3,4,5,15,16,17,12,13,14,18]
+
 class WCH5DatasetTest(Dataset):
     """
     Dataset storing image-like data from Water Cherenkov detector
@@ -155,6 +157,13 @@ class WCH5DatasetTest(Dataset):
                 else:
                     return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
+                #fix barrel array indexing to match endcaps in xyz ordering
+                barrel = data[:,12:28,:]
+                barrel = barrel[barrel_map_array_idxs,:,:]
+                data[:,12:28,:] = barrel
+
+                return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
+                
         assert False, "empty batch"
         raise RuntimeError("empty batch")
         

@@ -6,6 +6,8 @@ import pdb
 
 # PyTorch imports
 from torch.utils.data import Dataset
+from torch import from_numpy
+
 import h5py
 
 import numpy as np
@@ -16,7 +18,9 @@ import os
 
 # WatChMaL imports
 import preprocessing.normalize_funcs as norm_funcs
+from io_utils import transformations 
 
+barrel_map_array_idxs=[6,7,8,9,10,11,0,1,2,3,4,5,15,16,17,12,13,14,18]
 
 class WCH5DatasetT(Dataset):
     """
@@ -29,7 +33,7 @@ class WCH5DatasetT(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, collapse_arrays=False,trainval_subset=None, num_datasets = 1, seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, collapse_arrays=False, transforms=None, trainval_subset=None, num_datasets = 1, seed=42):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
@@ -42,7 +46,14 @@ class WCH5DatasetT(Dataset):
 
         self.chrg_func = getattr(norm_funcs, chrg_norm)
         self.time_func = getattr(norm_funcs, time_norm)
-        
+
+        self.transforms = transforms
+        if self.transforms is not None:
+            for transform_name in transforms: assert hasattr(transformations, transform_name), f"Error: There is no defined transform named {transform_name}"
+            transform_funcs = [getattr(transformations, transform_name) for transform_name in transforms]
+            self.transforms = transform_funcs
+            self.n_transforms = len(self.transforms)
+
         self.fds = []
         self.filesizes = []
 
@@ -157,6 +168,20 @@ class WCH5DatasetT(Dataset):
                 else:
                     return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
+
+                #fix barrel array indexing to match endcaps in xyz ordering
+                barrel = data[:,12:28,:]
+                barrel = barrel[barrel_map_array_idxs,:,:]
+                data[:,12:28,:] = barrel
+
+                processed_data=from_numpy(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)))
+                
+                if self.transforms is not None:
+                    selection = np.random.randint(0,high=2,size=self.n_transforms)
+                    for t_idx, transform_func in enumerate(self.transforms):
+                        if selection[t_idx]: processed_data = transform_func(processed_data)
+
+                return processed_data, self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
 
         assert False, "empty batch"
         raise RuntimeError("empty batch")
