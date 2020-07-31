@@ -33,10 +33,12 @@ class WCH5DatasetT(Dataset):
     Use on the traning and validation datasets
     """
 
-    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", transforms=None,  collapse_e_gamma=False,shuffle=1, trainval_subset=None, num_datasets = 1, seed=42):
+    def __init__(self, trainval_dset_path, trainval_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, collapse_arrays=False, collapse_e_gamma=False, transforms=None, trainval_subset=None, num_datasets = 1, seed=42):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
         
+        self.collapse_arrays=collapse_arrays
+
         # Load the normalization parameters used by normalize_hdf5 methods
         norm_params = np.load(norm_params_path, allow_pickle=True)
         self.chrg_acc = norm_params["c_acc"]
@@ -87,10 +89,10 @@ class WCH5DatasetT(Dataset):
             # Create a memory map for event_data - loads event data into memory only on __getitem__()
             self.hit_pmt.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
                                         offset=hdf5_hit_pmt.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
-            self.time.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
-                                        offset=hdf5_hit_time.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
-            self.charge.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_pmt.shape,
-                                        offset=hdf5_hit_charge.id.get_offset(), dtype=hdf5_hit_pmt.dtype))
+            self.time.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_time.shape,
+                                        offset=hdf5_hit_time.id.get_offset(), dtype=hdf5_hit_time.dtype))
+            self.charge.append(np.memmap(trainval_dset_path[i], mode="r", shape=hdf5_hit_charge.shape,
+                                        offset=hdf5_hit_charge.id.get_offset(), dtype=hdf5_hit_charge.dtype))
 
             # Load the contents which could fit easily into memory
             self.labels.append(np.array(hdf5_labels))
@@ -164,6 +166,12 @@ class WCH5DatasetT(Dataset):
                 hit_charges = self.charge[i][start:stop]
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
+                if self.collapse_arrays:
+                    data = np.expand_dims(np.sum(data, 0),0)
+                    return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                else:
+                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+
 
                 #fix barrel array indexing to match endcaps in xyz ordering
                 barrel = data[:,12:28,:]
@@ -191,7 +199,7 @@ class WCH5DatasetT(Dataset):
 if __name__ == "__main__":
     @profile
     def run_test():
-        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset)
+        train_dset = WCH5DatasetT(trainval_path, trainval_idxs, norm_params_path, chrg_norm, time_norm, shuffle=shuffle, num_datasets=num_datasets, trainval_subset=trainval_subset, collapse_arrays=False)
         train_indices = [i for i in range(len(train_dset))]
         
         for epoch in range(2):
