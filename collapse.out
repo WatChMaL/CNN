@@ -1,0 +1,88 @@
+nohup: ignoring input
+PID: 50001
+Requested load from: cl_traintest_collapse.ini
+Config files found: ['debug.ini', 'test_enfnet.ini', 'dcgan.ini', 'test_resnet.ini', 'best_resnet_traintest_hitarray.ini', 'best_resnet_traintest_hitarray_egammaonly.ini', 'cl_traintest_collapse.ini', 'test.ini', 'test_convnet.ini', 'best_resnet_long_test.ini', 'test_kazunet.ini', 'best_resnet_traintest_hitarray_postveto.ini', 'best_resnet_traintest.ini', 'best_resnet.ini']
+Loading from cl_traintest_collapse.ini
+cl_traintest_collapse.ini loaded!
+Params OK: {'num_input_channels': 19, 'num_latent_dims': 128, 'arch_key': 1, 'arch_depth': 18, 'num_classes': 2, 'train_all': 1}
+Requesting GPUs. GPU list : [0, 1]
+Main GPU : cuda:0
+Using DataParallel on these devices: ['cuda:0', 'cuda:1']
+CUDA is available
+Loading training indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_post_veto_nomichel_pe_idxs.npz
+Loading validation indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_post_veto_nomichel_pe_idxs.npz
+Loading test indices from:  /fast_scratch/WatChMaL/data/IWCD_fulltank_300_post_veto_nomichel_pe_idxs.npz
+Creating a directory for run dump at : dumps/20200731_151243/
+Saving config file as dumps/20200731_151243/config_file.ini
+Config file saved at dumps/20200731_151243/config_file.ini
+Entire model parameters passed to the optimizer
+Validation Interval: 10
+Epoch 0 Starting @ 2020-07-31 15:12:44
+... Iteration 10 ... Epoch 0.00 ... Loss 0.645 ... Accuracy 0.676
+... Iteration 20 ... Epoch 0.00 ... Loss 0.632 ... Accuracy 0.701
+... Iteration 30 ... Epoch 0.01 ... Loss 0.625 ... Accuracy 0.697
+... Iteration 40 ... Epoch 0.01 ... Loss 0.615 ... Accuracy 0.711
+... Iteration 50 ... Epoch 0.01 ... Loss 0.592 ... Accuracy 0.754
+... Iteration 60 ... Epoch 0.01 ... Loss 0.588 ... Accuracy 0.713
+... Iteration 70 ... Epoch 0.01 ... Loss 0.568 ... Accuracy 0.715
+... Iteration 80 ... Epoch 0.01 ... Loss 0.535 ... Accuracy 0.725
+... Iteration 90 ... Epoch 0.02 ... Loss 0.460 ... Accuracy 0.766
+... Iteration 100 ... Epoch 0.02 ... Loss 0.480 ... Accuracy 0.723
+... Iteration 110 ... Epoch 0.02 ... Loss 0.448 ... Accuracy 0.697
+... Iteration 120 ... Epoch 0.02 ... Loss 0.407 ... Accuracy 0.732
+... Iteration 130 ... Epoch 0.02 ... Loss 0.449 ... Accuracy 0.688
+... Iteration 140 ... Epoch 0.03 ... Loss 0.375 ... Accuracy 0.734
+... Iteration 150 ... Epoch 0.03 ... Loss 0.378 ... Accuracy 0.709
+... Iteration 160 ... Epoch 0.03 ... Loss 0.411 ... Accuracy 0.711
+... Iteration 170 ... Epoch 0.03 ... Loss 0.346 ... Accuracy 0.711
+... Iteration 180 ... Epoch 0.03 ... Loss 0.372 ... Accuracy 0.695
+... Iteration 190 ... Epoch 0.03 ... Loss 0.352 ... Accuracy 0.732
+... Iteration 200 ... Epoch 0.04 ... Loss 0.339 ... Accuracy 0.719
+... Iteration 210 ... Epoch 0.04 ... Loss 0.323 ... Accuracy 0.715
+... Iteration 220 ... Epoch 0.04 ... Loss 0.345 ... Accuracy 0.705
+... Iteration 230 ... Epoch 0.04 ... Loss 0.361 ... Accuracy 0.695
+... Iteration 240 ... Epoch 0.04 ... Loss 0.336 ... Accuracy 0.719
+... Iteration 250 ... Epoch 0.05 ... Loss 0.365 ... Accuracy 0.676
+... Iteration 260 ... Epoch 0.05 ... Loss 0.284 ... Accuracy 0.748
+... Iteration 270 ... Epoch 0.05 ... Loss 0.293 ... Accuracy 0.738
+... Iteration 280 ... Epoch 0.05 ... Loss 0.311 ... Accuracy 0.744
+... Iteration 290 ... Epoch 0.05 ... Loss 0.295 ... Accuracy 0.857
+... Iteration 300 ... Epoch 0.06 ... Loss 0.256 ... Accuracy 0.914
+... Iteration 310 ... Epoch 0.06 ... Loss 0.287 ... Accuracy 0.912
+... Iteration 320 ... Epoch 0.06 ... Loss 0.244 ... Accuracy 0.924
+... Iteration 330 ... Epoch 0.06 ... Loss 0.237 ... Accuracy 0.912
+... Iteration 340 ... Epoch 0.06 ... Loss 0.224 ... Accuracy 0.918
+... Iteration 350 ... Epoch 0.06 ... Loss 0.208 ... Accuracy 0.949
+... Iteration 360 ... Epoch 0.07 ... Loss 0.184 ... Accuracy 0.934
+... Iteration 370 ... Epoch 0.07 ... Loss 0.170 ... Accuracy 0.939
+... Iteration 380 ... Epoch 0.07 ... Loss 0.143 ... Accuracy 0.943
+... Iteration 390 ... Epoch 0.07 ... Loss 0.142 ... Accuracy 0.938
+... Iteration 400 ... Epoch 0.07 ... Loss 0.129 ... Accuracy 0.949
+... Iteration 410 ... Epoch 0.08 ... Loss 0.136 ... Accuracy 0.936
+... Iteration 420 ... Epoch 0.08 ... Loss 0.112 ... Accuracy 0.957
+... Iteration 430 ... Epoch 0.08 ... Loss 0.149 ... Accuracy 0.939
+... Iteration 440 ... Epoch 0.08 ... Loss 0.124 ... Accuracy 0.949
+... Iteration 450 ... Epoch 0.08 ... Loss 0.170 ... Accuracy 0.926
+... Iteration 460 ... Epoch 0.08 ... Loss 0.105 ... Accuracy 0.967
+... Iteration 470 ... Epoch 0.09 ... Loss 0.104 ... Accuracy 0.967
+... Iteration 480 ... Epoch 0.09 ... Loss 0.127 ... Accuracy 0.943
+... Iteration 490 ... Epoch 0.09 ... Loss 0.101 ... Accuracy 0.963
+... Iteration 500 ... Epoch 0.09 ... Loss 0.126 ... Accuracy 0.955
+... Iteration 510 ... Epoch 0.09 ... Loss 0.111 ... Accuracy 0.949
+... Iteration 520 ... Epoch 0.10 ... Loss 0.100 ... Accuracy 0.961
+... Iteration 530 ... Epoch 0.10 ... Loss 0.083 ... Accuracy 0.969
+... Iteration 540 ... Epoch 0.10 ... Loss 0.095 ... Accuracy 0.961
+... Iteration 550 ... Epoch 0.10 ... Loss 0.112 ... Accuracy 0.953
+... Iteration 560 ... Epoch 0.10 ... Loss 0.081 ... Accuracy 0.971
+... Iteration 570 ... Epoch 0.10 ... Loss 0.100 ... Accuracy 0.961
+... Iteration 580 ... Epoch 0.11 ... Loss 0.147 ... Accuracy 0.934
+... Iteration 590 ... Epoch 0.11 ... Loss 0.108 ... Accuracy 0.961
+... Iteration 600 ... Epoch 0.11 ... Loss 0.132 ... Accuracy 0.945
+... Iteration 610 ... Epoch 0.11 ... Loss 0.111 ... Accuracy 0.949
+... Iteration 620 ... Epoch 0.11 ... Loss 0.126 ... Accuracy 0.953
+... Iteration 630 ... Epoch 0.12 ... Loss 0.127 ... Accuracy 0.947
+... Iteration 640 ... Epoch 0.12 ... Loss 0.111 ... Accuracy 0.951
+... Iteration 650 ... Epoch 0.12 ... Loss 0.113 ... Accuracy 0.947
+... Iteration 660 ... Epoch 0.12 ... Loss 0.122 ... Accuracy 0.955
+... Iteration 670 ... Epoch 0.12 ... Loss 0.118 ... Accuracy 0.957
+... Iteration 680 ... Epoch 0.13 ... Loss 0.123 ... Accuracy 0.947

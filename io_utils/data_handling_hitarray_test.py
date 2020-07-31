@@ -26,7 +26,7 @@ class WCH5DatasetTest(Dataset):
     No other data is currently loaded
     """
 
-    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, num_datasets=1,seed=42, collapse_arrays=False):
+    def __init__(self, test_dset_path, test_idx_path, norm_params_path, chrg_norm="identity", time_norm="identity", shuffle=1, test_subset=None, collapse_e_gamma=False, num_datasets=1,seed=42, collapse_arrays=False):
         
         assert hasattr(norm_funcs, chrg_norm) and hasattr(norm_funcs, time_norm), "Functions "+ chrg_norm + " and/or " + time_norm + " are not implemented in normalize_funcs.py, aborting."
 
