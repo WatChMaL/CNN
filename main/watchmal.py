@@ -70,6 +70,7 @@ _ARGS=[Argument('model', list, '-mdl', list_dtype=str, default=['resnet', 'resne
        Argument('num_datasets', int, '-sets', default=1, help='Number of datasets to use.'),
        Argument('loss_weights', list,list_dtype=float,flag='--lweights',default=None,help='Weights to apply to cross entropy loss, see https://pytorch.org/docs/master/generated/torch.nn.CrossEntropyLoss.html'),
        Argument('collapse_e_gamma',bool,flag='--collapse_e_gamma',default=False, help='If true, will collapse e/gamma events into one class.'),
+       Argument('transformations', list, list_dtype=str, flag='--tranforms',default=None,help='Transforms to apply at random to training data at loading time. See preprocessing/transformations for options')
       ]
 
 _ATTR_DICT={arg.name: ConfigAttr(arg.name, arg.dtype, list_dtype=arg.list_dtype if hasattr(arg, 'list_dtype') else None) for arg in _ARGS}

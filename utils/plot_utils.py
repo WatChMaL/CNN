@@ -7,7 +7,7 @@ POS_MAP = [(8,4), #0
            (6,0), #2
            (4,0), #3
            (2,0), #4
-           (1,1), #5
+           (1,2), #5
            (0,4), #6
            (1,6), #7
            (2,8), #8
@@ -35,8 +35,8 @@ def get_plot_array(event_data):
     cols = event_data.shape[1]
     
     # Make empty output pixel grid
-    output = np.zeros(((10+PADDING)*rows, (10+PADDING)*cols))
-    
+    output = np.empty(((10+PADDING)*rows, (10+PADDING)*cols))
+    output[:] = np.nan
     i, j = 0, 0
     
     for row in range(rows):
@@ -52,7 +52,8 @@ def get_plot_array(event_data):
 def tile(canvas, ul, pmts):
     
     # First, create 10x10 grid representing single mpmt
-    mpmt = np.zeros((10, 10))
+    mpmt = np.empty((10, 10))
+    mpmt[:] = np.nan
     for i, val in enumerate(pmts):
         mpmt[POS_MAP[i][0]][POS_MAP[i][1]] = val
 
