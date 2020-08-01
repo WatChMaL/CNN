@@ -18,3 +18,37 @@ Config file saved at dumps/20200731_172209/config_file.ini
 Entire model parameters passed to the optimizer
 Validation Interval: 10
 Epoch 0 Starting @ 2020-07-31 17:22:10
+... Iteration 10 ... Epoch 0.00 ... Loss 1.101 ... Accuracy 0.295
+... Iteration 20 ... Epoch 0.00 ... Loss 1.100 ... Accuracy 0.314
+... Iteration 30 ... Epoch 0.01 ... Loss 1.098 ... Accuracy 0.340
+... Iteration 40 ... Epoch 0.01 ... Loss 1.099 ... Accuracy 0.320
+... Iteration 50 ... Epoch 0.01 ... Loss 1.095 ... Accuracy 0.344
+... Iteration 60 ... Epoch 0.01 ... Loss 1.094 ... Accuracy 0.359
+... Iteration 70 ... Epoch 0.01 ... Loss 1.088 ... Accuracy 0.377
+... Iteration 80 ... Epoch 0.01 ... Loss 1.083 ... Accuracy 0.361
+... Iteration 90 ... Epoch 0.02 ... Loss 1.080 ... Accuracy 0.395
+... Iteration 100 ... Epoch 0.02 ... Loss 1.078 ... Accuracy 0.363
+... Iteration 110 ... Epoch 0.02 ... Loss 1.065 ... Accuracy 0.387
+... Iteration 120 ... Epoch 0.02 ... Loss 1.070 ... Accuracy 0.430
+... Iteration 130 ... Epoch 0.02 ... Loss 1.060 ... Accuracy 0.420
+... Iteration 140 ... Epoch 0.03 ... Loss 1.056 ... Accuracy 0.400
+... Iteration 150 ... Epoch 0.03 ... Loss 1.026 ... Accuracy 0.451
+... Iteration 160 ... Epoch 0.03 ... Loss 1.003 ... Accuracy 0.463
+... Iteration 170 ... Epoch 0.03 ... Loss 0.981 ... Accuracy 0.455
+... Iteration 180 ... Epoch 0.03 ... Loss 0.960 ... Accuracy 0.486
+... Iteration 190 ... Epoch 0.03 ... Loss 0.935 ... Accuracy 0.543
+... Iteration 200 ... Epoch 0.04 ... Loss 0.935 ... Accuracy 0.561
+... Iteration 210 ... Epoch 0.04 ... Loss 0.878 ... Accuracy 0.584
+... Iteration 220 ... Epoch 0.04 ... Loss 0.917 ... Accuracy 0.555
+... Iteration 230 ... Epoch 0.04 ... Loss 0.871 ... Accuracy 0.561
+... Iteration 240 ... Epoch 0.04 ... Loss 0.836 ... Accuracy 0.543
+... Iteration 250 ... Epoch 0.05 ... Loss 0.820 ... Accuracy 0.562
+... Iteration 260 ... Epoch 0.05 ... Loss 0.815 ... Accuracy 0.582
+... Iteration 270 ... Epoch 0.05 ... Loss 0.749 ... Accuracy 0.627
+... Iteration 280 ... Epoch 0.05 ... Loss 0.775 ... Accuracy 0.547
+... Iteration 290 ... Epoch 0.05 ... Loss 0.712 ... Accuracy 0.600
+... Iteration 300 ... Epoch 0.06 ... Loss 0.672 ... Accuracy 0.646
+... Iteration 310 ... Epoch 0.06 ... Loss 0.691 ... Accuracy 0.600
+... Iteration 320 ... Epoch 0.06 ... Loss 0.682 ... Accuracy 0.594
+... Iteration 330 ... Epoch 0.06 ... Loss 0.636 ... Accuracy 0.643
+... Iteration 340 ... Epoch 0.06 ... Loss 0.620 ... Accuracy 0.602

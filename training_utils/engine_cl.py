@@ -59,10 +59,10 @@ class EngineCL(Engine):
             self.criterion = CELoss
         
         if config.train_all:
-            self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr)
+            self.optimizer=Adam(self.model_accs.parameters(), lr=config.lr, weight_decay=config.weight_decay)
             print("Entire model parameters passed to the optimizer")
         else:
-            self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr)
+            self.optimizer=Adam(self.model_accs.classifier.parameters(), lr=config.lr, weight_decay=config.weight_decay)
             print("Only model.classifier parameters passed to the optimizer")
         
         # Assert that we have samples to train the classifier
