@@ -138,8 +138,6 @@ class WCH5DatasetTest(Dataset):
         for i in np.arange(len(self.datasets)):
             
             if index < (self.labels[self.datasets[i]].shape[0]):
-                label = self.labels[self.datasets[i]][index] 
-
                 start = self.event_hits_index[i][index]
                 stop = self.event_hits_index[i][index+1]
                 hit_pmts = self.hit_pmt[i][start:stop].astype(np.int16)
@@ -150,12 +148,13 @@ class WCH5DatasetTest(Dataset):
                 hit_charges = self.charge[i][start:stop]
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
+                label = self.labels[self.datasets[i]][index] 
 
                 if self.collapse_arrays:
                     data = np.expand_dims(np.sum(data, 0),0)
                     return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
                 else:
-                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
 
                 #fix barrel array indexing to match endcaps in xyz ordering
                 barrel = data[:,12:28,:]
