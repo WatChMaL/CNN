@@ -159,7 +159,7 @@ class WCH5DatasetTest(Dataset):
                     data = np.expand_dims(np.sum(data, 0),0)
                     return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
                 else:
-                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
+                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), label, self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.eventids[self.datasets[i]][index], self.rootfiles[self.datasets[i]][index]
 
                 #fix barrel array indexing to match endcaps in xyz ordering
                 barrel = data[:,12:28,:]

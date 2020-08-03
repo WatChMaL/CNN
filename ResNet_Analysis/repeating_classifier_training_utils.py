@@ -343,6 +343,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         train_log_csv = pd.read_csv(train_log)
         val_log_csv  = pd.read_csv(val_log)
         
+        disp_names = ['' for _ in range(len(locations))]
         if best_only:
             best_idxs = [0]
             best_epoch=0
@@ -354,8 +355,9 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
                     best_epoch=val_log_csv.epoch[idx]
             val_log_csv = val_log_csv.loc[best_idxs]
             if titles is not None:
-                titles[i] = titles[i] + ", Best Val Loss ={loss:.4f}@Ep.{epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
-                
+                disp_names[i] = titles[i] + ", \n Best Val Loss ={loss:.4f}@Ep.{epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
+        else:
+            disp_names=titles
         ax1=fig.add_subplot(gs[i],facecolor='w') if i ==0 else fig.add_subplot(gs[i],facecolor='w',sharey=axes[0])
         ax1.set_xlim(0,train_log_csv.epoch.max())
         axes.append(ax1)
@@ -364,7 +366,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         if losslim is not None:
             ax1.set_ylim(None,losslim)
         if titles is not None:
-            ax1.set_title(titles[i],size=title_font)
+            ax1.set_title(disp_names[i],size=title_font)
         ax2 = ax1.twinx()
         line21 = ax2.plot(train_log_csv.epoch, train_log_csv.accuracy, linewidth=2, label='Train accuracy', color='r', alpha=0.3)
         line22 = ax2.plot(val_log_csv.epoch, val_log_csv.accuracy, marker='o', markersize=3, linestyle='', label='Validation accuracy', color='red')
