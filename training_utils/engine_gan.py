@@ -112,40 +112,42 @@ class EngineGAN(Engine):
             grad_mode= False
             self.model.eval()
         
-        
-        ############################
-        # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
-        ###########################
-        ## Train with all-real batch
         self.model.discriminator.zero_grad()
-        # Format batch
-        b_size = self.data.size(0)
-        label = full((b_size,), self.real_label, device=self.device)
-        # Forward pass real batch through D
-        output = self.model.discriminator(self.data).view(-1)
-        # Calculate loss on all-real batch
-        errD_real = self.criterion(output, label)
-        # Calculate gradients for D in backward pass
-        errD_real.backward()
-        D_x = output.mean().item()
-
-        ## Train with all-fake batch
+        errD = 20
         # Generate batch of latent vectors
+        b_size = self.data.size(0)
         noise = randn(b_size, self.nz, 1, 1, device=self.device)
-        # Generate fake image batch with G
-        fake = self.model.generator(noise)
-        label.fill_(self.fake_label)
-        # Classify all fake batch with D
-        output = self.model.discriminator(fake.detach()).view(-1)
-        # Calculate D's loss on the all-fake batch
-        errD_fake = self.criterion(output, label)
-        # Calculate the gradients for this batch
-        errD_fake.backward()
-        D_G_z1 = output.mean().item()
-        # Add the gradients from the all-real and all-fake batches
-        errD = errD_real + errD_fake
-        # Update D
-        self.optimizerD.step()
+
+        while errD > 1:
+            ############################
+            # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
+            ###########################
+            ## Train with all-real batch
+            # Format batch
+            label = full((b_size,), self.real_label, device=self.device)
+            # Forward pass real batch through D
+            output = self.model.discriminator(self.data).view(-1)
+            # Calculate loss on all-real batch
+            errD_real = self.criterion(output, label)
+            # Calculate gradients for D in backward pass
+            errD_real.backward()
+            D_x = output.mean().item()
+
+            ## Train with all-fake batch
+            # Generate fake image batch with G
+            fake = self.model.generator(noise)
+            label.fill_(self.fake_label)
+            # Classify all fake batch with D
+            output = self.model.discriminator(fake.detach()).view(-1)
+            # Calculate D's loss on the all-fake batch
+            errD_fake = self.criterion(output, label)
+            # Calculate the gradients for this batch
+            errD_fake.backward()
+            D_G_z1 = output.mean().item()
+            # Add the gradients from the all-real and all-fake batches
+            errD = errD_real + errD_fake
+            # Update D
+            self.optimizerD.step()
 
         ############################
         # (2) Update G network: maximize log(D(G(z)))
