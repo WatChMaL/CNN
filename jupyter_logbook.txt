@@ -1,224 +1,48 @@
-[I 09:52:23.891 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:52:23.891 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:52:23.891 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:52:25.514 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:52:25.603 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:52:25.603 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:52:25.605 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:52:25.605 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:52:25.605 NotebookApp] The Jupyter Notebook is running at:
-[I 09:52:25.605 NotebookApp] http://hostname:8888/?token=f825c48b0055bcfc7d40d06fede20720b2d146d1bbb505cc
-[I 09:52:25.605 NotebookApp]  or http://127.0.0.1:8891/?token=f825c48b0055bcfc7d40d06fede20720b2d146d1bbb505cc
-[I 09:52:25.606 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:52:25.611 NotebookApp] 
+[I 09:42:53.010 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:42:53.075 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:42:53.075 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:42:53.076 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:42:53.076 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:42:53.076 NotebookApp] The Jupyter Notebook is running at:
+[I 09:42:53.076 NotebookApp] http://hostname:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
+[I 09:42:53.076 NotebookApp]  or http://127.0.0.1:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
+[I 09:42:53.076 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:42:53.080 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-59082-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-57590-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=f825c48b0055bcfc7d40d06fede20720b2d146d1bbb505cc
-     or http://127.0.0.1:8891/?token=f825c48b0055bcfc7d40d06fede20720b2d146d1bbb505cc
-[I 09:52:52.793 NotebookApp] 302 GET /?token=f825c48b0055bcfc7d40d06fede20720b2d146d1bbb505cc (::1) 1.05ms
-[I 10:03:53.839 NotebookApp] Kernel started: e3c77649-294c-4052-b671-3a35624f77b3
-[I 10:03:58.996 NotebookApp] Copying ResNet_Analysis/E-Gamma Only.ipynb to /ResNet_Analysis
-[I 10:03:59.081 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:04:03.213 NotebookApp] Kernel started: 371a2336-5dc6-4703-81af-20205362dd84
-[I 10:06:03.328 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:06:03.329 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:08:03.323 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:08:03.323 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:10:03.333 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:10:03.334 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:12:03.310 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:12:03.312 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:16:03.307 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:16:03.307 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:24:03.321 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:24:03.321 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:26:03.360 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:26:03.360 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:38:11.546 NotebookApp] Kernel interrupted: 371a2336-5dc6-4703-81af-20205362dd84
-[I 10:40:03.368 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:40:03.369 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:42:03.309 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:42:03.309 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:46:03.374 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:46:03.375 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:50:03.297 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:50:03.297 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:52:03.316 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:52:03.316 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:56:03.373 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:56:03.374 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 10:57:38.705 NotebookApp] Starting buffering for 371a2336-5dc6-4703-81af-20205362dd84:41bf1c730b8342909c60e709f46a1d50
-[I 10:57:40.435 NotebookApp] Kernel restarted: 371a2336-5dc6-4703-81af-20205362dd84
-[I 10:57:42.433 NotebookApp] Restoring connection for 371a2336-5dc6-4703-81af-20205362dd84:41bf1c730b8342909c60e709f46a1d50
-[I 10:57:42.433 NotebookApp] Replaying 3 buffered messages
-[I 10:58:03.323 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 10:58:03.324 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 11:00:03.297 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 11:00:03.297 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 11:02:03.345 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 11:02:03.348 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 11:14:03.360 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 11:14:03.362 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 11:16:03.341 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 11:16:03.341 NotebookApp] Saving E-Gamma Only-Copy1.ipynb
-[I 11:19:53.970 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:19:53.970 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:21:10.834 NotebookApp] Kernel started: ba014595-1dd2-4464-942f-c7b0ac7a6326
-[I 11:21:53.927 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:21:53.928 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:22:34.685 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:22:34.686 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:22:58.743 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:22:58.743 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:23:11.260 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:23:11.260 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:25:11.184 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:25:11.184 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:27:11.425 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:27:11.426 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:27:53.874 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:27:53.874 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:29:11.118 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:29:11.118 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:31:53.891 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:31:53.892 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:33:53.916 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:33:53.917 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:35:53.911 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:35:53.911 NotebookApp] Saving E-Gamma Only.ipynb
-[I 12:19:11.371 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:19:11.373 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:21:11.396 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:21:11.396 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:45:54.127 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 12:45:54.128 NotebookApp] Saving E-Gamma Only.ipynb
-[I 12:47:11.306 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:47:11.307 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:49:11.460 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:49:11.461 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:51:11.198 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:51:11.198 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:51:22.900 NotebookApp] Starting buffering for 371a2336-5dc6-4703-81af-20205362dd84:41bf1c730b8342909c60e709f46a1d50
-[I 12:53:11.344 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:53:11.345 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 12:55:11.307 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 12:55:11.308 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:01:12.040 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:01:12.042 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:07:11.309 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:07:11.310 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:09:11.231 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:09:11.232 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:11:11.306 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:11:11.307 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:13:11.344 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:13:11.344 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:15:12.326 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:15:12.327 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:17:11.470 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:17:11.470 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:29:03.239 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:29:03.240 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:31:11.421 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:31:11.422 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:31:54.025 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 13:31:54.025 NotebookApp] Saving E-Gamma Only.ipynb
-[I 13:35:11.890 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:35:11.891 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:37:11.383 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:37:11.384 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:45:11.836 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:45:11.843 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:47:11.386 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:47:11.386 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 13:49:11.476 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 13:49:11.479 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 14:01:11.626 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 14:01:11.632 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 14:03:11.589 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 14:03:11.590 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 14:05:17.422 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 14:05:17.424 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 14:15:54.157 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 14:15:54.157 NotebookApp] Saving E-Gamma Only.ipynb
-[I 14:18:59.173 NotebookApp] Starting buffering for 371a2336-5dc6-4703-81af-20205362dd84:371e420ad143410484a347c8724565c6
-[I 14:19:00.484 NotebookApp] Kernel shutdown: 371a2336-5dc6-4703-81af-20205362dd84
-[W 14:19:05.978 NotebookApp] delete /ResNet_Analysis/E-Gamma Only-Copy1.ipynb
-[I 14:19:11.558 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 14:19:11.558 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:41:11.559 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:41:11.561 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:43:11.832 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:43:11.832 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:45:11.441 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:45:11.441 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:45:48.655 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:45:48.656 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:51:11.467 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:51:11.467 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:51:46.216 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:51:46.217 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:53:11.390 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:53:11.390 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 15:55:11.420 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 15:55:11.420 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:03:11.435 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:03:11.438 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:05:11.486 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:05:11.486 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:07:11.402 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:07:11.403 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:11:11.587 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:11:11.587 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:13:11.432 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:13:11.432 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:14:21.618 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:14:21.619 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:14:22.786 NotebookApp] Starting buffering for ba014595-1dd2-4464-942f-c7b0ac7a6326:503b1a368da7449386a4e8a355e40e3f
-[I 16:14:37.038 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 16:14:37.039 NotebookApp] Saving E-Gamma Only.ipynb
-[I 16:15:54.104 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 16:15:54.104 NotebookApp] Saving E-Gamma Only.ipynb
-[I 16:17:54.103 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 16:17:54.103 NotebookApp] Saving E-Gamma Only.ipynb
-[I 16:17:56.566 NotebookApp] Starting buffering for e3c77649-294c-4052-b671-3a35624f77b3:348bc90f50f84f14a00174876fcec008
-[I 16:20:19.620 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:20:19.621 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:32:19.737 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:32:19.738 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:34:19.654 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:34:19.655 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:35:19.418 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:35:19.418 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:36:19.748 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:36:19.749 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:36:50.884 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:36:50.885 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:38:19.804 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:38:19.804 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:40:19.612 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:40:19.613 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:46:20.166 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:46:20.166 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:46:35.044 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:46:35.044 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:48:19.825 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:48:19.825 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 16:54:20.414 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 16:54:20.415 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 17:04:15.917 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 17:04:15.917 NotebookApp] Saving E-Gamma Only.ipynb
-[I 17:04:36.408 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 17:04:36.408 NotebookApp] Saving E-Gamma Only.ipynb
-[I 17:06:16.483 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 17:06:16.484 NotebookApp] Saving E-Gamma Only.ipynb
-[I 17:06:44.641 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 17:06:44.641 NotebookApp] Saving E-Gamma Only.ipynb
-[I 17:07:58.549 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 17:07:58.549 NotebookApp] Saving E-Gamma Only.ipynb
-[I 17:08:00.716 NotebookApp] Starting buffering for e3c77649-294c-4052-b671-3a35624f77b3:87f4e46e54934615a978c8dde4fb0f71
-[I 17:08:10.599 NotebookApp] Starting buffering for ba014595-1dd2-4464-942f-c7b0ac7a6326:6368a8595d5946ff84f5b2e02f53e8ca
-[I 17:08:14.895 NotebookApp] Kernel shutdown: e3c77649-294c-4052-b671-3a35624f77b3
-[I 17:08:17.108 NotebookApp] Kernel shutdown: ba014595-1dd2-4464-942f-c7b0ac7a6326
+        http://hostname:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
+     or http://127.0.0.1:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
+[I 09:44:40.680 NotebookApp] 302 GET /?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383 (::1) 1.17ms
+[I 09:48:53.446 NotebookApp] Kernel started: a274675e-40d0-446d-a8c5-3c8aa5ad2586
+[I 09:50:53.285 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 09:50:53.286 NotebookApp] Saving E-Gamma Only.ipynb
+[I 09:52:53.271 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 09:52:53.272 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:00:53.320 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:00:53.320 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:08:53.339 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:08:53.340 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:10:53.276 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:10:53.276 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:12:53.378 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:12:53.379 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:14:53.193 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:14:53.193 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:16:53.315 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:16:53.316 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:18:53.350 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:18:53.350 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:20:53.412 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:20:53.412 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:22:53.302 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:22:53.303 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:24:53.421 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:24:53.421 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:26:53.340 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:26:53.340 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:28:53.396 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:28:53.396 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:24:05.749 NotebookApp] Starting buffering for a274675e-40d0-446d-a8c5-3c8aa5ad2586:8b2b0714bc174b6a9a16026691bb137a
+[I 11:24:12.627 NotebookApp] Kernel shutdown: a274675e-40d0-446d-a8c5-3c8aa5ad2586
