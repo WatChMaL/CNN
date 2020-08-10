@@ -1,48 +1,53 @@
-[I 09:42:53.010 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:42:53.075 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:42:53.075 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:42:53.076 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:42:53.076 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:42:53.076 NotebookApp] The Jupyter Notebook is running at:
-[I 09:42:53.076 NotebookApp] http://hostname:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
-[I 09:42:53.076 NotebookApp]  or http://127.0.0.1:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
-[I 09:42:53.076 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:42:53.080 NotebookApp] 
+[I 09:54:58.315 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:54:58.432 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:54:58.432 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:54:58.434 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:54:58.435 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:54:58.435 NotebookApp] The Jupyter Notebook is running at:
+[I 09:54:58.435 NotebookApp] http://hostname:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
+[I 09:54:58.435 NotebookApp]  or http://127.0.0.1:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
+[I 09:54:58.435 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:54:58.441 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-57590-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-19877-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
-     or http://127.0.0.1:8888/?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383
-[I 09:44:40.680 NotebookApp] 302 GET /?token=6f98679b2cf70c6fb1ffe9cb7c662ab00899cff009e7c383 (::1) 1.17ms
-[I 09:48:53.446 NotebookApp] Kernel started: a274675e-40d0-446d-a8c5-3c8aa5ad2586
-[I 09:50:53.285 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 09:50:53.286 NotebookApp] Saving E-Gamma Only.ipynb
-[I 09:52:53.271 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 09:52:53.272 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:00:53.320 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:00:53.320 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:08:53.339 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:08:53.340 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:10:53.276 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:10:53.276 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:12:53.378 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:12:53.379 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:14:53.193 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:14:53.193 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:16:53.315 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:16:53.316 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:18:53.350 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:18:53.350 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:20:53.412 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:20:53.412 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:22:53.302 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:22:53.303 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:24:53.421 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:24:53.421 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:26:53.340 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:26:53.340 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:28:53.396 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:28:53.396 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:24:05.749 NotebookApp] Starting buffering for a274675e-40d0-446d-a8c5-3c8aa5ad2586:8b2b0714bc174b6a9a16026691bb137a
-[I 11:24:12.627 NotebookApp] Kernel shutdown: a274675e-40d0-446d-a8c5-3c8aa5ad2586
+        http://hostname:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
+     or http://127.0.0.1:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
+[I 10:03:35.703 NotebookApp] 302 GET /?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63 (::1) 1.51ms
+[W 10:19:00.833 NotebookApp] delete /dumps/20200806_172247
+[I 10:28:58.676 NotebookApp] Kernel started: b4c9db23-a802-4a8e-b1d7-1f7f5327b633
+[I 10:30:21.283 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:30:21.284 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:30:58.875 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:30:58.876 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:32:59.012 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:32:59.012 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:34:58.874 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:34:58.874 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:42:58.721 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:42:58.721 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:44:58.895 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:44:58.895 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:46:58.725 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:46:58.725 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:48:58.766 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:48:58.766 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:50:58.797 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:50:58.798 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:52:58.766 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:52:58.766 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:54:58.767 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:54:58.768 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:56:58.773 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:56:58.774 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:58:58.782 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:58:58.782 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:01:07.329 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:01:07.329 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:01:08.522 NotebookApp] Starting buffering for b4c9db23-a802-4a8e-b1d7-1f7f5327b633:e09279394ad644da87cda12cf172d2a4
+[I 11:01:12.935 NotebookApp] Kernel shutdown: b4c9db23-a802-4a8e-b1d7-1f7f5327b633
+[I 11:01:25.558 NotebookApp] Kernel started: e81c50f1-9f15-4d29-ac07-0492f3ea7340
+[I 11:02:07.159 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:02:07.160 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:02:10.727 NotebookApp] Starting buffering for e81c50f1-9f15-4d29-ac07-0492f3ea7340:9c2e9ff4fa53422c8ac576725f43944d
