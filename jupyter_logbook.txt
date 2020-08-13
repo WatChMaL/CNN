@@ -1,53 +1,1014 @@
-[I 09:54:58.315 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:54:58.432 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:54:58.432 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:54:58.434 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:54:58.435 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:54:58.435 NotebookApp] The Jupyter Notebook is running at:
-[I 09:54:58.435 NotebookApp] http://hostname:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
-[I 09:54:58.435 NotebookApp]  or http://127.0.0.1:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
-[I 09:54:58.435 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:54:58.441 NotebookApp] 
+[I 10:40:59.363 NotebookApp] The port 8888 is already in use, trying another port.
+[I 10:40:59.364 NotebookApp] The port 8889 is already in use, trying another port.
+[I 10:40:59.364 NotebookApp] The port 8890 is already in use, trying another port.
+[I 10:40:59.364 NotebookApp] The port 8891 is already in use, trying another port.
+[I 10:40:59.364 NotebookApp] The port 8892 is already in use, trying another port.
+[I 10:41:01.311 NotebookApp] jupyter_tensorboard extension loaded.
+[I 10:41:01.408 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 10:41:01.408 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 10:41:01.410 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 10:41:01.410 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 10:41:01.410 NotebookApp] The Jupyter Notebook is running at:
+[I 10:41:01.410 NotebookApp] http://hostname:8888/?token=0ebfa8be8761bb08f78b0eca801445b31b995189bf174abe
+[I 10:41:01.410 NotebookApp]  or http://127.0.0.1:8838/?token=0ebfa8be8761bb08f78b0eca801445b31b995189bf174abe
+[I 10:41:01.410 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 10:41:01.419 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-19877-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-44553-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
-     or http://127.0.0.1:8888/?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63
-[I 10:03:35.703 NotebookApp] 302 GET /?token=96dcfebbeb305a50a50827da41d5d53375d442225c1c1a63 (::1) 1.51ms
-[W 10:19:00.833 NotebookApp] delete /dumps/20200806_172247
-[I 10:28:58.676 NotebookApp] Kernel started: b4c9db23-a802-4a8e-b1d7-1f7f5327b633
-[I 10:30:21.283 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:30:21.284 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:30:58.875 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:30:58.876 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:32:59.012 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:32:59.012 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:34:58.874 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:34:58.874 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:42:58.721 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:42:58.721 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:44:58.895 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:44:58.895 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:46:58.725 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:46:58.725 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:48:58.766 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:48:58.766 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:50:58.797 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:50:58.798 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:52:58.766 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:52:58.766 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:54:58.767 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:54:58.768 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:56:58.773 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:56:58.774 NotebookApp] Saving E-Gamma Only.ipynb
-[I 10:58:58.782 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:58:58.782 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:01:07.329 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 11:01:07.329 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:01:08.522 NotebookApp] Starting buffering for b4c9db23-a802-4a8e-b1d7-1f7f5327b633:e09279394ad644da87cda12cf172d2a4
-[I 11:01:12.935 NotebookApp] Kernel shutdown: b4c9db23-a802-4a8e-b1d7-1f7f5327b633
-[I 11:01:25.558 NotebookApp] Kernel started: e81c50f1-9f15-4d29-ac07-0492f3ea7340
-[I 11:02:07.159 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 11:02:07.160 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 11:02:10.727 NotebookApp] Starting buffering for e81c50f1-9f15-4d29-ac07-0492f3ea7340:9c2e9ff4fa53422c8ac576725f43944d
+        http://hostname:8888/?token=0ebfa8be8761bb08f78b0eca801445b31b995189bf174abe
+     or http://127.0.0.1:8838/?token=0ebfa8be8761bb08f78b0eca801445b31b995189bf174abe
+[I 10:41:51.521 NotebookApp] 302 GET /?token=0ebfa8be8761bb08f78b0eca801445b31b995189bf174abe (::1) 0.91ms
+[I 10:54:23.244 NotebookApp] Kernel started: 2adc038e-e01b-4203-9ab0-370d0fb3c13c
+[I 10:56:23.154 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:56:23.160 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 10:58:22.992 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:58:22.997 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:00:22.927 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:00:22.928 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:04:23.030 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:04:23.036 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:06:23.013 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:06:23.032 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:08:22.898 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:08:22.905 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:10:22.955 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:10:22.975 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:12:23.051 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 11:12:23.062 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 11:31:36.518 NotebookApp] Starting buffering for 2adc038e-e01b-4203-9ab0-370d0fb3c13c:cf1e92746a5a402b894c1ad2ff9691e7
+[I 11:31:39.916 NotebookApp] Kernel shutdown: 2adc038e-e01b-4203-9ab0-370d0fb3c13c
+[W 11:50:28.406 NotebookApp] delete /dumps/20200810_160606
+[W 11:53:12.120 NotebookApp] Notebook collapse_runs.sh is not trusted
+[I 11:53:12.438 NotebookApp] Kernel started: 1cb7d1d1-9f78-45f6-99e5-96799e6ff7f9
+[W 12:16:46.193 NotebookApp] delete /Untitled.ipynb
+[W 12:16:46.214 NotebookApp] delete /Untitled1.ipynb
+[W 12:16:46.219 NotebookApp] delete /Untitled2.ipynb
+[W 12:16:46.220 NotebookApp] delete /Untitled3.ipynb
+[I 12:17:20.931 NotebookApp] Kernel started: 35ced7a0-2e25-4753-9f13-3503a28f0499
+[I 12:25:21.068 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:25:21.075 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:26:57.733 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:26:57.735 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:27:20.998 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:27:20.998 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:29:06.107 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:29:06.112 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:31:21.210 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:31:21.218 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:32:45.140 NotebookApp] Starting buffering for 35ced7a0-2e25-4753-9f13-3503a28f0499:15e749a64d7f40d3bb5e376686682c8c
+[I 12:32:45.900 NotebookApp] Kernel restarted: 35ced7a0-2e25-4753-9f13-3503a28f0499
+[I 12:32:48.852 NotebookApp] Restoring connection for 35ced7a0-2e25-4753-9f13-3503a28f0499:15e749a64d7f40d3bb5e376686682c8c
+[I 12:32:48.852 NotebookApp] Replaying 6 buffered messages
+[I 12:33:20.946 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:33:20.946 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:39:20.971 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:39:20.978 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:41:20.987 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:41:20.989 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:55:20.986 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:55:20.993 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:57:21.167 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:57:21.176 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:59:21.213 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:59:21.220 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:01:11.583 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:01:11.592 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:01:21.008 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:01:21.009 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:03:21.020 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:03:21.036 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:05:21.119 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:05:21.134 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:11:20.990 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:11:20.992 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:13:21.023 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:13:21.030 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:15:21.014 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:15:21.017 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:17:21.019 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:17:21.021 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:19:21.458 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:19:21.482 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:21:21.248 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:21:21.259 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:23:21.435 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:23:21.441 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:25:21.179 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:25:21.230 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:27:21.454 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:27:21.460 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:30:40.832 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:30:40.842 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:33:21.581 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:33:21.595 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:33:42.625 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:33:42.626 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:43:21.544 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:43:21.554 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:45:21.423 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:45:21.431 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:46:33.201 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:46:33.203 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:47:21.438 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:47:21.443 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:49:23.408 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:49:23.425 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:51:34.224 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:51:34.225 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:54:12.263 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:54:12.373 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:54:25.183 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:54:25.183 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:54:38.073 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:54:38.075 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:55:23.392 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:55:23.394 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 13:57:23.502 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 13:57:23.510 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 15:07:03.202 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 15:07:03.230 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:00:53.482 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:00:53.490 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:04:03.230 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:04:03.255 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:07:13.196 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:07:13.197 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:10:23.437 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:10:23.459 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:16:43.143 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:16:43.169 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:16:54.653 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:16:54.654 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:19:53.225 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:19:53.232 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:23:03.293 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:23:03.355 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:23:08.926 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:23:08.927 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:31:03.798 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:31:03.806 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:32:33.249 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:32:33.251 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:35:43.153 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:35:43.154 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:37:25.030 NotebookApp] Kernel started: 5024e1f0-32e6-4d81-a3ec-95172b6b37a4
+[I 16:38:53.334 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:38:53.346 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:51:33.509 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:51:33.510 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:54:49.821 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:54:49.822 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 16:57:53.394 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 16:57:53.398 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:01:03.370 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:01:03.375 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:04:13.453 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:04:13.460 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:05:17.691 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:05:17.692 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:07:24.617 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:07:24.638 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:10:35.421 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:10:35.428 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:16:53.460 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:16:53.465 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:20:03.349 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:20:03.352 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:22:48.161 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:22:48.176 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:23:13.352 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:23:13.353 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:26:23.441 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:26:23.482 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:27:21.221 NotebookApp] Kernel interrupted: 35ced7a0-2e25-4753-9f13-3503a28f0499
+[I 17:29:33.663 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:29:33.670 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:32:43.659 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:32:43.667 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:35:53.309 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:35:53.314 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:39:03.250 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:39:03.368 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:48:33.290 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:48:33.325 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:54:53.289 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:54:53.294 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 17:58:03.415 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 17:58:03.419 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 18:01:10.356 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 18:01:10.357 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 18:01:11.787 NotebookApp] Starting buffering for 5024e1f0-32e6-4d81-a3ec-95172b6b37a4:b4ef40ea16ea45ed843b48b73fb0370f
+[I 18:01:12.610 NotebookApp] Starting buffering for 35ced7a0-2e25-4753-9f13-3503a28f0499:15e749a64d7f40d3bb5e376686682c8c
+[I 18:01:18.579 NotebookApp] Kernel shutdown: 5024e1f0-32e6-4d81-a3ec-95172b6b37a4
+[I 18:01:19.011 NotebookApp] Kernel shutdown: 35ced7a0-2e25-4753-9f13-3503a28f0499
+[I 09:51:29.718 NotebookApp] Kernel started: a41be7ac-73d9-4b23-aed7-6356b971b9de
+[W 09:51:39.814 NotebookApp] zmq message arrived on closed channel
+[W 09:51:39.815 NotebookApp] zmq message arrived on closed channel
+[W 09:51:39.821 NotebookApp] zmq message arrived on closed channel
+[W 09:51:39.822 NotebookApp] zmq message arrived on closed channel
+[I 09:51:55.191 NotebookApp] Kernel started: 03736c11-a57e-48d5-9423-1f2c8ec0b726
+[I 09:51:55.726 NotebookApp] Starting buffering for a41be7ac-73d9-4b23-aed7-6356b971b9de:5c9303e377d543ef8e1bc7476377273a
+[I 10:14:11.278 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:14:11.285 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 10:25:02.104 NotebookApp] Starting buffering for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 10:25:02.699 NotebookApp] Kernel restarted: 03736c11-a57e-48d5-9423-1f2c8ec0b726
+[I 10:25:05.669 NotebookApp] Restoring connection for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 10:25:05.669 NotebookApp] Replaying 6 buffered messages
+[W 10:25:08.493 NotebookApp] zmq message arrived on closed channel
+[W 10:25:08.494 NotebookApp] zmq message arrived on closed channel
+[W 10:25:08.507 NotebookApp] zmq message arrived on closed channel
+[W 10:25:08.511 NotebookApp] zmq message arrived on closed channel
+[I 10:25:55.220 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:25:55.221 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 10:29:55.210 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:29:55.219 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 10:31:55.322 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 10:31:55.335 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 10:32:26.299 NotebookApp] Starting buffering for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[I 10:32:26.837 NotebookApp] Kernel restarted: a41be7ac-73d9-4b23-aed7-6356b971b9de
+[W 10:32:26.839 NotebookApp] zmq message arrived on closed channel
+[W 10:32:26.840 NotebookApp] zmq message arrived on closed channel
+[W 10:32:26.841 NotebookApp] zmq message arrived on closed channel
+[I 10:32:28.848 NotebookApp] Restoring connection for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[I 10:32:28.848 NotebookApp] Replaying 3 buffered messages
+[W 10:32:28.886 NotebookApp] zmq message arrived on closed channel
+[W 10:32:28.887 NotebookApp] zmq message arrived on closed channel
+[W 10:32:29.016 NotebookApp] zmq message arrived on closed channel
+[W 10:32:29.019 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.678 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.680 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.684 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.700 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.701 NotebookApp] zmq message arrived on closed channel
+[W 10:32:33.702 NotebookApp] zmq message arrived on closed channel
+[I 10:33:08.282 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:33:08.284 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:33:13.743 NotebookApp] zmq message arrived on closed channel
+[W 10:33:13.938 NotebookApp] zmq message arrived on closed channel
+[W 10:33:13.941 NotebookApp] zmq message arrived on closed channel
+[W 10:33:13.945 NotebookApp] zmq message arrived on closed channel
+[W 10:33:51.977 NotebookApp] zmq message arrived on closed channel
+[W 10:33:51.980 NotebookApp] zmq message arrived on closed channel
+[W 10:33:51.982 NotebookApp] zmq message arrived on closed channel
+[W 10:33:51.983 NotebookApp] zmq message arrived on closed channel
+[W 10:33:52.002 NotebookApp] zmq message arrived on closed channel
+[W 10:33:52.004 NotebookApp] zmq message arrived on closed channel
+[W 10:33:52.007 NotebookApp] zmq message arrived on closed channel
+[I 10:35:08.366 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:35:08.367 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:36:23.198 NotebookApp] zmq message arrived on closed channel
+[W 10:36:23.200 NotebookApp] zmq message arrived on closed channel
+[W 10:36:23.202 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.283 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.288 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.291 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.293 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.656 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.658 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.661 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.663 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.712 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.714 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.716 NotebookApp] zmq message arrived on closed channel
+[W 10:36:26.717 NotebookApp] zmq message arrived on closed channel
+[W 10:36:30.540 NotebookApp] zmq message arrived on closed channel
+[W 10:36:30.542 NotebookApp] zmq message arrived on closed channel
+[W 10:36:30.542 NotebookApp] zmq message arrived on closed channel
+[W 10:36:42.559 NotebookApp] zmq message arrived on closed channel
+[W 10:36:42.562 NotebookApp] zmq message arrived on closed channel
+[W 10:36:42.564 NotebookApp] zmq message arrived on closed channel
+[W 10:36:42.565 NotebookApp] zmq message arrived on closed channel
+[I 10:37:08.400 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:37:08.400 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:37:28.850 NotebookApp] zmq message arrived on closed channel
+[W 10:37:28.854 NotebookApp] zmq message arrived on closed channel
+[W 10:37:28.857 NotebookApp] zmq message arrived on closed channel
+[W 10:37:28.897 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.067 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.223 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.348 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.484 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.633 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.782 NotebookApp] zmq message arrived on closed channel
+[W 10:37:29.927 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.109 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.253 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.365 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.486 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.606 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.713 NotebookApp] zmq message arrived on closed channel
+[W 10:37:30.820 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.007 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.160 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.306 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.448 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.556 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.650 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.753 NotebookApp] zmq message arrived on closed channel
+[W 10:37:31.892 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.053 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.215 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.360 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.472 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.577 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.701 NotebookApp] zmq message arrived on closed channel
+[W 10:37:32.853 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.000 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.156 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.268 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.408 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.492 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.614 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.721 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.837 NotebookApp] zmq message arrived on closed channel
+[W 10:37:33.954 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.060 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.172 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.298 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.442 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.588 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.700 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.796 NotebookApp] zmq message arrived on closed channel
+[W 10:37:34.928 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.037 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.144 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.237 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.354 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.485 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.599 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.713 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.816 NotebookApp] zmq message arrived on closed channel
+[W 10:37:35.923 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.027 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.156 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.267 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.375 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.492 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.590 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.682 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.781 NotebookApp] zmq message arrived on closed channel
+[W 10:37:36.893 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.000 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.110 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.231 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.338 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.448 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.548 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.643 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.777 NotebookApp] zmq message arrived on closed channel
+[W 10:37:37.898 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.009 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.115 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.212 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.341 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.452 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.562 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.665 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.769 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.877 NotebookApp] zmq message arrived on closed channel
+[W 10:37:38.989 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.102 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.211 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.317 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.433 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.539 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.663 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.763 NotebookApp] zmq message arrived on closed channel
+[W 10:37:39.886 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.000 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.123 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.189 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.326 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.452 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.599 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.749 NotebookApp] zmq message arrived on closed channel
+[W 10:37:40.890 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.000 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.005 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.008 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.012 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.013 NotebookApp] zmq message arrived on closed channel
+[W 10:37:41.014 NotebookApp] zmq message arrived on closed channel
+[W 10:37:42.034 NotebookApp] zmq message arrived on closed channel
+[W 10:37:42.036 NotebookApp] zmq message arrived on closed channel
+[W 10:37:42.038 NotebookApp] zmq message arrived on closed channel
+[W 10:37:45.814 NotebookApp] zmq message arrived on closed channel
+[W 10:37:45.816 NotebookApp] zmq message arrived on closed channel
+[W 10:37:45.823 NotebookApp] zmq message arrived on closed channel
+[W 10:37:45.825 NotebookApp] zmq message arrived on closed channel
+[W 10:37:46.824 NotebookApp] zmq message arrived on closed channel
+[W 10:37:46.826 NotebookApp] zmq message arrived on closed channel
+[W 10:37:46.830 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.512 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.514 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.525 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.528 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.646 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.648 NotebookApp] zmq message arrived on closed channel
+[W 10:37:48.649 NotebookApp] zmq message arrived on closed channel
+[W 10:37:50.073 NotebookApp] zmq message arrived on closed channel
+[W 10:37:50.075 NotebookApp] zmq message arrived on closed channel
+[W 10:37:50.083 NotebookApp] zmq message arrived on closed channel
+[W 10:37:50.086 NotebookApp] zmq message arrived on closed channel
+[W 10:37:56.808 NotebookApp] zmq message arrived on closed channel
+[W 10:37:56.817 NotebookApp] zmq message arrived on closed channel
+[W 10:37:56.819 NotebookApp] zmq message arrived on closed channel
+[W 10:37:56.820 NotebookApp] zmq message arrived on closed channel
+[W 10:38:04.162 NotebookApp] zmq message arrived on closed channel
+[W 10:38:04.163 NotebookApp] zmq message arrived on closed channel
+[W 10:38:04.169 NotebookApp] zmq message arrived on closed channel
+[W 10:38:04.171 NotebookApp] zmq message arrived on closed channel
+[W 10:38:04.516 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.374 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.376 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.379 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.380 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.453 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.457 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.459 NotebookApp] zmq message arrived on closed channel
+[W 10:38:05.735 NotebookApp] zmq message arrived on closed channel
+[W 10:38:06.340 NotebookApp] zmq message arrived on closed channel
+[W 10:38:06.919 NotebookApp] zmq message arrived on closed channel
+[W 10:38:07.626 NotebookApp] zmq message arrived on closed channel
+[W 10:38:08.177 NotebookApp] zmq message arrived on closed channel
+[W 10:38:08.884 NotebookApp] zmq message arrived on closed channel
+[W 10:38:09.301 NotebookApp] zmq message arrived on closed channel
+[W 10:38:09.752 NotebookApp] zmq message arrived on closed channel
+[W 10:38:10.181 NotebookApp] zmq message arrived on closed channel
+[W 10:38:10.562 NotebookApp] zmq message arrived on closed channel
+[W 10:38:10.564 NotebookApp] zmq message arrived on closed channel
+[W 10:38:10.576 NotebookApp] zmq message arrived on closed channel
+[W 10:38:10.578 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.325 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.328 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.330 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.350 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.352 NotebookApp] zmq message arrived on closed channel
+[W 10:38:14.353 NotebookApp] zmq message arrived on closed channel
+[W 10:38:15.464 NotebookApp] zmq message arrived on closed channel
+[W 10:38:15.468 NotebookApp] zmq message arrived on closed channel
+[W 10:38:15.809 NotebookApp] zmq message arrived on closed channel
+[W 10:38:15.812 NotebookApp] zmq message arrived on closed channel
+[W 10:38:15.817 NotebookApp] zmq message arrived on closed channel
+[I 10:39:08.503 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:39:08.504 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:40:25.821 NotebookApp] zmq message arrived on closed channel
+[W 10:40:25.822 NotebookApp] zmq message arrived on closed channel
+[W 10:40:44.789 NotebookApp] zmq message arrived on closed channel
+[W 10:40:44.791 NotebookApp] zmq message arrived on closed channel
+[W 10:40:44.793 NotebookApp] zmq message arrived on closed channel
+[W 10:40:45.147 NotebookApp] zmq message arrived on closed channel
+[W 10:40:45.318 NotebookApp] zmq message arrived on closed channel
+[W 10:40:45.321 NotebookApp] zmq message arrived on closed channel
+[W 10:40:58.036 NotebookApp] zmq message arrived on closed channel
+[W 10:40:58.037 NotebookApp] zmq message arrived on closed channel
+[W 10:40:58.589 NotebookApp] zmq message arrived on closed channel
+[W 10:41:02.210 NotebookApp] zmq message arrived on closed channel
+[W 10:41:02.594 NotebookApp] zmq message arrived on closed channel
+[W 10:41:02.598 NotebookApp] zmq message arrived on closed channel
+[I 10:41:08.461 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:41:08.461 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:42:09.184 NotebookApp] zmq message arrived on closed channel
+[W 10:42:09.187 NotebookApp] zmq message arrived on closed channel
+[W 10:42:14.041 NotebookApp] zmq message arrived on closed channel
+[W 10:42:14.513 NotebookApp] zmq message arrived on closed channel
+[W 10:42:14.516 NotebookApp] zmq message arrived on closed channel
+[W 10:42:56.870 NotebookApp] zmq message arrived on closed channel
+[W 10:42:56.873 NotebookApp] zmq message arrived on closed channel
+[W 10:43:01.668 NotebookApp] zmq message arrived on closed channel
+[W 10:43:02.457 NotebookApp] zmq message arrived on closed channel
+[W 10:43:02.464 NotebookApp] zmq message arrived on closed channel
+[I 10:43:08.515 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:43:08.515 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:44:57.668 NotebookApp] Starting buffering for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[I 10:44:57.670 NotebookApp] Starting buffering for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 10:46:22.833 NotebookApp] Restoring connection for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 10:46:22.906 NotebookApp] Restoring connection for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[W 10:46:22.976 NotebookApp] zmq message arrived on closed channel
+[W 10:46:22.978 NotebookApp] zmq message arrived on closed channel
+[W 10:50:06.271 NotebookApp] zmq message arrived on closed channel
+[W 10:50:06.279 NotebookApp] zmq message arrived on closed channel
+[I 10:50:28.994 NotebookApp] Kernel interrupted: a41be7ac-73d9-4b23-aed7-6356b971b9de
+[W 10:50:29.350 NotebookApp] zmq message arrived on closed channel
+[W 10:50:29.356 NotebookApp] zmq message arrived on closed channel
+[W 10:50:29.360 NotebookApp] zmq message arrived on closed channel
+[W 10:50:29.361 NotebookApp] zmq message arrived on closed channel
+[W 10:50:42.880 NotebookApp] zmq message arrived on closed channel
+[W 10:50:42.882 NotebookApp] zmq message arrived on closed channel
+[I 10:50:59.737 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:50:59.738 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:51:13.406 NotebookApp] zmq message arrived on closed channel
+[W 10:51:13.410 NotebookApp] zmq message arrived on closed channel
+[W 10:51:13.413 NotebookApp] zmq message arrived on closed channel
+[W 10:51:13.753 NotebookApp] zmq message arrived on closed channel
+[W 10:51:13.913 NotebookApp] zmq message arrived on closed channel
+[W 10:51:13.915 NotebookApp] zmq message arrived on closed channel
+[W 10:51:56.222 NotebookApp] zmq message arrived on closed channel
+[W 10:51:56.225 NotebookApp] zmq message arrived on closed channel
+[W 10:52:00.272 NotebookApp] zmq message arrived on closed channel
+[W 10:52:00.452 NotebookApp] zmq message arrived on closed channel
+[W 10:52:00.456 NotebookApp] zmq message arrived on closed channel
+[W 10:52:51.655 NotebookApp] zmq message arrived on closed channel
+[W 10:52:51.658 NotebookApp] zmq message arrived on closed channel
+[W 10:52:56.159 NotebookApp] zmq message arrived on closed channel
+[W 10:52:56.413 NotebookApp] zmq message arrived on closed channel
+[W 10:52:56.418 NotebookApp] zmq message arrived on closed channel
+[I 10:52:59.727 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:52:59.728 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:56:59.822 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:56:59.827 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:57:22.817 NotebookApp] zmq message arrived on closed channel
+[W 10:57:22.819 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.286 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.292 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.293 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.661 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.792 NotebookApp] zmq message arrived on closed channel
+[W 10:57:54.798 NotebookApp] zmq message arrived on closed channel
+[I 10:58:59.794 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:58:59.795 NotebookApp] Saving E-Gamma Only.ipynb
+[W 10:59:10.498 NotebookApp] zmq message arrived on closed channel
+[W 10:59:10.500 NotebookApp] zmq message arrived on closed channel
+[W 10:59:15.287 NotebookApp] zmq message arrived on closed channel
+[W 10:59:15.522 NotebookApp] zmq message arrived on closed channel
+[W 10:59:15.526 NotebookApp] zmq message arrived on closed channel
+[I 11:00:59.739 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:00:59.741 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:01:34.934 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:01:34.935 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:02:59.747 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:02:59.748 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:04:59.768 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:04:59.768 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:14:59.811 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:14:59.817 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:15:11.433 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:15:11.433 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:15:43.827 NotebookApp] zmq message arrived on closed channel
+[W 11:15:43.829 NotebookApp] zmq message arrived on closed channel
+[W 11:15:43.897 NotebookApp] zmq message arrived on closed channel
+[W 11:15:43.898 NotebookApp] zmq message arrived on closed channel
+[I 11:16:42.081 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:16:42.082 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:16:59.720 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:16:59.720 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:26:59.820 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:26:59.831 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:29:17.449 NotebookApp] zmq message arrived on closed channel
+[W 11:29:17.456 NotebookApp] zmq message arrived on closed channel
+[W 11:29:17.571 NotebookApp] zmq message arrived on closed channel
+[W 11:29:17.574 NotebookApp] zmq message arrived on closed channel
+[W 11:30:23.077 NotebookApp] zmq message arrived on closed channel
+[W 11:30:23.081 NotebookApp] zmq message arrived on closed channel
+[W 11:30:23.163 NotebookApp] zmq message arrived on closed channel
+[W 11:30:23.164 NotebookApp] zmq message arrived on closed channel
+[W 11:30:23.167 NotebookApp] zmq message arrived on closed channel
+[W 11:30:35.027 NotebookApp] zmq message arrived on closed channel
+[W 11:30:35.028 NotebookApp] zmq message arrived on closed channel
+[W 11:30:35.104 NotebookApp] zmq message arrived on closed channel
+[W 11:30:35.105 NotebookApp] zmq message arrived on closed channel
+[W 11:30:35.110 NotebookApp] zmq message arrived on closed channel
+[I 11:30:59.755 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:30:59.756 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:32:20.767 NotebookApp] zmq message arrived on closed channel
+[W 11:32:20.769 NotebookApp] zmq message arrived on closed channel
+[W 11:32:39.828 NotebookApp] zmq message arrived on closed channel
+[W 11:32:45.610 NotebookApp] zmq message arrived on closed channel
+[W 11:32:45.611 NotebookApp] zmq message arrived on closed channel
+[W 11:32:45.921 NotebookApp] zmq message arrived on closed channel
+[W 11:32:48.419 NotebookApp] zmq message arrived on closed channel
+[W 11:32:51.079 NotebookApp] zmq message arrived on closed channel
+[W 11:32:53.450 NotebookApp] zmq message arrived on closed channel
+[W 11:32:55.844 NotebookApp] zmq message arrived on closed channel
+[W 11:32:57.655 NotebookApp] zmq message arrived on closed channel
+[W 11:32:59.464 NotebookApp] zmq message arrived on closed channel
+[I 11:32:59.736 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:32:59.736 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:33:01.845 NotebookApp] zmq message arrived on closed channel
+[W 11:33:04.229 NotebookApp] zmq message arrived on closed channel
+[W 11:33:04.233 NotebookApp] zmq message arrived on closed channel
+[W 11:33:04.235 NotebookApp] zmq message arrived on closed channel
+[W 11:33:22.349 NotebookApp] zmq message arrived on closed channel
+[W 11:33:22.349 NotebookApp] zmq message arrived on closed channel
+[W 11:33:22.351 NotebookApp] zmq message arrived on closed channel
+[W 11:33:25.929 NotebookApp] zmq message arrived on closed channel
+[W 11:34:32.829 NotebookApp] zmq message arrived on closed channel
+[W 11:34:32.831 NotebookApp] zmq message arrived on closed channel
+[W 11:34:52.323 NotebookApp] zmq message arrived on closed channel
+[W 11:34:52.329 NotebookApp] zmq message arrived on closed channel
+[W 11:34:52.330 NotebookApp] zmq message arrived on closed channel
+[W 11:34:56.029 NotebookApp] zmq message arrived on closed channel
+[I 11:34:59.749 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:34:59.750 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:36:08.635 NotebookApp] zmq message arrived on closed channel
+[W 11:36:08.638 NotebookApp] zmq message arrived on closed channel
+[W 11:36:09.227 NotebookApp] zmq message arrived on closed channel
+[W 11:36:13.522 NotebookApp] zmq message arrived on closed channel
+[W 11:36:13.943 NotebookApp] zmq message arrived on closed channel
+[W 11:36:13.947 NotebookApp] zmq message arrived on closed channel
+[W 11:36:34.458 NotebookApp] zmq message arrived on closed channel
+[W 11:36:34.460 NotebookApp] zmq message arrived on closed channel
+[W 11:36:34.475 NotebookApp] zmq message arrived on closed channel
+[W 11:36:34.478 NotebookApp] zmq message arrived on closed channel
+[W 11:36:39.388 NotebookApp] zmq message arrived on closed channel
+[W 11:36:39.391 NotebookApp] zmq message arrived on closed channel
+[W 11:36:39.413 NotebookApp] zmq message arrived on closed channel
+[W 11:36:39.416 NotebookApp] zmq message arrived on closed channel
+[W 11:36:48.359 NotebookApp] zmq message arrived on closed channel
+[W 11:36:48.360 NotebookApp] zmq message arrived on closed channel
+[W 11:36:48.385 NotebookApp] zmq message arrived on closed channel
+[W 11:36:48.386 NotebookApp] zmq message arrived on closed channel
+[I 11:36:59.913 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:36:59.913 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:38:38.883 NotebookApp] zmq message arrived on closed channel
+[W 11:38:38.886 NotebookApp] zmq message arrived on closed channel
+[W 11:38:38.961 NotebookApp] zmq message arrived on closed channel
+[W 11:38:38.965 NotebookApp] zmq message arrived on closed channel
+[W 11:38:44.959 NotebookApp] zmq message arrived on closed channel
+[W 11:38:44.963 NotebookApp] zmq message arrived on closed channel
+[I 11:38:59.753 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:38:59.753 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:39:05.236 NotebookApp] zmq message arrived on closed channel
+[W 11:39:05.238 NotebookApp] zmq message arrived on closed channel
+[W 11:39:05.241 NotebookApp] zmq message arrived on closed channel
+[W 11:39:07.707 NotebookApp] zmq message arrived on closed channel
+[W 11:40:01.372 NotebookApp] zmq message arrived on closed channel
+[W 11:40:01.374 NotebookApp] zmq message arrived on closed channel
+[W 11:40:01.402 NotebookApp] zmq message arrived on closed channel
+[W 11:40:01.405 NotebookApp] zmq message arrived on closed channel
+[W 11:40:05.758 NotebookApp] zmq message arrived on closed channel
+[W 11:40:05.760 NotebookApp] zmq message arrived on closed channel
+[W 11:40:11.213 NotebookApp] zmq message arrived on closed channel
+[W 11:40:12.870 NotebookApp] zmq message arrived on closed channel
+[W 11:40:12.879 NotebookApp] zmq message arrived on closed channel
+[I 11:40:59.768 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:40:59.768 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:42:48.159 NotebookApp] zmq message arrived on closed channel
+[W 11:42:48.164 NotebookApp] zmq message arrived on closed channel
+[W 11:42:53.622 NotebookApp] zmq message arrived on closed channel
+[W 11:42:53.946 NotebookApp] zmq message arrived on closed channel
+[W 11:42:53.952 NotebookApp] zmq message arrived on closed channel
+[I 11:42:59.723 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:42:59.723 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:43:33.952 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:43:33.953 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:43:42.123 NotebookApp] zmq message arrived on closed channel
+[W 11:43:42.135 NotebookApp] zmq message arrived on closed channel
+[W 11:43:47.261 NotebookApp] zmq message arrived on closed channel
+[W 11:43:47.434 NotebookApp] zmq message arrived on closed channel
+[W 11:43:47.441 NotebookApp] zmq message arrived on closed channel
+[W 11:44:08.720 NotebookApp] zmq message arrived on closed channel
+[W 11:44:08.721 NotebookApp] zmq message arrived on closed channel
+[W 11:44:14.140 NotebookApp] zmq message arrived on closed channel
+[W 11:44:14.526 NotebookApp] zmq message arrived on closed channel
+[W 11:44:14.529 NotebookApp] zmq message arrived on closed channel
+[W 11:44:21.645 NotebookApp] zmq message arrived on closed channel
+[W 11:44:21.646 NotebookApp] zmq message arrived on closed channel
+[W 11:44:26.588 NotebookApp] zmq message arrived on closed channel
+[W 11:44:26.853 NotebookApp] zmq message arrived on closed channel
+[W 11:44:26.858 NotebookApp] zmq message arrived on closed channel
+[I 11:44:59.744 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:44:59.745 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:45:36.787 NotebookApp] zmq message arrived on closed channel
+[W 11:45:36.789 NotebookApp] zmq message arrived on closed channel
+[W 11:45:41.467 NotebookApp] zmq message arrived on closed channel
+[W 11:45:41.652 NotebookApp] zmq message arrived on closed channel
+[W 11:45:41.659 NotebookApp] zmq message arrived on closed channel
+[W 11:46:51.922 NotebookApp] zmq message arrived on closed channel
+[W 11:46:51.924 NotebookApp] zmq message arrived on closed channel
+[W 11:46:56.486 NotebookApp] zmq message arrived on closed channel
+[W 11:46:56.664 NotebookApp] zmq message arrived on closed channel
+[W 11:46:56.668 NotebookApp] zmq message arrived on closed channel
+[I 11:47:04.828 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:47:04.828 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:47:17.091 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:47:17.091 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:47:22.730 NotebookApp] zmq message arrived on closed channel
+[W 11:47:22.732 NotebookApp] zmq message arrived on closed channel
+[W 11:47:28.021 NotebookApp] zmq message arrived on closed channel
+[W 11:47:28.296 NotebookApp] zmq message arrived on closed channel
+[W 11:47:28.300 NotebookApp] zmq message arrived on closed channel
+[W 11:48:10.474 NotebookApp] zmq message arrived on closed channel
+[W 11:48:10.477 NotebookApp] zmq message arrived on closed channel
+[W 11:48:16.525 NotebookApp] zmq message arrived on closed channel
+[W 11:48:16.778 NotebookApp] zmq message arrived on closed channel
+[W 11:48:16.781 NotebookApp] zmq message arrived on closed channel
+[W 11:48:33.308 NotebookApp] zmq message arrived on closed channel
+[W 11:48:33.311 NotebookApp] zmq message arrived on closed channel
+[W 11:48:38.490 NotebookApp] zmq message arrived on closed channel
+[W 11:48:38.743 NotebookApp] zmq message arrived on closed channel
+[W 11:48:38.746 NotebookApp] zmq message arrived on closed channel
+[I 11:49:00.290 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:49:00.291 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:50:33.760 NotebookApp] zmq message arrived on closed channel
+[W 11:50:33.763 NotebookApp] zmq message arrived on closed channel
+[W 11:50:38.297 NotebookApp] zmq message arrived on closed channel
+[W 11:50:38.574 NotebookApp] zmq message arrived on closed channel
+[W 11:50:38.580 NotebookApp] zmq message arrived on closed channel
+[W 11:50:56.608 NotebookApp] zmq message arrived on closed channel
+[W 11:50:56.609 NotebookApp] zmq message arrived on closed channel
+[W 11:51:01.733 NotebookApp] zmq message arrived on closed channel
+[W 11:51:01.977 NotebookApp] zmq message arrived on closed channel
+[W 11:51:01.980 NotebookApp] zmq message arrived on closed channel
+[I 11:51:02.009 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:51:02.010 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:51:52.973 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:51:52.974 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:51:54.377 NotebookApp] zmq message arrived on closed channel
+[W 11:51:54.378 NotebookApp] zmq message arrived on closed channel
+[W 11:51:59.505 NotebookApp] zmq message arrived on closed channel
+[W 11:51:59.762 NotebookApp] zmq message arrived on closed channel
+[W 11:51:59.764 NotebookApp] zmq message arrived on closed channel
+[W 11:52:16.642 NotebookApp] zmq message arrived on closed channel
+[W 11:52:16.644 NotebookApp] zmq message arrived on closed channel
+[I 11:52:16.827 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:52:16.828 NotebookApp] Saving E-Gamma Only.ipynb
+[W 11:52:22.013 NotebookApp] zmq message arrived on closed channel
+[W 11:52:22.472 NotebookApp] zmq message arrived on closed channel
+[W 11:52:22.516 NotebookApp] zmq message arrived on closed channel
+[I 11:53:00.423 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:53:00.424 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:55:14.967 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:55:14.968 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:07:00.353 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:07:00.358 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:07:21.461 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:07:21.462 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:07:50.772 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:07:50.773 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:08:32.197 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:08:32.197 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:08:33.378 NotebookApp] zmq message arrived on closed channel
+[W 12:08:33.381 NotebookApp] zmq message arrived on closed channel
+[W 12:08:33.421 NotebookApp] zmq message arrived on closed channel
+[W 12:08:36.181 NotebookApp] zmq message arrived on closed channel
+[W 12:08:36.182 NotebookApp] zmq message arrived on closed channel
+[W 12:08:40.332 NotebookApp] zmq message arrived on closed channel
+[W 12:08:42.497 NotebookApp] zmq message arrived on closed channel
+[W 12:08:42.505 NotebookApp] zmq message arrived on closed channel
+[W 12:08:42.507 NotebookApp] zmq message arrived on closed channel
+[W 12:08:42.508 NotebookApp] zmq message arrived on closed channel
+[I 12:09:00.278 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:09:00.278 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:09:07.473 NotebookApp] zmq message arrived on closed channel
+[W 12:09:07.475 NotebookApp] zmq message arrived on closed channel
+[W 12:09:14.266 NotebookApp] zmq message arrived on closed channel
+[W 12:09:14.269 NotebookApp] zmq message arrived on closed channel
+[W 12:09:14.271 NotebookApp] zmq message arrived on closed channel
+[W 12:09:14.273 NotebookApp] zmq message arrived on closed channel
+[W 12:09:20.290 NotebookApp] zmq message arrived on closed channel
+[W 12:09:20.292 NotebookApp] zmq message arrived on closed channel
+[W 12:09:36.815 NotebookApp] zmq message arrived on closed channel
+[W 12:09:36.817 NotebookApp] zmq message arrived on closed channel
+[W 12:09:36.837 NotebookApp] zmq message arrived on closed channel
+[W 12:09:37.066 NotebookApp] zmq message arrived on closed channel
+[W 12:09:37.069 NotebookApp] zmq message arrived on closed channel
+[I 12:10:59.880 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:10:59.880 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:12:40.883 NotebookApp] zmq message arrived on closed channel
+[W 12:12:40.890 NotebookApp] zmq message arrived on closed channel
+[W 12:12:40.891 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.587 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.596 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.597 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.598 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.939 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.941 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.947 NotebookApp] zmq message arrived on closed channel
+[W 12:12:44.948 NotebookApp] zmq message arrived on closed channel
+[W 12:12:45.008 NotebookApp] zmq message arrived on closed channel
+[W 12:12:45.010 NotebookApp] zmq message arrived on closed channel
+[W 12:12:45.015 NotebookApp] zmq message arrived on closed channel
+[W 12:12:45.017 NotebookApp] zmq message arrived on closed channel
+[W 12:12:49.349 NotebookApp] zmq message arrived on closed channel
+[W 12:12:49.352 NotebookApp] zmq message arrived on closed channel
+[W 12:12:49.356 NotebookApp] zmq message arrived on closed channel
+[I 12:12:59.877 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:12:59.878 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:13:02.912 NotebookApp] zmq message arrived on closed channel
+[W 12:13:02.918 NotebookApp] zmq message arrived on closed channel
+[W 12:13:02.921 NotebookApp] zmq message arrived on closed channel
+[W 12:13:02.923 NotebookApp] zmq message arrived on closed channel
+[W 12:13:51.866 NotebookApp] zmq message arrived on closed channel
+[W 12:13:51.880 NotebookApp] zmq message arrived on closed channel
+[W 12:13:51.883 NotebookApp] zmq message arrived on closed channel
+[W 12:13:51.932 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.013 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.161 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.257 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.376 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.497 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.607 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.722 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.839 NotebookApp] zmq message arrived on closed channel
+[W 12:13:52.936 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.073 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.180 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.299 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.410 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.532 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.651 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.754 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.858 NotebookApp] zmq message arrived on closed channel
+[W 12:13:53.994 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.109 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.218 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.296 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.405 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.528 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.692 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.806 NotebookApp] zmq message arrived on closed channel
+[W 12:13:54.917 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.032 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.145 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.260 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.333 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.482 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.606 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.716 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.786 NotebookApp] zmq message arrived on closed channel
+[W 12:13:55.925 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.053 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.177 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.332 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.456 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.566 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.653 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.816 NotebookApp] zmq message arrived on closed channel
+[W 12:13:56.925 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.002 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.154 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.272 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.383 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.489 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.602 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.713 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.821 NotebookApp] zmq message arrived on closed channel
+[W 12:13:57.952 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.064 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.160 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.291 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.415 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.526 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.642 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.756 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.851 NotebookApp] zmq message arrived on closed channel
+[W 12:13:58.977 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.086 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.203 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.313 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.423 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.536 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.641 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.740 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.855 NotebookApp] zmq message arrived on closed channel
+[W 12:13:59.961 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.077 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.180 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.303 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.417 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.527 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.646 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.776 NotebookApp] zmq message arrived on closed channel
+[W 12:14:00.929 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.073 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.227 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.377 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.514 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.626 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.735 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.844 NotebookApp] zmq message arrived on closed channel
+[W 12:14:01.962 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.075 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.183 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.293 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.408 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.518 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.636 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.742 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.870 NotebookApp] zmq message arrived on closed channel
+[W 12:14:02.982 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.103 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.238 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.368 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.526 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.607 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.611 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.616 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.619 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.621 NotebookApp] zmq message arrived on closed channel
+[W 12:14:03.622 NotebookApp] zmq message arrived on closed channel
+[W 12:14:04.753 NotebookApp] zmq message arrived on closed channel
+[W 12:14:04.755 NotebookApp] zmq message arrived on closed channel
+[W 12:14:04.759 NotebookApp] zmq message arrived on closed channel
+[W 12:14:08.717 NotebookApp] zmq message arrived on closed channel
+[W 12:14:08.717 NotebookApp] zmq message arrived on closed channel
+[W 12:14:08.721 NotebookApp] zmq message arrived on closed channel
+[W 12:14:08.722 NotebookApp] zmq message arrived on closed channel
+[W 12:14:09.693 NotebookApp] zmq message arrived on closed channel
+[W 12:14:09.695 NotebookApp] zmq message arrived on closed channel
+[W 12:14:09.697 NotebookApp] zmq message arrived on closed channel
+[W 12:14:11.246 NotebookApp] zmq message arrived on closed channel
+[W 12:14:11.247 NotebookApp] zmq message arrived on closed channel
+[W 12:14:11.256 NotebookApp] zmq message arrived on closed channel
+[W 12:14:11.257 NotebookApp] zmq message arrived on closed channel
+[W 12:14:33.903 NotebookApp] zmq message arrived on closed channel
+[W 12:14:33.909 NotebookApp] zmq message arrived on closed channel
+[W 12:14:33.911 NotebookApp] zmq message arrived on closed channel
+[W 12:14:36.561 NotebookApp] zmq message arrived on closed channel
+[W 12:14:36.564 NotebookApp] zmq message arrived on closed channel
+[W 12:14:36.566 NotebookApp] zmq message arrived on closed channel
+[W 12:14:37.152 NotebookApp] zmq message arrived on closed channel
+[W 12:14:42.739 NotebookApp] zmq message arrived on closed channel
+[W 12:14:44.094 NotebookApp] zmq message arrived on closed channel
+[W 12:14:44.098 NotebookApp] zmq message arrived on closed channel
+[W 12:14:44.100 NotebookApp] zmq message arrived on closed channel
+[W 12:14:44.102 NotebookApp] zmq message arrived on closed channel
+[I 12:15:00.029 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:15:00.029 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:15:18.938 NotebookApp] zmq message arrived on closed channel
+[W 12:15:18.940 NotebookApp] zmq message arrived on closed channel
+[W 12:15:18.942 NotebookApp] zmq message arrived on closed channel
+[W 12:15:25.082 NotebookApp] zmq message arrived on closed channel
+[W 12:15:25.359 NotebookApp] zmq message arrived on closed channel
+[W 12:15:25.363 NotebookApp] zmq message arrived on closed channel
+[W 12:15:25.365 NotebookApp] zmq message arrived on closed channel
+[W 12:15:25.366 NotebookApp] zmq message arrived on closed channel
+[W 12:16:00.113 NotebookApp] zmq message arrived on closed channel
+[W 12:16:00.118 NotebookApp] zmq message arrived on closed channel
+[W 12:16:00.121 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.286 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.549 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.555 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.558 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.560 NotebookApp] zmq message arrived on closed channel
+[W 12:16:06.910 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.650 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.652 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.653 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.655 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.743 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.748 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.749 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.787 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.794 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.798 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.800 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.801 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.803 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.804 NotebookApp] zmq message arrived on closed channel
+[W 12:16:07.805 NotebookApp] zmq message arrived on closed channel
+[I 12:17:00.300 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:17:00.311 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:19:36.777 NotebookApp] zmq message arrived on closed channel
+[W 12:19:36.785 NotebookApp] zmq message arrived on closed channel
+[W 12:19:36.888 NotebookApp] zmq message arrived on closed channel
+[W 12:19:36.891 NotebookApp] zmq message arrived on closed channel
+[W 12:19:36.892 NotebookApp] zmq message arrived on closed channel
+[W 12:19:37.213 NotebookApp] zmq message arrived on closed channel
+[W 12:19:37.982 NotebookApp] zmq message arrived on closed channel
+[W 12:19:39.355 NotebookApp] zmq message arrived on closed channel
+[W 12:19:40.103 NotebookApp] zmq message arrived on closed channel
+[W 12:19:40.710 NotebookApp] zmq message arrived on closed channel
+[W 12:19:41.525 NotebookApp] zmq message arrived on closed channel
+[W 12:19:41.997 NotebookApp] zmq message arrived on closed channel
+[W 12:19:42.414 NotebookApp] zmq message arrived on closed channel
+[W 12:19:42.798 NotebookApp] zmq message arrived on closed channel
+[W 12:19:43.197 NotebookApp] zmq message arrived on closed channel
+[W 12:19:43.200 NotebookApp] zmq message arrived on closed channel
+[I 12:21:00.435 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:21:00.437 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:27:33.405 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:27:33.414 NotebookApp] Saving E-Gamma Only.ipynb
+[W 12:27:56.998 NotebookApp] zmq message arrived on closed channel
+[W 12:27:57.003 NotebookApp] zmq message arrived on closed channel
+[W 12:27:58.629 NotebookApp] zmq message arrived on closed channel
+[W 12:27:59.569 NotebookApp] zmq message arrived on closed channel
+[W 12:27:59.572 NotebookApp] zmq message arrived on closed channel
+[W 12:28:14.075 NotebookApp] zmq message arrived on closed channel
+[W 12:28:14.076 NotebookApp] zmq message arrived on closed channel
+[W 12:28:14.097 NotebookApp] zmq message arrived on closed channel
+[W 12:28:15.266 NotebookApp] zmq message arrived on closed channel
+[W 12:28:15.268 NotebookApp] zmq message arrived on closed channel
+[W 12:28:22.001 NotebookApp] zmq message arrived on closed channel
+[W 12:28:22.009 NotebookApp] zmq message arrived on closed channel
+[W 12:28:22.011 NotebookApp] zmq message arrived on closed channel
+[W 12:28:22.012 NotebookApp] zmq message arrived on closed channel
+[W 12:28:27.749 NotebookApp] zmq message arrived on closed channel
+[W 12:28:27.773 NotebookApp] zmq message arrived on closed channel
+[I 12:29:00.524 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:29:00.525 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:34:15.968 NotebookApp] Starting buffering for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 12:34:15.990 NotebookApp] Starting buffering for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[I 12:37:42.394 NotebookApp] Restoring connection for a41be7ac-73d9-4b23-aed7-6356b971b9de:ac13cd8328384d1cb5204fe1334edd6e
+[W 12:37:42.464 NotebookApp] zmq message arrived on closed channel
+[W 12:37:42.467 NotebookApp] zmq message arrived on closed channel
+[I 12:37:42.471 NotebookApp] Restoring connection for 03736c11-a57e-48d5-9423-1f2c8ec0b726:b84e37c6537a401b85df8659b2d671ce
+[I 12:41:37.854 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:41:37.855 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:43:38.185 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:43:38.186 NotebookApp] Saving Muons vs e-gamma.ipynb
+[I 12:53:37.365 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
+[I 12:53:37.366 NotebookApp] Saving Muons vs e-gamma.ipynb
