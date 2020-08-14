@@ -87,17 +87,16 @@ def disp_learn_hist_smoothed(location, losslim=None, window_train=400,window_val
 
     return fig
 
-# Function to plot a confusion matrix
 def plot_confusion_matrix(labels, predictions, class_names,title=None):
-    
     """
     plot_confusion_matrix(labels, predictions, class_names)
     
-    Purpose : Plot the confusion matrix for a given energy interval
+    Plots the confusion matrix for a given energy interval
     
     Args: labels              ... 1D array of true label value, the length = sample size
           predictions         ... 1D array of predictions, the length = sample size
           class_names         ... 1D array of string label for classification targets, the length = number of categories
+          title               ... optional, title for the confusion matrix
     """
     
     fig, ax = plt.subplots(figsize=(12,8),facecolor='w')
@@ -134,26 +133,30 @@ def plot_confusion_matrix(labels, predictions, class_names,title=None):
                     color="white" if mat[i,j] > (0.5*mat.max()) else "black")
     plt.show()
 
-# Plot multiple ROC curves on the same figure
-def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name=None,title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None):
+def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name=None,title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None,legend_label_dict=None):
     '''
-    Plot multiple ROC curves of background rejection vs signal efficiency.
+    plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name=None,title='ROC Curve', annotate=True,ax=None, linestyle=None, leg_loc=None, xlabel=None,ylabel=None,legend_label_dict=None)
+
+    Plot multiple ROC curves of background rejection vs signal efficiency. Can plot 'rejection' (1/fpr) or 'fraction' (tpr).
     Args:
-        fprs                ... array of 1d arrays of false positive rates of length n
-        tprs                ... array of 1d arrays of true positive rates of length n
-        thresholds          ... array of 1d array of thresholds of length n
         data                ... tuple of (false positive rates, true positive rates, thresholds) to plot rejection or 
                                 (rejection fractions, true positive rates, false positive rates, thresholds) to plot rejection fraction.
-        metric              ... string, name of metric to plot ('rejection' or 'fraction')
-        pos_neg_labels      ... array of positive and negative string labels for each curve
-        png_name            ... name of saved image
+        metric              ... string, name of metric to plot: ('rejection' or 'fraction')
+        pos_neg_labels      ... array of one positive and one negative string label
+        png_name            ... name of image to save
         title               ... title of plot
-        annotate            ... whether or not to include annotations of critical points for each curve
+        annotate            ... whether or not to include annotations of critical points for each curve, default True
         ax                  ... matplotlib.pyplot.axes on which to place plot
         leg_loc             ... location for legend
+        legend_label_dict   ... dictionary of display symbols for each string label, to use for displaying pretty characters
     author: Calum Macdonald
     June 2020
     '''
+
+    if legend_label_dict is None:
+        legend_label_dict={}
+        legend_label_dict[pos_neg_labels[0]]=pos_neg_labels[0]
+        legend_label_dict[pos_neg_labels[1]]=pos_neg_labels[1]
     
     if ax is None:
         fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
@@ -177,8 +180,7 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
 
             inv_fpr = []
             for i in fpr:
-                inv_fpr.append(1/i) if i != 0 else inv_fpr.append(1/1e-5)
-
+                inv_fpr.append(1/i) if i != 0 else inv_fpr.append(1/(3*min(fpr[fpr>0])))
             tnr = 1. - fpr
         elif metric == 'fraction':
             fraction = data[0][j]
@@ -195,20 +197,20 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         if metric == 'rejection':
             if plot_labels is None:
                 line = ax.plot(tpr, inv_fpr,
-                    label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
+                    label=f"{j:0.3f}, AUC {roc_auc:0.3f}",
                     linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
             else:
                 line = ax.plot(tpr, inv_fpr,
-                    label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
+                    label=f"{plot_labels[j]}, AUC {roc_auc:0.3f}",
                     linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
         else:
             if plot_labels is None:
                 line = ax.plot(tpr, fraction,
-                    label=r"${1:0.3f}$: $\{0}$, AUC ${1:0.3f}$".format((j),label_0, roc_auc) if label_0 is not "e" else r"${0}$, AUC ${1:0.3f}$".format(label_0, roc_auc),
+                    label=f"{j:0.3f}, AUC {roc_auc:0.3f}",
                     linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
             else:
                 line = ax.plot(tpr, fraction,
-                    label=r"${0}$: $\{1}$, AUC ${2:0.3f}$".format(plot_labels[j],label_0, roc_auc) if label_0 is not "e" else r"{0}, AUC ${1:0.3f}$".format(plot_labels[j], roc_auc),
+                    label=f"{plot_labels[j]}, AUC {roc_auc:0.3f}",
                     linestyle=linestyle[j]  if linestyle is not None else None, linewidth=2,markerfacecolor=model_colors[j])
 
         # Show coords of individual points near x = 0.2, 0.5, 0.8
@@ -228,11 +230,9 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
                         todo[point] = False
             pbar.finish()
         ax.grid(True, which='both', color='grey')
-        # xlabel = r"$\{0}$ signal efficiency".format(label_0) if label_0 is not "e" else r"${0}$ signal efficiency".format(label_0)
-        # ylabel = r"$\{0}$ background rejection".format(label_1) if label_1 is not "e" else r"${0}$ background rejection".format(label_1)
 
-        if xlabel is None: xlabel = 'Signal Efficiency'
-        if ylabel is None: ylabel = 'Background Rejection' if metric == 'rejection' else 'Background Rejection Fraction'
+        if xlabel is None: xlabel = f'{legend_label_dict[label_0]} Signal Efficiency'
+        if ylabel is None: ylabel = f'{legend_label_dict[label_1]} Background Rejection' if metric == 'rejection' else f'{legend_label_dict[label_1]} Background Rejection Fraction'
 
         ax.set_xlabel(xlabel, fontsize=20) 
         ax.set_ylabel(ylabel, fontsize=20)
@@ -242,17 +242,14 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
             ax.set_yscale('log')
 
         plt.margins(0.1)
-        # plt.yscale("log")
         
     if png_name is not None: plt.savefig(os.path.join(os.getcwd(),png_name), bbox_inches='tight')    
-    
-    # plt.show()
-                
+                    
     return fpr, tpr, threshold, roc_auc
 
 def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_1, energies=None,threshold=None):
     """
-    prep_roc_data(softmaxes,labels, energies,index_dict,threshold=None)
+    prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_1, energies=None,threshold=None)
 
     Purpose : Prepare data for plotting the ROC curves. If threshold is not none, filters 
     out events with energy greater than threshold. Returns true positive rates, false positive 
@@ -263,10 +260,10 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
           labels              ... 1D array of true label value, the length = sample size
           metric              ... string, name of metrix to use ('rejection' or 'fraction')
                                   for background rejection or background rejection fraction.
+          label_0 and label_1 ... Labels indicating which particles to use - label_0 is the positive label
           energies            ... 1D array of true event energies, the length = sample 
                                   size
           softmax_index_dict  ... Dictionary pointing to label integer from particle name
-          label_0 and label_1 ... Labels indicating which particles to use
     author: Calum Macdonald
     May 2020
     """    
@@ -279,33 +276,12 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
         rsoftmaxes = softmaxes
         rlabels = labels
         renergies = energies
-    
-    (g_softmaxes, e_softmaxes, m_softmaxes), (g_labels, e_labels, m_labels) = separate_particles([rsoftmaxes, rlabels], rlabels, softmax_index_dict, ['gamma', 'e', 'mu'])
 
-    #use the labels to select the softmaxes needed for calculating metrics
-    e_softmax_0 = e_softmaxes[e_labels==softmax_index_dict[label_0]] 
-    mu_softmax_0 = m_softmaxes[m_labels==softmax_index_dict[label_0]]
-    gamma_softmax_0 = g_softmaxes[g_labels==softmax_index_dict[label_0]]
+    (pos_softmaxes, neg_softmaxes), (pos_labels, neg_labels) = separate_particles([rsoftmaxes, rlabels], rlabels, softmax_index_dict, [label_0, label_1])    
+    total_softmax = np.concatenate((pos_softmaxes, neg_softmaxes), axis=0)
+    total_labels = np.concatenate((pos_labels, neg_labels), axis=0)
+    assert total_labels.shape[0]==total_softmax.shape[0]
 
-    e_labels_0 = e_labels[e_labels==softmax_index_dict[label_0]] 
-    mu_labels_0 = m_labels[m_labels==softmax_index_dict[label_0]]
-    gamma_labels_0 = g_labels[g_labels==softmax_index_dict[label_0]]
-
-    e_softmax_1 = e_softmaxes[e_labels==softmax_index_dict[label_1]] 
-    mu_softmax_1 = m_softmaxes[m_labels==softmax_index_dict[label_1]]
-    gamma_softmax_1 = g_softmaxes[g_labels==softmax_index_dict[label_1]]
-
-    e_labels_1 = e_labels[e_labels==softmax_index_dict[label_1]] 
-    mu_labels_1 = m_labels[m_labels==softmax_index_dict[label_1]]
-    gamma_labels_1 = g_labels[g_labels==softmax_index_dict[label_1]]
-
-    #concatenate the selected softmaxes and labels
-    total_softmax = np.concatenate((e_softmax_0, e_softmax_1, mu_softmax_0, mu_softmax_1, gamma_softmax_0, gamma_softmax_1), axis=0)
-    total_labels = np.concatenate((e_labels_0, e_labels_1, mu_labels_0, mu_labels_1, gamma_labels_0, gamma_labels_1), axis=0)
-    
-    # print("Positive Labels: {} Negative Labels: {}".format(len(np.where(total_labels==softmax_index_dict[label_0])[0]), 
-                                                        #    len(np.where(total_labels==softmax_index_dict[label_1])[0])))
-    #use the sklearn roc_curve function to find the desired metrics
     if metric == 'rejection':
         return roc_curve(total_labels, total_softmax[:,softmax_index_dict[label_0]], pos_label=softmax_index_dict[label_0])
     else:
@@ -321,6 +297,8 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
 
 def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10,title_font=10):
     '''
+    disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_only=False,leg_font=10,title_font=10)
+
     Plots a grid of learning histories.
     Args:
         locations               ... list of paths to directories of training dumps
@@ -337,14 +315,14 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
     if nrows==1 and ncols==1: fig = plt.figure(facecolor='w',figsize=(12,12))
     else: fig = plt.figure(facecolor='w',figsize=(12,nrows*4))
     gs = gridspec.GridSpec(nrows,ncols,figure=fig)
-    axes = []    
-    disp_titles = [0 for _ in range(len(locations))]
+    axes = []
     for i,location in enumerate(locations):
         train_log=location+'/log_train.csv'
         val_log=location+'/log_val.csv'        
         train_log_csv = pd.read_csv(train_log)
         val_log_csv  = pd.read_csv(val_log)
         
+        disp_names = ['' for _ in range(len(locations))]
         if best_only:
             best_idxs = [0]
             best_epoch=0
@@ -356,8 +334,9 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
                     best_epoch=val_log_csv.epoch[idx]
             val_log_csv = val_log_csv.loc[best_idxs]
             if titles is not None:
-                disp_titles[i] = titles[i] + ", Best Val Loss ={loss:.4f}@Ep.{epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
-                
+                disp_names[i] = titles[i] + ", \n Best Val Loss ={loss:.4f}@Ep.{epoch:.2f}".format(loss=best_loss,epoch=best_epoch)
+        else:
+            disp_names=titles
         ax1=fig.add_subplot(gs[i],facecolor='w') if i ==0 else fig.add_subplot(gs[i],facecolor='w',sharey=axes[0])
         ax1.set_xlim(0,train_log_csv.epoch.max())
         axes.append(ax1)
@@ -366,7 +345,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         if losslim is not None:
             ax1.set_ylim(None,losslim)
         if titles is not None:
-            ax1.set_title(disp_titles[i],size=title_font)
+            ax1.set_title(disp_names[i],size=title_font)
         ax2 = ax1.twinx()
         line21 = ax2.plot(train_log_csv.epoch, train_log_csv.accuracy, linewidth=2, label='Train accuracy', color='r', alpha=0.3)
         line22 = ax2.plot(val_log_csv.epoch, val_log_csv.accuracy, marker='o', markersize=3, linestyle='', label='Validation accuracy', color='red')
@@ -393,11 +372,13 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
 def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,titles=None):
     """
     plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,titles=None)    
-    Purpose : Plot the confusion matrix for a series of test outputs.
+
+    Plot the confusion matrix for a series of test outputs.
     
     Args: label_arrays        ... array of 1D arrays of true label value, the length = sample size
           predictions         ... array of 1D arrays of predictions, the length = sample size
           class_names         ... 1D array of string label for classification targets, the length = number of categories      
+          titles              ... list of string titles for the confusion matrices
     author: Calum Macdonald
     May 2020
     """
@@ -446,7 +427,6 @@ def plot_multiple_confusion_matrix(label_arrays, prediction_arrays, class_names,
                         color="white" if mat[i,j] > (0.5*mat.max()) else "black")
     gs.tight_layout(fig)
     return fig
-
 
 def load_fq_output(mapping_indices_path, fq_failed_idxs_path, test_idxs_path, cut_path, cut_list):
     '''
@@ -922,7 +902,7 @@ def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
 
 
 def plot_binned_performance(softmaxes, labels, binning_features, binning_label,efficiency, bins, index_dict, 
-                            label_0, label_1, metric='purity',fixed='rejection',ax=None,marker='o',color='k',title_note=''):
+                            label_0, label_1, metric='purity',fixed='rejection',ax=None,marker='',color=None,legend_label_dict=None,title_note=''):
     '''
     Plots the purity as a function of a physical parameter in the dataset, at a fixed signal efficiency (true positive rate).
     Args:
@@ -939,10 +919,15 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax                             ... axis on which to plot
         color                          ... marker color
         marker                         ... marker type
+        legend_label_dict              ... dictionary of display symbols for each string label, to use for displaying pretty characters
+        title_note                     ... string to append to the plot title
     author: Calum Macdonald
     June 2020
     '''
-    legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
+    if legend_label_dict is None:
+            legend_label_dict={}
+            for name in [label_0, label_1]:
+                legend_label_dict[name] = name
     label_size = 14
 
     assert binning_features.shape[0] == softmaxes.shape[0], 'Error: binning_features must have same length as softmaxes'
@@ -974,7 +959,6 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         bin_metrics.append((efficiencies[operating_point_idx], performance[operating_point_idx], np.sqrt(tns[operating_point_idx])/(tns[operating_point_idx] + fps[operating_point_idx])))
     bin_metrics = np.array(bin_metrics)
 
-    # plt.bar(bins,bin_metrics[:,1],align='edge',width=(np.max(binning_features)-np.min(binning_features))/len(bins))
     bin_centers = [(bins[i+1] - bins[i])/2 + bins[i] for i in range(0,len(bins)-1)]
     bin_centers.append((np.max(binning_features) - bins[-1])/2 + bins[-1])
 
@@ -996,7 +980,6 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
         ax.set_xlabel(binning_label, fontsize=label_size)
         ax.set_title(title)
         if metric=='inverse fpr': ax.set_yscale('log')
-    # return bin_metrics[:,2]
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
                             ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None):
@@ -1078,7 +1061,8 @@ def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_
     return true_momentum, thresholds_per_event
 
 
-def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,xlim=None,label_size=14):
+def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,bins=None,fig=None,axes=None,legend_locs=None,fitqun=False,
+                  extra_panes=[], xlim=None,label_size=14, legend_label_dict=None):
     '''
     Plots classifier softmax outputs for each particle type.
     Args:
@@ -1090,24 +1074,29 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
         bins                         ... optional, number of bins for histogram
         fig, axes                    ... optional, figure and axes on which to do plotting (use to build into bigger grid)
         legend_locs                  ... list of 4 strings for positioning the legends
+        legend_label_dict           ... dictionary of display symbols for each string label, to use for displaying pretty characters
     author: Calum Macdonald
     June 2020
     '''
-    
+    if legend_label_dict is None:
+        legend_label_dict={}
+        for name in particle_names:
+            legend_label_dict[name] = name
     legend_size=label_size
-    legend_label_dict = {'gamma':'\u03B3','e':'e-','mu':'\u03BC -'}
+
+    num_panes = softmaxes.shape[1]+len(extra_panes)
 
     if axes is None:
-        fig,axes = plt.subplots(1,4,figsize=(15,5)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
+        fig,axes = plt.subplots(1,num_panes,figsize=(5*num_panes,5)) if not fitqun else plt.subplots(1,1,figsize=(7,7))
     label_dict = {value:key for key, value in index_dict.items()}
 
     softmaxes_list = separate_particles([softmaxes], labels, index_dict, [name for name in index_dict.keys()])[0]
     
-    for i, softmaxes in enumerate(softmaxes_list):
-        p_name = particle_names[i]
+    # for i, softmaxes in enumerate(softmaxes_list):
+    #     p_name = particle_names[i]
 
     if isinstance(particle_names[0],str):
-        particle_names = [particle_names for _ in range(4)]
+        particle_names = [particle_names for _ in range(num_panes)]
     if fitqun:
         ax = axes
         density = False
@@ -1121,7 +1110,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax.set_ylabel('Normalized Density' if density else 'N Events', fontsize=label_size)
             # ax.set_yscale('log')
     else:
-        for output_idx,ax in enumerate(axes[:-1]):
+        for output_idx,ax in enumerate(axes[:softmaxes.shape[1]]):
             for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
                 ax.hist(softmaxes_list[i][:,output_idx],
                         label=f"{legend_label_dict[label_dict[i]]} Events",
@@ -1132,15 +1121,17 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax.set_ylabel('Normalized Density', fontsize=label_size)
             ax.set_yscale('log')
         ax = axes[-1]
-        for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
-                ax.hist(softmaxes_list[i][:,0] + softmaxes_list[i][:,1],
-                        label=legend_label_dict[particle_names[-1][i]],
-                        alpha=0.7,histtype=u'step',bins=bins,density=True,
-                        linestyle=linestyle[i],linewidth=2)         
-        ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
-        ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
-        ax.set_ylabel('Normalized Density', fontsize=label_size)
-        ax.set_yscale('log')
+        for n, extra_pane_particle_names in enumerate(extra_panes):
+            ax=axes[softmaxes[1]+n]
+            for i in [index_dict[particle_name] for particle_name in particle_names]:
+                    ax.hist(reduce(lambda x,y : x+y, [softmaxes_list[i][:,index_dict[pname]] for pname in extra_pane_particle_names]),
+                            label=legend_label_dict[particle_names[-1][i]],
+                            alpha=0.7,histtype=u'step',bins=bins,density=True,
+                            linestyle=linestyle[i],linewidth=2)         
+            ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
+            ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
+            ax.set_ylabel('Normalized Density', fontsize=label_size)
+            ax.set_yscale('log')
     plt.tight_layout()
     return fig
 
@@ -1154,26 +1145,35 @@ def rms(arr):
     '''
     return math.sqrt(reduce(lambda a, x: a + x * x, arr, 0) / len(arr))
 
-def plot_binned_response(softmaxes, labels, binning_features, binning_label,efficiency, bins, p_bins, index_dict,log_scales=[]):
+def plot_binned_response(softmaxes, labels, particle_names, binning_features, binning_label,efficiency, bins, p_bins, index_dict, extra_panes=None, log_scales=[], legend_label_dict=None):
     '''
     Plot softmax response, binned in a feature of the event.
     Args:
-        softmaxes                   ... 2d array of softmax output, shape (nsamples, 3)
+        softmaxes                   ... 2d array of softmax output, shape (nsamples, noutputs)
         labels                      ... 1d array of labels, length n_samples
+        particle_names              ... string particle names for which to plot the response, must be keys of index_dict
         binning_features            ... 1d array of feature to use in binning, length n_samples
         binning_label               ... string, name of binning feature to use in title and x-axis label
         efficiency                  ... bin signal efficiency to fix
         bins                        ... number of bins to use in feature histogram
         p_bins                      ... number of bins to use in probability density histogram
-        index_dict                  ... dictionary of particle labels, must have 'gamma','mu','e' keys pointing to values taken by 'labels'
+        index_dict                  ... dictionary of particle labels, must have all of particle_names as keys, pointing to values taken by 'labels'
+        extra_panes                 ... list of lists of particle names to combine into an "extra output" e.g. [["e", "gamma"]] adds the P(e-)+P(gamma) pane
         log_scales                  ... indices of axes.flatten() to which to apply log color scaling
+        legend_label_dict           ... dictionary of display symbols for each string label, to use for displaying pretty characters
     author: Calum Macdonald
     June 2020
     '''
-    legend_label_dict = {0:'\u03B3',1:'e-',2:'\u03BC-'}
+
+    if legend_label_dict is None:
+        legend_label_dict = {}
+        for name in particle_names: legend_label_dict[name] = name
+
+    noutputs = softmaxes.shape[1]
+    if extra_panes is None: extra_panes=[]
 
     label_size = 18
-    fig, axes = plt.subplots(3,4,figsize=(12*4,12*3))
+    fig, axes = plt.subplots(len(particle_names),noutputs+len(extra_panes),figsize=(12*len(particle_names),12*noutputs+len(extra_panes)))
 
     log_axes = axes.flatten()[log_scales]
 
@@ -1191,14 +1191,14 @@ def plot_binned_response(softmaxes, labels, binning_features, binning_label,effi
         bin_data.append({'softmaxes':softmaxes[this_bin_idxs], 'labels' : labels[this_bin_idxs]})
     
     edges = None
-    for output_idx in range(3):
-        for particle_idx in range(3):
+    for output_idx in range(noutputs):
+        for particle_idx, particle_name in [(index_dict[particle_name], particle_name) for particle_name in particle_names]:
             ax = axes[particle_idx][output_idx]
             data = np.ones((len(bins), len(p_bins) if not isinstance(p_bins, int) else p_bins))
             means = []
             stddevs = []
             for bin_idx, bin in enumerate(bin_data):
-                relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict)[0][particle_idx]
+                relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict, desired_labels=[particle_name])[0][0]
 
                 if edges is None: ns, edges = np.histogram(relevant_softmaxes[:,output_idx], bins=p_bins,density=True,range=(0.,1.))
                 else: ns, _ = np.histogram(relevant_softmaxes[:,output_idx], bins=edges,density=True)
@@ -1215,32 +1215,35 @@ def plot_binned_response(softmaxes, labels, binning_features, binning_label,effi
             fig.colorbar(mesh,ax=ax)
             ax.errorbar(b_bin_centers, means, yerr = stddevs, fmt='k+', ecolor='k', elinewidth=0.5, capsize=4, capthick=1.5)
             ax.set_xlabel(binning_label,fontsize=label_size)
-            ax.set_ylabel('P({})'.format(legend_label_dict[output_idx]),fontsize=label_size)
+            ax.set_ylabel('P({})'.format(legend_label_dict[particle_names[output_idx]]),fontsize=label_size)
             ax.set_ylim([0,1])
-            ax.set_title('P({}) Density For {} Events vs {}'.format(legend_label_dict[output_idx],legend_label_dict[particle_idx],binning_label),fontsize=label_size)
+            ax.set_title('P({}) Density For {} Events vs {}'.format(legend_label_dict[particle_names[output_idx]],legend_label_dict[particle_name],binning_label),fontsize=label_size)
 
-    for particle_idx in range(3):
-            ax = axes[particle_idx][-1]
-            data = np.ones((len(bins), len(p_bins) if not isinstance(p_bins, int) else p_bins))
-            means = []
-            stddevs = []
-            for bin_idx, bin in enumerate(bin_data):
-                relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict)[0][particle_idx]
-                ns, _ = np.histogram(relevant_softmaxes[:,0] + relevant_softmaxes[:,1], bins=edges,density=True)
-                data[bin_idx, :] = ns
-                p_bin_centers = [edges[i] + (edges[i+1]-edges[i])/2 for i in range(edges.shape[0]-1)]
-                means.append(np.mean(relevant_softmaxes[:,0] + relevant_softmaxes[:,1]))
-                stddevs.append(np.std(relevant_softmaxes[:,0] + relevant_softmaxes[:,1]))
-            if ax in log_axes:
-                min_value = np.unique(data)[1]
-                data = np.where(data==0, min_value, data)
-            mesh = ax.pcolormesh(binning_edges,edges, np.swapaxes(data,0,1),norm=colors.LogNorm() if ax in log_axes else None)
-            fig.colorbar(mesh,ax=ax)
-            ax.set_ylim([0,1])
-            ax.errorbar(b_bin_centers, means, yerr = stddevs, fmt='k+', ecolor='k', elinewidth=0.5, capsize=4, capthick=1.5)
-            ax.set_xlabel(binning_label,fontsize=label_size)
-            ax.set_ylabel('P({}) + P({})'.format(legend_label_dict[0], legend_label_dict[1]),fontsize=label_size)
-            ax.set_title('P({}) + P({}) Density For {} Events vs {}'.format(legend_label_dict[0],legend_label_dict[1],legend_label_dict[particle_idx],binning_label),fontsize=label_size)
+    for n, extra_pane_particle_names in enumerate(extra_panes):
+        for particle_idx, particle_name in [(index_dict[particle_name], particle_name) for particle_name in particle_names]:
+                ax = axes[particle_idx][n+noutputs]
+                data = np.ones((len(bins), len(p_bins) if not isinstance(p_bins, int) else p_bins))
+                means = []
+                stddevs = []
+                for bin_idx, bin in enumerate(bin_data):
+                    relevant_softmaxes = separate_particles([bin['softmaxes']],bin['labels'], index_dict, desired_labels=[particle_name])[0][0]
+                    extra_output = reduce(lambda x,y : x+y, [relevant_softmaxes[:,index_dict[pname]] for pname in extra_pane_particle_names])
+                    ns, _ = np.histogram(extra_output, bins=edges,density=True)
+                    data[bin_idx, :] = ns
+                    p_bin_centers = [edges[i] + (edges[i+1]-edges[i])/2 for i in range(edges.shape[0]-1)]
+                    means.append(np.mean(extra_output))
+                    stddevs.append(np.std(extra_output))
+                if ax in log_axes:
+                    min_value = np.unique(data)[1]
+                    data = np.where(data==0, min_value, data)
+                mesh = ax.pcolormesh(binning_edges,edges, np.swapaxes(data,0,1),norm=colors.LogNorm() if ax in log_axes else None)
+                fig.colorbar(mesh,ax=ax)
+                ax.set_ylim([0,1])
+                ax.errorbar(b_bin_centers, means, yerr = stddevs, fmt='k+', ecolor='k', elinewidth=0.5, capsize=4, capthick=1.5)
+                ax.set_xlabel(binning_label,fontsize=label_size)
+                extra_output_label = reduce(lambda x,y: x + ' + ' + f"P({y})", [f'P({legend_label_dict[name]})' if i==0 else legend_label_dict[name] for i, name in enumerate(extra_pane_particle_names)])
+                ax.set_ylabel(extra_output_label,fontsize=label_size)
+                ax.set_title('{} Density For {} Events vs {}'.format(extra_output_label, legend_label_dict[particle_name],binning_label),fontsize=label_size)
 
 
 def separate_particles(input_array_list,labels,index_dict,desired_labels=['gamma','e','mu']):
