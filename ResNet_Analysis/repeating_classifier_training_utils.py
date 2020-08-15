@@ -30,6 +30,8 @@ import matplotlib.gridspec as gridspec
 import matplotlib.colors as colors
 from seaborn import heatmap
 
+from textwrap import wrap
+
 def moving_average(a, n=3) :
     ret = np.cumsum(a, dtype=float)
     ret[n:] = ret[n:] - ret[:-n]
@@ -139,10 +141,11 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
 
     Plot multiple ROC curves of background rejection vs signal efficiency. Can plot 'rejection' (1/fpr) or 'fraction' (tpr).
     Args:
-        data                ... tuple of (false positive rates, true positive rates, thresholds) to plot rejection or 
+        data                ... tuple of (n false positive rates, n true positive rate, n thresholds) to plot rejection or 
                                 (rejection fractions, true positive rates, false positive rates, thresholds) to plot rejection fraction.
         metric              ... string, name of metric to plot: ('rejection' or 'fraction')
-        pos_neg_labels      ... array of one positive and one negative string label
+        pos_neg_labels      ... array of one positive and one negative string label, or list of lists, with each list giving positive and negative label for
+                                one dataset
         png_name            ... name of image to save
         title               ... title of plot
         annotate            ... whether or not to include annotations of critical points for each curve, default True
@@ -155,8 +158,13 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
 
     if legend_label_dict is None:
         legend_label_dict={}
-        legend_label_dict[pos_neg_labels[0]]=pos_neg_labels[0]
-        legend_label_dict[pos_neg_labels[1]]=pos_neg_labels[1]
+        if isinstance(pos_neg_labels[0], str):
+            legend_label_dict[pos_neg_labels[0]]=pos_neg_labels[0]
+            legend_label_dict[pos_neg_labels[1]]=pos_neg_labels[1]
+        else:
+            for j in range(len(pos_neg_labels)):
+                legend_label_dict[pos_neg_labels[j][0]]=pos_neg_labels[j][0]
+                legend_label_dict[pos_neg_labels[j][1]]=pos_neg_labels[j][1]
     
     if ax is None:
         fig, ax = plt.subplots(figsize=(16,9),facecolor="w")
@@ -1091,12 +1099,10 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
     label_dict = {value:key for key, value in index_dict.items()}
 
     softmaxes_list = separate_particles([softmaxes], labels, index_dict, [name for name in index_dict.keys()])[0]
-    
-    # for i, softmaxes in enumerate(softmaxes_list):
-    #     p_name = particle_names[i]
 
     if isinstance(particle_names[0],str):
         particle_names = [particle_names for _ in range(num_panes)]
+
     if fitqun:
         ax = axes
         density = False
@@ -1108,7 +1114,6 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax.legend(loc=legend_locs[0] if legend_locs is not None else 'best', fontsize=legend_size)
             ax.set_xlabel('e-muon nLL Difference')
             ax.set_ylabel('Normalized Density' if density else 'N Events', fontsize=label_size)
-            # ax.set_yscale('log')
     else:
         for output_idx,ax in enumerate(axes[:softmaxes.shape[1]]):
             for i in [index_dict[particle_name] for particle_name in particle_names[output_idx]]:
@@ -1122,8 +1127,9 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax.set_yscale('log')
         ax = axes[-1]
         for n, extra_pane_particle_names in enumerate(extra_panes):
-            ax=axes[softmaxes[1]+n]
-            for i in [index_dict[particle_name] for particle_name in particle_names]:
+            pane_idx = softmaxes.shape[1]+n
+            ax=axes[pane_idx]
+            for i in [index_dict[particle_name] for particle_name in particle_names[pane_idx]]:
                     ax.hist(reduce(lambda x,y : x+y, [softmaxes_list[i][:,index_dict[pname]] for pname in extra_pane_particle_names]),
                             label=legend_label_dict[particle_names[-1][i]],
                             alpha=0.7,histtype=u'step',bins=bins,density=True,
@@ -1145,7 +1151,7 @@ def rms(arr):
     '''
     return math.sqrt(reduce(lambda a, x: a + x * x, arr, 0) / len(arr))
 
-def plot_binned_response(softmaxes, labels, particle_names, binning_features, binning_label,efficiency, bins, p_bins, index_dict, extra_panes=None, log_scales=[], legend_label_dict=None):
+def plot_binned_response(softmaxes, labels, particle_names, binning_features, binning_label,efficiency, bins, p_bins, index_dict, extra_panes=None, log_scales=[], legend_label_dict=None, wrap_size=35):
     '''
     Plot softmax response, binned in a feature of the event.
     Args:
@@ -1161,6 +1167,7 @@ def plot_binned_response(softmaxes, labels, particle_names, binning_features, bi
         extra_panes                 ... list of lists of particle names to combine into an "extra output" e.g. [["e", "gamma"]] adds the P(e-)+P(gamma) pane
         log_scales                  ... indices of axes.flatten() to which to apply log color scaling
         legend_label_dict           ... dictionary of display symbols for each string label, to use for displaying pretty characters
+        wrap_size                   ... width of box to wrap title into
     author: Calum Macdonald
     June 2020
     '''
@@ -1217,7 +1224,7 @@ def plot_binned_response(softmaxes, labels, particle_names, binning_features, bi
             ax.set_xlabel(binning_label,fontsize=label_size)
             ax.set_ylabel('P({})'.format(legend_label_dict[particle_names[output_idx]]),fontsize=label_size)
             ax.set_ylim([0,1])
-            ax.set_title('P({}) Density For {} Events vs {}'.format(legend_label_dict[particle_names[output_idx]],legend_label_dict[particle_name],binning_label),fontsize=label_size)
+            ax.set_title('\n'.join(wrap('P({}) Density For {} Events vs {}'.format(legend_label_dict[particle_names[output_idx]],legend_label_dict[particle_name],binning_label),wrap_size)),fontsize=label_size)
 
     for n, extra_pane_particle_names in enumerate(extra_panes):
         for particle_idx, particle_name in [(index_dict[particle_name], particle_name) for particle_name in particle_names]:
@@ -1243,7 +1250,7 @@ def plot_binned_response(softmaxes, labels, particle_names, binning_features, bi
                 ax.set_xlabel(binning_label,fontsize=label_size)
                 extra_output_label = reduce(lambda x,y: x + ' + ' + f"P({y})", [f'P({legend_label_dict[name]})' if i==0 else legend_label_dict[name] for i, name in enumerate(extra_pane_particle_names)])
                 ax.set_ylabel(extra_output_label,fontsize=label_size)
-                ax.set_title('{} Density For {} Events vs {}'.format(extra_output_label, legend_label_dict[particle_name],binning_label),fontsize=label_size)
+                ax.set_title('\n'.join(wrap('{} Density For {} Events vs {}'.format(extra_output_label, legend_label_dict[particle_name],binning_label),wrap_size)),fontsize=label_size)
 
 
 def separate_particles(input_array_list,labels,index_dict,desired_labels=['gamma','e','mu']):
