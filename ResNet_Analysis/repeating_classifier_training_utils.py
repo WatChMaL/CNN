@@ -276,7 +276,7 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
     May 2020
     """    
     if threshold is not None and energies is not None:
-        low_energy_idxs = np.where(energies < threshold)
+        low_energy_idxs = np.where(np.squeeze(energies) < threshold)[0]
         rsoftmaxes = softmaxes[low_energy_idxs]
         rlabels = labels[low_energy_idxs]
         renergies = energies[low_energy_idxs]
