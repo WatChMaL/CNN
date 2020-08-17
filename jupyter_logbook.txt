@@ -1,55 +1,33 @@
-[I 09:41:44.938 NotebookApp] The port 8888 is already in use, trying another port.
-[I 09:41:44.939 NotebookApp] The port 8889 is already in use, trying another port.
-[I 09:41:44.939 NotebookApp] The port 8890 is already in use, trying another port.
-[I 09:41:46.181 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:41:46.243 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:41:46.243 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:41:46.244 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:41:46.244 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:41:46.244 NotebookApp] The Jupyter Notebook is running at:
-[I 09:41:46.244 NotebookApp] http://hostname:8888/?token=bfdea2be8795ae11c20ec4c226e4c556bd9ddfffafc8c0bf
-[I 09:41:46.244 NotebookApp]  or http://127.0.0.1:8891/?token=bfdea2be8795ae11c20ec4c226e4c556bd9ddfffafc8c0bf
-[I 09:41:46.245 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:41:46.248 NotebookApp] 
+[I 09:55:04.394 NotebookApp] The port 8888 is already in use, trying another port.
+[I 09:55:04.394 NotebookApp] The port 8889 is already in use, trying another port.
+[I 09:55:04.394 NotebookApp] The port 8890 is already in use, trying another port.
+[I 09:55:04.395 NotebookApp] The port 8891 is already in use, trying another port.
+[I 09:55:04.395 NotebookApp] The port 8892 is already in use, trying another port.
+[I 09:55:06.157 NotebookApp] jupyter_tensorboard extension loaded.
+[I 09:55:06.231 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 09:55:06.231 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 09:55:06.232 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 09:55:06.233 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 09:55:06.233 NotebookApp] The Jupyter Notebook is running at:
+[I 09:55:06.233 NotebookApp] http://hostname:8888/?token=66fd88943f3fbd7aa1fdeda850a11065da5d37a8e0c49cfe
+[I 09:55:06.233 NotebookApp]  or http://127.0.0.1:8957/?token=66fd88943f3fbd7aa1fdeda850a11065da5d37a8e0c49cfe
+[I 09:55:06.233 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:55:06.236 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-53118-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-39576-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=bfdea2be8795ae11c20ec4c226e4c556bd9ddfffafc8c0bf
-     or http://127.0.0.1:8891/?token=bfdea2be8795ae11c20ec4c226e4c556bd9ddfffafc8c0bf
-[I 09:44:04.085 NotebookApp] 302 GET /?token=bfdea2be8795ae11c20ec4c226e4c556bd9ddfffafc8c0bf (::1) 1.12ms
-[I 10:15:22.996 NotebookApp] Kernel started: ecd04fbf-e41f-4b25-bf10-95e0c9430db8
-[I 10:18:09.253 NotebookApp] Starting buffering for ecd04fbf-e41f-4b25-bf10-95e0c9430db8:c034ca81cdb94c178216900abccb8963
-[I 10:18:48.754 NotebookApp] Kernel started: ccfc6343-053b-44c6-bd27-bdc10e482fac
-[I 10:20:50.430 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:20:50.430 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:37:57.868 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:37:57.869 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:38:11.996 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:38:11.997 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:38:17.576 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:38:17.576 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:38:28.440 NotebookApp] Starting buffering for ccfc6343-053b-44c6-bd27-bdc10e482fac:3db00d984c464300b706dfa050ba68f0
-[I 10:38:28.774 NotebookApp] Kernel restarted: ccfc6343-053b-44c6-bd27-bdc10e482fac
-[I 10:38:29.837 NotebookApp] Restoring connection for ccfc6343-053b-44c6-bd27-bdc10e482fac:3db00d984c464300b706dfa050ba68f0
-[I 10:38:29.837 NotebookApp] Replaying 6 buffered messages
-[I 10:38:49.150 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:38:49.151 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:40:49.383 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:40:49.384 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:42:50.320 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:42:50.320 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:44:50.592 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:44:50.592 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:49:50.381 NotebookApp] Starting buffering for ccfc6343-053b-44c6-bd27-bdc10e482fac:3db00d984c464300b706dfa050ba68f0
-[I 10:49:53.014 NotebookApp] Kernel restarted: ccfc6343-053b-44c6-bd27-bdc10e482fac
-[I 10:49:54.140 NotebookApp] Restoring connection for ccfc6343-053b-44c6-bd27-bdc10e482fac:3db00d984c464300b706dfa050ba68f0
-[I 10:49:54.141 NotebookApp] Replaying 5 buffered messages
-[I 10:50:48.989 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:50:48.989 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:52:49.413 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:52:49.414 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:54:51.235 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:54:51.236 NotebookApp] Saving Muons vs e-gamma.ipynb
-[I 10:58:50.029 NotebookApp] Saving file at /ResNet_Analysis/Muons vs e-gamma.ipynb
-[I 10:58:50.029 NotebookApp] Saving Muons vs e-gamma.ipynb
+        http://hostname:8888/?token=66fd88943f3fbd7aa1fdeda850a11065da5d37a8e0c49cfe
+     or http://127.0.0.1:8957/?token=66fd88943f3fbd7aa1fdeda850a11065da5d37a8e0c49cfe
+[I 10:05:22.444 NotebookApp] 302 GET /?token=66fd88943f3fbd7aa1fdeda850a11065da5d37a8e0c49cfe (::1) 1.24ms
+[I 10:25:03.560 NotebookApp] Kernel started: af57dc0b-1502-42b9-a1b0-54b0e54e97e0
+[W 10:28:40.989 NotebookApp] delete /dumps/20200814_175107
+[W 10:28:41.060 NotebookApp] delete /dumps/20200814_175751
+[I 10:41:04.725 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:41:04.725 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:43:03.855 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:43:03.856 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:45:04.323 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:45:04.323 NotebookApp] Saving E-Gamma Only.ipynb
+[I 10:47:05.273 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 10:47:05.274 NotebookApp] Saving E-Gamma Only.ipynb
