@@ -31,7 +31,7 @@ class EresNet(Module):
         
         super().__init__()
         
-        self.inplanes = 16
+        self.inplanes = 64
         
         #self.conv1 = Conv2d(num_input_channels, 64, kernel_size=1, stride=1, padding=0, bias=False)
         #self.bn1   = BatchNorm2d(64)
@@ -43,15 +43,15 @@ class EresNet(Module):
         #self.minires3 = self._make_mini_layer(resnetblocks.EresNetMiniBlock, 64, layers[2], stride=1)
         #self.minires4 = self._make_mini_layer(resnetblocks.EresNetMiniBlock, 64, layers[3], stride=1)
        
-        self.conv1 = Conv2d(num_input_channels, 8, kernel_size=1, stride=1, padding=0, bias=False)
-        self.bn1   = BatchNorm2d(8)
-        self.conv2 = Conv2d(8, 16, kernel_size=1, stride=1, padding=0, bias=False)
-        self.bn2   = BatchNorm2d(16)
+        self.conv1 = Conv2d(num_input_channels, 16, kernel_size=1, stride=1, padding=0, bias=False)
+        self.bn1   = BatchNorm2d(16)
+        self.conv2 = Conv2d(16, 64, kernel_size=1, stride=1, padding=0, bias=False)
+        self.bn2   = BatchNorm2d(64)
         
-        self.layer0 = resnetblocks.EresNetBasicBlock(16,16)
-        self.layer1 = self._make_layer(block, 32, layers[0], stride=2)
+        self.layer0 = resnetblocks.EresNetBasicBlock(64,64)
+        self.layer1 = self._make_layer(block, 64, layers[0], stride=2)
         self.layer2 = self._make_layer(block, 64, layers[1], stride=2)
-        self.layer3 = self._make_layer(block, 128, layers[2], stride=2)
+        self.layer3 = self._make_layer(block, 64, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 128, layers[3], stride=2)
         
         self.unroll_size = 128 * block.expansion

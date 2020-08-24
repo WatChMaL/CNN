@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # Construct the model
     model = handle_model(config.model, config.model_params)
     # print(str(summary(model, (19,40,40), batch_size=512,device='cpu')))
-    print(model)
+    # print(model)
     
     # Initialize the training engine
     engine = EngineCL(model, config)
