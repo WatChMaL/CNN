@@ -1125,7 +1125,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
             ax=axes[softmaxes[1]+n]
             for i in [index_dict[particle_name] for particle_name in particle_names]:
                     ax.hist(reduce(lambda x,y : x+y, [softmaxes_list[i][:,index_dict[pname]] for pname in extra_pane_particle_names]),
-                            label=legend_label_dict[particle_names[-1][i]],
+                            label=f"{legend_label_dict[particle_names[-1][i]]} Events",
                             alpha=0.7,histtype=u'step',bins=bins,density=True,
                             linestyle=linestyle[i],linewidth=2)         
             ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)

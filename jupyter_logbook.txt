@@ -1,119 +1,37 @@
-[I 09:57:00.900 NotebookApp] jupyter_tensorboard extension loaded.
-[I 09:57:01.004 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
-[I 09:57:01.004 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
-[I 09:57:01.007 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
-[I 09:57:01.007 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
-[I 09:57:01.007 NotebookApp] The Jupyter Notebook is running at:
-[I 09:57:01.007 NotebookApp] http://hostname:8888/?token=90b430bf0708d8a0411be3b093d5747aa352edd77e24128a
-[I 09:57:01.007 NotebookApp]  or http://127.0.0.1:8888/?token=90b430bf0708d8a0411be3b093d5747aa352edd77e24128a
-[I 09:57:01.007 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 09:57:01.012 NotebookApp] 
+[I 11:20:46.443 NotebookApp] jupyter_tensorboard extension loaded.
+[I 11:20:46.510 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 11:20:46.510 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 11:20:46.512 NotebookApp] [Jupytext Server Extension] NotebookApp.contents_manager_class is (a subclass of) jupytext.TextFileContentsManager already - OK
+[I 11:20:46.512 NotebookApp] Serving notebooks from local directory: /home/cmacdonald/CNN
+[I 11:20:46.512 NotebookApp] The Jupyter Notebook is running at:
+[I 11:20:46.512 NotebookApp] http://hostname:8888/?token=32ae23fc3cd685e811f227742654346fe4dee5ecd55c4dd8
+[I 11:20:46.512 NotebookApp]  or http://127.0.0.1:8888/?token=32ae23fc3cd685e811f227742654346fe4dee5ecd55c4dd8
+[I 11:20:46.512 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 11:20:46.518 NotebookApp] 
     
     To access the notebook, open this file in a browser:
-        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-18709-open.html
+        file:///home/cmacdonald/.local/share/jupyter/runtime/nbserver-2144-open.html
     Or copy and paste one of these URLs:
-        http://hostname:8888/?token=90b430bf0708d8a0411be3b093d5747aa352edd77e24128a
-     or http://127.0.0.1:8888/?token=90b430bf0708d8a0411be3b093d5747aa352edd77e24128a
-[I 09:59:20.417 NotebookApp] 302 GET /?token=90b430bf0708d8a0411be3b093d5747aa352edd77e24128a (::1) 1.21ms
-[I 10:16:01.632 NotebookApp] Kernel started: e0f3757d-ebd3-459c-a55f-12865313c76d
-[I 10:24:05.165 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
-[I 10:24:05.167 NotebookApp] Saving E-Gamma Only.ipynb
-[I 11:00:22.530 NotebookApp] Creating new notebook in /ResNet_Analysis
-[I 11:00:22.531 NotebookApp] Saving Untitled.ipynb
-[I 11:00:23.853 NotebookApp] Kernel started: fcd20cac-da6e-41ca-8aab-8127850c5945
-[I 11:00:35.159 NotebookApp] Kernel started: 42964e02-19ec-4670-b8d6-fb02d6a5fe46
-[I 11:01:01.668 NotebookApp] Starting buffering for 42964e02-19ec-4670-b8d6-fb02d6a5fe46:2d8b20a41296439291d06d225c14144d
-[I 11:01:04.477 NotebookApp] Kernel started: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[I 11:02:23.890 NotebookApp] Saving file at /ResNet_Analysis/Untitled.ipynb
-[I 11:02:23.891 NotebookApp] Saving Untitled.ipynb
-[I 11:26:46.399 NotebookApp] Starting buffering for fcd20cac-da6e-41ca-8aab-8127850c5945:f55cc1f7ce94437785f56f587a79bd01
-[I 11:26:53.082 NotebookApp] Kernel shutdown: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[I 11:26:53.389 NotebookApp] Kernel shutdown: 42964e02-19ec-4670-b8d6-fb02d6a5fe46
-[I 11:26:59.448 NotebookApp] Starting buffering for fcd20cac-da6e-41ca-8aab-8127850c5945:eb796c6be8e1431aae72e8c0403e6bd3
-[I 11:27:02.001 NotebookApp] Kernel shutdown: fcd20cac-da6e-41ca-8aab-8127850c5945
-[W 11:27:06.032 NotebookApp] delete /ResNet_Analysis/Untitled.ipynb
-[I 11:35:23.362 NotebookApp] Starting buffering for e0f3757d-ebd3-459c-a55f-12865313c76d:7f9d8f2ca6534e5684b9b8f0d7d7dcd8
-[I 11:35:26.775 NotebookApp] Kernel shutdown: e0f3757d-ebd3-459c-a55f-12865313c76d
-[I 11:40:36.824 NotebookApp] Copying ResNet_Analysis/Creating Indices/Creating New No-Muons Index Set for New Data.ipynb to /ResNet_Analysis/Creating Indices
-[I 11:40:36.839 NotebookApp] Saving Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[I 11:40:39.667 NotebookApp] Kernel started: 2426289e-b6cf-412d-9162-2c1f3a4c63a5
-[I 11:42:39.693 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[I 11:42:39.694 NotebookApp] Saving Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[I 11:44:39.694 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[I 11:44:39.694 NotebookApp] Saving Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[W 11:58:57.404 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Creating%20Indices/Untitled.ipynb?content=0&_=1598292065382 (::1): No such file or directory: ResNet_Analysis/Creating Indices/Untitled.ipynb
-[W 11:58:57.405 NotebookApp] No such file or directory: ResNet_Analysis/Creating Indices/Untitled.ipynb
-[W 11:58:57.406 NotebookApp] 404 GET /api/contents/ResNet_Analysis/Creating%20Indices/Untitled.ipynb?content=0&_=1598292065382 (::1) 6.24ms referer=http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb
-[I 11:58:57.433 NotebookApp] Uploading file to /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 11:58:57.433 NotebookApp] Saving Untitled.ipynb
-[I 11:59:04.526 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 11:59:04.527 NotebookApp] Saving Untitled.ipynb
-[W 12:00:40.474 NotebookApp] 404 POST /api/kernels/0446f292-7314-4b4c-8863-fbea1cb3a13d/interrupt (::1): Kernel does not exist: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[W 12:00:40.475 NotebookApp] Kernel does not exist: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[W 12:00:40.476 NotebookApp] 404 POST /api/kernels/0446f292-7314-4b4c-8863-fbea1cb3a13d/interrupt (::1) 3.26ms referer=http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb
-[I 12:01:04.545 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:01:04.546 NotebookApp] Saving Untitled.ipynb
-[W 12:02:58.864 NotebookApp] 404 POST /api/kernels/0446f292-7314-4b4c-8863-fbea1cb3a13d/interrupt (::1): Kernel does not exist: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[W 12:02:58.864 NotebookApp] Kernel does not exist: 0446f292-7314-4b4c-8863-fbea1cb3a13d
-[W 12:02:58.865 NotebookApp] 404 POST /api/kernels/0446f292-7314-4b4c-8863-fbea1cb3a13d/interrupt (::1) 2.85ms referer=http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb
-[E 12:03:06.793 NotebookApp] Exception restarting kernel
-    Traceback (most recent call last):
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/handlers.py", line 83, in post
-        yield maybe_future(km.restart_kernel(kernel_id))
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 735, in run
-        value = future.result()
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/tornado/gen.py", line 209, in wrapper
-        yielded = next(result)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 307, in restart_kernel
-        self._check_kernel_id(kernel_id)
-      File "/home/cmacdonald/.local/lib/python3.6/site-packages/notebook/services/kernels/kernelmanager.py", line 387, in _check_kernel_id
-        raise web.HTTPError(404, u'Kernel does not exist: %s' % kernel_id)
-    tornado.web.HTTPError: HTTP 404: Not Found (Kernel does not exist: 0446f292-7314-4b4c-8863-fbea1cb3a13d)
-[E 12:03:06.808 NotebookApp] {
-      "Host": "127.0.0.1:8888",
-      "Connection": "keep-alive",
-      "Content-Length": "0",
-      "Accept": "application/json, text/javascript, */*; q=0.01",
-      "Dnt": "1",
-      "X-Requested-With": "XMLHttpRequest",
-      "X-Xsrftoken": "2|ef26964a|e05155eed2188bf4d05ba2749dfc47c0|1596645880",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-      "Origin": "http://127.0.0.1:8888",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-Mode": "cors",
-      "Sec-Fetch-Dest": "empty",
-      "Referer": "http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-      "Cookie": "username-127-0-0-1-8939=\"2|1:0|10:1595906392|23:username-127-0-0-1-8939|44:YjY0YWM5MTJjNzUyNDI1NTgwMWEzZDhlNzlhNzA5M2M=|80194a87ba7c1c2a23bdd317aea1f7d3f065fa0a9d3c1348b3f5dee9164ca297\"; username-127-0-0-1-8859=\"2|1:0|10:1595953799|23:username-127-0-0-1-8859|44:MzhhYWY0OGFkZjU0NDdhNGFlZDVmOTczZDgyMmEwZjA=|bee4ba1daaf86916dbc93556105894837ce8894bb4bc99cdbc362721cd237459\"; username-127-0-0-1-8892=\"2|1:0|10:1596475152|23:username-127-0-0-1-8892|44:MjQ4ZGExMTkyZTM5NGJmMmE2ZDdmMWJmM2Y4YWU4NTU=|b29dcfbb1d67c8f94e156fbab624afcfd3f75d931b92b96663ae2d1048576f12\"; _xsrf=2|ef26964a|e05155eed2188bf4d05ba2749dfc47c0|1596645880; username-127-0-0-1-8839=\"2|1:0|10:1597167575|23:username-127-0-0-1-8839|44:YzY5OGY5MzNlMjYwNDMyNmFiYjMyYjY2YzA4NjEwMDU=|dacf60b5553470da02bbedbe29f054c7cb15c0317552a2e9c9eecc9f2729ee87\"; username-127-0-0-1-8838=\"2|1:0|10:1597337490|23:username-127-0-0-1-8838|44:M2FlM2E2YjBmZTAyNDkzMjg0Y2QzODgwOWNhNTU0MGE=|b497eafd7502833823b5da141e9a68ee032c296a3ec4393fa3966600d9b0e25c\"; username-127-0-0-1-8891=\"2|1:0|10:1597423444|23:username-127-0-0-1-8891|44:MjlhZTc1NTNlNjE1NDE1Zjg1OGY5MzI1MWEyNDI4MDM=|0afa432521568490b0e205acb46984d22bb655db1b7d26ceea0f5782bc8ececc\"; username-127-0-0-1-8957=\"2|1:0|10:1598030941|23:username-127-0-0-1-8957|44:MzI1OTM2ZjI1Y2UxNGM5Njg2MzU5NTZlMGNjYjQ3ZmQ=|6d0a66e917b36149db56c2a4ef1bf7e3461c586e97aa84763061f4f7ce8258ed\"; username-127-0-0-1-8888=\"2|1:0|10:1598288360|23:username-127-0-0-1-8888|44:OTUwMzViZGU5MGRjNGRkYzkwYWRhNjExZmViN2I5Y2E=|85bf249560f75e6e44a7a145dca8f437553cb5c72a419e553529139f52e6b9dc\""
-    }
-[E 12:03:06.809 NotebookApp] 500 POST /api/kernels/0446f292-7314-4b4c-8863-fbea1cb3a13d/restart (::1) 16.75ms referer=http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb
-[W 12:03:06.843 NotebookApp] 404 DELETE /api/sessions/bfa1641e-46db-4229-bdff-b52676a2e3ee (::1): Session not found: session_id='bfa1641e-46db-4229-bdff-b52676a2e3ee'
-[W 12:03:06.844 NotebookApp] Session not found: session_id='bfa1641e-46db-4229-bdff-b52676a2e3ee'
-[W 12:03:06.844 NotebookApp] 404 DELETE /api/sessions/bfa1641e-46db-4229-bdff-b52676a2e3ee (::1) 2.98ms referer=http://127.0.0.1:8888/notebooks/ResNet_Analysis/Creating%20Indices/Untitled.ipynb
-[I 12:03:06.897 NotebookApp] Kernel started: d466029f-44c7-4698-9b68-2a2f5a160066
-[I 12:05:04.571 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:05:04.571 NotebookApp] Saving Untitled.ipynb
-[I 12:09:04.535 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:09:04.536 NotebookApp] Saving Untitled.ipynb
-[I 12:15:04.589 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:15:04.590 NotebookApp] Saving Untitled.ipynb
-[I 12:17:04.545 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:17:04.546 NotebookApp] Saving Untitled.ipynb
-[I 12:19:04.529 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Untitled.ipynb
-[I 12:19:04.529 NotebookApp] Saving Untitled.ipynb
-[W 12:25:00.446 NotebookApp] delete /dumps/20200821_181929
-[W 12:25:00.463 NotebookApp] delete /dumps/20200824_103050
-[W 12:25:00.473 NotebookApp] delete /dumps/20200824_104229
-[W 12:25:00.501 NotebookApp] delete /dumps/20200824_121933
-[I 12:25:11.094 NotebookApp] Starting buffering for 2426289e-b6cf-412d-9162-2c1f3a4c63a5:44d02607e6034e098c37761c4d659723
-[I 12:25:18.275 NotebookApp] Kernel shutdown: 2426289e-b6cf-412d-9162-2c1f3a4c63a5
-[W 12:25:18.782 NotebookApp] delete /ResNet_Analysis/Creating Indices/Creating New No-Muons Index Set for New Data-Copy1.ipynb
-[I 12:25:50.540 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:50.540 NotebookApp] Saving Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:50.901 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:50.901 NotebookApp] Saving Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:51.066 NotebookApp] Saving file at /ResNet_Analysis/Creating Indices/Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:51.067 NotebookApp] Saving Creating Post-Veto No Muon Index Set for New Data.ipynb
-[I 12:25:53.379 NotebookApp] Starting buffering for d466029f-44c7-4698-9b68-2a2f5a160066:1b7e2aaa439d45c5adae6ea622d87643
-[I 12:25:57.476 NotebookApp] Kernel shutdown: d466029f-44c7-4698-9b68-2a2f5a160066
+        http://hostname:8888/?token=32ae23fc3cd685e811f227742654346fe4dee5ecd55c4dd8
+     or http://127.0.0.1:8888/?token=32ae23fc3cd685e811f227742654346fe4dee5ecd55c4dd8
+[I 11:21:48.054 NotebookApp] 302 GET /?token=32ae23fc3cd685e811f227742654346fe4dee5ecd55c4dd8 (::1) 1.58ms
+[I 11:53:25.038 NotebookApp] Kernel started: 8611d371-909d-4696-ac5f-1e4d55f0b221
+[I 11:53:28.773 NotebookApp] Kernel started: d1641099-6932-460f-81e2-d12ff17421ef
+[I 11:55:25.386 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:55:25.386 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:56:57.388 NotebookApp] Starting buffering for 8611d371-909d-4696-ac5f-1e4d55f0b221:7f664496d3774be286e974ddd2755231
+[I 11:57:02.676 NotebookApp] Kernel restarted: 8611d371-909d-4696-ac5f-1e4d55f0b221
+[I 11:57:03.703 NotebookApp] Restoring connection for 8611d371-909d-4696-ac5f-1e4d55f0b221:7f664496d3774be286e974ddd2755231
+[I 11:57:03.703 NotebookApp] Replaying 3 buffered messages
+[I 11:57:25.083 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:57:25.084 NotebookApp] Saving E-Gamma Only.ipynb
+[I 11:59:25.130 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 11:59:25.131 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:01:25.314 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:01:25.314 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:03:25.429 NotebookApp] Saving file at /ResNet_Analysis/E-Gamma Only.ipynb
+[I 12:03:25.429 NotebookApp] Saving E-Gamma Only.ipynb
+[I 12:09:36.744 NotebookApp] Starting buffering for 8611d371-909d-4696-ac5f-1e4d55f0b221:7f664496d3774be286e974ddd2755231
+[I 12:09:37.878 NotebookApp] Starting buffering for d1641099-6932-460f-81e2-d12ff17421ef:2e9525c1dc2d408289f5b26079caa7b0
+[I 12:09:44.841 NotebookApp] Kernel shutdown: d1641099-6932-460f-81e2-d12ff17421ef
+[I 12:09:45.145 NotebookApp] Kernel shutdown: 8611d371-909d-4696-ac5f-1e4d55f0b221
