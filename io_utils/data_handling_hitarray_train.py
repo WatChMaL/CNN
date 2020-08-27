@@ -162,20 +162,19 @@ class WCH5DatasetT(Dataset):
                 hit_charges = self.charge[i][start:stop]
                 data = np.zeros((19,40,40))
                 data[hit_pmt_in_modules, hit_rows, hit_cols] = hit_charges
-                if self.collapse_arrays:
-                    data = np.expand_dims(np.sum(data, 0),0)
-                    return np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
-                else:
-                    return np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)), self.labels[self.datasets[i]][index], self.energies[self.datasets[i]][index], self.angles[self.datasets[i]][index], index, self.positions[self.datasets[i]][index]
-
 
                 #fix barrel array indexing to match endcaps in xyz ordering
                 barrel = data[:,12:28,:]
                 barrel = barrel[barrel_map_array_idxs,:,:]
                 data[:,12:28,:] = barrel
 
-                processed_data=from_numpy(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)))
-                
+                #collapse arrays if desired
+                if self.collapse_arrays:
+                    data = np.expand_dims(np.sum(data, 0),0)
+                    processed_data=from_numpy(np.expand_dims(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)),0))
+                else:
+                    processed_data=from_numpy(np.squeeze(self.chrg_func(np.expand_dims(data, axis=0), self.chrg_acc, apply=True)))
+
                 if self.transforms is not None:
                     selection = np.random.randint(0,high=2,size=self.n_transforms)
                     for t_idx, transform_func in enumerate(self.transforms):
