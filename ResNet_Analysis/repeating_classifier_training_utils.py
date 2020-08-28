@@ -146,12 +146,14 @@ def plot_multiple_ROC(data, metric, pos_neg_labels, plot_labels = None, png_name
         metric              ... string, name of metric to plot: ('rejection' or 'fraction')
         pos_neg_labels      ... array of one positive and one negative string label, or list of lists, with each list giving positive and negative label for
                                 one dataset
+        plot_labels         ... label for each run to display in legend
         png_name            ... name of image to save
         title               ... title of plot
         annotate            ... whether or not to include annotations of critical points for each curve, default True
         ax                  ... matplotlib.pyplot.axes on which to place plot
-        leg_loc             ... location for legend
-        legend_label_dict   ... dictionary of display symbols for each string label, to use for displaying pretty characters
+        linestyle           ... list of linestyles to use for each curve, can be '-', ':', '-.'
+        leg_loc             ... location for legend, eg 'upper right' - vertical upper, center, lower, horizontal right left
+        legend_label_dict   ... dictionary of display symbols for each string label, to use for displaying pretty characters in labels
     author: Calum Macdonald
     June 2020
     '''
@@ -268,10 +270,11 @@ def prep_roc_data(softmaxes, labels, metric, softmax_index_dict, label_0, label_
           labels              ... 1D array of true label value, the length = sample size
           metric              ... string, name of metrix to use ('rejection' or 'fraction')
                                   for background rejection or background rejection fraction.
+          softmax_index_dict  ... Dictionary pointing to label integer from particle name
           label_0 and label_1 ... Labels indicating which particles to use - label_0 is the positive label
           energies            ... 1D array of true event energies, the length = sample 
                                   size
-          softmax_index_dict  ... Dictionary pointing to label integer from particle name
+          threshold           ... optional maximum to impose on energies, events with higher energy will be discarded (legacy)
     author: Calum Macdonald
     May 2020
     """    
@@ -315,6 +318,7 @@ def disp_multiple_learn_hist(locations,losslim=None,show=True,titles=None,best_o
         titles                  ... list of titles for each plot in the grid
         best_only               ... bool, whether to plot only the points where best model was saved
         leg_font                ... legend font size
+        title_font              ... take a guess!
     author: Calum Macdonald
     June 2020
     '''
@@ -559,7 +563,20 @@ def apply_cuts(array, idxs, cut_path, cut_list):
     return np.delete(array, cut_idxs, 0)
 
 def load_test_output_pn(location, cut_path, test_idxs, cut_list):
-
+   """
+    load_test_output_pn(location, cut_path, test_idxs, cut_list)
+    
+    Purpose : Load output of a test run on the full h5 test set, 
+              using PN cut file method. 
+    
+    Args: location          ... string, path of the directory containing the test 
+                                  output eg. '/home/cmacdonald/CNN/dumps/20200525_152544/test_validation_iteration_dump.npz'
+          cut_path          ... string, path of cut file
+          test_idxs         ... string, path of indices file used for test run
+          cut_list          ... list of names of cuts, must be keys to files in the cut file
+    author: Calum Macdonald   
+    May 2020
+    """
     test_dump_np = np.load(location, allow_pickle=True)
     cut_file = np.load(cut_path, allow_pickle=True) 
 
@@ -585,12 +602,15 @@ def load_test_output(location,index_path,remove_flagged=True, dset='noveto'):
     """
     load_test_output(location,index_path)
     
+    (deprecated)
     Purpose : Load output of a test run on the full h5 test set, 
               remove FiTQun flagged/failed events, and return a dict of results.
     
     Args: location            ... string, path of the directory containing the test 
                                   output eg. '/home/cmacdonald/CNN/dumps/20200525_152544/test_validation_iteration_dump.npz'
           index_path          ... string, path of directory containing indices of FiTQun failed and flagged files
+          remove_flagged      ... whether or not to remove flagged events, default True
+          dset                ... 'noveto' or 'veto'
     author: Calum Macdonald   
     May 2020
     """
@@ -801,6 +821,12 @@ def plot_2d_ratio(dist_1_x,dist_1_y,dist_2_x, dist_2_y,bins=(150,150),fig=None,a
         dist_2_x:               ... 1d array of x-values of distribution 2 of length n
         dist_2_y:               ... 1d array of y-values of distribution 2 of length n
         bins:                   ... tuple of integer numbers of bins in x and y 
+        fig                     ... figure on which to plot
+        ax                      ... axis on which to plot ratio
+        title                   ... str, title
+        xlabel                  ... str, x-axis label
+        ylabel                  ... str, y-axis label
+        ratio_range             ... range of ratios to display
     author: Calum Macdonald
     May 2020
     '''
@@ -827,8 +853,7 @@ a = np.ones((100,100))
 def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
     '''
         SOURCE: Scikit.metrics internal usage tool
-    '''
-    """Calculate true and false positives per binary classification threshold.
+    Calculate true and false positives per binary classification threshold.
     Parameters
     ----------
     y_true : array, shape = [n_samples]
@@ -853,7 +878,7 @@ def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
         are given by tps[-1] - tps).
     thresholds : array, shape = [n_thresholds]
         Decreasing score values.
-    """
+    '''
 
     if sample_weight is not None:
         sample_weight = column_or_1d(sample_weight)
@@ -991,7 +1016,27 @@ def plot_binned_performance(softmaxes, labels, binning_features, binning_label,e
 
 def plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
                             ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None):
+    '''
+    plot_fitqun_binned_performance(scores, labels, true_momentum, reconstructed_momentum, fpr_fixed_point, index_dict, recons_mom_bin_size=50, true_mom_bins=20, 
+                            ax=None,marker='o',color='k',title_note='',metric='efficiency',yrange=None)
+        Purpose: Re-create official FiTQun plots.
 
+        Args:
+            scores                  ... network scores for each class
+            labels                  ... 1d array of labels
+            true_momentum           ... 1d array of event true momentum
+            reconstructed_momentum  ... 1d array of FQ reconstructed momentum
+            fpr_fixed_point         ... fixed false-positive rate for FQ recons. mom. bins
+            index_dict              ... dictionary with 'e', 'mu' keys pointing to corresponding integer labels
+            recons_mom_bin_size     ... size of reconstructed mom. bin
+            true_mom_bins           ... number of true momentum bins
+            ax                      ... axis to plot on
+            marker                  ... marker for plor
+            color                   ... curve color
+            title_note              ... string to append to title
+            metric                  ... 'efficiency' will give signal efficiency, any other will give FPR
+            yrange                  ... range for the y axis
+    '''
     label_size = 14
 
     #remove gamma events
@@ -1082,6 +1127,9 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
         bins                         ... optional, number of bins for histogram
         fig, axes                    ... optional, figure and axes on which to do plotting (use to build into bigger grid)
         legend_locs                  ... list of 4 strings for positioning the legends
+        fitqun                       ... designate if the given scores are from fitqun
+        xlim                        ... limit the x-axis
+        label_size                  ... font size
         legend_label_dict           ... dictionary of display symbols for each string label, to use for displaying pretty characters
     author: Calum Macdonald
     June 2020
@@ -1263,7 +1311,7 @@ def separate_particles(input_array_list,labels,index_dict,desired_labels=['gamma
         labels                      ... list of labels, taking any of the three values in index_dict.values()
         index_dict                  ... dictionary of particle labels, must have 'gamma','mu','e' keys pointing to values taken by 'labels', 
                                         unless desired_labels is passed
-        desired_labels              ... optional list specifying which labels are desired and in what order.
+        desired_labels              ... optional list specifying which labels are desired and in what order. Default is ['gamma','e','mu']
     author: Calum Macdonald
     June 2020
     '''
