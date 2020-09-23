@@ -668,7 +668,7 @@ def apply_cuts(array, idxs, cut_path, cut_list):
     return np.delete(array, cut_idxs, 0)
 
 def load_test_output_pn(location, cut_path, test_idxs, cut_list):
-   """
+    """
     load_test_output_pn(location, cut_path, test_idxs, cut_list)
     
     Purpose : Load output of a test run on the full h5 test set, 
